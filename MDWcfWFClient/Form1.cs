@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace MDWcfWFClient
+{
+    // Specify for the callback to NOT use the current synchronization context
+    [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Single, UseSynchronizationContext = false)]
+    public partial class Form1 : Form, MonopolyDealServiceReference.IMonopolyDealCallback
+    {
+        //Callback
+        private SynchronizationContext _uiSyncContext = null;
+        MonopolyDealServiceReference.MonopolyDealClient monopolyDealService = null;
+        //
+
+        int thisPlayerID;
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Capture the UI synchronization context
+            _uiSyncContext = SynchronizationContext.Current;
+        }
+
+        //IMonopolyDealCallback implementation
+        public void testOperationReturn2(string name)
+        {
+            // The UI thread won't be handling the callback, but it is the only one allowed to update the controls.
+            // So, we will dispatch the UI update back to the UI sync context.
+            SendOrPostCallback callback =
+                delegate(object state)
+                { this.showMessage(state.ToString()); };
+
+            _uiSyncContext.Post(callback, name);
+        }
+
+        //WCF Callback
+        public void addToLog(string description)
+        {
+            // The UI thread won't be handling the callback, but it is the only one allowed to update the controls.
+            // So, we will dispatch the UI update back to the UI sync context.
+            SendOrPostCallback callback =
+                delegate(object state)
+                { this.updateTextBoxLog(state.ToString()); };
+
+            _uiSyncContext.Post(callback, description);
+        }
+
+        //UI Thread
+        private void updateTextBoxLog(String description)
+        {
+            textBoxLog.Text = textBoxLog.Text + Environment.NewLine + description;
+        }
+
+        public void recieveID(int id)
+        {
+            thisPlayerID = id;
+        }
+
+        public void showMessage(string msg)
+        {
+            MessageBox.Show(msg);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Opens Connection to service
+            try
+            {
+                // The client callback interface must be hosted for the server to invoke the callback
+                // Open a connection to the Monopoly Deal service via the proxy
+                monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient(new InstanceContext(this), "TcpBinding");
+                monopolyDealService.Open();
+                //End
+
+                //Connect to service with player name
+                monopolyDealService.connect(textBoxPlayerName.Text);
+
+                //Disable Connect button
+                buttonConnect.Enabled = false;
+            }
+            catch (Exception r)
+            {
+                MessageBox.Show(r.ToString());
+                buttonConnect.Enabled = true;
+            }
+        }
+
+        public void testOperationReturn()
+        {
+            MessageBox.Show("Connected");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Tell the service this player is ready and to start game if all players are ready
+            monopolyDealService.startGame(thisPlayerID);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void buttonDisconnect_Click(object sender, EventArgs e)
+        {
+        }
+
+        public void recieveChat(string description)
+        {
+            // The UI thread won't be handling the callback, but it is the only one allowed to update the controls.
+            // So, we will dispatch the UI update back to the UI sync context.
+            SendOrPostCallback callback =
+                delegate(object state)
+                { this.updateChatTextBox(state.ToString()); };
+
+            _uiSyncContext.Post(callback, description);
+        }
+
+        //UI Thread
+        private void updateChatTextBox(String description)
+        {
+            textBoxLog.Text = textBoxLog.Text + Environment.NewLine + description;
+        }
+    }
+}

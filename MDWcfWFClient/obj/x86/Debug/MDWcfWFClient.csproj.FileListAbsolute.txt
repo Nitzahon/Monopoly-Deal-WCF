@@ -1,0 +1,12 @@
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\bin\Debug\MDWcfWFClient.exe
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\bin\Debug\MDWcfWFClient.pdb
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.Properties.Resources.resources
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.exe
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.pdb
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\bin\Debug\MDWcfWFClient.exe.config
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.Form1.resources
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\bin\Debug\MonopolyDealLibrary.dll
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\bin\Debug\MonopolyDealLibrary.pdb

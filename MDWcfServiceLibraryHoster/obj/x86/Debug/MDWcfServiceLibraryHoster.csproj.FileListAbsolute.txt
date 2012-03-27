@@ -1,0 +1,9 @@
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibraryHoster.exe
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibraryHoster.pdb
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibrary.dll
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibrary.pdb
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.exe
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.pdb
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\MonopolyDealLibrary.dll
+C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\MonopolyDealLibrary.pdb
