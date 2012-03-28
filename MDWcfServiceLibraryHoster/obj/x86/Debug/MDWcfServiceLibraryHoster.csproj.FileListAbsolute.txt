@@ -5,5 +5,4 @@ C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfSer
 C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.exe
 C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.pdb
-C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\MonopolyDealLibWCF.dll
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\MonopolyDealLibWCF.pdb

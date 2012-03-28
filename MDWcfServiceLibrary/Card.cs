@@ -27,10 +27,40 @@ namespace MDWcfServiceLibrary
             return nextCardId;
         }
 
+        public static List<Guid> cardGuids = new List<Guid>();
+
+        public static Guid generateGuid()
+        {
+            Guid newPlayerGuid = new Guid();
+            while (true)
+            {
+                bool existsAllready = false;
+                foreach (Guid existingGuid in cardGuids)
+                {
+                    if (existingGuid.CompareTo(newPlayerGuid) == 0)
+                    {
+                        //guid exists
+                        existsAllready = true;
+                        break;
+                    }
+                }
+                if (!existsAllready)
+                {
+                    return newPlayerGuid;
+                }
+                else
+                {
+                    newPlayerGuid = new Guid();
+                }
+            }
+        }
+
         [DataMember]
         public String cardName;
         [DataMember]
         public int cardID;
+        [DataMember]
+        public Guid cardGuid;
         [DataMember]
         public String cardText;
         [DataMember]
