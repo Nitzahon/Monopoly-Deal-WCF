@@ -74,6 +74,144 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Player", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    public partial class Player : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Card", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    public partial class Card : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cardIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cardNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cardTextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cardTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cardValueField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cardID {
+            get {
+                return this.cardIDField;
+            }
+            set {
+                if ((this.cardIDField.Equals(value) != true)) {
+                    this.cardIDField = value;
+                    this.RaisePropertyChanged("cardID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cardName {
+            get {
+                return this.cardNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cardNameField, value) != true)) {
+                    this.cardNameField = value;
+                    this.RaisePropertyChanged("cardName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cardText {
+            get {
+                return this.cardTextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cardTextField, value) != true)) {
+                    this.cardTextField = value;
+                    this.RaisePropertyChanged("cardText");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string cardType {
+            get {
+                return this.cardTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cardTypeField, value) != true)) {
+                    this.cardTypeField = value;
+                    this.RaisePropertyChanged("cardType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cardValue {
+            get {
+                return this.cardValueField;
+            }
+            set {
+                if ((this.cardValueField.Equals(value) != true)) {
+                    this.cardValueField = value;
+                    this.RaisePropertyChanged("cardValue");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MonopolyDealServiceReference.IMonopolyDeal", CallbackContract=typeof(MDWcfWFClient.MonopolyDealServiceReference.IMonopolyDealCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface IMonopolyDeal {
@@ -114,6 +252,63 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/recieveChat")]
         void recieveChat(string description);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/getName")]
+        void getName();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayLookAtPlayedCardsOptions")]
+        void displayLookAtPlayedCardsOptions(MDWcfWFClient.MonopolyDealServiceReference.Player currentPlayer, MDWcfWFClient.MonopolyDealServiceReference.Player[] players);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayBankedCards")]
+        void displayBankedCards(MDWcfWFClient.MonopolyDealServiceReference.Player player);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayPlayedProperties")]
+        void displayPlayedProperties(MDWcfWFClient.MonopolyDealServiceReference.Player player);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayLast3PlayedActionCards")]
+        void displayLast3PlayedActionCards();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayCardsPlayedThisTurn")]
+        void displayCardsPlayedThisTurn();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayNumberOfCardsInPlayersHand")]
+        void displayNumberOfCardsInPlayersHand();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayPlayerHand")]
+        void displayPlayerHand(MDWcfWFClient.MonopolyDealServiceReference.Player player);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayCard")]
+        void displayCard(MDWcfWFClient.MonopolyDealServiceReference.Card[] cards);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/askIfUsingJustSayNo")]
+        void askIfUsingJustSayNo(string text);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/displayListOfPlayersWithId")]
+        void displayListOfPlayersWithId();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/askWhoToDebtCollect")]
+        void askWhoToDebtCollect();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/askWhoToRent")]
+        void askWhoToRent();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/askWhichSetToDealBreak")]
+        void askWhichSetToDealBreak();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/notifyTurnStarted")]
+        void notifyTurnStarted();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/notifyOtherPlayerTurnStarted")]
+        void notifyOtherPlayerTurnStarted(MDWcfWFClient.MonopolyDealServiceReference.Player p);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/playTurnAction")]
+        void playTurnAction();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/askWhatSetToAddHouseTo")]
+        void askWhatSetToAddHouseTo(MDWcfWFClient.MonopolyDealServiceReference.Player p, MDWcfWFClient.MonopolyDealServiceReference.Card c);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/askWhatSetToAddHotelTo")]
+        void askWhatSetToAddHotelTo(MDWcfWFClient.MonopolyDealServiceReference.Player p, MDWcfWFClient.MonopolyDealServiceReference.Card c);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

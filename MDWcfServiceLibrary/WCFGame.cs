@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MonopolyDealLibrary;
 
 namespace MDWcfServiceLibrary
 {
@@ -16,9 +15,11 @@ namespace MDWcfServiceLibrary
             return isStarted;
         }
 
-        public WCFGame(List<Player> players, Deck deck)
+        public WCFGame(List<Player> players, Deck deck, MonopolyDealService mds)
             : base(players, deck)
         {
+            mds.addToClientsLogs("Game setup");
+            mds.addToClientsLogs("Player 1 turn");
             //Set that the game has started
         }
 

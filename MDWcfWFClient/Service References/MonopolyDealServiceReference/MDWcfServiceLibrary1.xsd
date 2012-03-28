@@ -7,4 +7,34 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CompositeType" nillable="true" type="tns:CompositeType" />
+  <xs:complexType name="Player">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="Player" nillable="true" type="tns:Player" />
+  <xs:complexType name="ArrayOfPlayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Player" nillable="true" type="tns:Player" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayer" nillable="true" type="tns:ArrayOfPlayer" />
+  <xs:complexType name="ArrayOfCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Card" nillable="true" type="tns:Card" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCard" nillable="true" type="tns:ArrayOfCard" />
+  <xs:complexType name="Card">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cardID" type="xs:int" />
+      <xs:element minOccurs="0" name="cardName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cardText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cardType" type="tns:CardType" />
+      <xs:element minOccurs="0" name="cardValue" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Card" nillable="true" type="tns:Card" />
+  <xs:simpleType name="CardType">
+    <xs:restriction base="xs:string" />
+  </xs:simpleType>
+  <xs:element name="CardType" nillable="true" type="tns:CardType" />
 </xs:schema>

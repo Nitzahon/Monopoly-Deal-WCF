@@ -139,7 +139,8 @@
             this.textBoxLog.Multiline = true;
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ReadOnly = true;
-            this.textBoxLog.Size = new System.Drawing.Size(493, 392);
+            this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLog.Size = new System.Drawing.Size(493, 295);
             this.textBoxLog.TabIndex = 10;
             // 
             // buttonDisconnect
@@ -208,21 +209,21 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonConnect;
-        private System.Windows.Forms.TextBox serverIP;
-        private System.Windows.Forms.TextBox serverPortTB;
-        private System.Windows.Forms.Button updateServerAddress;
-        private System.Windows.Forms.TextBox textBoxPlayerList;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxPlayerName;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxLog;
-        private System.Windows.Forms.Button buttonDisconnect;
-        private System.Windows.Forms.TextBox textBoxChat;
-        private System.Windows.Forms.TextBox textBoxChatMessage;
-        private System.Windows.Forms.Button buttonChat;
+        internal System.Windows.Forms.Button buttonConnect;
+        internal System.Windows.Forms.TextBox serverIP;
+        internal System.Windows.Forms.TextBox serverPortTB;
+        internal System.Windows.Forms.Button updateServerAddress;
+        internal System.Windows.Forms.TextBox textBoxPlayerList;
+        internal System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.TextBox textBoxPlayerName;
+        internal System.Windows.Forms.Button button2;
+        internal System.Windows.Forms.Button button3;
+        internal System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.TextBox textBoxLog;
+        internal System.Windows.Forms.Button buttonDisconnect;
+        internal System.Windows.Forms.TextBox textBoxChat;
+        internal System.Windows.Forms.TextBox textBoxChatMessage;
+        internal System.Windows.Forms.Button buttonChat;
     }
 }
 

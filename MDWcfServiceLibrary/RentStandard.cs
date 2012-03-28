@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace MDWcfServiceLibrary
+{
+    public class RentStandard : ActionCard
+    {
+        public PropertyColor colorUp;
+        public PropertyColor colorDown;
+
+        public RentStandard(ActionCardAction actionType, int value, PropertyColor colorUp, PropertyColor colorDown)
+            : base(actionType, value, "RENT " + colorUp + "/" + colorDown, "All players pay you rent for properties you own in one of these colours. Play into centre to use")
+        {
+            //Collect rent from all players on one of the propery groups they hold with one of these colors
+            this.colorDown = colorDown;
+            this.colorUp = colorUp;
+        }
+    }
+}

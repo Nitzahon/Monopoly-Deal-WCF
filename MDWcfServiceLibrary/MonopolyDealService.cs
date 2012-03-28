@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using MonopolyDealLibrary;
 
 namespace MDWcfServiceLibrary
 {
@@ -18,7 +17,7 @@ namespace MDWcfServiceLibrary
         //       Consequently, the state must be persisted somewhere in between calls.
         private static List<IMonopolyDealCallback> _callbackList = new List<IMonopolyDealCallback>();
         private static int id = 2;
-        private static List<WCFPlayer> wcfPlayers = new List<WCFPlayer>();
+        private static List<Player> wcfPlayers = new List<Player>();
         private static List<Player> players = new List<Player>();
         //game contains state
         private static WCFGame game;
@@ -46,7 +45,7 @@ namespace MDWcfServiceLibrary
             //Create Game if one does not exist
             if (!gameCreated)
             {
-                game = new WCFGame(players, deck);
+                game = new WCFGame(players, deck, this);
                 gameCreated = true;
             }
         }
@@ -61,7 +60,7 @@ namespace MDWcfServiceLibrary
                 _callbackList.Add(guest);
             }
             //Create new WCFPLayer for client
-            WCFPlayer player = new WCFPlayer(name, guest);
+            Player player = new Player(name, guest);
             //Add player to list
             wcfPlayers.Add(player);
             //call back
@@ -86,7 +85,7 @@ namespace MDWcfServiceLibrary
              * */
         }
 
-        private void addToClientsLogs(String description)
+        public void addToClientsLogs(String description)
         {
             //CallBack all
             _callbackList.ForEach(
@@ -114,7 +113,7 @@ namespace MDWcfServiceLibrary
         {
             wcfPlayers[id].setIfReady(true);
             bool allReady = true;
-            foreach (WCFPlayer p in wcfPlayers)
+            foreach (Player p in wcfPlayers)
             {
                 if (!p.getIfReady())
                 {
@@ -126,9 +125,10 @@ namespace MDWcfServiceLibrary
                     addToClientsLogs("Player " + p.getName() + " is Ready");
                 }
             }
-            if (allReady && !game.getIfGameStarted())
+            if (allReady && !isStarted)
             {
                 game.startGame();
+                isStarted = true;
                 addToClientsLogs("Game Started");
             }
         }
