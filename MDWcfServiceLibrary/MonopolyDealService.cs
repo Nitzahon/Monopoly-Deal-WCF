@@ -28,21 +28,22 @@ namespace MDWcfServiceLibrary
         private static bool isStarted = false;
         private static int NUMBER_OF_DECKS = 1;
         private static Deck deck = new Deck(NUMBER_OF_DECKS);
-
+        private static int MAX_PLAYERS_PER_GAME = 5;
+        private static int numberOfPlayers = 0;
         private static String serverLog = "";
         private int i = 0;
 
-        private static MessageManager messageManager = new MessageManager();
+        private static MessageManager messageManager;
 
         public string GetData(int value)
         {
             throw new NotImplementedException();
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            throw new NotImplementedException();
-        }
+        //public CompositeType GetDataUsingDataContract(CompositeType composite)
+        // {
+        //    throw new NotImplementedException();
+        //}
 
         //Create new game
         private void createGame()
@@ -50,13 +51,16 @@ namespace MDWcfServiceLibrary
             //Create Game if one does not exist
             if (!gameCreated)
             {
-                gameModel = new GameModel(playerModels);
+                gameModel = new GameModel(playerModels, messageManager);
+                messageManager = new MessageManager(gameModel);
                 gameCreated = true;
             }
         }
 
         private void createPlayer(string name)
         {
+            numberOfPlayers++;
+            //WCF Model suitable
             // Subscribe the guest
             IMonopolyDealCallback guest = OperationContext.Current.GetCallbackChannel<IMonopolyDealCallback>();
 
@@ -70,14 +74,14 @@ namespace MDWcfServiceLibrary
             playerModels.Add(player);
             playerIdLookup.Add(player.guid);
             //call back and tell player what number they are
-            createPlayerCallback(player.ICallBack, player.name, playerModels.IndexOf(player) + 1, player.guid);
+            createPlayerCallback(player.ICallBack, player.name, playerModels.IndexOf(player), player.guid);
         }
 
         private void createPlayerCallback(IMonopolyDealCallback playerCallback, string name, int id, Guid guidP)
         {
             //CallBack one
-            playerCallback.testOperationReturn2("Your Player Name:" + name + " ID:" + id);
-
+            //playerCallback.testOperationReturn2("Your Player Name:" + name + " ID:" + id);
+            playerCallback.addToLog("Your Player Name:" + name + " ID:" + id);
             //Assign guid to player
             playerCallback.recieveGuid(guidP);
 
@@ -101,8 +105,13 @@ namespace MDWcfServiceLibrary
 
         public void connect(string name)
         {
+            //WCFMODELSUIT
             //Create a playermodel for client and add to list
-            createPlayer(name);
+            if (!isStarted && numberOfPlayers < MAX_PLAYERS_PER_GAME)
+            {
+                createPlayer(name);
+            }
+            //reject player as full
         }
 
         public void testOperation(int id)
@@ -115,12 +124,14 @@ namespace MDWcfServiceLibrary
 
         private PlayerModel getPlayerModelByGuid(Guid g)
         {
+            //WCFMODELSUIT
             int id = playerIdLookup.IndexOf(g);
             return playerModels.ElementAt(id);
         }
 
         public void startGame(Guid guid)
         {
+            //WCFMODELSUIT
             getPlayerModelByGuid(guid).isReadyToStartGame = true;
             bool allReady = true;
             foreach (PlayerModel p in playerModels)
@@ -154,10 +165,17 @@ namespace MDWcfServiceLibrary
 
         public void sendMessageToService(Message message)
         {
-            throw new NotImplementedException();
+            messageManager.recieveNewMessage(message);
         }
 
         public void pollState(Message message)
+        {
+            Console.WriteLine("polled");
+            getPlayerModelByGuid(message.playerSendingMessage).ICallBack.addToLog("recieved poll");
+            messageManager.recieveNewMessage(message);
+        }
+
+        public void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam)
         {
             throw new NotImplementedException();
         }

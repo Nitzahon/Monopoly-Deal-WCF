@@ -149,52 +149,6 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="HttpBinding_GetDataUsingDataContract_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="HttpBinding_GetDataUsingDataContract_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
   <wsp:Policy wsu:Id="HttpBinding_connect_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -311,6 +265,29 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="HttpBinding_pollState_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_referenceAllDataContracts_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -953,12 +930,6 @@
   <wsdl:message name="IMonopolyDeal_GetData_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDataResponse" />
   </wsdl:message>
-  <wsdl:message name="IMonopolyDeal_GetDataUsingDataContract_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
-  </wsdl:message>
-  <wsdl:message name="IMonopolyDeal_GetDataUsingDataContract_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
-  </wsdl:message>
   <wsdl:message name="IMonopolyDeal_connect_InputMessage">
     <wsdl:part name="parameters" element="tns:connect" />
   </wsdl:message>
@@ -976,6 +947,9 @@
   </wsdl:message>
   <wsdl:message name="IMonopolyDeal_pollState_InputMessage">
     <wsdl:part name="parameters" element="tns:pollState" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_referenceAllDataContracts_InputMessage">
+    <wsdl:part name="parameters" element="tns:referenceAllDataContracts" />
   </wsdl:message>
   <wsdl:message name="IMonopolyDeal_testOperationReturn_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:testOperationReturn" />
@@ -1057,10 +1031,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/GetData" message="tns:IMonopolyDeal_GetData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/GetDataResponse" message="tns:IMonopolyDeal_GetData_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetDataUsingDataContract">
-      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/GetDataUsingDataContract" message="tns:IMonopolyDeal_GetDataUsingDataContract_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/GetDataUsingDataContractResponse" message="tns:IMonopolyDeal_GetDataUsingDataContract_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="connect">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/connect" message="tns:IMonopolyDeal_connect_InputMessage" />
     </wsdl:operation>
@@ -1078,6 +1048,9 @@
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="pollState">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/pollState" message="tns:IMonopolyDeal_pollState_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="referenceAllDataContracts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/referenceAllDataContracts" message="tns:IMonopolyDeal_referenceAllDataContracts_InputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="testOperationReturn">
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/testOperationReturn" message="tns:IMonopolyDeal_testOperationReturn_OutputCallbackMessage" />
@@ -1169,17 +1142,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDataUsingDataContract">
-      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/GetDataUsingDataContract" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#HttpBinding_GetDataUsingDataContract_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <wsp:PolicyReference URI="#HttpBinding_GetDataUsingDataContract_output_policy" />
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="connect">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/connect" style="document" />
       <wsdl:input>
@@ -1219,6 +1181,13 @@
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/pollState" style="document" />
       <wsdl:input>
         <wsp:PolicyReference URI="#HttpBinding_pollState_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="referenceAllDataContracts">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/referenceAllDataContracts" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_referenceAllDataContracts_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
@@ -1410,15 +1379,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDataUsingDataContract">
-      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/GetDataUsingDataContract" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="connect">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/connect" style="document" />
       <wsdl:input>
@@ -1451,6 +1411,12 @@
     </wsdl:operation>
     <wsdl:operation name="pollState">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/pollState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="referenceAllDataContracts">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/referenceAllDataContracts" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

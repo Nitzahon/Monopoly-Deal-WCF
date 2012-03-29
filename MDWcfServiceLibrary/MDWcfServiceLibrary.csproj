@@ -48,6 +48,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="DrawPile.cs" />
+    <Compile Include="FieldUpdateMessage.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameModel.cs" />
     <Compile Include="IMonopolyDeal.cs" />
@@ -62,18 +63,21 @@
     <Compile Include="PlayerPropertySets.cs" />
     <Compile Include="PlayFieldModel.cs" />
     <Compile Include="PlayPile.cs" />
+    <Compile Include="PollForFieldUpdateMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MonopolyDealService.cs" />
     <Compile Include="PropertyCard.cs" />
     <Compile Include="PropertyCardSet.cs" />
     <Compile Include="PropertySetInfo.cs" />
     <Compile Include="RentStandard.cs" />
+    <Compile Include="TakeActionOnTurnMessage.cs" />
     <Compile Include="TurnActionModel.cs" />
     <Compile Include="TurnOptions.cs" />
     <Compile Include="WCFGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="MDWCFServiceLibrary.cd" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

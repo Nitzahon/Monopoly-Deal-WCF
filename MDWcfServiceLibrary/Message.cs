@@ -17,72 +17,82 @@ namespace MDWcfServiceLibrary
         ready,//client is ready to start game
         gameStarted,//notify clients that game has started
         playcard,
+        fieldupdate,//Server notifying of field updated
+        actionTaken,//player notifing they took action on their turn
+        pollForFieldUpdate
     }
 
     [DataContract]
     public class Message
     {
         [DataMember]
-        private Guid playerSendingMessage
+        public Guid playerSendingMessage
         {
             get { return playerSendingMessage; }
             set { playerSendingMessage = value; }
         }
 
         [DataMember]
-        private bool serviceSendingMessage
+        public bool serviceSendingMessage
         {
             get { return serviceSendingMessage; }
             set { serviceSendingMessage = value; }
         }
 
         [DataMember]
-        private Object[] objectsInMessage
+        public Object[] objectsInMessage
         {
             get { return objectsInMessage; }
             set { objectsInMessage = value; }
         }
 
         [DataMember]
-        private MessageType messageType
+        public MessageType messageType
         {
             get { return messageType; }
             set { messageType = value; }
         }
 
         [DataMember]
-        private Guid[] playersRecievingMessage
+        public Guid[] playersRecievingMessage
         {
             get { return playersRecievingMessage; }
             set { playersRecievingMessage = value; }
         }
 
         [DataMember]
-        private System.Type type
+        public System.Type type
         {
             get { return type; }
             set { type = value; }
         }
 
         [DataMember]
-        private Guid thisMessageGuid
+        public Guid thisMessageGuid
         {
             get { return thisMessageGuid; }
             set { thisMessageGuid = value; }
         }
 
         [DataMember]
-        private Guid messageRespondingToGuid
+        public Guid serverGuid
+        {
+            get { return serverGuid; }
+            set { thisMessageGuid = value; }
+        }
+
+        [DataMember]
+        public Guid messageRespondingToGuid
         {
             get { return messageRespondingToGuid; }
             set { messageRespondingToGuid = value; }
         }
 
-        public Message(Guid thisMessageGuidP, Type typeP, Guid messageRespondingToP, MessageType messageTypeP, Object[] messageObjectsP, bool serviceIsSenderP, Guid playerSendingP, Guid[] playersRecievingP)
+        public Message(Guid thisMessageGuidP, Guid messageRespondingToP, MessageType messageTypeP, Object[] messageObjectsP, bool serviceIsSenderP, Guid playerSendingP, Guid serverGameGuidP, Guid[] playersRecievingP)
         {
             //Type of message
             messageType = messageTypeP;
-            type = typeP;
+            //type = typeP;
             //Array containing objects in the message
             objectsInMessage = messageObjectsP;
             //boolean is true if the service is the sender of the message. false if a player is sending the message
@@ -95,6 +105,7 @@ namespace MDWcfServiceLibrary
             thisMessageGuid = thisMessageGuidP;
             //Guid of a message this message is responding to
             messageRespondingToGuid = messageRespondingToP;
+            //Guid of the game on the server this is being sent to
         }
     }
 }

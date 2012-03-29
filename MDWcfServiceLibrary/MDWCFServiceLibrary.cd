@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MDWcfServiceLibrary.Card">
+    <Position X="28.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEAAAAAAFACAgAgBAAAACAAAAAAAAAAQAAAABAAAAAA=</HashCode>
+      <FileName>Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.Deck">
+    <Position X="32.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQIAAEAAAAAAAAAAAAEABAAAgAEAAAAIAAAAAAAA=</HashCode>
+      <FileName>Deck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.DrawPile">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAQAAAAAAEAAAAEAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>DrawPile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.GameModel">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoABAACAAAACAAAAAAAAACAAAEAEQIAAEBABAAII=</HashCode>
+      <FileName>GameModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.Message">
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAARAAAAAAAAEAAAQAAAAAEABAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.MessageManager">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAEAAAAgACBACAgAAAAAAQAAAAA=</HashCode>
+      <FileName>MessageManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.MoneyCard">
+    <Position X="29.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MoneyCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PlayerModel">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEABAAAAAAgAAAAAAAEAAEGAAAAAAQAAACAAwA=</HashCode>
+      <FileName>PlayerModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PlayerHand">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAQAAAAAAAAAAEAA=</HashCode>
+      <FileName>PlayerHand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PlayerBank">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>PlayerBank.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PropertyCard">
+    <Position X="27.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAQAAAIEAACCAAAAoIiABAigQIAABAAgAMAYAgAAAA=</HashCode>
+      <FileName>PropertyCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.RentStandard">
+    <Position X="31" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RentStandard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.ActionCard">
+    <Position X="31" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ActionCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PlayerPropertySets">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgEAA=</HashCode>
+      <FileName>PlayerPropertySets.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PlayFieldModel">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAABAAAACCBAAIAACKAAAAAAAIAAAAAAIEAAAAAA=</HashCode>
+      <FileName>PlayFieldModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PlayPile">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABEAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlayPile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PropertySetInfo">
+    <Position X="25.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAQEAAQAAAEAAAAAAAAgAEAAAAgAEAAAIAAAAAAgA=</HashCode>
+      <FileName>PropertySetInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.PropertyCardSet">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEAAAACBAgAgAAAQAUSAAABgAAAAAAAACAAACQgA=</HashCode>
+      <FileName>PropertyCardSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDWcfServiceLibrary.MonopolyDealService">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAABAEAAAAAACgCACQMCAGCAQAEEANQAAgAKAAgA=</HashCode>
+      <FileName>MonopolyDealService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="MDWcfServiceLibrary.SwapPropertiesBetweenSets">
+    <Position X="21.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>PropertyCardSet.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="MDWcfServiceLibrary.IMonopolyDeal">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAAAAAgCAAQIAAAAAQAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>IMonopolyDeal.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MDWcfServiceLibrary.IMonopolyDealCallback">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAEAIAIAQQBCQBAACAAQAQAAAAAAAQgIgEAECAIAAAk=</HashCode>
+      <FileName>IMonopolyDealCallback.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="MDWcfServiceLibrary.CardType">
+    <Position X="30.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAQAAAAQ=</HashCode>
+      <FileName>Card.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MDWcfServiceLibrary.MessageType">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAQAAAAAAgAAQAAAAAAAQAAAAAAAAQQAAAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MDWcfServiceLibrary.PropertyColor">
+    <Position X="28.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQCAAgAAABAIhAAEAQABAAAAAAAAAQAABIBADAAAAA=</HashCode>
+      <FileName>PropertyCard.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MDWcfServiceLibrary.ActionCardAction">
+    <Position X="33" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAAAAAAgABgQAIAAAAAAAAAAAAAAAIAAEDIAAA=</HashCode>
+      <FileName>ActionCard.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

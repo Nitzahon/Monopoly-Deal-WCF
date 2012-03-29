@@ -8,7 +8,7 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [DataContract]
-    internal class PlayerBank
+    public class PlayerBank
     {
         [DataMember]//Cards this player has
         public List<Card> cardsInBank = new List<Card>();

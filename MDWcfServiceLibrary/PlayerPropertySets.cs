@@ -8,7 +8,7 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [DataContract]
-    internal class PlayerPropertySets
+    public class PlayerPropertySets
     {
         [DataMember]//Cards this player has
         public List<PropertyCardSet> playersPropertySets = new List<PropertyCardSet>();

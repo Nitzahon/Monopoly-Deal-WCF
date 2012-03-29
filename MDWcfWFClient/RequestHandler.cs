@@ -19,6 +19,7 @@ namespace MDWcfWFClient
         MonopolyDealServiceReference.MonopolyDealClient monopolyDealService;
         Form1 mainForm;
         ClientInfo clientInfo;
+        ClientMessageHandler clientMessageHandler;
 
         public RequestHandler(SynchronizationContext uiSyncP, Form1 form1P)
         {
@@ -54,7 +55,23 @@ namespace MDWcfWFClient
         public void startGame()
         {
             //Tell the service this player is ready and to start game if all players are ready
-            monopolyDealService.startGame(clientInfo.getGuidID());
+            if (clientInfo != null)
+            {
+                monopolyDealService.startGame(clientInfo.getGuidID());
+            }
+            else
+            {
+                MessageBox.Show("Have not recieved guid");
+            }
+        }
+
+        public void pollState()
+        {
+            //Incomplete
+            MonopolyDealServiceReference.PollForFieldUpdateMessage pffum = new MonopolyDealServiceReference.PollForFieldUpdateMessage();
+            pffum.thisMessageGuid = Guid.NewGuid();
+            pffum.playerSendingMessage = clientInfo.getGuidID();
+            monopolyDealService.pollState(pffum);
         }
 
         //UI Calling
@@ -82,6 +99,7 @@ namespace MDWcfWFClient
         {
             //Creates clientInfo object which holds the local players information
             clientInfo = new ClientInfo(id);
+            clientMessageHandler = new ClientMessageHandler(uiSync, mainForm, clientInfo.getGuidID());
         }
 
         public void addToLog(string description)
@@ -202,7 +220,7 @@ namespace MDWcfWFClient
 
         public void recieveMessage(MonopolyDealServiceReference.Message message)
         {
-            throw new NotImplementedException();
+            clientMessageHandler.processMessage(message);
         }
 
         public void recieveID(int id)

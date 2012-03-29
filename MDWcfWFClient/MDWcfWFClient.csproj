@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientInfo.cs" />
+    <Compile Include="ClientMessageHandler.cs" />
+    <Compile Include="IClientUI.cs" />
     <Compile Include="RequestHandler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -90,9 +92,6 @@
     </None>
     <None Include="Service References\MonopolyDealServiceReference\MDWcfServiceLibrary1.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\MonopolyDealServiceReference\MDWcfWFClient.MonopolyDealServiceReference.CompositeType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\MonopolyDealServiceReference\service1.wsdl" />
     <None Include="Service References\MonopolyDealServiceReference\service2.xsd">

@@ -8,7 +8,7 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [DataContract]
-    internal class PlayerModel
+    public class PlayerModel
     {
         /// <summary>
         /// PlayerModel class models a single player in the game

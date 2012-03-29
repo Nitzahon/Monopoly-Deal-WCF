@@ -7,17 +7,12 @@ using System.Text;
 
 namespace MDWcfServiceLibrary
 {
-    internal struct guidAndID
-    {
-        public Guid guid;
-        public int id;
-    }
-
     internal class GameModel
     {
         MessageManager messageManager;
-        List<PlayFieldModel> gameStates = new List<PlayFieldModel>();
+        public List<PlayFieldModel> gameStates = new List<PlayFieldModel>();
         PlayFieldModel initialState;
+        public PlayFieldModel currentState;
         PlayPile initialPlayPile;
         public List<PlayerModel> players;
         public List<Guid> playerIdLookup = new List<Guid>();
@@ -25,12 +20,17 @@ namespace MDWcfServiceLibrary
         int FIRST_PLAYER = 0;
         bool gameOver = false;
 
+        public Guid gameModelGuid;
+
         //Options
         int NUMBER_OF_DECKS = 1;
         int NEW_TURN_NUMBER_OF_CARDS_PLAYABLE = 3;
 
-        public GameModel(List<PlayerModel> playersP)
+        public GameModel(List<PlayerModel> playersP, MessageManager messageManagerP)
         {
+            //give this a guid
+            gameModelGuid = Guid.NewGuid();
+            //Assign Players to the game
             players = playersP;
             //Create idLookup
             foreach (PlayerModel pm in players)
@@ -39,6 +39,7 @@ namespace MDWcfServiceLibrary
             }
             initialState = createInitialState(players);
             gameStates.Add(initialState);
+            messageManager = messageManagerP;
             //State added to gameStates list, notify all players, wait for responses
         }
 
@@ -67,6 +68,7 @@ namespace MDWcfServiceLibrary
             PlayFieldModel state = new PlayFieldModel(playFieldModelGuid, players, emptyTopPlayPile, firstPlayerGuid, noPlayersAffectedByActionCard,
                 noActionsPlayed, initialDrawPile, initialPlayPile, NEW_TURN_NUMBER_OF_CARDS_PLAYABLE, turnStart);
             //stateCreated
+            currentState = state;
             return state;
         }
 

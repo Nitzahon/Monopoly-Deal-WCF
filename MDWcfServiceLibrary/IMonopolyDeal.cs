@@ -23,8 +23,8 @@ namespace MDWcfServiceLibrary
         [OperationContract]
         string GetData(int value);
 
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        //[OperationContract]
+        //CompositeType GetDataUsingDataContract(CompositeType composite);
 
         // TODO: Add your service operations here
         //connect returns an int with the players id
@@ -46,9 +46,13 @@ namespace MDWcfServiceLibrary
 
         [OperationContract(IsOneWay = true)]
         void pollState(Message message);
+
+        [OperationContract(IsOneWay = true)]
+        void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations
+    /*
     [DataContract]
     public class CompositeType
     {
@@ -69,4 +73,5 @@ namespace MDWcfServiceLibrary
             set { stringValue = value; }
         }
     }
+     * */
 }

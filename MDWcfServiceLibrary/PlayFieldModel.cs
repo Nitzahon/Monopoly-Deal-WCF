@@ -8,7 +8,7 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [DataContract]
-    internal class PlayFieldModel
+    public class PlayFieldModel
     {
         /// <summary>
         /// Models the playField at any given instance of the game

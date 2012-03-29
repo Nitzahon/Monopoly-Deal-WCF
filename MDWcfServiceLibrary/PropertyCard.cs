@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
 
 namespace MDWcfServiceLibrary
 {
+    [DataContract]
     public enum PropertyColor
     {
         Brown,
@@ -27,6 +30,7 @@ namespace MDWcfServiceLibrary
         Wild_MultiColored,
     }
 
+    [DataContract]
     public class PropertyCard : Card
     {
         public void setCardUp(PropertyColor newUpColor)
@@ -123,33 +127,52 @@ namespace MDWcfServiceLibrary
             isCardUp = isUp;
         }
 
+        [DataMember]
         public PropertyColor currentPropertyColor;
         //List of Colors the property may take, Up Orientation Color first then Down Orientation Colour
+        [DataMember]
         public List<PropertyColor> propertyColors;
+        [DataMember]
         public bool isWild;
+        [DataMember]
         public bool isMultiWild;
-
+        [DataMember]
         public bool isCardUp;
-
+        [DataMember]
         public int currentColorSetCompleteSize;
+        [DataMember]
         public int oneCardInSetRentValue;
+        [DataMember]
         public int twoCardInSetRentValue;
+        [DataMember]
         public int threeCardInSetRentValue;
+        [DataMember]
         public int fourCardInSetRentValue;
+        [DataMember]
         public int fiveCardInSetRentValue;
-
+        [DataMember]
         public int upSetSize;
+        [DataMember]
         public int oneCardInSetRentValueUp;
+        [DataMember]
         public int twoCardInSetRentValueUp;
+        [DataMember]
         public int threeCardInSetRentValueUp;
+        [DataMember]
         public int fourCardInSetRentValueUp;
+        [DataMember]
         public int fiveCardInSetRentValueUp;
-
+        [DataMember]
         public int downSetSize;
+        [DataMember]
         public int oneCardInSetRentValueDown;
+        [DataMember]
         public int twoCardInSetRentValueDown;
+        [DataMember]
         public int threeCardInSetRentValueDown;
+        [DataMember]
         public int fourCardInSetRentValueDown;
+        [DataMember]
         public int fiveCardInSetRentValueDown;
     }
 }

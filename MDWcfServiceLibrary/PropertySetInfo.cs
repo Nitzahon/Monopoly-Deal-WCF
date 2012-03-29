@@ -1,20 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
 
 namespace MDWcfServiceLibrary
 {
+    [DataContract]
     public class PropertySetInfo
     {
         //Contains Rent Value Information
+        [DataMember]
         private PropertyColor propertyColor;
+        [DataMember]
         private int numberOfCardsInFullSet;
+        [DataMember]
         private int onePropertyCardRentValue;
+        [DataMember]
         private int twoPropertCardRentValue;
+        [DataMember]
         private int threePropertyCardRentValue;
+        [DataMember]
         private int fourPropertyCardRentValue;
+        [DataMember]
         private int houseValue = 3;
+        [DataMember]
         private int hotelValue = 4;
 
         public void setPropertyInfo(PropertyColor propertyColor, int numberOfCardsInFullSet, int onePropertyCardRentValue,

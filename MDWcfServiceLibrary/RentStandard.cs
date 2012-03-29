@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
 
 namespace MDWcfServiceLibrary
 {
+    [DataContract]
     public class RentStandard : ActionCard
     {
+        [DataMember]
         public PropertyColor colorUp;
+        [DataMember]
         public PropertyColor colorDown;
 
         public RentStandard(ActionCardAction actionType, int value, PropertyColor colorUp, PropertyColor colorDown)

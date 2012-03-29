@@ -11,9 +11,7 @@ using System.Windows.Forms;
 
 namespace MDWcfWFClient
 {
-    // Specify for the callback to NOT use the current synchronization context
-    //[CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Single, UseSynchronizationContext = false)]
-    public partial class Form1 : Form//, MonopolyDealServiceReference.IMonopolyDealCallback
+    public partial class Form1 : Form, IClientUI
     {
         //Callback
         private SynchronizationContext _uiSyncContext = null;
@@ -152,6 +150,32 @@ namespace MDWcfWFClient
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+        }
+
+        private void buttonChat_Click(object sender, EventArgs e)
+        {
+        }
+
+        //public void displayThisClientHand(MonopolyDealServiceReference. player)
+        // {
+        //player
+        //throw private new NotImplementedException();
+
+        // }
+
+        public void drawField(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            textBoxHand1.Text = "";
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[0].hand.cardsInHand)
+            {
+                textBoxHand1.Text = textBoxHand1.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+            }
+            throw new NotImplementedException();
+        }
+
+        private void buttonPoll_Click(object sender, EventArgs e)
+        {
+            requestHandler.pollState();
         }
     }
 }
