@@ -32,7 +32,7 @@ namespace MDWcfServiceLibrary
         void connect(string name);
 
         [OperationContract(IsOneWay = true)]
-        void startGame(int id);
+        void startGame(Guid id);
 
         [OperationContract(IsOneWay = true)]
         void chatToAll(String chat);
@@ -40,6 +40,12 @@ namespace MDWcfServiceLibrary
         //Used for callbacks
         [OperationContract(IsOneWay = true)]
         void testOperation(int id);
+
+        [OperationContract(IsOneWay = true)]
+        void sendMessageToService(Message message);
+
+        [OperationContract(IsOneWay = true)]
+        void pollState(Message message);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations

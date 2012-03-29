@@ -21,17 +21,30 @@ namespace MDWcfServiceLibrary
 
         //Fields
         [DataMember]
-        PlayerHand hand;
+        public PlayerHand hand;
+
         [DataMember]
-        PlayerBank bank;
+        public PlayerBank bank;
+
         [DataMember]
-        PlayerPropertySets propertySets;
+        public PlayerPropertySets propertySets;
+
         [DataMember]
-        Guid guid;
+        public Guid guid;
+
         [DataMember]
-        int id;
+        public int id;
         [DataMember]
-        bool isThisPlayersTurn;
+        public bool isThisPlayersTurn;
+
+        [DataMember]
+        public String name;
+
+        [DataMember]
+        public IMonopolyDealCallback ICallBack;
+
+        [DataMember]
+        public bool isReadyToStartGame;
 
         //StaticFields
         public static List<Guid> playerGuids = new List<Guid>();
@@ -43,7 +56,7 @@ namespace MDWcfServiceLibrary
         //Static Methods
         private static Guid generatePlayerGuid()
         {
-            Guid newPlayerGuid = new Guid();
+            Guid newPlayerGuid = Guid.NewGuid();
             while (true)
             {
                 bool existsAllready = false;
@@ -62,7 +75,7 @@ namespace MDWcfServiceLibrary
                 }
                 else
                 {
-                    newPlayerGuid = new Guid();
+                    newPlayerGuid = Guid.NewGuid();
                 }
             }
         }
@@ -71,8 +84,24 @@ namespace MDWcfServiceLibrary
 
         #region Constructors
 
-        public PlayerModel()
+        public PlayerModel(IMonopolyDealCallback ICallBackP, String nameP)
         {
+            //Set ID
+            guid = generatePlayerGuid();
+            //Set Callback interface
+            ICallBack = ICallBackP;
+            //Set name
+            name = nameP;
+            //Give emptyhand
+            hand = new PlayerHand(guid, new List<Card>());
+            //Give emptybank
+            bank = new PlayerBank(guid, new List<Card>());
+            //give emptypropertysets
+            propertySets = new PlayerPropertySets(guid, new List<PropertyCardSet>());
+            //Set not players turn
+            isThisPlayersTurn = false;
+            //notready to start game
+            isReadyToStartGame = false;
         }
 
         #endregion Constructors

@@ -27,17 +27,19 @@ namespace MDWcfServiceLibrary
         Guid thisPlayFieldModelInstanceGuid;
         [DataMember]
         TurnActionModel lastActionPlayed;
+        [DataMember]
+        bool startOfATurn;
 
         //Service side only fields
-        Deck deck;
+        DrawPile drawPile;
         PlayPile playpile;
         //Guid generator
         public static List<Guid> playFieldModelGuids = new List<Guid>();
 
         //Static Methods
-        private static Guid generateplayFieldModelGuid()
+        public static Guid generateplayFieldModelGuid()
         {
-            Guid newGuid = new Guid();
+            Guid newGuid = Guid.NewGuid();
             while (true)
             {
                 bool existsAllready = false;
@@ -56,13 +58,13 @@ namespace MDWcfServiceLibrary
                 }
                 else
                 {
-                    newGuid = new Guid();
+                    newGuid = Guid.NewGuid();
                 }
             }
         }
 
         public PlayFieldModel(Guid thisInstanceGuid, List<PlayerModel> playerModelsP, List<Card> topCardsPlayPileP, Guid guidOfPlayerWhosTurnItIsP,
-            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, Deck currentDeckState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP)
+            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP)
         {
             //The guid of this instance of PlayFieldModel
             thisPlayFieldModelInstanceGuid = thisInstanceGuid;
@@ -77,11 +79,13 @@ namespace MDWcfServiceLibrary
             //The TurnActionModel of the last action
             lastActionPlayed = lastActionP;
             //The current State of the deck
-            deck = currentDeckState;
+            drawPile = currentDrawPileState;
             //The current State of the playpile
             playpile = currentPlayPileState;
             //The maximun number of cards that the player whos turn it is can play before their turn is over
             numberOfTurnsRemainingForPlayerWhosTurnItIs = numberOfTurnsRemainingForPlayerP;
+            //This is the first move of a turn so the player whose turn it is should draw two cards
+            startOfATurn = startOfATurnP;
         }
     }
 }

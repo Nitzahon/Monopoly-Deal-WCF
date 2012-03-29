@@ -12,5 +12,17 @@ namespace MDWcfServiceLibrary
         Queue<Message> sentMessages = new Queue<Message>();
         Queue<Message> recievedMessages = new Queue<Message>();
         Message currentMessage = null;
+
+        public void recieveNewMessage(Message newMessage)
+        {
+        }
+
+        public void sendMessage()
+        {
+        }
+
+        private void addMessageToSendQueue(Message message)
+        {
+        }
     }
 }

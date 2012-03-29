@@ -49,6 +49,7 @@
     <Compile Include="Deck.cs" />
     <Compile Include="DrawPile.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameModel.cs" />
     <Compile Include="IMonopolyDeal.cs" />
     <Compile Include="IMonopolyDealCallback.cs" />
     <Compile Include="Message.cs" />

@@ -159,7 +159,8 @@ namespace MDWcfServiceLibrary
 
         public Player(String playerName, IMonopolyDealCallback cbi)
         {
-            playerGuid = new Guid();
+            playerGuid = Guid.NewGuid();
+
             callbackInterface = cbi;
             constructPlayer(playerName);
         }
@@ -183,7 +184,7 @@ namespace MDWcfServiceLibrary
 
         private static Guid generatePlayerGuid()
         {
-            Guid newPlayerGuid = new Guid();
+            Guid newPlayerGuid = Guid.NewGuid();
             while (true)
             {
                 bool existsAllready = false;
@@ -202,7 +203,7 @@ namespace MDWcfServiceLibrary
                 }
                 else
                 {
-                    newPlayerGuid = new Guid();
+                    newPlayerGuid = Guid.NewGuid();
                 }
             }
         }

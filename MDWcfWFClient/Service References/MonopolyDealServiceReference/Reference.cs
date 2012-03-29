@@ -76,6 +76,172 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Message", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.CompositeType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.Player))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.Player[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.Card[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.Card))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(object[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Guid[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Type))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Reflection.MemberInfo))]
+    public partial class Message : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid messageRespondingToGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string messageTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private object[] objectsInMessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid playerSendingMessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid[] playersRecievingMessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool serviceSendingMessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid thisMessageGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Type typeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid messageRespondingToGuid {
+            get {
+                return this.messageRespondingToGuidField;
+            }
+            set {
+                if ((this.messageRespondingToGuidField.Equals(value) != true)) {
+                    this.messageRespondingToGuidField = value;
+                    this.RaisePropertyChanged("messageRespondingToGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string messageType {
+            get {
+                return this.messageTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.messageTypeField, value) != true)) {
+                    this.messageTypeField = value;
+                    this.RaisePropertyChanged("messageType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public object[] objectsInMessage {
+            get {
+                return this.objectsInMessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.objectsInMessageField, value) != true)) {
+                    this.objectsInMessageField = value;
+                    this.RaisePropertyChanged("objectsInMessage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid playerSendingMessage {
+            get {
+                return this.playerSendingMessageField;
+            }
+            set {
+                if ((this.playerSendingMessageField.Equals(value) != true)) {
+                    this.playerSendingMessageField = value;
+                    this.RaisePropertyChanged("playerSendingMessage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid[] playersRecievingMessage {
+            get {
+                return this.playersRecievingMessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playersRecievingMessageField, value) != true)) {
+                    this.playersRecievingMessageField = value;
+                    this.RaisePropertyChanged("playersRecievingMessage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool serviceSendingMessage {
+            get {
+                return this.serviceSendingMessageField;
+            }
+            set {
+                if ((this.serviceSendingMessageField.Equals(value) != true)) {
+                    this.serviceSendingMessageField = value;
+                    this.RaisePropertyChanged("serviceSendingMessage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid thisMessageGuid {
+            get {
+                return this.thisMessageGuidField;
+            }
+            set {
+                if ((this.thisMessageGuidField.Equals(value) != true)) {
+                    this.thisMessageGuidField = value;
+                    this.RaisePropertyChanged("thisMessageGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Type type {
+            get {
+                return this.typeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.typeField, value) != true)) {
+                    this.typeField = value;
+                    this.RaisePropertyChanged("type");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Player", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
     [System.SerializableAttribute()]
     public partial class Player : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -113,6 +279,9 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid cardGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int cardIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -134,6 +303,19 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid cardGuid {
+            get {
+                return this.cardGuidField;
+            }
+            set {
+                if ((this.cardGuidField.Equals(value) != true)) {
+                    this.cardGuidField = value;
+                    this.RaisePropertyChanged("cardGuid");
+                }
             }
         }
         
@@ -226,13 +408,19 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         void connect(string name);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/startGame")]
-        void startGame(int id);
+        void startGame(System.Guid id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/chatToAll")]
         void chatToAll(string chat);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/testOperation")]
         void testOperation(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/sendMessageToService")]
+        void sendMessageToService(MDWcfWFClient.MonopolyDealServiceReference.Message message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/pollState")]
+        void pollState(MDWcfWFClient.MonopolyDealServiceReference.Message message);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -244,14 +432,17 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/testOperationReturn2")]
         void testOperationReturn2(string name);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/recieveID")]
-        void recieveID(int id);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/recieveGuid")]
+        void recieveGuid(System.Guid id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/addToLog")]
         void addToLog(string description);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/recieveChat")]
         void recieveChat(string description);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/recieveMessage")]
+        void recieveMessage(MDWcfWFClient.MonopolyDealServiceReference.Message message);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMonopolyDeal/getName")]
         void getName();
@@ -351,7 +542,7 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
             base.Channel.connect(name);
         }
         
-        public void startGame(int id) {
+        public void startGame(System.Guid id) {
             base.Channel.startGame(id);
         }
         
@@ -361,6 +552,14 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         public void testOperation(int id) {
             base.Channel.testOperation(id);
+        }
+        
+        public void sendMessageToService(MDWcfWFClient.MonopolyDealServiceReference.Message message) {
+            base.Channel.sendMessageToService(message);
+        }
+        
+        public void pollState(MDWcfWFClient.MonopolyDealServiceReference.Message message) {
+            base.Channel.pollState(message);
         }
     }
 }

@@ -54,7 +54,7 @@ namespace MDWcfWFClient
         public void startGame()
         {
             //Tell the service this player is ready and to start game if all players are ready
-            monopolyDealService.startGame(clientInfo.getID());
+            monopolyDealService.startGame(clientInfo.getGuidID());
         }
 
         //UI Calling
@@ -78,7 +78,7 @@ namespace MDWcfWFClient
             MessageBox.Show(text);
         }
 
-        public void recieveID(int id)
+        public void recieveGuid(Guid id)
         {
             //Creates clientInfo object which holds the local players information
             clientInfo = new ClientInfo(id);
@@ -198,6 +198,16 @@ namespace MDWcfWFClient
         public void askWhatSetToAddHotelTo(MonopolyDealServiceReference.Player p, MonopolyDealServiceReference.Card c)
         {
             throw new NotImplementedException();
+        }
+
+        public void recieveMessage(MonopolyDealServiceReference.Message message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void recieveID(int id)
+        {
+            clientInfo.id = id;
         }
     }
 }

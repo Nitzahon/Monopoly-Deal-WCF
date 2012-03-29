@@ -17,10 +17,13 @@ namespace MDWcfServiceLibrary
         //       Consequently, the state must be persisted somewhere in between calls.
         private static List<IMonopolyDealCallback> _callbackList = new List<IMonopolyDealCallback>();
         private static int id = 2;
-        private static List<Player> wcfPlayers = new List<Player>();
-        private static List<Player> players = new List<Player>();
+        //private static List<Player> wcfPlayers = new List<Player>();
+        //private static List<Player> players = new List<Player>();
         //game contains state
-        private static WCFGame game;
+        private static GameModel gameModel;
+        private static List<PlayerModel> playerModels = new List<PlayerModel>();
+        private static List<Guid> playerIdLookup = new List<Guid>();
+        //private static WCFGame game;
         private static bool gameCreated = false;
         private static bool isStarted = false;
         private static int NUMBER_OF_DECKS = 1;
@@ -28,6 +31,8 @@ namespace MDWcfServiceLibrary
 
         private static String serverLog = "";
         private int i = 0;
+
+        private static MessageManager messageManager = new MessageManager();
 
         public string GetData(int value)
         {
@@ -45,7 +50,7 @@ namespace MDWcfServiceLibrary
             //Create Game if one does not exist
             if (!gameCreated)
             {
-                game = new WCFGame(players, deck, this);
+                gameModel = new GameModel(playerModels);
                 gameCreated = true;
             }
         }
@@ -59,21 +64,22 @@ namespace MDWcfServiceLibrary
             {
                 _callbackList.Add(guest);
             }
-            //Create new WCFPLayer for client
-            Player player = new Player(name, guest);
+            //Create new PlayerModel for client
+            PlayerModel player = new PlayerModel(guest, name);
             //Add player to list
-            wcfPlayers.Add(player);
-            //call back
-            createPlayerCallback(player.getCallback(), player.getName(), player.getID());
+            playerModels.Add(player);
+            playerIdLookup.Add(player.guid);
+            //call back and tell player what number they are
+            createPlayerCallback(player.ICallBack, player.name, playerModels.IndexOf(player) + 1, player.guid);
         }
 
-        private void createPlayerCallback(IMonopolyDealCallback playerCallback, string name, int id)
+        private void createPlayerCallback(IMonopolyDealCallback playerCallback, string name, int id, Guid guidP)
         {
             //CallBack one
             playerCallback.testOperationReturn2("Your Player Name:" + name + " ID:" + id);
 
-            //Assign id to player
-            playerCallback.recieveID(id);
+            //Assign guid to player
+            playerCallback.recieveGuid(guidP);
 
             //Tell all players
             addToClientsLogs("Welcome Player:" + name);
@@ -95,9 +101,7 @@ namespace MDWcfServiceLibrary
 
         public void connect(string name)
         {
-            //Create game
-            createGame();
-            //Future Only Add players if game has not started
+            //Create a playermodel for client and add to list
             createPlayer(name);
         }
 
@@ -109,25 +113,32 @@ namespace MDWcfServiceLibrary
         {
         }
 
-        public void startGame(int id)
+        private PlayerModel getPlayerModelByGuid(Guid g)
         {
-            wcfPlayers[id].setIfReady(true);
+            int id = playerIdLookup.IndexOf(g);
+            return playerModels.ElementAt(id);
+        }
+
+        public void startGame(Guid guid)
+        {
+            getPlayerModelByGuid(guid).isReadyToStartGame = true;
             bool allReady = true;
-            foreach (Player p in wcfPlayers)
+            foreach (PlayerModel p in playerModels)
             {
-                if (!p.getIfReady())
+                if (!p.isReadyToStartGame)
                 {
                     allReady = false;
-                    addToClientsLogs("Player " + p.getName() + " is not Ready");
+                    addToClientsLogs("Player " + p.name + " is not Ready");
                 }
                 else
                 {
-                    addToClientsLogs("Player " + p.getName() + " is Ready");
+                    addToClientsLogs("Player " + p.name + " is Ready");
                 }
             }
-            if (allReady && !isStarted)
+            if (allReady)
             {
-                game.startGame();
+                //Create game
+                createGame();
                 isStarted = true;
                 addToClientsLogs("Game Started");
             }
@@ -139,6 +150,16 @@ namespace MDWcfServiceLibrary
             _callbackList.ForEach(
                 delegate(IMonopolyDealCallback callback)
                 { callback.recieveChat(chat); });
+        }
+
+        public void sendMessageToService(Message message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void pollState(Message message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

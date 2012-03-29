@@ -20,5 +20,9 @@ namespace MDWcfServiceLibrary
             playerGuid = playerP;
             playersPropertySets = cardsP;
         }
+
+        public void sdssdsd()
+        {
+        }
     }
 }

@@ -85,6 +85,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\MonopolyDealServiceReference\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\MonopolyDealServiceReference\MDWcfServiceLibrary1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -96,6 +99,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\MonopolyDealServiceReference\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MonopolyDealServiceReference\System.Reflection.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MonopolyDealServiceReference\System.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

@@ -8,16 +8,16 @@ namespace MDWcfWFClient
 {
     internal class ClientInfo
     {
-        int id = -1;
+        public int id = -1;
         Guid guid;
 
-        public ClientInfo(int idP)
+        public ClientInfo(Guid idP)
         {
             //Player ID
-            id = idP;
+            guid = idP;
             MessageBox.Show("client started id:" + id);
         }
 
-        public int getID() { return id; }
+        public Guid getGuidID() { return guid; }
     }
 }

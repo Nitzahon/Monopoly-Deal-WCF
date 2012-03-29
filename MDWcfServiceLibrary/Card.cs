@@ -31,13 +31,13 @@ namespace MDWcfServiceLibrary
 
         public static Guid generateGuid()
         {
-            Guid newPlayerGuid = new Guid();
+            Guid newCardGuid = Guid.NewGuid();
             while (true)
             {
                 bool existsAllready = false;
                 foreach (Guid existingGuid in cardGuids)
                 {
-                    if (existingGuid.CompareTo(newPlayerGuid) == 0)
+                    if (existingGuid.CompareTo(newCardGuid) == 0)
                     {
                         //guid exists
                         existsAllready = true;
@@ -46,11 +46,11 @@ namespace MDWcfServiceLibrary
                 }
                 if (!existsAllready)
                 {
-                    return newPlayerGuid;
+                    return newCardGuid;
                 }
                 else
                 {
-                    newPlayerGuid = new Guid();
+                    newCardGuid = Guid.NewGuid();
                 }
             }
         }

@@ -20,5 +20,10 @@ namespace MDWcfServiceLibrary
             playerGuid = playerP;
             cardsInHand = cardsP;
         }
+
+        public void addCardToHand(Card card)
+        {
+            cardsInHand.Add(card);
+        }
     }
 }

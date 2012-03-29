@@ -5,7 +5,16 @@ using System.Text;
 
 namespace MDWcfServiceLibrary
 {
-    class TurnActionModel
+    internal class TurnActionModel
     {
+        public enum TurnActionTypes
+        {
+            gameStarted,
+            drawTwoCardsAtStartOfTurn
+        }
+
+        public TurnActionModel()
+        {
+        }
     }
 }

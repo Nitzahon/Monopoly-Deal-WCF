@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
 
 namespace MDWcfServiceLibrary
 {
+    [DataContract]
     public struct SwapPropertiesBetweenSets
     {
+        [DataMember]
         public PropertyCard cardBeingSwapped;
+        [DataMember]
         public PropertyCardSet setToRemoveCardFrom;
+        [DataMember]
         public PropertyCardSet setToPutCardIn;
     }
 
+    [DataContract]
     public class PropertyCardSet
     {
         //A set contains up to 4 property cards, some of which may be wild.
         //A full set may contain up to 1 house card
         //A full set may contain up to 1 hotel card if it has a house card.
         //If a full set is broken any houses and hotels are added to the bottom of the draw pile
+        [DataMember]
         public static int ID = 0;
 
         private static int generateID()
@@ -26,13 +34,19 @@ namespace MDWcfServiceLibrary
             return ID;
         }
 
+        [DataMember]
         PropertyColor propertySetColor;
-
+        [DataMember]
         LinkedList<PropertyCard> properties;
+        [DataMember]
         int id;
+        [DataMember]
         bool hasHouse;
+        [DataMember]
         bool hasHotel;
+        [DataMember]
         Card house;
+        [DataMember]
         Card hotel;
 
         public PropertyCardSet(PropertyCard propertyCard)

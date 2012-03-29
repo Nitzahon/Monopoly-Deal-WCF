@@ -20,13 +20,16 @@ namespace MDWcfServiceLibrary
         void testOperationReturn2(string name);
 
         [OperationContract(IsOneWay = true)]
-        void recieveID(int id);
+        void recieveGuid(Guid id);
 
         [OperationContract(IsOneWay = true)]
         void addToLog(String description);
 
         [OperationContract(IsOneWay = true)]
         void recieveChat(String description);
+
+        [OperationContract(IsOneWay = true)]
+        void recieveMessage(Message message);
 
         //Requests from server
 
