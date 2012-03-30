@@ -46,12 +46,25 @@ namespace MDWcfServiceLibrary
             //draws two cards to players hand BADCODE
             player.hand.addCardToHand(currentPlayFieldModel.drawPile.drawcard());
             player.hand.addCardToHand(currentPlayFieldModel.drawPile.drawcard());
+            actionPerformed();
+        }
+
+        public void bankCard(Card cardInHandToBeBanked, PlayerModel playerWhoIsBankingCard)
+        {
+            playerWhoIsBankingCard.hand.cardsInHand.Remove(cardInHandToBeBanked);
+            playerWhoIsBankingCard.bank.addCardToBank(cardInHandToBeBanked);
+            actionPerformed();
         }
 
         private bool checkIfActionIsForThisState(TurnActionModel ta, PlayFieldModel pfm)
         {
             return true;
             throw new NotImplementedException();
+        }
+
+        private void actionPerformed()
+        {
+            //update game state model and turn action model
         }
     }
 }

@@ -15,10 +15,9 @@ namespace MDWcfServiceLibrary
         //       This is necessary since the service is using PerCall instancing.
         //       An instance of the service will be created each time a service method is invoked by a client.
         //       Consequently, the state must be persisted somewhere in between calls.
-        //private static List<IMonopolyDealCallback> _callbackList = new List<IMonopolyDealCallback>();
+
         private static int id = 2;
-        //private static List<Player> wcfPlayers = new List<Player>();
-        //private static List<Player> players = new List<Player>();
+
         //game contains state
         private static GameModel gameModel;
         private static List<PlayerModel> playerModels = new List<PlayerModel>();
