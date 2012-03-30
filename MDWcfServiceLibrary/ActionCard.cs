@@ -10,21 +10,34 @@ namespace MDWcfServiceLibrary
     [DataContract]
     public enum ActionCardAction
     {
+        [EnumMember]
         SlyDeal,
+        [EnumMember]
         ForcedDeal,
+        [EnumMember]
         DealBreaker,
+        [EnumMember]
         JustSayNo,
+        [EnumMember]
         DebtCollector,
+        [EnumMember]
         ItsMyBirthday,
+        [EnumMember]
         RentMultiColor,
+        [EnumMember]
         RentStandard,
+        [EnumMember]
         DoubleTheRent,
+        [EnumMember]
         House,
+        [EnumMember]
         Hotel,
+        [EnumMember]
         PassGo
     }
 
     [DataContract]
+    [KnownType(typeof(Card))]
     public class ActionCard : Card
     {
         [DataMember]

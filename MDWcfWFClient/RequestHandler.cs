@@ -68,10 +68,17 @@ namespace MDWcfWFClient
         public void pollState()
         {
             //Incomplete
-            MonopolyDealServiceReference.PollForFieldUpdateMessage pffum = new MonopolyDealServiceReference.PollForFieldUpdateMessage();
-            pffum.thisMessageGuid = Guid.NewGuid();
-            pffum.playerSendingMessage = clientInfo.getGuidID();
-            monopolyDealService.pollState(pffum);
+            //MonopolyDealServiceReference.PollForFieldUpdateMessage pffum = new MonopolyDealServiceReference.PollForFieldUpdateMessage();
+            // pffum.thisMessageGuid = Guid.NewGuid();
+            //pffum.playerSendingMessage = clientInfo.getGuidID();
+            //monopolyDealService.pollState(pffum);
+            MonopolyDealServiceReference.PollForFieldUpdateMessage message = new MonopolyDealServiceReference.PollForFieldUpdateMessage();
+            message.messageType = MonopolyDealServiceReference.MessageType.pollForFieldUpdate;
+            message.thisMessageGuid = Guid.NewGuid();
+            message.playerSendingMessage = clientInfo.guid;
+            monopolyDealService.pollState(message);
+
+            //monopolyDealService.pollState(null);
         }
 
         //UI Calling
@@ -100,6 +107,24 @@ namespace MDWcfWFClient
             //Creates clientInfo object which holds the local players information
             clientInfo = new ClientInfo(id);
             clientMessageHandler = new ClientMessageHandler(uiSync, mainForm, clientInfo.getGuidID());
+            addToLog(clientInfo.guid + "");
+            setGuid(id);
+        }
+
+        public void setGuid(Guid guid)
+        {
+            // The UI thread won't be handling the callback, but it is the only one allowed to update the controls.
+            // So, we will dispatch the UI update back to the UI sync context.
+
+            //Create a SendOrPostCallback delegate with an anon method which recieves an Object called state and runs code in the SychronisationContext it is marshalled to using Post
+            SendOrPostCallback callback =
+                delegate(object state)
+                {
+                    //state is a string object.
+                    mainForm.setGuid((Guid)state);
+                };
+            //Post takes a delagate and a State object and runs the delegate(State object) in the context Post is called on.
+            uiSync.Post(callback, guid);
         }
 
         public void addToLog(string description)
@@ -220,6 +245,7 @@ namespace MDWcfWFClient
 
         public void recieveMessage(MonopolyDealServiceReference.Message message)
         {
+            addToLog("Message Recieved guid" + message.thisMessageGuid);
             clientMessageHandler.processMessage(message);
         }
 

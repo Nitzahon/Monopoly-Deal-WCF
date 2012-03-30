@@ -18,50 +18,37 @@
   </xs:complexType>
   <xs:element name="Message" nillable="true" type="tns:Message" />
   <xs:simpleType name="MessageType">
-    <xs:restriction base="xs:string" />
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="notify" />
+      <xs:enumeration value="sendChat" />
+      <xs:enumeration value="recieveChat" />
+      <xs:enumeration value="connect" />
+      <xs:enumeration value="ready" />
+      <xs:enumeration value="gameStarted" />
+      <xs:enumeration value="playcard" />
+      <xs:enumeration value="fieldupdate" />
+      <xs:enumeration value="actionTaken" />
+      <xs:enumeration value="pollForFieldUpdate" />
+    </xs:restriction>
   </xs:simpleType>
   <xs:element name="MessageType" nillable="true" type="tns:MessageType" />
-  <xs:complexType name="ActionCard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="MonetaryValueOnly" type="xs:boolean" />
-          <xs:element minOccurs="0" name="actionType" type="tns:ActionCardAction" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="ActionCard" nillable="true" type="tns:ActionCard" />
-  <xs:complexType name="Card">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="cardGuid" type="ser:guid" />
-      <xs:element minOccurs="0" name="cardID" type="xs:int" />
-      <xs:element minOccurs="0" name="cardName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="cardText" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="cardType" type="tns:CardType" />
-      <xs:element minOccurs="0" name="cardValue" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Card" nillable="true" type="tns:Card" />
-  <xs:simpleType name="CardType">
-    <xs:restriction base="xs:string" />
-  </xs:simpleType>
-  <xs:element name="CardType" nillable="true" type="tns:CardType" />
-  <xs:simpleType name="ActionCardAction">
-    <xs:restriction base="xs:string" />
-  </xs:simpleType>
-  <xs:element name="ActionCardAction" nillable="true" type="tns:ActionCardAction" />
-  <xs:complexType name="FieldUpdateMessage">
+  <xs:complexType name="PollForFieldUpdateMessage">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Message">
         <xs:sequence>
+          <xs:element minOccurs="0" name="actionsToTake" nillable="true" type="tns:TurnActionModel" />
           <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
+          <xs:element minOccurs="0" name="fieldModelGuid" type="ser:guid" />
           <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="FieldUpdateMessage" nillable="true" type="tns:FieldUpdateMessage" />
+  <xs:element name="PollForFieldUpdateMessage" nillable="true" type="tns:PollForFieldUpdateMessage" />
+  <xs:complexType name="TurnActionModel">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="TurnActionModel" nillable="true" type="tns:TurnActionModel" />
   <xs:complexType name="PlayFieldModel">
     <xs:sequence>
       <xs:element minOccurs="0" name="guidOfPlayerWhosTurnItIs" type="ser:guid" />
@@ -75,10 +62,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlayFieldModel" nillable="true" type="tns:PlayFieldModel" />
-  <xs:complexType name="TurnActionModel">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:element name="TurnActionModel" nillable="true" type="tns:TurnActionModel" />
   <xs:complexType name="ArrayOfPlayerModel">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerModel" nillable="true" type="tns:PlayerModel" />
@@ -112,6 +95,135 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfCard" nillable="true" type="tns:ArrayOfCard" />
+  <xs:complexType name="Card">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cardGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="cardID" type="xs:int" />
+      <xs:element minOccurs="0" name="cardName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cardText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cardType" type="tns:CardType" />
+      <xs:element minOccurs="0" name="cardValue" type="xs:int" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Card" nillable="true" type="tns:Card" />
+  <xs:simpleType name="CardType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Action" />
+      <xs:enumeration value="Property" />
+      <xs:enumeration value="WildProperty" />
+      <xs:enumeration value="Money" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CardType" nillable="true" type="tns:CardType" />
+  <xs:complexType name="ActionCard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Card">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MonetaryValueOnly" type="xs:boolean" />
+          <xs:element minOccurs="0" name="actionType" type="tns:ActionCardAction" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActionCard" nillable="true" type="tns:ActionCard" />
+  <xs:simpleType name="ActionCardAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SlyDeal" />
+      <xs:enumeration value="ForcedDeal" />
+      <xs:enumeration value="DealBreaker" />
+      <xs:enumeration value="JustSayNo" />
+      <xs:enumeration value="DebtCollector" />
+      <xs:enumeration value="ItsMyBirthday" />
+      <xs:enumeration value="RentMultiColor" />
+      <xs:enumeration value="RentStandard" />
+      <xs:enumeration value="DoubleTheRent" />
+      <xs:enumeration value="House" />
+      <xs:enumeration value="Hotel" />
+      <xs:enumeration value="PassGo" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ActionCardAction" nillable="true" type="tns:ActionCardAction" />
+  <xs:complexType name="MoneyCard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Card">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
+  <xs:complexType name="PropertyCard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Card">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="currentColorSetCompleteSize" type="xs:int" />
+          <xs:element minOccurs="0" name="currentPropertyColor" type="tns:PropertyColor" />
+          <xs:element minOccurs="0" name="downSetSize" type="xs:int" />
+          <xs:element minOccurs="0" name="fiveCardInSetRentValue" type="xs:int" />
+          <xs:element minOccurs="0" name="fiveCardInSetRentValueDown" type="xs:int" />
+          <xs:element minOccurs="0" name="fiveCardInSetRentValueUp" type="xs:int" />
+          <xs:element minOccurs="0" name="fourCardInSetRentValue" type="xs:int" />
+          <xs:element minOccurs="0" name="fourCardInSetRentValueDown" type="xs:int" />
+          <xs:element minOccurs="0" name="fourCardInSetRentValueUp" type="xs:int" />
+          <xs:element minOccurs="0" name="isCardUp" type="xs:boolean" />
+          <xs:element minOccurs="0" name="isMultiWild" type="xs:boolean" />
+          <xs:element minOccurs="0" name="isWild" type="xs:boolean" />
+          <xs:element minOccurs="0" name="oneCardInSetRentValue" type="xs:int" />
+          <xs:element minOccurs="0" name="oneCardInSetRentValueDown" type="xs:int" />
+          <xs:element minOccurs="0" name="oneCardInSetRentValueUp" type="xs:int" />
+          <xs:element minOccurs="0" name="propertyColors" nillable="true" type="tns:ArrayOfPropertyColor" />
+          <xs:element minOccurs="0" name="threeCardInSetRentValue" type="xs:int" />
+          <xs:element minOccurs="0" name="threeCardInSetRentValueDown" type="xs:int" />
+          <xs:element minOccurs="0" name="threeCardInSetRentValueUp" type="xs:int" />
+          <xs:element minOccurs="0" name="twoCardInSetRentValue" type="xs:int" />
+          <xs:element minOccurs="0" name="twoCardInSetRentValueDown" type="xs:int" />
+          <xs:element minOccurs="0" name="twoCardInSetRentValueUp" type="xs:int" />
+          <xs:element minOccurs="0" name="upSetSize" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PropertyCard" nillable="true" type="tns:PropertyCard" />
+  <xs:simpleType name="PropertyColor">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Brown" />
+      <xs:enumeration value="LightBlue" />
+      <xs:enumeration value="Pink" />
+      <xs:enumeration value="Orange" />
+      <xs:enumeration value="Red" />
+      <xs:enumeration value="Yellow" />
+      <xs:enumeration value="Green" />
+      <xs:enumeration value="Blue" />
+      <xs:enumeration value="Station" />
+      <xs:enumeration value="Utilities" />
+      <xs:enumeration value="Wild_LightBlue_Brown" />
+      <xs:enumeration value="Wild_LightBlue_Station" />
+      <xs:enumeration value="Wild_Pink_Orange" />
+      <xs:enumeration value="Wild_Red_Yellow" />
+      <xs:enumeration value="Wild_Blue_Green" />
+      <xs:enumeration value="Wild_Green_Station" />
+      <xs:enumeration value="Wild_Station_Utility" />
+      <xs:enumeration value="Wild_MultiColored" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PropertyColor" nillable="true" type="tns:PropertyColor" />
+  <xs:complexType name="ArrayOfPropertyColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyColor" type="tns:PropertyColor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPropertyColor" nillable="true" type="tns:ArrayOfPropertyColor" />
+  <xs:complexType name="RentStandard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ActionCard">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
+          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
   <xs:complexType name="PlayerHand">
     <xs:sequence>
       <xs:element minOccurs="0" name="cardsInHand" nillable="true" type="tns:ArrayOfCard" />
@@ -150,99 +262,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPropertyCard" nillable="true" type="tns:ArrayOfPropertyCard" />
-  <xs:complexType name="PropertyCard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="currentColorSetCompleteSize" type="xs:int" />
-          <xs:element minOccurs="0" name="currentPropertyColor" type="tns:PropertyColor" />
-          <xs:element minOccurs="0" name="downSetSize" type="xs:int" />
-          <xs:element minOccurs="0" name="fiveCardInSetRentValue" type="xs:int" />
-          <xs:element minOccurs="0" name="fiveCardInSetRentValueDown" type="xs:int" />
-          <xs:element minOccurs="0" name="fiveCardInSetRentValueUp" type="xs:int" />
-          <xs:element minOccurs="0" name="fourCardInSetRentValue" type="xs:int" />
-          <xs:element minOccurs="0" name="fourCardInSetRentValueDown" type="xs:int" />
-          <xs:element minOccurs="0" name="fourCardInSetRentValueUp" type="xs:int" />
-          <xs:element minOccurs="0" name="isCardUp" type="xs:boolean" />
-          <xs:element minOccurs="0" name="isMultiWild" type="xs:boolean" />
-          <xs:element minOccurs="0" name="isWild" type="xs:boolean" />
-          <xs:element minOccurs="0" name="oneCardInSetRentValue" type="xs:int" />
-          <xs:element minOccurs="0" name="oneCardInSetRentValueDown" type="xs:int" />
-          <xs:element minOccurs="0" name="oneCardInSetRentValueUp" type="xs:int" />
-          <xs:element minOccurs="0" name="propertyColors" nillable="true" type="tns:ArrayOfPropertyColor" />
-          <xs:element minOccurs="0" name="threeCardInSetRentValue" type="xs:int" />
-          <xs:element minOccurs="0" name="threeCardInSetRentValueDown" type="xs:int" />
-          <xs:element minOccurs="0" name="threeCardInSetRentValueUp" type="xs:int" />
-          <xs:element minOccurs="0" name="twoCardInSetRentValue" type="xs:int" />
-          <xs:element minOccurs="0" name="twoCardInSetRentValueDown" type="xs:int" />
-          <xs:element minOccurs="0" name="twoCardInSetRentValueUp" type="xs:int" />
-          <xs:element minOccurs="0" name="upSetSize" type="xs:int" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="PropertyCard" nillable="true" type="tns:PropertyCard" />
-  <xs:simpleType name="PropertyColor">
-    <xs:restriction base="xs:string" />
-  </xs:simpleType>
-  <xs:element name="PropertyColor" nillable="true" type="tns:PropertyColor" />
-  <xs:complexType name="ArrayOfPropertyColor">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyColor" type="tns:PropertyColor" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPropertyColor" nillable="true" type="tns:ArrayOfPropertyColor" />
-  <xs:complexType name="MoneyCard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
-  <xs:complexType name="PlayPile">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="playPile" nillable="true" type="tns:ArrayOfCard" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="PlayPile" nillable="true" type="tns:PlayPile" />
-  <xs:complexType name="PollForFieldUpdateMessage">
+  <xs:complexType name="FieldUpdateMessage">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Message">
         <xs:sequence>
-          <xs:element minOccurs="0" name="actionsToTake" nillable="true" type="tns:TurnActionModel" />
           <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
-          <xs:element minOccurs="0" name="fieldModelGuid" type="ser:guid" />
           <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="PollForFieldUpdateMessage" nillable="true" type="tns:PollForFieldUpdateMessage" />
-  <xs:complexType name="PropertySetInfo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fourPropertyCardRentValue" type="xs:int" />
-      <xs:element minOccurs="0" name="hotelValue" type="xs:int" />
-      <xs:element minOccurs="0" name="houseValue" type="xs:int" />
-      <xs:element minOccurs="0" name="numberOfCardsInFullSet" type="xs:int" />
-      <xs:element minOccurs="0" name="onePropertyCardRentValue" type="xs:int" />
-      <xs:element minOccurs="0" name="propertyColor" type="tns:PropertyColor" />
-      <xs:element minOccurs="0" name="threePropertyCardRentValue" type="xs:int" />
-      <xs:element minOccurs="0" name="twoPropertCardRentValue" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="PropertySetInfo" nillable="true" type="tns:PropertySetInfo" />
-  <xs:complexType name="RentStandard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ActionCard">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
-          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
+  <xs:element name="FieldUpdateMessage" nillable="true" type="tns:FieldUpdateMessage" />
   <xs:complexType name="TakeActionOnTurnMessage">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Message">
@@ -256,6 +286,25 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="TakeActionOnTurnMessage" nillable="true" type="tns:TakeActionOnTurnMessage" />
+  <xs:complexType name="PlayPile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="playPile" nillable="true" type="tns:ArrayOfCard" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayPile" nillable="true" type="tns:PlayPile" />
+  <xs:complexType name="PropertySetInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fourPropertyCardRentValue" type="xs:int" />
+      <xs:element minOccurs="0" name="hotelValue" type="xs:int" />
+      <xs:element minOccurs="0" name="houseValue" type="xs:int" />
+      <xs:element minOccurs="0" name="numberOfCardsInFullSet" type="xs:int" />
+      <xs:element minOccurs="0" name="onePropertyCardRentValue" type="xs:int" />
+      <xs:element minOccurs="0" name="propertyColor" type="tns:PropertyColor" />
+      <xs:element minOccurs="0" name="threePropertyCardRentValue" type="xs:int" />
+      <xs:element minOccurs="0" name="twoPropertCardRentValue" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PropertySetInfo" nillable="true" type="tns:PropertySetInfo" />
   <xs:complexType name="Player">
     <xs:sequence />
   </xs:complexType>

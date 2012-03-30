@@ -8,6 +8,7 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [DataContract]
+    [KnownType(typeof(ActionCard))]
     public class RentStandard : ActionCard
     {
         [DataMember]

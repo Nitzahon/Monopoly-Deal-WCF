@@ -34,8 +34,15 @@ namespace MDWcfServiceLibrary
         private PlayerModel getPlayerModelByGuid(Guid g)
         {
             //WCFMODELSUIT
-            int id = listOfAllClientsInGame.IndexOf(g);
-            return players.ElementAt(id);
+            foreach (PlayerModel pm in gameModel.players)
+            {
+                if (pm.guid.CompareTo(g) == 0)
+                {
+                    return pm;
+                }
+            }
+            //player not found
+            return null;
         }
 
         private bool checkIfAllClientsHaveRespondedToCurrentFieldStateMessage(Guid messageGuid)
@@ -91,28 +98,19 @@ namespace MDWcfServiceLibrary
 
         public Guid generateGuidForMessage()
         {
-            return Guid.NewGuid();
+            return generateMessageGuid();
         }
 
         public void respondToFieldUpdate(PollForFieldUpdateMessage pfm)
         {
             //Get current field and return it to requesting client
-            FieldUpdateMessage fum = new FieldUpdateMessage(pfm.thisMessageGuid, generateGuidForMessage()
-            , gameModel.gameModelGuid, new Guid[] { pfm.playerSendingMessage }, gameModel.currentState);
+            Guid[] ga = { pfm.playerSendingMessage };
+            FieldUpdateMessage fum = new FieldUpdateMessage(pfm.thisMessageGuid, generateGuidForMessage(), gameModel.gameModelGuid, ga, gameModel.currentState);
+            //FieldUpdateMessage fum = new FieldUpdateMessage(pfm.thisMessageGuid, generateGuidForMessage()
+            // , gameModel.gameModelGuid, new Guid[] { pfm.playerSendingMessage }, gameModel.currentState);
             //return via duplex channel
-            getPlayerModelByGuid(fum.playerSendingMessage).ICallBack.recieveMessage(fum);
-        }
-
-        public void sendMessage()
-        {
-        }
-
-        public void sendMessage(List<PlayerModel> players)
-        {
-        }
-
-        private void addMessageToSendQueue(Message message)
-        {
+            PlayerModel playerToRespondTo = getPlayerModelByGuid(fum.playersRecievingMessage[0]);
+            playerToRespondTo.ICallBack.recieveMessage(fum);
         }
     }
 }

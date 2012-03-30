@@ -9,7 +9,7 @@ namespace MDWcfWFClient
     internal class ClientInfo
     {
         public int id = 0;
-        Guid guid;
+        public Guid guid;
 
         public ClientInfo(Guid idP)
         {

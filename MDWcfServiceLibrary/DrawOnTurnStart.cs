@@ -7,15 +7,15 @@ using System.Text;
 
 namespace MDWcfServiceLibrary
 {
-    //Represents Money cards
     [DataContract]
-    [KnownType(typeof(Card))]
-    public class MoneyCard : Card
+    public class DrawOnTurnStart : TurnActionModel
     {
-        public MoneyCard(int value)
-            : base("$" + value + "M", "$" + value + "M", value, CardType.Money)
+        [DataMember]
+        public bool b;
+
+        public DrawOnTurnStart(TurnActionModel ta,PlayFieldModel pfm)
+            : base(pfm.)
         {
-            //Done
         }
     }
 }

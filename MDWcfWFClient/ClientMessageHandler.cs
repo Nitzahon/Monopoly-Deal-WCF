@@ -27,12 +27,21 @@ namespace MDWcfWFClient
             //INCOMPLETE
             if (message is MonopolyDealServiceReference.FieldUpdateMessage)
             {
-                MonopolyDealServiceReference.PollForFieldUpdateMessage messagePFM = (MonopolyDealServiceReference.PollForFieldUpdateMessage)message;
-                displayField(messagePFM.fieldModel);
+                MonopolyDealServiceReference.FieldUpdateMessage messageFM = (MonopolyDealServiceReference.FieldUpdateMessage)message;
+                displayField(messageFM.fieldModel);
             }
         }
 
         public void displayField(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            displayHandsBanksPropertySets(pfm);
+            //Display anyActions taken last turn
+            //Display the whose turn it is
+            //prevent players whose turn is is not from doing anything but watch
+            //Present the player whose turn it is with the actions they can take this turn
+        }
+
+        private void displayHandsBanksPropertySets(MonopolyDealServiceReference.PlayFieldModel pfm)
         {
             // The UI thread won't be handling the callback, but it is the only one allowed to update the controls.
             // So, we will dispatch the UI update back to the UI sync context.

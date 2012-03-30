@@ -18,7 +18,7 @@ namespace MDWcfWFClient
         MonopolyDealServiceReference.MonopolyDealClient monopolyDealService = null;
         //
         RequestHandler requestHandler;
-        int thisPlayerID;
+        Guid thisPlayerGuid;
 
         public Form1()
         {
@@ -70,9 +70,9 @@ namespace MDWcfWFClient
         }
 
         //UI
-        public void recieveID(int id)
+        public void recieveID(Guid id)
         {
-            thisPlayerID = id;
+            thisPlayerGuid = id;
         }
 
         //UI
@@ -166,16 +166,216 @@ namespace MDWcfWFClient
         public void drawField(MonopolyDealServiceReference.PlayFieldModel pfm)
         {
             textBoxHand1.Text = "";
+            //Player0
+            int numPlayers = pfm.playerModels.Count();
+
+            switch (numPlayers)
+            {
+                case 0:
+                    break;
+                case 1:
+                    drawPlayer0(pfm);
+                    break;
+                case 2:
+                    drawPlayer0(pfm);
+                    drawPlayer1(pfm);
+                    break;
+                case 3:
+                    drawPlayer0(pfm);
+                    drawPlayer1(pfm);
+                    drawPlayer2(pfm);
+                    break;
+                case 4:
+
+                    drawPlayer0(pfm);
+                    drawPlayer1(pfm);
+                    drawPlayer2(pfm);
+                    drawPlayer3(pfm);
+                    break;
+                case 5:
+                    drawPlayer0(pfm);
+                    drawPlayer1(pfm);
+                    drawPlayer2(pfm);
+                    drawPlayer3(pfm);
+                    drawPlayer4(pfm);
+                    break;
+            }
+        }
+
+        public MDWcfServiceLibrary.CardType cardTypeConvert(MonopolyDealServiceReference.Card card)
+        {
+            if (card.cardType.ToString() == MDWcfServiceLibrary.CardType.Action.ToString())
+            {
+                return MDWcfServiceLibrary.CardType.Action;
+            }
+            else if (card.cardType.ToString() == MDWcfServiceLibrary.CardType.Money.ToString())
+            {
+                return MDWcfServiceLibrary.CardType.Money;
+            }
+            else if (card.cardType.ToString() == MDWcfServiceLibrary.CardType.Property.ToString())
+            {
+                return MDWcfServiceLibrary.CardType.Property;
+            }
+            return MDWcfServiceLibrary.CardType.WildProperty;
+        }
+
+        public void popluateHandListBox(MonopolyDealServiceReference.Card card)
+        {
+            MDWcfServiceLibrary.Card c = new MDWcfServiceLibrary.Card(card.cardName, card.cardText, card.cardValue, cardTypeConvert(card));
+            listBox1.Items.Add(card.description);
+        }
+
+        public void drawPlayer0(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            textBoxHand1.Text = "";
+            textBoxBank1.Text = "";
+            textBoxProp1.Text = "";
+
             foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[0].hand.cardsInHand)
             {
                 textBoxHand1.Text = textBoxHand1.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[0].guid) == 0)
+                {
+                    updateTextBoxLog(card.ToString());
+                    popluateHandListBox(card);
+                }
             }
-            throw new NotImplementedException();
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[0].bank.cardsInBank)
+            {
+                textBoxBank1.Text = textBoxBank1.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+            }
+            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[0].propertySets.playersPropertySets)
+            {
+                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
+                {
+                    textBoxProp1.Text = textBoxProp1.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                }
+            }
+        }
+
+        public void setGuid(Guid id)
+        {
+            thisPlayerGuid = id;
+        }
+
+        public void drawPlayer1(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            textBoxHand2.Text = "";
+            textBoxBank2.Text = "";
+            textBoxProp2.Text = "";
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[1].hand.cardsInHand)
+            {
+                textBoxHand2.Text = textBoxHand2.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[1].guid) == 0)
+                {
+                    updateTextBoxLog(card.ToString());
+                    popluateHandListBox(card);
+                }
+            }
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[1].bank.cardsInBank)
+            {
+                textBoxBank2.Text = textBoxBank2.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+            }
+            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[1].propertySets.playersPropertySets)
+            {
+                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
+                {
+                    textBoxProp2.Text = textBoxProp2.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                }
+            }
+        }
+
+        public void drawPlayer2(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            textBoxHand3.Text = "";
+            textBoxBank3.Text = "";
+            textBoxProp3.Text = "";
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[2].hand.cardsInHand)
+            {
+                textBoxHand3.Text = textBoxHand3.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[2].guid) == 0)
+                {
+                    updateTextBoxLog(card.ToString());
+                    popluateHandListBox(card);
+                }
+            }
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[2].bank.cardsInBank)
+            {
+                textBoxBank3.Text = textBoxBank3.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+            }
+            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[2].propertySets.playersPropertySets)
+            {
+                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
+                {
+                    textBoxProp3.Text = textBoxProp3.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                }
+            }
+        }
+
+        public void drawPlayer3(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            textBoxHand4.Text = "";
+            textBoxBank4.Text = "";
+            textBoxProp4.Text = "";
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[3].hand.cardsInHand)
+            {
+                textBoxHand4.Text = textBoxHand4.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[3].guid) == 0)
+                {
+                    updateTextBoxLog(card.ToString());
+                    popluateHandListBox(card);
+                }
+            }
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[3].bank.cardsInBank)
+            {
+                textBoxBank4.Text = textBoxBank4.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+            }
+            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[3].propertySets.playersPropertySets)
+            {
+                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
+                {
+                    textBoxProp4.Text = textBoxProp4.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                }
+            }
+        }
+
+        public void drawPlayer4(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            textBoxHand5.Text = "";
+            textBoxBank5.Text = "";
+            textBoxProp5.Text = "";
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[4].hand.cardsInHand)
+            {
+                textBoxHand5.Text = textBoxHand5.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[4].guid) == 0)
+                {
+                    updateTextBoxLog(card.ToString());
+                    popluateHandListBox(card);
+                }
+            }
+            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[4].bank.cardsInBank)
+            {
+                textBoxBank5.Text = textBoxBank5.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+            }
+            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[4].propertySets.playersPropertySets)
+            {
+                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
+                {
+                    textBoxProp5.Text = textBoxProp5.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
+                }
+            }
         }
 
         private void buttonPoll_Click(object sender, EventArgs e)
         {
             requestHandler.pollState();
+            //Clears hand
+            listBox1.Items.Clear();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }

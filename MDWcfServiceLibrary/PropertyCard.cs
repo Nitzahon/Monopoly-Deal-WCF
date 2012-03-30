@@ -10,23 +10,41 @@ namespace MDWcfServiceLibrary
     [DataContract]
     public enum PropertyColor
     {
+        [EnumMember]
         Brown,
+        [EnumMember]
         LightBlue,
+        [EnumMember]
         Pink,
+        [EnumMember]
         Orange,
+        [EnumMember]
         Red,
+        [EnumMember]
         Yellow,
+        [EnumMember]
         Green,
+        [EnumMember]
         Blue,
+        [EnumMember]
         Station,
+        [EnumMember]
         Utilities,
+        [EnumMember]
         Wild_LightBlue_Brown,
+        [EnumMember]
         Wild_LightBlue_Station,
+        [EnumMember]
         Wild_Pink_Orange,
+        [EnumMember]
         Wild_Red_Yellow,
+        [EnumMember]
         Wild_Blue_Green,
+        [EnumMember]
         Wild_Green_Station,
+        [EnumMember]
         Wild_Station_Utility,
+        [EnumMember]
         Wild_MultiColored,
     }
 

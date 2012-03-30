@@ -152,6 +152,12 @@ namespace MDWcfServiceLibrary
                 createGame();
                 isStarted = true;
                 addToClientsLogs("Game Started");
+                /*
+                foreach (PlayerModel pm in playerModels)
+                {
+                    messageManager.respondToFieldUpdate(new PollForFieldUpdateMessage(pm.guid, Guid.NewGuid(), Guid.NewGuid(), gameModel.gameModelGuid, gameModel.gameStates.ElementAt(0), Guid.NewGuid(), new TurnActionModel()));
+                }
+                 * */
             }
         }
 
@@ -170,7 +176,7 @@ namespace MDWcfServiceLibrary
 
         public void pollState(Message message)
         {
-            Console.WriteLine("polled");
+            addToClientsLogs("Polled");
             getPlayerModelByGuid(message.playerSendingMessage).ICallBack.addToLog("recieved poll");
             messageManager.recieveNewMessage(message);
         }

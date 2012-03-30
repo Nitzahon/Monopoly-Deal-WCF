@@ -84,13 +84,17 @@ namespace MDWcfServiceLibrary
         {
             //PreCondition drawPile is Full and each player.hand contains no Cards
             //PostCondition each player.hand contains 5 Cards
+            int numberOfCardsDrawn = 0;
+            int forloop = 0;
             for (int i = 0; i < 5; i++)
             {
                 foreach (PlayerModel player in players)
                 {
                     Card drawnCard = drawPile.drawcard();
                     player.hand.addCardToHand(drawnCard);
+                    numberOfCardsDrawn++;
                 }
+                forloop++;
             }
         }
     }

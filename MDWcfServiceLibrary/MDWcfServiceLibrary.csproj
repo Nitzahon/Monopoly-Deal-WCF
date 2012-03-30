@@ -47,10 +47,12 @@
     <Compile Include="Card.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="DrawOnTurnStart.cs" />
     <Compile Include="DrawPile.cs" />
     <Compile Include="FieldUpdateMessage.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameModel.cs" />
+    <Compile Include="GameStateManager.cs" />
     <Compile Include="IMonopolyDeal.cs" />
     <Compile Include="IMonopolyDealCallback.cs" />
     <Compile Include="Message.cs" />

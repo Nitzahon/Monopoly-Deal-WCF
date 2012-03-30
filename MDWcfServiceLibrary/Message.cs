@@ -10,83 +10,60 @@ namespace MDWcfServiceLibrary
     [DataContract]
     public enum MessageType
     {
+        [EnumMember]
         notify,//Notify clients of event
+        [EnumMember]
         sendChat,//send chat
+        [EnumMember]
         recieveChat,
+        [EnumMember]
         connect,//Connect to service
+        [EnumMember]
         ready,//client is ready to start game
+        [EnumMember]
         gameStarted,//notify clients that game has started
+        [EnumMember]
         playcard,
+        [EnumMember]
         fieldupdate,//Server notifying of field updated
+        [EnumMember]
         actionTaken,//player notifing they took action on their turn
+        [EnumMember]
         pollForFieldUpdate
     }
 
     [DataContract]
+    [KnownType(typeof(PollForFieldUpdateMessage))]
+    [KnownType(typeof(TakeActionOnTurnMessage))]
+    [KnownType(typeof(FieldUpdateMessage))]
     public class Message
     {
         [DataMember]
-        public Guid playerSendingMessage
-        {
-            get { return playerSendingMessage; }
-            set { playerSendingMessage = value; }
-        }
+        public Guid playerSendingMessage;
 
         [DataMember]
-        public bool serviceSendingMessage
-        {
-            get { return serviceSendingMessage; }
-            set { serviceSendingMessage = value; }
-        }
+        public bool serviceSendingMessage;
 
         [DataMember]
-        public Object[] objectsInMessage
-        {
-            get { return objectsInMessage; }
-            set { objectsInMessage = value; }
-        }
+        public Object[] objectsInMessage;
 
         [DataMember]
-        public MessageType messageType
-        {
-            get { return messageType; }
-            set { messageType = value; }
-        }
+        public MessageType messageType;
 
         [DataMember]
-        public Guid[] playersRecievingMessage
-        {
-            get { return playersRecievingMessage; }
-            set { playersRecievingMessage = value; }
-        }
+        public Guid[] playersRecievingMessage;
 
         [DataMember]
-        public System.Type type
-        {
-            get { return type; }
-            set { type = value; }
-        }
+        public System.Type type;
 
         [DataMember]
-        public Guid thisMessageGuid
-        {
-            get { return thisMessageGuid; }
-            set { thisMessageGuid = value; }
-        }
+        public Guid thisMessageGuid;
 
         [DataMember]
-        public Guid serverGuid
-        {
-            get { return serverGuid; }
-            set { thisMessageGuid = value; }
-        }
+        public Guid serverGuid;
 
         [DataMember]
-        public Guid messageRespondingToGuid
-        {
-            get { return messageRespondingToGuid; }
-            set { messageRespondingToGuid = value; }
-        }
+        public Guid messageRespondingToGuid;
 
         public Message(Guid thisMessageGuidP, Guid messageRespondingToP, MessageType messageTypeP, Object[] messageObjectsP, bool serviceIsSenderP, Guid playerSendingP, Guid serverGameGuidP, Guid[] playersRecievingP)
         {

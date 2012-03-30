@@ -14,22 +14,23 @@ namespace MDWcfServiceLibrary
         /// Models the playField at any given instance of the game
         /// </summary>
         [DataMember]
-        List<PlayerModel> playerModels;
+        public List<PlayerModel> playerModels;
         [DataMember]
-        List<Card> topCardsOnPlaypile;
+        public List<Card> topCardsOnPlaypile;
         [DataMember]
-        Guid guidOfPlayerWhosTurnItIs;
+        public Guid guidOfPlayerWhosTurnItIs;
         [DataMember]
-        int numberOfTurnsRemainingForPlayerWhosTurnItIs;
+        public int numberOfTurnsRemainingForPlayerWhosTurnItIs;
         [DataMember]
-        List<Guid> playersAffectedByActionCardGuids;
+        public List<Guid> playersAffectedByActionCardGuids;
         [DataMember]
-        Guid thisPlayFieldModelInstanceGuid;
+        public Guid thisPlayFieldModelInstanceGuid;
         [DataMember]
-        TurnActionModel lastActionPlayed;
+        public TurnActionModel lastActionPlayed;
         [DataMember]
-        bool startOfATurn;
-
+        public bool startOfATurn;
+        [DataMember]
+        public TurnActionModel currentTurnActionModel;
         //Service side only fields
         DrawPile drawPile;
         PlayPile playpile;

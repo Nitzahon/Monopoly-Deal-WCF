@@ -10,13 +10,21 @@ namespace MDWcfServiceLibrary
     [DataContract]
     public enum CardType
     {
+        [EnumMember]
         Action,
+        [EnumMember]
         Property,
+        [EnumMember]
         WildProperty,
+        [EnumMember]
         Money
     }
 
     [DataContract]
+    [KnownType(typeof(PropertyCard))]
+    [KnownType(typeof(MoneyCard))]
+    [KnownType(typeof(ActionCard))]
+    [KnownType(typeof(RentStandard))]
     public class Card
     {
         public static int nextCardId = 0;
@@ -67,6 +75,13 @@ namespace MDWcfServiceLibrary
         public int cardValue;
         [DataMember]
         public CardType cardType;
+        [DataMember]
+        public String description;
+
+        public string toString()
+        {
+            return description;
+        }
 
         public Card(String cardName, String cardText, int cardValue, CardType cardType)
         {
@@ -75,6 +90,7 @@ namespace MDWcfServiceLibrary
             this.cardText = cardText;
             this.cardType = cardType;
             this.cardValue = cardValue;
+            description = cardID + " " + cardName + " $" + cardValue;
         }
 
         public bool equals(Card checkAgainst)
