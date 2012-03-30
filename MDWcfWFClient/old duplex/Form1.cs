@@ -18,6 +18,7 @@ namespace MDWcfWFClient
         MonopolyDealServiceReference.MonopolyDealClient monopolyDealService = null;
         //
         RequestHandler requestHandler;
+        Guid thisPlayerGuid;
 
         public Form1()
         {
@@ -69,6 +70,10 @@ namespace MDWcfWFClient
         }
 
         //UI
+        public void recieveID(Guid id)
+        {
+            thisPlayerGuid = id;
+        }
 
         //UI
         public void showMessage(string msg)
@@ -80,7 +85,36 @@ namespace MDWcfWFClient
         private void button1_Click(object sender, EventArgs e)
         {
             requestHandler.connect();
+            /*
+            //Opens Connection to service
+            try
+            {
+                // The client callback interface must be hosted for the server to invoke the callback
+                // Open a connection to the Monopoly Deal service via the proxy
+                monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient(new InstanceContext(this), "TcpBinding");
+                monopolyDealService.Open();
+                //End
+
+                //Connect to service with player name
+                monopolyDealService.connect(textBoxPlayerName.Text);
+
+                //Disable Connect button
+                buttonConnect.Enabled = false;
+            }
+            catch (Exception r)
+            {
+                MessageBox.Show(r.ToString());
+                buttonConnect.Enabled = true;
+            }
+             * */
         }
+
+        /*
+        public void testOperationReturn()
+        {
+            MessageBox.Show("Connected");
+        }
+        */
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -95,6 +129,20 @@ namespace MDWcfWFClient
         {
         }
 
+        /*
+        public void recieveChat(string description)
+        {
+            // The UI thread won't be handling the callback, but it is the only one allowed to update the controls.
+            // So, we will dispatch the UI update back to the UI sync context.
+            SendOrPostCallback callback =
+                delegate(object state)
+                { this.updateChatTextBox(state.ToString()); };
+
+            _uiSyncContext.Post(callback, description);
+        }
+        */
+
+        //UI Thread
         internal void updateChatTextBox(String description)
         {
             textBoxLog.Text = textBoxLog.Text + Environment.NewLine + description;
@@ -107,6 +155,13 @@ namespace MDWcfWFClient
         private void buttonChat_Click(object sender, EventArgs e)
         {
         }
+
+        //public void displayThisClientHand(MonopolyDealServiceReference. player)
+        // {
+        //player
+        //throw private new NotImplementedException();
+
+        // }
 
         public void drawField(MonopolyDealServiceReference.PlayFieldModel pfm)
         {
@@ -182,7 +237,7 @@ namespace MDWcfWFClient
             {
                 textBoxHand1.Text = textBoxHand1.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
 
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[0].guid) == 0)
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[0].guid) == 0)
                 {
                     updateTextBoxLog(card.ToString());
                     popluateHandListBox(card);
@@ -203,7 +258,7 @@ namespace MDWcfWFClient
 
         public void setGuid(Guid id)
         {
-            requestHandler.thisClientGuid = id;
+            thisPlayerGuid = id;
         }
 
         public void drawPlayer1(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -214,7 +269,7 @@ namespace MDWcfWFClient
             foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[1].hand.cardsInHand)
             {
                 textBoxHand2.Text = textBoxHand2.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[1].guid) == 0)
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[1].guid) == 0)
                 {
                     updateTextBoxLog(card.ToString());
                     popluateHandListBox(card);
@@ -241,7 +296,7 @@ namespace MDWcfWFClient
             foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[2].hand.cardsInHand)
             {
                 textBoxHand3.Text = textBoxHand3.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[2].guid) == 0)
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[2].guid) == 0)
                 {
                     updateTextBoxLog(card.ToString());
                     popluateHandListBox(card);
@@ -268,7 +323,7 @@ namespace MDWcfWFClient
             foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[3].hand.cardsInHand)
             {
                 textBoxHand4.Text = textBoxHand4.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[3].guid) == 0)
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[3].guid) == 0)
                 {
                     updateTextBoxLog(card.ToString());
                     popluateHandListBox(card);
@@ -295,7 +350,7 @@ namespace MDWcfWFClient
             foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[4].hand.cardsInHand)
             {
                 textBoxHand5.Text = textBoxHand5.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[4].guid) == 0)
+                if (thisPlayerGuid.CompareTo(pfm.playerModels[4].guid) == 0)
                 {
                     updateTextBoxLog(card.ToString());
                     popluateHandListBox(card);

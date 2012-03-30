@@ -7,7 +7,7 @@ namespace MDWcfServiceLibrary
 {
     internal class Client
     {
-        public static IMonopolyDealCallback clientCallback;
-        public static Player player;
+        //public static IMonopolyDealCallback clientCallback;
+        //public static Player player;
     }
 }

@@ -40,8 +40,8 @@ namespace MDWcfServiceLibrary
         [DataMember]
         public String name;
 
-        [DataMember]
-        public IMonopolyDealCallback ICallBack;
+        //[DataMember]
+        //public IMonopolyDealCallback ICallBack;
 
         [DataMember]
         public bool isReadyToStartGame;
@@ -84,12 +84,12 @@ namespace MDWcfServiceLibrary
 
         #region Constructors
 
-        public PlayerModel(IMonopolyDealCallback ICallBackP, String nameP)
+        public PlayerModel(/*IMonopolyDealCallback ICallBackP,*/ String nameP)
         {
             //Set ID
             guid = generatePlayerGuid();
             //Set Callback interface
-            ICallBack = ICallBackP;
+            // ICallBack = ICallBackP;
             //Set name
             name = nameP;
             //Give emptyhand

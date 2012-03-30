@@ -13,23 +13,19 @@ namespace MDWcfWFClient
 {
     // Specify for the callback to NOT use the current synchronization context
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Single, UseSynchronizationContext = false)]
-    public class RequestHandler //: MonopolyDealServiceReference.IMonopolyDealCallback
+    internal class RequestHandler : MonopolyDealServiceReference.IMonopolyDealCallback
     {
         SynchronizationContext uiSync;
         MonopolyDealServiceReference.MonopolyDealClient monopolyDealService;
         Form1 mainForm;
-        ClientInfo clientInfo;
-        ClientMessageHandler clientMessageHandler;
+        public ClientInfo clientInfo;
+        public ClientMessageHandler clientMessageHandler;
 
         public RequestHandler(SynchronizationContext uiSyncP, Form1 form1P)
         {
             uiSync = uiSyncP;
             mainForm = form1P;
         }
-
-        public Guid thisClientGuid;
-        public Guid gameOnServiceGuid;
-        public MonopolyDealServiceReference.PlayFieldModel CurrentPlayFieldModel;
 
         //Service calling methods
         public void connect()
@@ -39,17 +35,15 @@ namespace MDWcfWFClient
             {
                 // The client callback interface must be hosted for the server to invoke the callback
                 // Open a connection to the Monopoly Deal service via the proxy
-                monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient("HttpBinding");
-                //monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient(new InstanceContext(this), "TcpBinding");
+                monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient(new InstanceContext(this), "TcpBinding");
                 monopolyDealService.Open();
                 //End
 
                 //Connect to service with player name
-                //monopolyDealService.connect(mainForm.textBoxPlayerName.Text);
-                thisClientGuid = monopolyDealService.connectToService(mainForm.textBoxPlayerName.Text);
+                monopolyDealService.connect(mainForm.textBoxPlayerName.Text);
+
                 //Disable Connect button
                 mainForm.buttonConnect.Enabled = false;
-                MessageBox.Show("connected .guid" + thisClientGuid);
             }
             catch (Exception r)
             {
@@ -61,24 +55,20 @@ namespace MDWcfWFClient
         public void startGame()
         {
             //Tell the service this player is ready and to start game if all players are ready
-            if (thisClientGuid.CompareTo(new Guid()) != 0)
+            if (clientInfo != null)
             {
-                MonopolyDealServiceReference.GuidBox gb = new MonopolyDealServiceReference.GuidBox();
-                gb.guid = thisClientGuid;
-                gameOnServiceGuid = monopolyDealService.startGame(gb).guid;
-                MessageBox.Show("Connected to " + gameOnServiceGuid);
+                monopolyDealService.startGame(clientInfo.getGuidID());
             }
             else
             {
-                MessageBox.Show("Have not recieved guid, not connected");
+                MessageBox.Show("Have not recieved guid");
             }
         }
 
         public void drawTwoAtTurnStart()
         {
-            MonopolyDealServiceReference.TurnActionModel ta = CurrentPlayFieldModel.currentTurnActionModel;
-
-            monopolyDealService.draw2AtStartOfTurn(thisClientGuid.boxGuid(), ta.serverGuid.boxGuid(), ta.currentPlayFieldModelGuid.boxGuid(), ta.thisTurnactionGuid.boxGuid());
+            MonopolyDealServiceReference.TurnActionModel ta = clientMessageHandler.playFieldModel.currentTurnActionModel;
+            monopolyDealService.draw2AtStartOfTurn(clientInfo.getGuidID(), ta.serverGuid, ta.currentPlayFieldModelGuid, ta.thisTurnactionGuid);
         }
 
         public void pollState()
@@ -91,15 +81,10 @@ namespace MDWcfWFClient
             MonopolyDealServiceReference.PollForFieldUpdateMessage message = new MonopolyDealServiceReference.PollForFieldUpdateMessage();
             message.messageType = MonopolyDealServiceReference.MessageType.pollForFieldUpdate;
             message.thisMessageGuid = Guid.NewGuid();
-            message.playerSendingMessage = thisClientGuid;
-            //monopolyDealService.pollState(message);
-            MonopolyDealServiceReference.GuidBox thisClientGuidB = new MonopolyDealServiceReference.GuidBox();
-            thisClientGuidB.guid = thisClientGuid;
-            MonopolyDealServiceReference.GuidBox gameOnServiceGuidB = new MonopolyDealServiceReference.GuidBox();
-            gameOnServiceGuidB.guid = gameOnServiceGuid;
-            MonopolyDealServiceReference.PlayFieldModel pfm = monopolyDealService.pollState(thisClientGuidB, gameOnServiceGuidB);
-            CurrentPlayFieldModel = pfm;
-            mainForm.drawField(CurrentPlayFieldModel);
+            message.playerSendingMessage = clientInfo.guid;
+            monopolyDealService.pollState(message);
+
+            //monopolyDealService.pollState(null);
         }
 
         //UI Calling
@@ -110,6 +95,17 @@ namespace MDWcfWFClient
                 { mainForm.updateChatTextBox(state.ToString()); };
 
             uiSync.Post(callback, description);
+        }
+
+        //Callback methods
+        public void testOperationReturn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void testOperationReturn2(string text)
+        {
+            MessageBox.Show(text);
         }
 
         public void recieveGuid(Guid id)
@@ -151,6 +147,106 @@ namespace MDWcfWFClient
                 };
             //Post takes a delagate and a State object and runs the delegate(State object) in the context Post is called on.
             uiSync.Post(callback, description);
+        }
+
+        public void recieveChat(string description)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void getName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayLookAtPlayedCardsOptions(MonopolyDealServiceReference.Player currentPlayer, MonopolyDealServiceReference.Player[] players)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayBankedCards(MonopolyDealServiceReference.Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayPlayedProperties(MonopolyDealServiceReference.Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayLast3PlayedActionCards()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayCardsPlayedThisTurn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayNumberOfCardsInPlayersHand()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayPlayerHand(MonopolyDealServiceReference.Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayCard(MonopolyDealServiceReference.Card[] cards)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void askIfUsingJustSayNo(string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void displayListOfPlayersWithId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void askWhoToDebtCollect()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void askWhoToRent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void askWhichSetToDealBreak()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void notifyTurnStarted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void notifyOtherPlayerTurnStarted(MonopolyDealServiceReference.Player p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void playTurnAction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void askWhatSetToAddHouseTo(MonopolyDealServiceReference.Player p, MonopolyDealServiceReference.Card c)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void askWhatSetToAddHotelTo(MonopolyDealServiceReference.Player p, MonopolyDealServiceReference.Card c)
+        {
+            throw new NotImplementedException();
         }
 
         public void recieveMessage(MonopolyDealServiceReference.Message message)

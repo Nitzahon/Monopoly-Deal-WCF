@@ -151,24 +151,24 @@ namespace MDWcfServiceLibrary
             return id;
         }
 
-        IMonopolyDealCallback callbackInterface;
+        //IMonopolyDealCallback callbackInterface;
 
         bool ready = false;
 
         Guid playerGuid;
 
-        public Player(String playerName, IMonopolyDealCallback cbi)
+        public Player(String playerName/*, IMonopolyDealCallback cbi*/)
         {
             playerGuid = Guid.NewGuid();
 
-            callbackInterface = cbi;
+            //callbackInterface = cbi;
             constructPlayer(playerName);
         }
 
-        public IMonopolyDealCallback getCallback()
-        {
-            return callbackInterface;
-        }
+        //public IMonopolyDealCallback getCallback()
+        // {
+        // return callbackInterface;
+        // }
 
         public bool getIfReady()
         {

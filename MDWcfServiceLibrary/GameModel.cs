@@ -43,6 +43,23 @@ namespace MDWcfServiceLibrary
             //State added to gameStates list, notify all players, wait for responses
         }
 
+        public GameModel(List<PlayerModel> playersP, MessageManager messageManagerP, Guid guidS)
+        {
+            //give this a guid
+            gameModelGuid = guidS;
+            //Assign Players to the game
+            players = playersP;
+            //Create idLookup
+            foreach (PlayerModel pm in players)
+            {
+                playerIdLookup.Add(pm.guid);
+            }
+            initialState = createInitialState(players);
+            gameStates.Add(initialState);
+            messageManager = messageManagerP;
+            //State added to gameStates list, notify all players, wait for responses
+        }
+
         private Guid setFirstPlayerToHaveTurn(List<PlayerModel> players)
         {
             //set player 0 to be first to play

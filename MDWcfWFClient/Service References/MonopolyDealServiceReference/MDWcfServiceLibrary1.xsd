@@ -3,46 +3,14 @@
   <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
-  <xs:complexType name="Message">
+  <xs:complexType name="GuidBox">
     <xs:sequence>
-      <xs:element minOccurs="0" name="messageRespondingToGuid" type="ser:guid" />
-      <xs:element minOccurs="0" name="messageType" type="tns:MessageType" />
-      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="objectsInMessage" nillable="true" type="q1:ArrayOfanyType" />
-      <xs:element minOccurs="0" name="playerSendingMessage" type="ser:guid" />
-      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playersRecievingMessage" nillable="true" type="q2:ArrayOfguid" />
-      <xs:element minOccurs="0" name="serverGuid" type="ser:guid" />
-      <xs:element minOccurs="0" name="serviceSendingMessage" type="xs:boolean" />
-      <xs:element minOccurs="0" name="thisMessageGuid" type="ser:guid" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="type" nillable="true" type="q3:Type" />
+      <xs:element minOccurs="0" name="bool1" type="xs:boolean" />
+      <xs:element minOccurs="0" name="guid" type="ser:guid" />
+      <xs:element minOccurs="0" name="guid2" type="ser:guid" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="Message" nillable="true" type="tns:Message" />
-  <xs:simpleType name="MessageType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="notify" />
-      <xs:enumeration value="sendChat" />
-      <xs:enumeration value="recieveChat" />
-      <xs:enumeration value="connect" />
-      <xs:enumeration value="ready" />
-      <xs:enumeration value="gameStarted" />
-      <xs:enumeration value="playcard" />
-      <xs:enumeration value="fieldupdate" />
-      <xs:enumeration value="actionTaken" />
-      <xs:enumeration value="pollForFieldUpdate" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="MessageType" nillable="true" type="tns:MessageType" />
-  <xs:complexType name="FieldUpdateMessage">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Message">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
-          <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="FieldUpdateMessage" nillable="true" type="tns:FieldUpdateMessage" />
+  <xs:element name="GuidBox" nillable="true" type="tns:GuidBox" />
   <xs:complexType name="PlayFieldModel">
     <xs:sequence>
       <xs:element minOccurs="0" name="currentTurnActionModel" nillable="true" type="tns:TurnActionModel" />
@@ -50,7 +18,7 @@
       <xs:element minOccurs="0" name="lastActionPlayed" nillable="true" type="tns:TurnActionModel" />
       <xs:element minOccurs="0" name="numberOfTurnsRemainingForPlayerWhosTurnItIs" type="xs:int" />
       <xs:element minOccurs="0" name="playerModels" nillable="true" type="tns:ArrayOfPlayerModel" />
-      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playersAffectedByActionCardGuids" nillable="true" type="q4:ArrayOfguid" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playersAffectedByActionCardGuids" nillable="true" type="q1:ArrayOfguid" />
       <xs:element minOccurs="0" name="startOfATurn" type="xs:boolean" />
       <xs:element minOccurs="0" name="thisPlayFieldModelInstanceGuid" type="ser:guid" />
       <xs:element minOccurs="0" name="topCardsOnPlaypile" nillable="true" type="tns:ArrayOfCard" />
@@ -62,7 +30,7 @@
       <xs:element minOccurs="0" name="actionTaken" type="xs:boolean" />
       <xs:element minOccurs="0" name="currentPlayFieldModelGuid" type="ser:guid" />
       <xs:element minOccurs="0" name="numberOfCardPlaysRemaining" type="xs:int" />
-      <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playerGuids" nillable="true" type="q5:ArrayOfguid" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playerGuids" nillable="true" type="q2:ArrayOfguid" />
       <xs:element minOccurs="0" name="serverGuid" type="ser:guid" />
       <xs:element minOccurs="0" name="thisTurnactionGuid" type="ser:guid" />
       <xs:element minOccurs="0" name="turnActionType" type="tns:TurnActionModel.TurnActionTypes" />
@@ -112,7 +80,6 @@
   <xs:element name="ArrayOfPlayerModel" nillable="true" type="tns:ArrayOfPlayerModel" />
   <xs:complexType name="PlayerModel">
     <xs:sequence>
-      <xs:element minOccurs="0" name="ICallBack" nillable="true" type="xs:anyType" />
       <xs:element minOccurs="0" name="bank" nillable="true" type="tns:PlayerBank" />
       <xs:element minOccurs="0" name="guid" type="ser:guid" />
       <xs:element minOccurs="0" name="hand" nillable="true" type="tns:PlayerHand" />
@@ -158,17 +125,14 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="CardType" nillable="true" type="tns:CardType" />
-  <xs:complexType name="RentStandard">
+  <xs:complexType name="MoneyCard">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:ActionCard">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
-          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
-        </xs:sequence>
+      <xs:extension base="tns:Card">
+        <xs:sequence />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
+  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
   <xs:complexType name="ActionCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">
@@ -197,14 +161,40 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="ActionCardAction" nillable="true" type="tns:ActionCardAction" />
-  <xs:complexType name="MoneyCard">
+  <xs:complexType name="RentStandard">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence />
+      <xs:extension base="tns:ActionCard">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
+          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
+  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
+  <xs:simpleType name="PropertyColor">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Brown" />
+      <xs:enumeration value="LightBlue" />
+      <xs:enumeration value="Pink" />
+      <xs:enumeration value="Orange" />
+      <xs:enumeration value="Red" />
+      <xs:enumeration value="Yellow" />
+      <xs:enumeration value="Green" />
+      <xs:enumeration value="Blue" />
+      <xs:enumeration value="Station" />
+      <xs:enumeration value="Utilities" />
+      <xs:enumeration value="Wild_LightBlue_Brown" />
+      <xs:enumeration value="Wild_LightBlue_Station" />
+      <xs:enumeration value="Wild_Pink_Orange" />
+      <xs:enumeration value="Wild_Red_Yellow" />
+      <xs:enumeration value="Wild_Blue_Green" />
+      <xs:enumeration value="Wild_Green_Station" />
+      <xs:enumeration value="Wild_Station_Utility" />
+      <xs:enumeration value="Wild_MultiColored" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PropertyColor" nillable="true" type="tns:PropertyColor" />
   <xs:complexType name="PropertyCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">
@@ -237,29 +227,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="PropertyCard" nillable="true" type="tns:PropertyCard" />
-  <xs:simpleType name="PropertyColor">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Brown" />
-      <xs:enumeration value="LightBlue" />
-      <xs:enumeration value="Pink" />
-      <xs:enumeration value="Orange" />
-      <xs:enumeration value="Red" />
-      <xs:enumeration value="Yellow" />
-      <xs:enumeration value="Green" />
-      <xs:enumeration value="Blue" />
-      <xs:enumeration value="Station" />
-      <xs:enumeration value="Utilities" />
-      <xs:enumeration value="Wild_LightBlue_Brown" />
-      <xs:enumeration value="Wild_LightBlue_Station" />
-      <xs:enumeration value="Wild_Pink_Orange" />
-      <xs:enumeration value="Wild_Red_Yellow" />
-      <xs:enumeration value="Wild_Blue_Green" />
-      <xs:enumeration value="Wild_Green_Station" />
-      <xs:enumeration value="Wild_Station_Utility" />
-      <xs:enumeration value="Wild_MultiColored" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="PropertyColor" nillable="true" type="tns:PropertyColor" />
   <xs:complexType name="ArrayOfPropertyColor">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyColor" type="tns:PropertyColor" />
@@ -304,19 +271,46 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPropertyCard" nillable="true" type="tns:ArrayOfPropertyCard" />
-  <xs:complexType name="TakeActionOnTurnMessage">
+  <xs:complexType name="FieldUpdateMessage">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Message">
         <xs:sequence>
-          <xs:element minOccurs="0" name="actionsToTake" nillable="true" type="tns:TurnActionModel" />
           <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
-          <xs:element minOccurs="0" name="fieldModelGuid" type="ser:guid" />
           <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="TakeActionOnTurnMessage" nillable="true" type="tns:TakeActionOnTurnMessage" />
+  <xs:element name="FieldUpdateMessage" nillable="true" type="tns:FieldUpdateMessage" />
+  <xs:complexType name="Message">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="messageRespondingToGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="messageType" type="tns:MessageType" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="objectsInMessage" nillable="true" type="q3:ArrayOfanyType" />
+      <xs:element minOccurs="0" name="playerSendingMessage" type="ser:guid" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playersRecievingMessage" nillable="true" type="q4:ArrayOfguid" />
+      <xs:element minOccurs="0" name="serverGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="serviceSendingMessage" type="xs:boolean" />
+      <xs:element minOccurs="0" name="thisMessageGuid" type="ser:guid" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="type" nillable="true" type="q5:Type" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Message" nillable="true" type="tns:Message" />
+  <xs:simpleType name="MessageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="notify" />
+      <xs:enumeration value="sendChat" />
+      <xs:enumeration value="recieveChat" />
+      <xs:enumeration value="connect" />
+      <xs:enumeration value="ready" />
+      <xs:enumeration value="gameStarted" />
+      <xs:enumeration value="playcard" />
+      <xs:enumeration value="fieldupdate" />
+      <xs:enumeration value="actionTaken" />
+      <xs:enumeration value="pollForFieldUpdate" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MessageType" nillable="true" type="tns:MessageType" />
   <xs:complexType name="PollForFieldUpdateMessage">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Message">
@@ -330,6 +324,19 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="PollForFieldUpdateMessage" nillable="true" type="tns:PollForFieldUpdateMessage" />
+  <xs:complexType name="TakeActionOnTurnMessage">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Message">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="actionsToTake" nillable="true" type="tns:TurnActionModel" />
+          <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
+          <xs:element minOccurs="0" name="fieldModelGuid" type="ser:guid" />
+          <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TakeActionOnTurnMessage" nillable="true" type="tns:TakeActionOnTurnMessage" />
   <xs:complexType name="PlayPile">
     <xs:sequence>
       <xs:element minOccurs="0" name="playPile" nillable="true" type="tns:ArrayOfCard" />
@@ -349,14 +356,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PropertySetInfo" nillable="true" type="tns:PropertySetInfo" />
-  <xs:complexType name="Player">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:element name="Player" nillable="true" type="tns:Player" />
-  <xs:complexType name="ArrayOfPlayer">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Player" nillable="true" type="tns:Player" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPlayer" nillable="true" type="tns:ArrayOfPlayer" />
 </xs:schema>

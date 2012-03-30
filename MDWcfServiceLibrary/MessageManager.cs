@@ -110,7 +110,13 @@ namespace MDWcfServiceLibrary
             // , gameModel.gameModelGuid, new Guid[] { pfm.playerSendingMessage }, gameModel.currentState);
             //return via duplex channel
             PlayerModel playerToRespondTo = getPlayerModelByGuid(fum.playersRecievingMessage[0]);
-            playerToRespondTo.ICallBack.recieveMessage(fum);
+            //playerToRespondTo.ICallBack.recieveMessage(fum);
+            throw new NotImplementedException();
+        }
+
+        public PlayFieldModel respondToPoll()
+        {
+            return gameModel.currentState;
         }
     }
 }
