@@ -55,6 +55,7 @@
     <Compile Include="GameStateManager.cs" />
     <Compile Include="IMonopolyDeal.cs" />
     <Compile Include="IMonopolyDealCallback.cs" />
+    <Compile Include="IMonopolyDealNonDuplex.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageManager.cs" />
     <Compile Include="MoneyCard.cs" />

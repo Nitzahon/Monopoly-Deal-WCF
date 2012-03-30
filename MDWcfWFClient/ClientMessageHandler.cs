@@ -14,6 +14,7 @@ namespace MDWcfWFClient
         ClientInfo clientInfo;
         Guid clientGuid;
         int clientID;
+        public MonopolyDealServiceReference.PlayFieldModel playFieldModel;
 
         public ClientMessageHandler(SynchronizationContext uiSyncP, Form1 form1P, Guid guid)
         {
@@ -29,12 +30,25 @@ namespace MDWcfWFClient
             {
                 MonopolyDealServiceReference.FieldUpdateMessage messageFM = (MonopolyDealServiceReference.FieldUpdateMessage)message;
                 displayField(messageFM.fieldModel);
+                savefield(messageFM.fieldModel);
             }
+        }
+
+        public void savefield(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            this.playFieldModel = pfm;
+        }
+
+        public void checkIfClientTurn(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            //MonopolyDealServiceReference.TurnActionModel tam = pfm.
         }
 
         public void displayField(MonopolyDealServiceReference.PlayFieldModel pfm)
         {
             displayHandsBanksPropertySets(pfm);
+            //Check if you can take an action
+
             //Display anyActions taken last turn
             //Display the whose turn it is
             //prevent players whose turn is is not from doing anything but watch

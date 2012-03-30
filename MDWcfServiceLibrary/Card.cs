@@ -91,6 +91,7 @@ namespace MDWcfServiceLibrary
             this.cardType = cardType;
             this.cardValue = cardValue;
             description = cardID + " " + cardName + " $" + cardValue;
+            this.cardGuid = generateGuid();
         }
 
         public bool equals(Card checkAgainst)

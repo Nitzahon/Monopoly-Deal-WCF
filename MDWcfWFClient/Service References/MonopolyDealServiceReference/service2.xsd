@@ -58,27 +58,37 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="draw2AtStartOfTurn">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerGuid" type="q4:guid" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="serverGuid" type="q5:guid" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playfieldModelInstanceGuid" type="q6:guid" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="turnActionGuid" type="q7:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="referenceAllDataContracts">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="ac" nillable="true" type="q4:ActionCard" />
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="c" nillable="true" type="q5:Card" />
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="fum" nillable="true" type="q6:FieldUpdateMessage" />
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="msg" nillable="true" type="q7:Message" />
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="mc" nillable="true" type="q8:MoneyCard" />
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pb" nillable="true" type="q9:PlayerBank" />
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="ph" nillable="true" type="q10:PlayerHand" />
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pm" nillable="true" type="q11:PlayerModel" />
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pps" nillable="true" type="q12:PlayerPropertySets" />
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pfm" nillable="true" type="q13:PlayFieldModel" />
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pp" nillable="true" type="q14:PlayPile" />
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pffum" nillable="true" type="q15:PollForFieldUpdateMessage" />
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pc" nillable="true" type="q16:PropertyCard" />
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pcs" nillable="true" type="q17:PropertyCardSet" />
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="psi" nillable="true" type="q18:PropertySetInfo" />
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="rs" nillable="true" type="q19:RentStandard" />
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="taotm" nillable="true" type="q20:TakeActionOnTurnMessage" />
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="tam" nillable="true" type="q21:TurnActionModel" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="ac" nillable="true" type="q8:ActionCard" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="c" nillable="true" type="q9:Card" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="fum" nillable="true" type="q10:FieldUpdateMessage" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="msg" nillable="true" type="q11:Message" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="mc" nillable="true" type="q12:MoneyCard" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pb" nillable="true" type="q13:PlayerBank" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="ph" nillable="true" type="q14:PlayerHand" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pm" nillable="true" type="q15:PlayerModel" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pps" nillable="true" type="q16:PlayerPropertySets" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pfm" nillable="true" type="q17:PlayFieldModel" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pp" nillable="true" type="q18:PlayPile" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pffum" nillable="true" type="q19:PollForFieldUpdateMessage" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pc" nillable="true" type="q20:PropertyCard" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pcs" nillable="true" type="q21:PropertyCardSet" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="psi" nillable="true" type="q22:PropertySetInfo" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="rs" nillable="true" type="q23:RentStandard" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="taotm" nillable="true" type="q24:TakeActionOnTurnMessage" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="tam" nillable="true" type="q25:TurnActionModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -97,7 +107,7 @@
   <xs:element name="recieveGuid">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="id" type="q22:guid" />
+        <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="id" type="q26:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -118,7 +128,7 @@
   <xs:element name="recieveMessage">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="message" nillable="true" type="q23:Message" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="message" nillable="true" type="q27:Message" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -130,22 +140,22 @@
   <xs:element name="displayLookAtPlayedCardsOptions">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="currentPlayer" nillable="true" type="q24:Player" />
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="players" nillable="true" type="q25:ArrayOfPlayer" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="currentPlayer" nillable="true" type="q28:Player" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="players" nillable="true" type="q29:ArrayOfPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="displayBankedCards">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="player" nillable="true" type="q26:Player" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="player" nillable="true" type="q30:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="displayPlayedProperties">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="player" nillable="true" type="q27:Player" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="player" nillable="true" type="q31:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -167,14 +177,14 @@
   <xs:element name="displayPlayerHand">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="player" nillable="true" type="q28:Player" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="player" nillable="true" type="q32:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="displayCard">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="cards" nillable="true" type="q29:ArrayOfCard" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="cards" nillable="true" type="q33:ArrayOfCard" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -213,7 +223,7 @@
   <xs:element name="notifyOtherPlayerTurnStarted">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="p" nillable="true" type="q30:Player" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="p" nillable="true" type="q34:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -225,16 +235,16 @@
   <xs:element name="askWhatSetToAddHouseTo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="p" nillable="true" type="q31:Player" />
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="c" nillable="true" type="q32:Card" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="p" nillable="true" type="q35:Player" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="c" nillable="true" type="q36:Card" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="askWhatSetToAddHotelTo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="p" nillable="true" type="q33:Player" />
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="c" nillable="true" type="q34:Card" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="p" nillable="true" type="q37:Player" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="c" nillable="true" type="q38:Card" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

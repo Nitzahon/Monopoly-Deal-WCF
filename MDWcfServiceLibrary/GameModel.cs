@@ -43,19 +43,36 @@ namespace MDWcfServiceLibrary
             //State added to gameStates list, notify all players, wait for responses
         }
 
+        private Guid setFirstPlayerToHaveTurn(List<PlayerModel> players)
+        {
+            //set player 0 to be first to play
+            Guid firstPlayerGuid = players.ElementAt(FIRST_PLAYER).guid;
+            currentPlayerTurn = FIRST_PLAYER;
+            return firstPlayerGuid;
+        }
+
+        private Guid generateTurnActionGuid()
+        {
+            return Guid.NewGuid();
+        }
+
         private PlayFieldModel createInitialState(List<PlayerModel> players)
         {
             //guid for initial state
             Guid playFieldModelGuid = PlayFieldModel.generateplayFieldModelGuid();
             //no cards to be shown as played in playpile
             List<Card> emptyTopPlayPile = new List<Card>();
+            //setFirstPlayerToHaveTurn(players);
             //set player 0 to be first to play
-            Guid firstPlayerGuid = players.ElementAt(FIRST_PLAYER).guid;
-            currentPlayerTurn = FIRST_PLAYER;
+            //Guid firstPlayerGuid = players.ElementAt(FIRST_PLAYER).guid;
+            //currentPlayerTurn = FIRST_PLAYER;
+            Guid firstPlayerGuid = setFirstPlayerToHaveTurn(players);
             //no players can be affected by actioncards as none have been played
             List<Guid> noPlayersAffectedByActionCard = new List<Guid>();
             //No actions have been taken
-            TurnActionModel noActionsPlayed = new TurnActionModel();
+            List<TurnActionModel.TurnActionTypes> actionsAllowable = new List<TurnActionModel.TurnActionTypes>();
+            actionsAllowable.Add(TurnActionModel.TurnActionTypes.drawTwoCardsAtStartOfTurn);
+            TurnActionModel noActionsPlayedFirstPlayerToDraw = new TurnActionModel(this.playerIdLookup, this.gameModelGuid, playFieldModelGuid, generateTurnActionGuid(), actionsAllowable, TurnActionModel.TurnActionTypes.gameStarted, false);
             //create empty playpile
             initialPlayPile = new PlayPile();
             //fill  new drawpile
@@ -66,7 +83,7 @@ namespace MDWcfServiceLibrary
             bool turnStart = true;
             //put it all into the intial state
             PlayFieldModel state = new PlayFieldModel(playFieldModelGuid, players, emptyTopPlayPile, firstPlayerGuid, noPlayersAffectedByActionCard,
-                noActionsPlayed, initialDrawPile, initialPlayPile, NEW_TURN_NUMBER_OF_CARDS_PLAYABLE, turnStart);
+                null, noActionsPlayedFirstPlayerToDraw, initialDrawPile, initialPlayPile, NEW_TURN_NUMBER_OF_CARDS_PLAYABLE, turnStart);
             //stateCreated
             currentState = state;
             return state;

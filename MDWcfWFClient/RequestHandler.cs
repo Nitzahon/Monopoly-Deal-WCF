@@ -18,8 +18,8 @@ namespace MDWcfWFClient
         SynchronizationContext uiSync;
         MonopolyDealServiceReference.MonopolyDealClient monopolyDealService;
         Form1 mainForm;
-        ClientInfo clientInfo;
-        ClientMessageHandler clientMessageHandler;
+        public ClientInfo clientInfo;
+        public ClientMessageHandler clientMessageHandler;
 
         public RequestHandler(SynchronizationContext uiSyncP, Form1 form1P)
         {
@@ -63,6 +63,12 @@ namespace MDWcfWFClient
             {
                 MessageBox.Show("Have not recieved guid");
             }
+        }
+
+        public void drawTwoAtTurnStart()
+        {
+            MonopolyDealServiceReference.TurnActionModel ta = clientMessageHandler.playFieldModel.currentTurnActionModel;
+            monopolyDealService.draw2AtStartOfTurn(clientInfo.getGuidID(), ta.serverGuid, ta.currentPlayFieldModelGuid, ta.thisTurnactionGuid);
         }
 
         public void pollState()

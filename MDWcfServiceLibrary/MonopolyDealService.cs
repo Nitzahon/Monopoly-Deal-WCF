@@ -32,6 +32,7 @@ namespace MDWcfServiceLibrary
         private static int numberOfPlayers = 0;
         private static String serverLog = "";
         private int i = 0;
+        private static GameStateManager gameStateManager;
 
         private static MessageManager messageManager;
 
@@ -53,6 +54,7 @@ namespace MDWcfServiceLibrary
             {
                 gameModel = new GameModel(playerModels, messageManager);
                 messageManager = new MessageManager(gameModel);
+                gameStateManager = new GameStateManager(gameModel);
                 gameCreated = true;
             }
         }
@@ -184,6 +186,15 @@ namespace MDWcfServiceLibrary
         public void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam)
         {
             throw new NotImplementedException();
+        }
+
+        public void draw2AtStartOfTurn(Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid, Guid turnActionGuid)
+        {
+            List<Guid> guids = new List<Guid>();
+            guids.Add(playerGuid);
+            TurnActionModel tamDrawTwoST = new TurnActionModel(guids, serverGuid, playfieldModelInstanceGuid, turnActionGuid, new List<TurnActionModel.TurnActionTypes>(), TurnActionModel.TurnActionTypes.drawTwoCardsAtStartOfTurn, true);
+
+            gameStateManager.doAction(tamDrawTwoST);
         }
     }
 }

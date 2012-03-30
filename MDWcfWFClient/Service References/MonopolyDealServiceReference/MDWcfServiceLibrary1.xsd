@@ -32,25 +32,20 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MessageType" nillable="true" type="tns:MessageType" />
-  <xs:complexType name="PollForFieldUpdateMessage">
+  <xs:complexType name="FieldUpdateMessage">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Message">
         <xs:sequence>
-          <xs:element minOccurs="0" name="actionsToTake" nillable="true" type="tns:TurnActionModel" />
           <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
-          <xs:element minOccurs="0" name="fieldModelGuid" type="ser:guid" />
           <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="PollForFieldUpdateMessage" nillable="true" type="tns:PollForFieldUpdateMessage" />
-  <xs:complexType name="TurnActionModel">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:element name="TurnActionModel" nillable="true" type="tns:TurnActionModel" />
+  <xs:element name="FieldUpdateMessage" nillable="true" type="tns:FieldUpdateMessage" />
   <xs:complexType name="PlayFieldModel">
     <xs:sequence>
+      <xs:element minOccurs="0" name="currentTurnActionModel" nillable="true" type="tns:TurnActionModel" />
       <xs:element minOccurs="0" name="guidOfPlayerWhosTurnItIs" type="ser:guid" />
       <xs:element minOccurs="0" name="lastActionPlayed" nillable="true" type="tns:TurnActionModel" />
       <xs:element minOccurs="0" name="numberOfTurnsRemainingForPlayerWhosTurnItIs" type="xs:int" />
@@ -62,6 +57,53 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlayFieldModel" nillable="true" type="tns:PlayFieldModel" />
+  <xs:complexType name="TurnActionModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="actionTaken" type="xs:boolean" />
+      <xs:element minOccurs="0" name="currentPlayFieldModelGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="numberOfCardPlaysRemaining" type="xs:int" />
+      <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playerGuids" nillable="true" type="q5:ArrayOfguid" />
+      <xs:element minOccurs="0" name="serverGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="thisTurnactionGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="turnActionType" type="tns:TurnActionModel.TurnActionTypes" />
+      <xs:element minOccurs="0" name="typeOfActionToTake" type="tns:TurnActionModel.TurnActionTypes" />
+      <xs:element minOccurs="0" name="typesOfActionListedPlayersCanTake" nillable="true" type="tns:ArrayOfTurnActionModel.TurnActionTypes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TurnActionModel" nillable="true" type="tns:TurnActionModel" />
+  <xs:simpleType name="TurnActionModel.TurnActionTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="gameStarted" />
+      <xs:enumeration value="turnStarted" />
+      <xs:enumeration value="drawTwoCardsAtStartOfTurn" />
+      <xs:enumeration value="EndTurn" />
+      <xs:enumeration value="SwitchAroundPlayedProperties" />
+      <xs:enumeration value="PlayCard" />
+      <xs:enumeration value="PlayPropertyCard" />
+      <xs:enumeration value="BankMoneyCard" />
+      <xs:enumeration value="PlayActionCard" />
+      <xs:enumeration value="BankActionCard" />
+      <xs:enumeration value="PlayJustSayNo" />
+      <xs:enumeration value="AdknowlegeRecievedCurrentState" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TurnActionModel.TurnActionTypes" nillable="true" type="tns:TurnActionModel.TurnActionTypes" />
+  <xs:complexType name="ArrayOfTurnActionModel.TurnActionTypes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TurnActionModel.TurnActionTypes" type="tns:TurnActionModel.TurnActionTypes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTurnActionModel.TurnActionTypes" nillable="true" type="tns:ArrayOfTurnActionModel.TurnActionTypes" />
+  <xs:complexType name="DrawOnTurnStart">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:TurnActionModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="b" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DrawOnTurnStart" nillable="true" type="tns:DrawOnTurnStart" />
   <xs:complexType name="ArrayOfPlayerModel">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerModel" nillable="true" type="tns:PlayerModel" />
@@ -116,6 +158,17 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="CardType" nillable="true" type="tns:CardType" />
+  <xs:complexType name="RentStandard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ActionCard">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
+          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
   <xs:complexType name="ActionCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">
@@ -213,17 +266,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPropertyColor" nillable="true" type="tns:ArrayOfPropertyColor" />
-  <xs:complexType name="RentStandard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ActionCard">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
-          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
   <xs:complexType name="PlayerHand">
     <xs:sequence>
       <xs:element minOccurs="0" name="cardsInHand" nillable="true" type="tns:ArrayOfCard" />
@@ -262,17 +304,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPropertyCard" nillable="true" type="tns:ArrayOfPropertyCard" />
-  <xs:complexType name="FieldUpdateMessage">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Message">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
-          <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="FieldUpdateMessage" nillable="true" type="tns:FieldUpdateMessage" />
   <xs:complexType name="TakeActionOnTurnMessage">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Message">
@@ -286,6 +317,19 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="TakeActionOnTurnMessage" nillable="true" type="tns:TakeActionOnTurnMessage" />
+  <xs:complexType name="PollForFieldUpdateMessage">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Message">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="actionsToTake" nillable="true" type="tns:TurnActionModel" />
+          <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
+          <xs:element minOccurs="0" name="fieldModelGuid" type="ser:guid" />
+          <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PollForFieldUpdateMessage" nillable="true" type="tns:PollForFieldUpdateMessage" />
   <xs:complexType name="PlayPile">
     <xs:sequence>
       <xs:element minOccurs="0" name="playPile" nillable="true" type="tns:ArrayOfCard" />

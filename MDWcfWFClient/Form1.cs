@@ -202,6 +202,7 @@ namespace MDWcfWFClient
             }
         }
 
+        /*
         public MDWcfServiceLibrary.CardType cardTypeConvert(MonopolyDealServiceReference.Card card)
         {
             if (card.cardType.ToString() == MDWcfServiceLibrary.CardType.Action.ToString())
@@ -218,10 +219,11 @@ namespace MDWcfWFClient
             }
             return MDWcfServiceLibrary.CardType.WildProperty;
         }
+        */
 
         public void popluateHandListBox(MonopolyDealServiceReference.Card card)
         {
-            MDWcfServiceLibrary.Card c = new MDWcfServiceLibrary.Card(card.cardName, card.cardText, card.cardValue, cardTypeConvert(card));
+            //MDWcfServiceLibrary.Card c = new MDWcfServiceLibrary.Card(card.cardName, card.cardText, card.cardValue, cardTypeConvert(card));
             listBox1.Items.Add(card.description);
         }
 
@@ -376,6 +378,11 @@ namespace MDWcfWFClient
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void buttonDraw2_Click(object sender, EventArgs e)
+        {
+            requestHandler.drawTwoAtTurnStart();
         }
     }
 }

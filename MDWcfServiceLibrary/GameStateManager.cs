@@ -31,13 +31,26 @@ namespace MDWcfServiceLibrary
             currentPlayFieldModel = gameModel.gameStates[(gameModel.gameStates.Count - 1)];
             if (checkIfActionIsForThisState(turnActionToDo, currentPlayFieldModel))
             {
+                if (turnActionToDo.actionTaken && turnActionToDo.typeOfActionToTake.CompareTo(TurnActionModel.TurnActionTypes.drawTwoCardsAtStartOfTurn) == 0)
+                {
+                    drawTwoCards(gameModel.players[gameModel.playerIdLookup.IndexOf(turnActionToDo.playerGuids[0])]);
+                }
                 //turn action is for this playfieldmodel
             }
+            return true;
             throw new NotImplementedException();
+        }
+
+        public void drawTwoCards(PlayerModel player)
+        {
+            //draws two cards to players hand BADCODE
+            player.hand.addCardToHand(currentPlayFieldModel.drawPile.drawcard());
+            player.hand.addCardToHand(currentPlayFieldModel.drawPile.drawcard());
         }
 
         private bool checkIfActionIsForThisState(TurnActionModel ta, PlayFieldModel pfm)
         {
+            return true;
             throw new NotImplementedException();
         }
     }

@@ -13,8 +13,8 @@ namespace MDWcfServiceLibrary
         [DataMember]
         public bool b;
 
-        public DrawOnTurnStart(TurnActionModel ta,PlayFieldModel pfm)
-            : base(pfm.)
+        public DrawOnTurnStart(TurnActionModel ta, PlayFieldModel pfm)
+            : base(ta)
         {
         }
     }

@@ -48,6 +48,9 @@ namespace MDWcfServiceLibrary
         void pollState(Message message);
 
         [OperationContract(IsOneWay = true)]
+        void draw2AtStartOfTurn(Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid, Guid turnActionGuid);
+
+        [OperationContract(IsOneWay = true)]
         void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam);
     }
 

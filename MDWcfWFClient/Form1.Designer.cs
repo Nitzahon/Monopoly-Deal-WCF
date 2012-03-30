@@ -481,6 +481,7 @@
             this.buttonDraw2.TabIndex = 52;
             this.buttonDraw2.Text = "Draw 2 Cards at Turn Start";
             this.buttonDraw2.UseVisualStyleBackColor = true;
+            this.buttonDraw2.Click += new System.EventHandler(this.buttonDraw2_Click);
             // 
             // button3
             // 

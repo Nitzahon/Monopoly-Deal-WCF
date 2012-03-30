@@ -32,8 +32,8 @@ namespace MDWcfServiceLibrary
         [DataMember]
         public TurnActionModel currentTurnActionModel;
         //Service side only fields
-        DrawPile drawPile;
-        PlayPile playpile;
+        public DrawPile drawPile;
+        public PlayPile playpile;
         //Guid generator
         public static List<Guid> playFieldModelGuids = new List<Guid>();
 
@@ -65,7 +65,7 @@ namespace MDWcfServiceLibrary
         }
 
         public PlayFieldModel(Guid thisInstanceGuid, List<PlayerModel> playerModelsP, List<Card> topCardsPlayPileP, Guid guidOfPlayerWhosTurnItIsP,
-            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP)
+            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, TurnActionModel nextActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP)
         {
             //The guid of this instance of PlayFieldModel
             thisPlayFieldModelInstanceGuid = thisInstanceGuid;
@@ -87,6 +87,8 @@ namespace MDWcfServiceLibrary
             numberOfTurnsRemainingForPlayerWhosTurnItIs = numberOfTurnsRemainingForPlayerP;
             //This is the first move of a turn so the player whose turn it is should draw two cards
             startOfATurn = startOfATurnP;
+            currentTurnActionModel = nextActionP;
+            lastActionPlayed = lastActionP;
         }
     }
 }
