@@ -31,7 +31,7 @@
             this.buttonConnect = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxPlayerName = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonStartGame = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.textBoxMyHand = new System.Windows.Forms.TextBox();
@@ -110,15 +110,16 @@
             this.textBoxPlayerName.Text = "Player1";
             this.textBoxPlayerName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // button2
+            // buttonStartGame
             // 
-            this.button2.Location = new System.Drawing.Point(121, 37);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(97, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Start Game";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonStartGame.Enabled = false;
+            this.buttonStartGame.Location = new System.Drawing.Point(121, 37);
+            this.buttonStartGame.Name = "buttonStartGame";
+            this.buttonStartGame.Size = new System.Drawing.Size(97, 23);
+            this.buttonStartGame.TabIndex = 7;
+            this.buttonStartGame.Text = "Start Game";
+            this.buttonStartGame.UseVisualStyleBackColor = true;
+            this.buttonStartGame.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -546,6 +547,7 @@
             this.buttonBankCard.TabIndex = 59;
             this.buttonBankCard.Text = "Bank Card From Hand";
             this.buttonBankCard.UseVisualStyleBackColor = true;
+            this.buttonBankCard.Click += new System.EventHandler(this.buttonBankCard_Click);
             // 
             // button1
             // 
@@ -609,7 +611,7 @@
             this.Controls.Add(this.textBoxMyHand);
             this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonStartGame);
             this.Controls.Add(this.textBoxPlayerName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonConnect);
@@ -626,7 +628,7 @@
         internal System.Windows.Forms.Button buttonConnect;
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TextBox textBoxPlayerName;
-        internal System.Windows.Forms.Button button2;
+        internal System.Windows.Forms.Button buttonStartGame;
         internal System.Windows.Forms.Label label2;
         internal System.Windows.Forms.TextBox textBoxLog;
         private System.Windows.Forms.TextBox textBoxMyHand;

@@ -19,7 +19,7 @@ namespace MDWcfServiceLibrary
         int currentPlayerTurn;
         int FIRST_PLAYER = 0;
         bool gameOver = false;
-
+        public Deck deck;
         public Guid gameModelGuid;
 
         //Options
@@ -109,7 +109,7 @@ namespace MDWcfServiceLibrary
         private DrawPile generateInitialDrawPile(PlayPile pp)
         {
             //ShuffleDeck
-            Deck deck = new Deck(NUMBER_OF_DECKS);
+            deck = new Deck(NUMBER_OF_DECKS);
             DrawPile dp = new DrawPile(deck.getDeck(), pp);
             return dp;
         }

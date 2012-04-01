@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionCard.cs" />
+    <Compile Include="Acknowledgement.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Deck.cs" />
@@ -81,9 +82,15 @@
     <None Include="App.config" />
     <None Include="MDWCFServiceLibrary.cd" />
     <None Include="oldAppconfig.config" />
+    <None Include="SequenceDiagram1.sequencediagram" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SequenceDiagram1.sequencediagram.layout">
+      <DependentUpon>SequenceDiagram1.sequencediagram</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

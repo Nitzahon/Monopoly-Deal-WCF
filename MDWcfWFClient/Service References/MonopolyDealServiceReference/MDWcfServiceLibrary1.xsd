@@ -80,6 +80,7 @@
   <xs:element name="ArrayOfPlayerModel" nillable="true" type="tns:ArrayOfPlayerModel" />
   <xs:complexType name="PlayerModel">
     <xs:sequence>
+      <xs:element minOccurs="0" name="actionsAllowableAtCurrentState" nillable="true" type="tns:ArrayOfTurnActionModel.TurnActionTypes" />
       <xs:element minOccurs="0" name="bank" nillable="true" type="tns:PlayerBank" />
       <xs:element minOccurs="0" name="guid" type="ser:guid" />
       <xs:element minOccurs="0" name="hand" nillable="true" type="tns:PlayerHand" />
@@ -125,14 +126,6 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="CardType" nillable="true" type="tns:CardType" />
-  <xs:complexType name="MoneyCard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
   <xs:complexType name="ActionCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">
@@ -161,40 +154,6 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="ActionCardAction" nillable="true" type="tns:ActionCardAction" />
-  <xs:complexType name="RentStandard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ActionCard">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
-          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
-  <xs:simpleType name="PropertyColor">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Brown" />
-      <xs:enumeration value="LightBlue" />
-      <xs:enumeration value="Pink" />
-      <xs:enumeration value="Orange" />
-      <xs:enumeration value="Red" />
-      <xs:enumeration value="Yellow" />
-      <xs:enumeration value="Green" />
-      <xs:enumeration value="Blue" />
-      <xs:enumeration value="Station" />
-      <xs:enumeration value="Utilities" />
-      <xs:enumeration value="Wild_LightBlue_Brown" />
-      <xs:enumeration value="Wild_LightBlue_Station" />
-      <xs:enumeration value="Wild_Pink_Orange" />
-      <xs:enumeration value="Wild_Red_Yellow" />
-      <xs:enumeration value="Wild_Blue_Green" />
-      <xs:enumeration value="Wild_Green_Station" />
-      <xs:enumeration value="Wild_Station_Utility" />
-      <xs:enumeration value="Wild_MultiColored" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="PropertyColor" nillable="true" type="tns:PropertyColor" />
   <xs:complexType name="PropertyCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">
@@ -227,12 +186,54 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="PropertyCard" nillable="true" type="tns:PropertyCard" />
+  <xs:simpleType name="PropertyColor">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Brown" />
+      <xs:enumeration value="LightBlue" />
+      <xs:enumeration value="Pink" />
+      <xs:enumeration value="Orange" />
+      <xs:enumeration value="Red" />
+      <xs:enumeration value="Yellow" />
+      <xs:enumeration value="Green" />
+      <xs:enumeration value="Blue" />
+      <xs:enumeration value="Station" />
+      <xs:enumeration value="Utilities" />
+      <xs:enumeration value="Wild_LightBlue_Brown" />
+      <xs:enumeration value="Wild_LightBlue_Station" />
+      <xs:enumeration value="Wild_Pink_Orange" />
+      <xs:enumeration value="Wild_Red_Yellow" />
+      <xs:enumeration value="Wild_Blue_Green" />
+      <xs:enumeration value="Wild_Green_Station" />
+      <xs:enumeration value="Wild_Station_Utility" />
+      <xs:enumeration value="Wild_MultiColored" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PropertyColor" nillable="true" type="tns:PropertyColor" />
   <xs:complexType name="ArrayOfPropertyColor">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyColor" type="tns:PropertyColor" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPropertyColor" nillable="true" type="tns:ArrayOfPropertyColor" />
+  <xs:complexType name="RentStandard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ActionCard">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
+          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
+  <xs:complexType name="MoneyCard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Card">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
   <xs:complexType name="PlayerHand">
     <xs:sequence>
       <xs:element minOccurs="0" name="cardsInHand" nillable="true" type="tns:ArrayOfCard" />

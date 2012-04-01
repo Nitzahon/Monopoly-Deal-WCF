@@ -40,11 +40,17 @@ namespace MDWcfServiceLibrary
         [DataMember]
         public String name;
 
+        [DataMember]
+        public List<TurnActionModel.TurnActionTypes> actionsCurrentlyAllowed;
+
         //[DataMember]
         //public IMonopolyDealCallback ICallBack;
 
         [DataMember]
         public bool isReadyToStartGame;
+
+        [DataMember]
+        List<TurnActionModel.TurnActionTypes> actionsAllowableAtCurrentState;
 
         //StaticFields
         public static List<Guid> playerGuids = new List<Guid>();

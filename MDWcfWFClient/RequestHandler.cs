@@ -37,7 +37,6 @@ namespace MDWcfWFClient
             //Opens Connection to service
             try
             {
-                // The client callback interface must be hosted for the server to invoke the callback
                 // Open a connection to the Monopoly Deal service via the proxy
                 monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient("HttpBinding");
                 //monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient(new InstanceContext(this), "TcpBinding");
@@ -49,13 +48,28 @@ namespace MDWcfWFClient
                 thisClientGuid = monopolyDealService.connectToService(mainForm.textBoxPlayerName.Text);
                 //Disable Connect button
                 mainForm.buttonConnect.Enabled = false;
-                MessageBox.Show("connected .guid" + thisClientGuid);
+                mainForm.buttonStartGame.Enabled = true;
+                addToLog("connected .guid" + thisClientGuid);
             }
             catch (Exception r)
             {
                 MessageBox.Show(r.ToString());
                 mainForm.buttonConnect.Enabled = true;
             }
+        }
+
+        public MonopolyDealServiceReference.PlayerModel getPlayerModelByGuid(Guid pmG)
+        {
+            MonopolyDealServiceReference.PlayerModel[] pms = CurrentPlayFieldModel.playerModels;
+            foreach (MonopolyDealServiceReference.PlayerModel pm in pms)
+            {
+                if (pmG.CompareTo(pm.guid) == 0)
+                {
+                    return pm;
+                }
+            }
+            //Player not found
+            return null;
         }
 
         public void startGame()
@@ -66,7 +80,8 @@ namespace MDWcfWFClient
                 MonopolyDealServiceReference.GuidBox gb = new MonopolyDealServiceReference.GuidBox();
                 gb.guid = thisClientGuid;
                 gameOnServiceGuid = monopolyDealService.startGame(gb).guid;
-                MessageBox.Show("Connected to " + gameOnServiceGuid);
+                addToLog("Connected to " + gameOnServiceGuid);
+                mainForm.buttonStartGame.Enabled = false;
             }
             else
             {
@@ -162,6 +177,19 @@ namespace MDWcfWFClient
         public void recieveID(int id)
         {
             clientInfo.id = id;
+        }
+
+        internal void bankCard(int cardToBankID)
+        {
+            try
+            {
+                bool success = monopolyDealService.playCardFromHandToBank(cardToBankID, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid(), CurrentPlayFieldModel.currentTurnActionModel.thisTurnactionGuid.boxGuid());
+                addToLog(success.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

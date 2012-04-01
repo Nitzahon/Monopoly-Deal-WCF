@@ -26,7 +26,7 @@ namespace MDWcfServiceLibrary
         private static bool gameCreated = false;
         private static bool isStarted = false;
         private static int NUMBER_OF_DECKS = 1;
-        private static Deck deck = new Deck(NUMBER_OF_DECKS);
+        //private static Deck deck;// = new Deck(NUMBER_OF_DECKS);
         private static int MAX_PLAYERS_PER_GAME = 5;
         private static int numberOfPlayers = 0;
         private static String serverLog = "";
@@ -146,9 +146,34 @@ namespace MDWcfServiceLibrary
             return pfm;
         }
 
-        public bool playCardFromHandToBank(PlayerModel player, Card playedCard, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        public bool playCardFromHandToBank(int playedCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
-            throw new NotImplementedException();
+            Guid pg = playerGuid.guid;
+            Card card = gameModel.deck.getCardByID(playedCardID);
+            bool result = bankCardValidityCheck(card, pg);
+            if (result)
+            {
+                gameStateManager.bankCard(card, getPlayerModelByGuid(playerGuid.guid));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool bankCardValidityCheck(Card card, Guid playerGuid)
+        {
+            //check if player has card in hand
+            PlayerModel pm = getPlayerModelByGuid(playerGuid);
+            foreach (Card c in pm.hand.cardsInHand)
+            {
+                if (c.cardID == card.cardID)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool playActionCardOnTurn(PlayerModel player, Card playedCard, PlayerModel playerTargeted, List<Card> cardsTargeted, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)

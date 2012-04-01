@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" dslVersion="1.0.0.0" Id="aa8bc495-d976-4e00-9051-39b3c2989915" name="SequenceDiagram1" mode="DotNet" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="31ed8782-68be-49aa-9f7d-c38e1ea7e26d" name="SequenceDiagram1" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification Id="bb2a706b-9cb5-43e2-9d23-2c99c7baa40a" name="BehaviorExecutionSpecification">
+            <coveredLifelines>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="b306fce8-b420-4681-ad5a-b12fb2431f52" LastKnownName="ExecutionOccurrenceSpecification" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="93f2928a-6849-4d23-ac95-e7c05552e8a6" LastKnownName="ExecutionOccurrenceSpecification" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="c313096d-bac9-4447-a519-d5af706b5002" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="3146915d-a760-4c32-9b92-33e2e841bdbd" LastKnownName="MessageOccurrenceSpecification" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="93f2928a-6849-4d23-ac95-e7c05552e8a6" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="e78bc519-2f07-4440-b822-fd8f33c00e74" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="c313096d-bac9-4447-a519-d5af706b5002" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="2be4d0e8-9b8f-4673-83a7-e3ed77884480" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="a8d20e34-fac5-4b97-9189-9e913f33d9a9" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="3146915d-a760-4c32-9b92-33e2e841bdbd" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="b306fce8-b420-4681-ad5a-b12fb2431f52" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="43e81c71-26ec-4f14-aad7-caab38f6a524" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="ae2eb237-f580-496b-9099-37f3807ddcb2" name="BehaviorExecutionSpecification">
+            <coveredLifelines>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="2e563bf2-9fe0-46a1-bc57-12e8dcd1efd5" LastKnownName="ExecutionOccurrenceSpecification" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="a7d43ff2-dd7a-4329-93a5-ff3dd46a4554" LastKnownName="ExecutionOccurrenceSpecification" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="03400490-91dd-4913-903b-e88c1e602084" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="cdc72284-b9e0-41b7-a72a-5d13d6e5f923" LastKnownName="MessageOccurrenceSpecification" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="a7d43ff2-dd7a-4329-93a5-ff3dd46a4554" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="55860a7c-ed22-47dd-8853-e3310eea4d88" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="964efeb3-6a61-4696-bc01-4f0a9619563c" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="03400490-91dd-4913-903b-e88c1e602084" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="cdc72284-b9e0-41b7-a72a-5d13d6e5f923" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="fdc5f4ef-9498-4459-927a-2c4c4b43ea33" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="2e563bf2-9fe0-46a1-bc57-12e8dcd1efd5" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="cdeeaa5d-0de9-49ef-af23-1a45c0d089a3" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="bb750317-dd0c-43b2-946e-d2ce7c9f2f19" name="BehaviorExecutionSpecification">
+            <coveredLifelines>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="75a63a15-0f47-4a14-8bcf-5a5208eb9435" LastKnownName="ExecutionOccurrenceSpecification" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="c40804eb-ec5b-4e7d-8b5f-66313fdd4cc0" LastKnownName="ExecutionOccurrenceSpecification" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="872b059b-6c7c-454d-bf62-d8b56d42944a" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="d099fbd7-aadd-467c-b72e-37a3857a05d7" LastKnownName="MessageOccurrenceSpecification" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="c40804eb-ec5b-4e7d-8b5f-66313fdd4cc0" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="6119962f-55f6-46c5-b9fa-59fbd188cd66" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="872b059b-6c7c-454d-bf62-d8b56d42944a" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="54c3b927-f632-4324-91f1-76ac939c2d66" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="f52d620e-c2f6-411e-86ef-8cd210f470e0" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="d099fbd7-aadd-467c-b72e-37a3857a05d7" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="75a63a15-0f47-4a14-8bcf-5a5208eb9435" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="b3fdc804-6c4e-41cc-a4db-f7e748ebf707" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="051f950e-5b26-4296-a4ae-cf29efdb874a" name="BehaviorExecutionSpecification">
+            <coveredLifelines>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="c682085d-b56b-447f-93ef-89aaee028440" LastKnownName="ExecutionOccurrenceSpecification" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="eb7c4f53-c157-4db0-a86e-a9331b7af098" LastKnownName="ExecutionOccurrenceSpecification" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="6208d506-f28e-4725-9d4e-7d3c4ac9df0a" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="408b7593-403a-4dbe-a133-8862dd656658" LastKnownName="MessageOccurrenceSpecification" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="eb7c4f53-c157-4db0-a86e-a9331b7af098" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="27d0e973-1750-461e-adf8-08a0336665c9" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="6208d506-f28e-4725-9d4e-7d3c4ac9df0a" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="edb9a554-2a6e-435b-b8ae-8d3566c1df59" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="49208e98-9907-4d1b-8743-362ed514a08b" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="408b7593-403a-4dbe-a133-8862dd656658" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="c682085d-b56b-447f-93ef-89aaee028440" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="5b8da36c-7ada-45f0-b5ed-53fdd5381fd4" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="a02efbde-9d22-453e-8300-15c084b6bc20" name="BehaviorExecutionSpecification">
+            <coveredLifelines>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="bb3dec84-0ad0-4cd1-a09c-24e4dee9ec7d" LastKnownName="ExecutionOccurrenceSpecification" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="6ef4dd70-8f03-48ec-8aef-e09941931f56" LastKnownName="ExecutionOccurrenceSpecification" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="821b3776-be32-488f-9d72-06008c3f0343" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="48dbb65f-7074-40d8-aa77-a90e7d21aa07" LastKnownName="MessageOccurrenceSpecification" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="6ef4dd70-8f03-48ec-8aef-e09941931f56" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="42e1d628-d597-4704-a247-5c4109c606d9" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="0a451969-16d0-45a8-931b-6ada8ee69299" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="821b3776-be32-488f-9d72-06008c3f0343" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="48dbb65f-7074-40d8-aa77-a90e7d21aa07" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="a9071767-0030-4950-8a3d-c11067d7fba4" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" LastKnownName="Monopoly Deal Client : Lifeline1" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="bb3dec84-0ad0-4cd1-a09c-24e4dee9ec7d" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="6ed1ab40-a083-4b94-9645-11f5e3089b15" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="963e6c25-a305-467f-871e-960a71478436" LastKnownName="Monopoly Deal Service : IMonopolyDeal" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline Id="76f89370-5e19-42ab-b0d1-5fde6b4552b5" name="Monopoly Deal Client : Lifeline1" isActor="true" lifelineDisplayName="Monopoly Deal Client : Lifeline1">
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="2be4d0e8-9b8f-4673-83a7-e3ed77884480" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="a8d20e34-fac5-4b97-9189-9e913f33d9a9" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="964efeb3-6a61-4696-bc01-4f0a9619563c" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="fdc5f4ef-9498-4459-927a-2c4c4b43ea33" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="54c3b927-f632-4324-91f1-76ac939c2d66" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="f52d620e-c2f6-411e-86ef-8cd210f470e0" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="edb9a554-2a6e-435b-b8ae-8d3566c1df59" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="49208e98-9907-4d1b-8743-362ed514a08b" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="0a451969-16d0-45a8-931b-6ada8ee69299" LastKnownName="MessageOccurrenceSpecification" />
+              <messageOccurrenceSpecificationMoniker Id="a9071767-0030-4950-8a3d-c11067d7fba4" LastKnownName="MessageOccurrenceSpecification" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="963e6c25-a305-467f-871e-960a71478436" name="Monopoly Deal Service : IMonopolyDeal" isActor="false" lifelineDisplayName="Monopoly Deal Service : IMonopolyDeal">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="93f2928a-6849-4d23-ac95-e7c05552e8a6" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="b306fce8-b420-4681-ad5a-b12fb2431f52" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="a7d43ff2-dd7a-4329-93a5-ff3dd46a4554" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="2e563bf2-9fe0-46a1-bc57-12e8dcd1efd5" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="c40804eb-ec5b-4e7d-8b5f-66313fdd4cc0" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="75a63a15-0f47-4a14-8bcf-5a5208eb9435" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="eb7c4f53-c157-4db0-a86e-a9331b7af098" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="c682085d-b56b-447f-93ef-89aaee028440" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="6ef4dd70-8f03-48ec-8aef-e09941931f56" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="bb3dec84-0ad0-4cd1-a09c-24e4dee9ec7d" LastKnownName="ExecutionOccurrenceSpecification" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message Id="04ff6433-a030-47f2-988f-6e05d5327a02" name="connectToService()" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="2be4d0e8-9b8f-4673-83a7-e3ed77884480" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="c313096d-bac9-4447-a519-d5af706b5002" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="b151d9c1-1e4c-4cc9-b591-e00a37918210" name="Return new Player Guid" messageKind="Complete" messageSort="Reply" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="3146915d-a760-4c32-9b92-33e2e841bdbd" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="a8d20e34-fac5-4b97-9189-9e913f33d9a9" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="2a4cec41-9e41-471d-a484-2183cafdb16d" name="startGame()" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="964efeb3-6a61-4696-bc01-4f0a9619563c" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="03400490-91dd-4913-903b-e88c1e602084" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="b73e9c9c-9b85-40b2-b73d-5675b881b117" name="Return Game Guid" messageKind="Complete" messageSort="Reply" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="cdc72284-b9e0-41b7-a72a-5d13d6e5f923" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="fdc5f4ef-9498-4459-927a-2c4c4b43ea33" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="392a49a5-8d5f-44c4-a7d6-035eb1fa2b8d" name="pollstate()" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="54c3b927-f632-4324-91f1-76ac939c2d66" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="872b059b-6c7c-454d-bf62-d8b56d42944a" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="3df41738-7d1b-42a7-9c56-cae571def0fd" name="Return current Game State" messageKind="Complete" messageSort="Reply" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="d099fbd7-aadd-467c-b72e-37a3857a05d7" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="f52d620e-c2f6-411e-86ef-8cd210f470e0" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="0060f1ef-b3d4-40af-9250-b1be9f26b31e" name="Adknowlege Recieved State" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="edb9a554-2a6e-435b-b8ae-8d3566c1df59" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="6208d506-f28e-4725-9d4e-7d3c4ac9df0a" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="aa1eb1e8-b230-440b-8fac-4d86ca69e8b8" name="void" messageKind="Complete" messageSort="Reply" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="408b7593-403a-4dbe-a133-8862dd656658" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="49208e98-9907-4d1b-8743-362ed514a08b" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="71451836-cc52-4991-9896-a26cd126ff18" name="Optional: doAction" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="0a451969-16d0-45a8-931b-6ada8ee69299" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="821b3776-be32-488f-9d72-06008c3f0343" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+          <message Id="38f4d38e-fefc-4b85-a295-a5dbda87c995" name="Return boolean action legal or not" messageKind="Complete" messageSort="Reply" createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="48dbb65f-7074-40d8-aa77-a90e7d21aa07" LastKnownName="MessageOccurrenceSpecification" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="a9071767-0030-4950-8a3d-c11067d7fba4" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+        </messages>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="e78bc519-2f07-4440-b822-fd8f33c00e74" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="43e81c71-26ec-4f14-aad7-caab38f6a524" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="55860a7c-ed22-47dd-8853-e3310eea4d88" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="cdeeaa5d-0de9-49ef-af23-1a45c0d089a3" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="6119962f-55f6-46c5-b9fa-59fbd188cd66" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="b3fdc804-6c4e-41cc-a4db-f7e748ebf707" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="27d0e973-1750-461e-adf8-08a0336665c9" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="5b8da36c-7ada-45f0-b5ed-53fdd5381fd4" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="42e1d628-d597-4704-a247-5c4109c606d9" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="6ed1ab40-a083-4b94-9645-11f5e3089b15" name="ExecutionEvent" />
+    </packageHasNamedElement>
+  </packagedElements>
+</SequenceDesignerModel>

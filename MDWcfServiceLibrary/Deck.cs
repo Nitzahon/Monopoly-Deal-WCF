@@ -12,6 +12,7 @@ namespace MDWcfServiceLibrary
         int houseValue = 3;
         int hotelValue = 4;
         Card[] deck;
+        int nextCardID = 0;
 
         public Deck(int numberOfDecks)
         {
@@ -25,6 +26,11 @@ namespace MDWcfServiceLibrary
             }
             deck = cardDeck.ToArray();
             durstenfeldShuffle();
+        }
+
+        public Card getCardByID(int id)
+        {
+            return cardDeck.ElementAt(id);
         }
 
         private void durstenfeldShuffle()

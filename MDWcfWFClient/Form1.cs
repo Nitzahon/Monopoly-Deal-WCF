@@ -65,7 +65,7 @@ namespace MDWcfWFClient
         //UI Thread
         public void updateTextBoxLog(String description)
         {
-            textBoxLog.Text = textBoxLog.Text + Environment.NewLine + description;
+            textBoxLog.Text = description + Environment.NewLine + textBoxLog.Text;
         }
 
         //UI
@@ -73,7 +73,8 @@ namespace MDWcfWFClient
         //UI
         public void showMessage(string msg)
         {
-            MessageBox.Show(msg);
+            updateTextBoxLog(msg);
+            //MessageBox.Show(msg);
         }
 
         //UI
@@ -166,6 +167,13 @@ namespace MDWcfWFClient
         }
         */
 
+        public void setGuid(Guid id)
+        {
+            requestHandler.thisClientGuid = id;
+        }
+
+        #region drawplayers
+
         public void popluateHandListBox(MonopolyDealServiceReference.Card card)
         {
             //MDWcfServiceLibrary.Card c = new MDWcfServiceLibrary.Card(card.cardName, card.cardText, card.cardValue, cardTypeConvert(card));
@@ -184,7 +192,7 @@ namespace MDWcfWFClient
 
                 if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[0].guid) == 0)
                 {
-                    updateTextBoxLog(card.ToString());
+                    updateTextBoxLog(card.description);
                     popluateHandListBox(card);
                 }
             }
@@ -201,11 +209,6 @@ namespace MDWcfWFClient
             }
         }
 
-        public void setGuid(Guid id)
-        {
-            requestHandler.thisClientGuid = id;
-        }
-
         public void drawPlayer1(MonopolyDealServiceReference.PlayFieldModel pfm)
         {
             textBoxHand2.Text = "";
@@ -216,7 +219,7 @@ namespace MDWcfWFClient
                 textBoxHand2.Text = textBoxHand2.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
                 if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[1].guid) == 0)
                 {
-                    updateTextBoxLog(card.ToString());
+                    updateTextBoxLog(card.description);
                     popluateHandListBox(card);
                 }
             }
@@ -243,7 +246,7 @@ namespace MDWcfWFClient
                 textBoxHand3.Text = textBoxHand3.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
                 if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[2].guid) == 0)
                 {
-                    updateTextBoxLog(card.ToString());
+                    updateTextBoxLog(card.description);
                     popluateHandListBox(card);
                 }
             }
@@ -270,7 +273,7 @@ namespace MDWcfWFClient
                 textBoxHand4.Text = textBoxHand4.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
                 if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[3].guid) == 0)
                 {
-                    updateTextBoxLog(card.ToString());
+                    updateTextBoxLog(card.description);
                     popluateHandListBox(card);
                 }
             }
@@ -297,7 +300,7 @@ namespace MDWcfWFClient
                 textBoxHand5.Text = textBoxHand5.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
                 if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[4].guid) == 0)
                 {
-                    updateTextBoxLog(card.ToString());
+                    updateTextBoxLog(card.description);
                     popluateHandListBox(card);
                 }
             }
@@ -314,6 +317,8 @@ namespace MDWcfWFClient
             }
         }
 
+        #endregion drawplayers
+
         private void buttonPoll_Click(object sender, EventArgs e)
         {
             requestHandler.pollState();
@@ -328,6 +333,15 @@ namespace MDWcfWFClient
         private void buttonDraw2_Click(object sender, EventArgs e)
         {
             requestHandler.drawTwoAtTurnStart();
+        }
+
+        private void buttonBankCard_Click(object sender, EventArgs e)
+        {
+            //Replace with card picker
+            int cardIDOfCardToBank = 0;
+
+            MonopolyDealServiceReference.Card card = requestHandler.getPlayerModelByGuid(requestHandler.thisClientGuid).hand.cardsInHand.ElementAt(cardIDOfCardToBank);
+            requestHandler.bankCard(card.cardID);
         }
     }
 }

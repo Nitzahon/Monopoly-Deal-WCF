@@ -31,8 +31,9 @@ namespace MDWcfServiceLibrary
 
         public static int getNextCardId()
         {
+            int id = nextCardId;
             nextCardId++;
-            return nextCardId;
+            return id;
         }
 
         public static List<Guid> cardGuids = new List<Guid>();
