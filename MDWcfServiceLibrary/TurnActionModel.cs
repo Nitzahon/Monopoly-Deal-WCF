@@ -8,38 +8,40 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [DataContract]
+    public enum TurnActionTypes
+    {
+        [EnumMember]
+        gameStarted,
+        [EnumMember]
+        turnStarted,
+        [EnumMember]
+        drawTwoCardsAtStartOfTurn,
+        [EnumMember]
+        drawFiveCardsAtStartOfTurn,
+        [EnumMember]
+        EndTurn,
+        [EnumMember]
+        SwitchAroundPlayedProperties,
+        [EnumMember]
+        PlayCard,
+        [EnumMember]
+        PlayPropertyCard,
+        [EnumMember]
+        BankMoneyCard,
+        [EnumMember]
+        PlayActionCard,
+        [EnumMember]
+        BankActionCard,
+        [EnumMember]
+        PlayJustSayNo,
+        [EnumMember]
+        AdknowlegeRecievedCurrentState//used if no moves playable
+    }
+
+    [DataContract]
     [KnownType(typeof(DrawOnTurnStart))]
     public class TurnActionModel
     {
-        [DataContract]
-        public enum TurnActionTypes
-        {
-            [EnumMember]
-            gameStarted,
-            [EnumMember]
-            turnStarted,
-            [EnumMember]
-            drawTwoCardsAtStartOfTurn,
-            [EnumMember]
-            EndTurn,
-            [EnumMember]
-            SwitchAroundPlayedProperties,
-            [EnumMember]
-            PlayCard,
-            [EnumMember]
-            PlayPropertyCard,
-            [EnumMember]
-            BankMoneyCard,
-            [EnumMember]
-            PlayActionCard,
-            [EnumMember]
-            BankActionCard,
-            [EnumMember]
-            PlayJustSayNo,
-            [EnumMember]
-            AdknowlegeRecievedCurrentState//used if no moves playable
-        }
-
         [DataMember]
         public int numberOfCardPlaysRemaining;
         [DataMember]

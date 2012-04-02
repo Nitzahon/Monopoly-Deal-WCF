@@ -41,7 +41,7 @@ namespace MDWcfServiceLibrary
         public String name;
 
         [DataMember]
-        public List<TurnActionModel.TurnActionTypes> actionsCurrentlyAllowed;
+        public List<TurnActionTypes> actionsCurrentlyAllowed;
 
         //[DataMember]
         //public IMonopolyDealCallback ICallBack;
@@ -50,7 +50,7 @@ namespace MDWcfServiceLibrary
         public bool isReadyToStartGame;
 
         [DataMember]
-        List<TurnActionModel.TurnActionTypes> actionsAllowableAtCurrentState;
+        List<TurnActionTypes> actionsAllowableAtCurrentState;
 
         //StaticFields
         public static List<Guid> playerGuids = new List<Guid>();

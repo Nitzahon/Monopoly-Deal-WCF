@@ -191,5 +191,22 @@ namespace MDWcfWFClient
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        internal bool checkHasGameStarted()
+        {
+            return monopolyDealService.hasGameStarted(thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid());
+        }
+
+        internal void playPropertyToNewSet(int cardIDOfPropertyToPlay)
+        {
+            if (monopolyDealService.playPropertyCardNewSet(cardIDOfPropertyToPlay, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid()))
+            {
+                addToLog("Property played to new set");
+            }
+            else
+            {
+                addToLog("Error, card not played");
+            }
+        }
     }
 }

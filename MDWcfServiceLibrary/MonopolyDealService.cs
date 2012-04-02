@@ -135,7 +135,7 @@ namespace MDWcfServiceLibrary
         {
             List<Guid> guids = new List<Guid>();
             guids.Add(playerGuid.guid);
-            TurnActionModel tamDrawTwoST = new TurnActionModel(guids, serverGuid.guid, playfieldModelInstanceGuid.guid, turnActionGuid.guid, new List<TurnActionModel.TurnActionTypes>(), TurnActionModel.TurnActionTypes.drawTwoCardsAtStartOfTurn, true);
+            TurnActionModel tamDrawTwoST = new TurnActionModel(guids, serverGuid.guid, playfieldModelInstanceGuid.guid, turnActionGuid.guid, new List<TurnActionTypes>(), TurnActionTypes.drawTwoCardsAtStartOfTurn, true);
 
             return gameStateManager.doAction(tamDrawTwoST);
         }
@@ -223,6 +223,26 @@ namespace MDWcfServiceLibrary
 
         public void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam)
         {
+            throw new NotImplementedException();
+        }
+
+        public bool hasGameStarted(GuidBox playerGuid, GuidBox serverGuid)
+        {
+            // bool allReady = true;
+            foreach (PlayerModel p in playerModels)
+            {
+                if (!p.isReadyToStartGame)
+                {
+                    return false;
+                    ///allReady = false;//
+                }
+            }
+            return true;
+        }
+
+        public bool playPropertyCardNewSet(int playedCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Play property card to new set only
             throw new NotImplementedException();
         }
     }

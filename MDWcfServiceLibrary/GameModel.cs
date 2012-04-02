@@ -87,9 +87,22 @@ namespace MDWcfServiceLibrary
             //no players can be affected by actioncards as none have been played
             List<Guid> noPlayersAffectedByActionCard = new List<Guid>();
             //No actions have been taken
-            List<TurnActionModel.TurnActionTypes> actionsAllowable = new List<TurnActionModel.TurnActionTypes>();
-            actionsAllowable.Add(TurnActionModel.TurnActionTypes.drawTwoCardsAtStartOfTurn);
-            TurnActionModel noActionsPlayedFirstPlayerToDraw = new TurnActionModel(this.playerIdLookup, this.gameModelGuid, playFieldModelGuid, generateTurnActionGuid(), actionsAllowable, TurnActionModel.TurnActionTypes.gameStarted, false);
+            List<TurnActionTypes> actionsAllowable = new List<TurnActionTypes>();
+            actionsAllowable.Add(TurnActionTypes.drawTwoCardsAtStartOfTurn);
+
+            //Set players Allowable actions
+            foreach (PlayerModel p in players)
+            {
+                p.actionsCurrentlyAllowed = new List<TurnActionTypes>();
+                if (p.guid.CompareTo(firstPlayerGuid) == 0)
+                {
+                    //Player whos turn it is must draw TwoCards
+                    p.actionsCurrentlyAllowed.Add(TurnActionTypes.drawTwoCardsAtStartOfTurn);
+                }
+            }
+
+            //
+            TurnActionModel noActionsPlayedFirstPlayerToDraw = new TurnActionModel(this.playerIdLookup, this.gameModelGuid, playFieldModelGuid, generateTurnActionGuid(), actionsAllowable, TurnActionTypes.gameStarted, false);
             //create empty playpile
             initialPlayPile = new PlayPile();
             //fill  new drawpile

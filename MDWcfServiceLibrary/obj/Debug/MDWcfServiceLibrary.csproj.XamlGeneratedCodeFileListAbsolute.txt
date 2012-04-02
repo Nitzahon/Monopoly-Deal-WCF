@@ -1,0 +1,2 @@
+obj\Debug\_MDWcfServiceLibrary.g.cs
+obj\Debug\Activity1.g.cs

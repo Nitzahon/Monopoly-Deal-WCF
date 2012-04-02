@@ -8,6 +8,55 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [DataContract]
+    public enum Statephase
+    {
+        [EnumMember]
+        Game_Started,
+        [EnumMember]
+        Turn_Started_Draw_2_Cards,
+        [EnumMember]
+        Turn_Started_Draw_5_Cards,
+
+        [EnumMember]
+        Turn_Started_Cards_Drawn_0_Cards_Played,//Card not played yet by player
+        [EnumMember]
+        Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No,//Action Card played by player ask other player if they want to use a just say no
+        [EnumMember]
+        Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No,//Action Card played by player, just say no used by oppostition player, ask player on turn if use just say no
+
+        [EnumMember]
+        Turn_Started_Cards_Drawn_1_Cards_Played,
+        [EnumMember]
+        Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No,
+        [EnumMember]
+        Turn_Started_Cards_Drawn_1_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No,
+
+        [EnumMember]
+        Turn_Started_Cards_Drawn_2_Cards_Played,
+        [EnumMember]
+        Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No,
+        [EnumMember]
+        Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No,
+
+        [EnumMember]
+        Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only,
+        [EnumMember]
+        Turn_Ended_7_Or_Less_Cards_In_Hand_Setup_NextPlayer,
+        [EnumMember]
+        Turn_Ended_8_Or_More_Cards_In_Hand_Discard_Cards,
+        [EnumMember]
+        Turn_Ended_8_Cards_In_Hand_Discard_1_Card,
+        [EnumMember]
+        Turn_Ended_9_Cards_In_Hand_Discard_2_Cards,
+        [EnumMember]
+        Turn_Ended_10_Cards_In_Hand_Discard_3_Cards,
+        [EnumMember]
+        Turn_Ended_11_Cards_In_Hand_Discard_4_Cards,
+        [EnumMember]
+        Turn_Ended_12_Cards_In_Hand_Discard_5_Cards,
+    }
+
+    [DataContract]
     public class PlayFieldModel
     {
         /// <summary>
@@ -31,6 +80,8 @@ namespace MDWcfServiceLibrary
         public bool startOfATurn;
         [DataMember]
         public TurnActionModel currentTurnActionModel;
+        [DataMember]
+        public Statephase currentPhase;
         //Service side only fields
         public DrawPile drawPile;
         public PlayPile playpile;

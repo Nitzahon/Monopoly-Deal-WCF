@@ -47,6 +47,9 @@ namespace MDWcfServiceLibrary
         [OperationContract]//Player calls this method to play property to set
         Boolean playPropertyCard(PlayerModel player, Card playedCard, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
 
+        [OperationContract]//Player calls this method to play property to new set
+        Boolean playPropertyCardNewSet(int playedCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid);
+
         [OperationContract]//Player calls this method to move a property between sets, return true if card is valid for set and is added to the set
         Boolean movePropertyCard(PlayerModel player, Card propertyCard, PropertyCardSet oldSet, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
 
@@ -58,6 +61,9 @@ namespace MDWcfServiceLibrary
 
         [OperationContract]//discard  cards at end of turn
         Boolean discard(PlayerModel player, Card[] cardsToDiscard, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]
+        Boolean hasGameStarted(GuidBox playerGuid, GuidBox serverGuid);
 
         [OperationContract]//dummy method to ensure all data contracts are available to client
         void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam);
