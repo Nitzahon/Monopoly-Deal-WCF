@@ -35,25 +35,25 @@ namespace MDWcfServiceLibrary
         }
 
         [DataMember]
-        PropertyColor propertySetColor;
+        public PropertyColor propertySetColor;
         [DataMember]
-        LinkedList<PropertyCard> properties;
+        public LinkedList<PropertyCard> properties;
         [DataMember]
-        int id;
+        public int id;
         [DataMember]
-        bool hasHouse;
+        public bool hasHouse;
         [DataMember]
-        bool hasHotel;
+        public bool hasHotel;
         [DataMember]
-        Card house;
+        public Card house;
         [DataMember]
-        Card hotel;
+        public Card hotel;
 
         public PropertyCardSet(PropertyCard propertyCard)
         {
             id = generateID();
             properties = new LinkedList<PropertyCard>();
-
+            properties.AddFirst(propertyCard);
             propertySetColor = propertyCard.currentPropertyColor;
         }
 

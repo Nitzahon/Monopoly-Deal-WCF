@@ -21,8 +21,9 @@ namespace MDWcfServiceLibrary
             playersPropertySets = cardsP;
         }
 
-        public void sdssdsd()
+        public void addSet(PropertyCardSet ps)
         {
+            playersPropertySets.Add(ps);
         }
     }
 }

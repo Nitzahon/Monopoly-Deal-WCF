@@ -244,7 +244,7 @@ namespace MDWcfServiceLibrary
         public bool playPropertyCardNewSet(int playedCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
         {
             //Play property card to new set only
-            throw new NotImplementedException();
+            return gameStateManager.playPropertyCardToNewSet(serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayPropertyCard_New_Set, playedCardID);
         }
 
         public bool endTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid)

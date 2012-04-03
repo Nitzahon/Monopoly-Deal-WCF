@@ -137,13 +137,9 @@ namespace MDWcfWFClient
                 addToLog(pfm.currentPhase.ToString());
                 foreach (MonopolyDealServiceReference.PlayerModel p in pfm.playerModels)
                 {
-                    if (p.actionsCurrentlyAllowed.Count() > 0)
-                    {
-                        addToLog("actions alowd n0 " + p.name);
-                    }
                     if (p.isThisPlayersTurn)
                     {
-                        addToLog(p.name + " is this players turn");
+                        addToLog("Player: " + p.name + "'s Turn");
                     }
                 }
             }
@@ -279,6 +275,10 @@ namespace MDWcfWFClient
 
         internal bool checkHasGameStarted()
         {
+            if (mainForm.buttonConnect.Enabled)
+            {
+                monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient("HttpBinding");
+            }
             getServiceReady();
             try
             {

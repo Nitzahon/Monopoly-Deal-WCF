@@ -147,7 +147,7 @@
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ReadOnly = true;
             this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxLog.Size = new System.Drawing.Size(200, 151);
+            this.textBoxLog.Size = new System.Drawing.Size(203, 117);
             this.textBoxLog.TabIndex = 10;
             // 
             // label3
@@ -317,7 +317,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(121, 443);
+            this.button3.Location = new System.Drawing.Point(112, 414);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(97, 23);
             this.button3.TabIndex = 53;
@@ -336,7 +336,7 @@
             // 
             // buttonRearrange
             // 
-            this.buttonRearrange.Location = new System.Drawing.Point(121, 472);
+            this.buttonRearrange.Location = new System.Drawing.Point(12, 414);
             this.buttonRearrange.Name = "buttonRearrange";
             this.buttonRearrange.Size = new System.Drawing.Size(97, 23);
             this.buttonRearrange.TabIndex = 55;
@@ -355,7 +355,7 @@
             // 
             // buttonSelectOption
             // 
-            this.buttonSelectOption.Location = new System.Drawing.Point(375, 152);
+            this.buttonSelectOption.Location = new System.Drawing.Point(495, 457);
             this.buttonSelectOption.Name = "buttonSelectOption";
             this.buttonSelectOption.Size = new System.Drawing.Size(92, 23);
             this.buttonSelectOption.TabIndex = 57;
@@ -488,6 +488,7 @@
             this.listBoxPSetsP0.Name = "listBoxPSetsP0";
             this.listBoxPSetsP0.Size = new System.Drawing.Size(156, 43);
             this.listBoxPSetsP0.TabIndex = 72;
+            this.listBoxPSetsP0.SelectedIndexChanged += new System.EventHandler(this.listBoxPSetsP0_SelectedIndexChanged);
             // 
             // listBoxPSetsP1
             // 
@@ -610,7 +611,7 @@
             // 
             this.button4.Location = new System.Drawing.Point(15, 472);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(97, 23);
+            this.button4.Size = new System.Drawing.Size(203, 23);
             this.button4.TabIndex = 87;
             this.button4.Text = "Play Property To New Set";
             this.button4.UseVisualStyleBackColor = true;
@@ -620,7 +621,7 @@
             // 
             this.button5.Location = new System.Drawing.Point(15, 443);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(97, 23);
+            this.button5.Size = new System.Drawing.Size(203, 23);
             this.button5.TabIndex = 88;
             this.button5.Text = "Play Property To Selected Set";
             this.button5.UseVisualStyleBackColor = true;
@@ -647,7 +648,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(224, 514);
+            this.ClientSize = new System.Drawing.Size(945, 515);
             this.Controls.Add(this.listBoxCardsToDiscard);
             this.Controls.Add(this.buttonDraw5OnTurnStart);
             this.Controls.Add(this.button5);

@@ -202,7 +202,7 @@ namespace MDWcfWFClient
 
             listBoxPSetsP0.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(0).propertySets.playersPropertySets;
             listBoxPSetsP0.DisplayMember = "propertySetColor";
-            listBoxPSetsP0.ValueMember = "id";
+            //listBoxPSetsP0.ValueMember = "id";
 
             //listBoxPSetsP0.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(0).propertySets.playersPropertySets;
             //listBoxPSetsP0.DisplayMember = "propertySetColor";
@@ -278,34 +278,6 @@ namespace MDWcfWFClient
                 BindListBox(0);
                 updateAllowAbleActions(pfm.playerModels[0]);
             }
-            /*
-            textBoxHand1.Text = "";
-            textBoxBank1.Text = "";
-            textBoxProp1.Text = "";
-
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[0].hand.cardsInHand)
-            {
-                textBoxHand1.Text = textBoxHand1.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[0].guid) == 0)
-                {
-                    updateTextBoxLog(card.description);
-                    popluateHandListBox(card);
-                    BindListBox(0);
-                }
-            }
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[0].bank.cardsInBank)
-            {
-                textBoxBank1.Text = textBoxBank1.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-            }
-            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[0].propertySets.playersPropertySets)
-            {
-                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
-                {
-                    textBoxProp1.Text = textBoxProp1.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                }
-            }
-             * */
         }
 
         public void drawPlayer1(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -316,31 +288,6 @@ namespace MDWcfWFClient
                 BindListBox(1);
                 updateAllowAbleActions(pfm.playerModels[1]);
             }
-            /*
-            textBoxHand2.Text = "";
-            textBoxBank2.Text = "";
-            textBoxProp2.Text = "";
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[1].hand.cardsInHand)
-            {
-                textBoxHand2.Text = textBoxHand2.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[1].guid) == 0)
-                {
-                    updateTextBoxLog(card.description);
-                    popluateHandListBox(card);
-                }
-            }
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[1].bank.cardsInBank)
-            {
-                textBoxBank2.Text = textBoxBank2.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-            }
-            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[1].propertySets.playersPropertySets)
-            {
-                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
-                {
-                    textBoxProp2.Text = textBoxProp2.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                }
-            }
-             * */
         }
 
         public void drawPlayer2(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -351,31 +298,6 @@ namespace MDWcfWFClient
                 BindListBox(2);
                 updateAllowAbleActions(pfm.playerModels[2]);
             }
-            /*
-            textBoxHand3.Text = "";
-            textBoxBank3.Text = "";
-            textBoxProp3.Text = "";
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[2].hand.cardsInHand)
-            {
-                textBoxHand3.Text = textBoxHand3.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[2].guid) == 0)
-                {
-                    updateTextBoxLog(card.description);
-                    popluateHandListBox(card);
-                }
-            }
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[2].bank.cardsInBank)
-            {
-                textBoxBank3.Text = textBoxBank3.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-            }
-            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[2].propertySets.playersPropertySets)
-            {
-                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
-                {
-                    textBoxProp3.Text = textBoxProp3.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                }
-            }
-             * */
         }
 
         public void drawPlayer3(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -386,31 +308,6 @@ namespace MDWcfWFClient
                 BindListBox(3);
                 updateAllowAbleActions(pfm.playerModels[3]);
             }
-            /*
-            textBoxHand4.Text = "";
-            textBoxBank4.Text = "";
-            textBoxProp4.Text = "";
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[3].hand.cardsInHand)
-            {
-                textBoxHand4.Text = textBoxHand4.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[3].guid) == 0)
-                {
-                    updateTextBoxLog(card.description);
-                    popluateHandListBox(card);
-                }
-            }
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[3].bank.cardsInBank)
-            {
-                textBoxBank4.Text = textBoxBank4.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-            }
-            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[3].propertySets.playersPropertySets)
-            {
-                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
-                {
-                    textBoxProp4.Text = textBoxProp4.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                }
-            }
-             * */
         }
 
         public void drawPlayer4(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -421,32 +318,6 @@ namespace MDWcfWFClient
                 BindListBox(4);
                 updateAllowAbleActions(pfm.playerModels[4]);
             }
-            /*
-            textBoxHand5.Text = "";
-            textBoxBank5.Text = "";
-            textBoxProp5.Text = "";
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[4].hand.cardsInHand)
-            {
-                textBoxHand5.Text = textBoxHand5.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                if (requestHandler.thisClientGuid.CompareTo(pfm.playerModels[4].guid) == 0)
-                {
-                    updateTextBoxLog(card.description);
-                    popluateHandListBox(card);
-                }
-            }
-            foreach (MonopolyDealServiceReference.Card card in pfm.playerModels[4].bank.cardsInBank)
-            {
-                textBoxBank5.Text = textBoxBank5.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-            }
-             *
-            foreach (MonopolyDealServiceReference.PropertyCardSet cardSet in pfm.playerModels[4].propertySets.playersPropertySets)
-            {
-                foreach (MonopolyDealServiceReference.Card card in cardSet.properties)
-                {
-                    textBoxProp5.Text = textBoxProp5.Text + "ID:" + card.cardID + " " + card.cardName + " $" + card.cardValue + Environment.NewLine;
-                }
-            }
-             * */
         }
 
         #endregion drawplayers
@@ -532,6 +403,16 @@ namespace MDWcfWFClient
         private void buttonDraw5OnTurnStart_Click(object sender, EventArgs e)
         {
             requestHandler.drawFiveAtTurnStart();
+        }
+
+        private void listBoxPSetsP0_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxPSetsP0.SelectedValue != null && listBoxPSetsP0.DataSource != null)
+            {
+                listBoxPSetSelectedP0.DataSource = ((MonopolyDealServiceReference.PropertyCardSet)listBoxPSetsP0.SelectedValue).properties.ToArray<MonopolyDealServiceReference.Card>();
+                listBoxPSetSelectedP0.DisplayMember = "description";
+                listBoxPSetSelectedP0.ValueMember = "cardID";
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace MDWcfServiceLibrary
         [EnumMember]
         PlayCard,
         [EnumMember]
-        PlayPropertyCard,
+        PlayPropertyCard_New_Set,
         [EnumMember]
         BankMoneyCard,
         [EnumMember]
