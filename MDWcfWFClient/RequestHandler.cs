@@ -40,7 +40,8 @@ namespace MDWcfWFClient
                 // Open a connection to the Monopoly Deal service via the proxy
                 monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient("HttpBinding");
                 //monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient(new InstanceContext(this), "TcpBinding");
-                monopolyDealService.Open();
+                //monopolyDealService.Open();
+                getServiceReady();
                 //End
 
                 //Connect to service with player name
@@ -54,7 +55,9 @@ namespace MDWcfWFClient
             catch (Exception r)
             {
                 MessageBox.Show(r.ToString());
+
                 mainForm.buttonConnect.Enabled = true;
+                monopolyDealService.Close();
             }
         }
 
@@ -74,47 +77,81 @@ namespace MDWcfWFClient
 
         public void startGame()
         {
-            //Tell the service this player is ready and to start game if all players are ready
-            if (thisClientGuid.CompareTo(new Guid()) != 0)
+            getServiceReady();
+            try
             {
-                MonopolyDealServiceReference.GuidBox gb = new MonopolyDealServiceReference.GuidBox();
-                gb.guid = thisClientGuid;
-                gameOnServiceGuid = monopolyDealService.startGame(gb).guid;
-                addToLog("Connected to " + gameOnServiceGuid);
-                mainForm.buttonStartGame.Enabled = false;
+                //Tell the service this player is ready and to start game if all players are ready
+                if (thisClientGuid.CompareTo(new Guid()) != 0)
+                {
+                    MonopolyDealServiceReference.GuidBox gb = new MonopolyDealServiceReference.GuidBox();
+                    gb.guid = thisClientGuid;
+                    gameOnServiceGuid = monopolyDealService.startGame(gb).guid;
+                    addToLog("Connected to " + gameOnServiceGuid);
+                    mainForm.buttonStartGame.Enabled = false;
+                }
+                else
+                {
+                    MessageBox.Show("Have not recieved guid, not connected");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Have not recieved guid, not connected");
+                addToLog(ex.ToString());
+                //monopolyDealService.Close();
             }
         }
 
         public void drawTwoAtTurnStart()
         {
-            MonopolyDealServiceReference.TurnActionModel ta = CurrentPlayFieldModel.currentTurnActionModel;
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.TurnActionModel ta = CurrentPlayFieldModel.currentTurnActionModel;
 
-            monopolyDealService.draw2AtStartOfTurn(thisClientGuid.boxGuid(), ta.serverGuid.boxGuid(), ta.currentPlayFieldModelGuid.boxGuid(), ta.thisTurnactionGuid.boxGuid());
+                monopolyDealService.draw2AtStartOfTurn(thisClientGuid.boxGuid(), ta.serverGuid.boxGuid(), ta.currentPlayFieldModelGuid.boxGuid(), ta.thisTurnactionGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                //monopolyDealService.Close();
+            }
         }
 
         public void pollState()
         {
-            //Incomplete
-            //MonopolyDealServiceReference.PollForFieldUpdateMessage pffum = new MonopolyDealServiceReference.PollForFieldUpdateMessage();
-            // pffum.thisMessageGuid = Guid.NewGuid();
-            //pffum.playerSendingMessage = clientInfo.getGuidID();
-            //monopolyDealService.pollState(pffum);
-            MonopolyDealServiceReference.PollForFieldUpdateMessage message = new MonopolyDealServiceReference.PollForFieldUpdateMessage();
-            message.messageType = MonopolyDealServiceReference.MessageType.pollForFieldUpdate;
-            message.thisMessageGuid = Guid.NewGuid();
-            message.playerSendingMessage = thisClientGuid;
-            //monopolyDealService.pollState(message);
-            MonopolyDealServiceReference.GuidBox thisClientGuidB = new MonopolyDealServiceReference.GuidBox();
-            thisClientGuidB.guid = thisClientGuid;
-            MonopolyDealServiceReference.GuidBox gameOnServiceGuidB = new MonopolyDealServiceReference.GuidBox();
-            gameOnServiceGuidB.guid = gameOnServiceGuid;
-            MonopolyDealServiceReference.PlayFieldModel pfm = monopolyDealService.pollState(thisClientGuidB, gameOnServiceGuidB);
-            CurrentPlayFieldModel = pfm;
-            mainForm.drawField(CurrentPlayFieldModel);
+            getServiceReady();
+            try
+            {
+                //MonopolyDealServiceReference.PollForFieldUpdateMessage message = new MonopolyDealServiceReference.PollForFieldUpdateMessage();
+                //message.messageType = MonopolyDealServiceReference.MessageType.pollForFieldUpdate;
+                //message.thisMessageGuid = Guid.NewGuid();
+                //message.playerSendingMessage = thisClientGuid;
+                //monopolyDealService.pollState(message);
+                MonopolyDealServiceReference.GuidBox thisClientGuidB = new MonopolyDealServiceReference.GuidBox();
+                thisClientGuidB.guid = thisClientGuid;
+                MonopolyDealServiceReference.GuidBox gameOnServiceGuidB = new MonopolyDealServiceReference.GuidBox();
+                gameOnServiceGuidB.guid = gameOnServiceGuid;
+                MonopolyDealServiceReference.PlayFieldModel pfm = monopolyDealService.pollState(thisClientGuidB, gameOnServiceGuidB);
+                CurrentPlayFieldModel = pfm;
+                mainForm.drawField(CurrentPlayFieldModel);
+                addToLog(pfm.currentPhase.ToString());
+                foreach (MonopolyDealServiceReference.PlayerModel p in pfm.playerModels)
+                {
+                    if (p.actionsCurrentlyAllowed.Count() > 0)
+                    {
+                        addToLog("actions alowd n0 " + p.name);
+                    }
+                    if (p.isThisPlayersTurn)
+                    {
+                        addToLog(p.name + " is this players turn");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                //monopolyDealService.Close();
+            }
         }
 
         //UI Calling
@@ -179,8 +216,47 @@ namespace MDWcfWFClient
             clientInfo.id = id;
         }
 
+        public bool getServiceReady()
+        {
+            bool closedSuccess = false;
+            if (monopolyDealService.State == CommunicationState.Opened)
+            {
+                return true;
+            }
+            else if (monopolyDealService.State == CommunicationState.Faulted || monopolyDealService.State == CommunicationState.Closed || monopolyDealService.State == CommunicationState.Closing)
+            {
+                try
+                {
+                    monopolyDealService.Close();
+                    closedSuccess = true;
+                }
+                catch (Exception eC)
+                {
+                    addToLog(eC.ToString());
+                    monopolyDealService.Abort();
+                    closedSuccess = true;
+                }
+            }
+            if (closedSuccess)
+            {
+                try
+                {
+                    monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient("HttpBinding");
+                    monopolyDealService.Open();
+                    return true;
+                }
+                catch (Exception eO)
+                {
+                    addToLog(eO.ToString());
+                    return false;
+                }
+            }
+            return false;
+        }
+
         internal void bankCard(int cardToBankID)
         {
+            getServiceReady();
             try
             {
                 bool success = monopolyDealService.playCardFromHandToBank(cardToBankID, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid(), CurrentPlayFieldModel.currentTurnActionModel.thisTurnactionGuid.boxGuid());
@@ -188,13 +264,31 @@ namespace MDWcfWFClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                addToLog(ex.ToString());
+                try
+                {
+                    monopolyDealService.Close();
+                }
+                catch (Exception exC)
+                {
+                    monopolyDealService.Abort();
+                    addToLog(exC.ToString());
+                }
             }
         }
 
         internal bool checkHasGameStarted()
         {
-            return monopolyDealService.hasGameStarted(thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid());
+            getServiceReady();
+            try
+            {
+                return monopolyDealService.hasGameStarted(thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                return false;
+            }
         }
 
         internal void playPropertyToNewSet(int cardIDOfPropertyToPlay)
@@ -206,6 +300,34 @@ namespace MDWcfWFClient
             else
             {
                 addToLog("Error, card not played");
+            }
+        }
+
+        internal void endTurn()
+        {
+            getServiceReady();
+            try
+            {
+                monopolyDealService.endTurn(thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+        }
+
+        internal void drawFiveAtTurnStart()
+        {
+            getServiceReady();
+            try
+            {
+                //monopolyDealService.(thisClientGuid.boxGuid(), ta.serverGuid.boxGuid(), ta.currentPlayFieldModelGuid.boxGuid(), ta.thisTurnactionGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
             }
         }
     }

@@ -56,8 +56,8 @@ namespace MDWcfServiceLibrary
         [OperationContract]//Player calls this method to give cards for payment, returns true if cards sufficent for payment, false if not
         Boolean payCards(PlayerModel playerPaying, PlayerModel playerRecieving, List<Card> cards, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
 
-        [OperationContract]//Player calls this method to end their turn, returns true to notify turn over completed with 7 or less cards, returns false requiring cards to be discarded
-        Boolean endTurn(PlayerModel player, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+        [OperationContract]//Player calls this method to end their turn, returns true to notify turn over completed with 7 or less cards, returns false if error ,requiring cards to be discarded will be in next state
+        Boolean endTurn(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//discard  cards at end of turn
         Boolean discard(PlayerModel player, Card[] cardsToDiscard, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);

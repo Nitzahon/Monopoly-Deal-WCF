@@ -470,8 +470,15 @@ namespace MDWcfWFClient
         private void buttonBankCard_Click(object sender, EventArgs e)
         {
             int cardIDOfCardToBank = -1;
-            cardIDOfCardToBank = (int)listBox1.SelectedValue;
-            requestHandler.bankCard(cardIDOfCardToBank);
+            if (listBox1.Items.Count != 0)
+            {
+                cardIDOfCardToBank = (int)listBox1.SelectedValue;
+                requestHandler.bankCard(cardIDOfCardToBank);
+            }
+            else
+            {
+                buttonBankCard.Enabled = false;
+            }
             //Replace with card picker
             //MonopolyDealServiceReference.Card card = requestHandler.getPlayerModelByGuid(requestHandler.thisClientGuid).hand.cardsInHand.ElementAt(cardIDOfCardToBank);
             //requestHandler.bankCard(card.cardID);
@@ -511,6 +518,20 @@ namespace MDWcfWFClient
             int cardIDOfPropertyToPlay = -1;
             cardIDOfPropertyToPlay = (int)listBox1.SelectedValue;
             requestHandler.playPropertyToNewSet(cardIDOfPropertyToPlay);
+        }
+
+        private void buttonEndTurn_Click(object sender, EventArgs e)
+        {
+            requestHandler.endTurn();
+        }
+
+        private void buttonSelectOption_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void buttonDraw5OnTurnStart_Click(object sender, EventArgs e)
+        {
+            requestHandler.drawFiveAtTurnStart();
         }
     }
 }

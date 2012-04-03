@@ -50,7 +50,7 @@ namespace MDWcfServiceLibrary
         public bool isReadyToStartGame;
 
         [DataMember]
-        List<TurnActionTypes> actionsAllowableAtCurrentState;
+        //List<TurnActionTypes> actionsAllowableAtCurrentState;
 
         //StaticFields
         public static List<Guid> playerGuids = new List<Guid>();

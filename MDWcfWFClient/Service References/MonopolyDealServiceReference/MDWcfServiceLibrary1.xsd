@@ -80,6 +80,11 @@
       <xs:enumeration value="BankActionCard" />
       <xs:enumeration value="PlayJustSayNo" />
       <xs:enumeration value="AdknowlegeRecievedCurrentState" />
+      <xs:enumeration value="Discard_1_Card" />
+      <xs:enumeration value="Discard_2_Cards" />
+      <xs:enumeration value="Discard_3_Cards" />
+      <xs:enumeration value="Discard_4_Cards" />
+      <xs:enumeration value="Discard_5_Cards" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="TurnActionTypes" nillable="true" type="tns:TurnActionTypes" />
@@ -107,7 +112,6 @@
   <xs:element name="ArrayOfPlayerModel" nillable="true" type="tns:ArrayOfPlayerModel" />
   <xs:complexType name="PlayerModel">
     <xs:sequence>
-      <xs:element minOccurs="0" name="actionsAllowableAtCurrentState" nillable="true" type="tns:ArrayOfTurnActionTypes" />
       <xs:element minOccurs="0" name="actionsCurrentlyAllowed" nillable="true" type="tns:ArrayOfTurnActionTypes" />
       <xs:element minOccurs="0" name="bank" nillable="true" type="tns:PlayerBank" />
       <xs:element minOccurs="0" name="guid" type="ser:guid" />

@@ -116,7 +116,7 @@ namespace MDWcfServiceLibrary
         }
 
         public PlayFieldModel(Guid thisInstanceGuid, List<PlayerModel> playerModelsP, List<Card> topCardsPlayPileP, Guid guidOfPlayerWhosTurnItIsP,
-            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, TurnActionModel nextActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP)
+            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, TurnActionModel nextActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP, Statephase phaseP)
         {
             //The guid of this instance of PlayFieldModel
             thisPlayFieldModelInstanceGuid = thisInstanceGuid;
@@ -140,6 +140,8 @@ namespace MDWcfServiceLibrary
             startOfATurn = startOfATurnP;
             currentTurnActionModel = nextActionP;
             lastActionPlayed = lastActionP;
+            //Current Phase
+            currentPhase = phaseP;
         }
     }
 }

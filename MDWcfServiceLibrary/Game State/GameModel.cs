@@ -113,7 +113,7 @@ namespace MDWcfServiceLibrary
             bool turnStart = true;
             //put it all into the intial state
             PlayFieldModel state = new PlayFieldModel(playFieldModelGuid, players, emptyTopPlayPile, firstPlayerGuid, noPlayersAffectedByActionCard,
-                null, noActionsPlayedFirstPlayerToDraw, initialDrawPile, initialPlayPile, NEW_TURN_NUMBER_OF_CARDS_PLAYABLE, turnStart);
+                null, noActionsPlayedFirstPlayerToDraw, initialDrawPile, initialPlayPile, NEW_TURN_NUMBER_OF_CARDS_PLAYABLE, turnStart, Statephase.Turn_Started_Draw_2_Cards);
             //stateCreated
             currentState = state;
             return state;

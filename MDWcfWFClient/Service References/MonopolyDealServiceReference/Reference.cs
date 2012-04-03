@@ -528,9 +528,6 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[] actionsAllowableAtCurrentStateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[] actionsCurrentlyAllowedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -564,19 +561,6 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[] actionsAllowableAtCurrentState {
-            get {
-                return this.actionsAllowableAtCurrentStateField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.actionsAllowableAtCurrentStateField, value) != true)) {
-                    this.actionsAllowableAtCurrentStateField = value;
-                    this.RaisePropertyChanged("actionsAllowableAtCurrentState");
-                }
             }
         }
         
@@ -917,6 +901,21 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         AdknowlegeRecievedCurrentState = 12,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_1_Card = 13,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_2_Cards = 14,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_3_Cards = 15,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_4_Cards = 16,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_5_Cards = 17,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2491,7 +2490,7 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         bool payCards(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerPaying, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerRecieving, MDWcfWFClient.MonopolyDealServiceReference.Card[] cards, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/endTurn", ReplyAction="http://tempuri.org/IMonopolyDeal/endTurnResponse")]
-        bool endTurn(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        bool endTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/discard", ReplyAction="http://tempuri.org/IMonopolyDeal/discardResponse")]
         bool discard(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsToDiscard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
@@ -2600,8 +2599,8 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
             return base.Channel.payCards(playerPaying, playerRecieving, cards, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
         }
         
-        public bool endTurn(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.endTurn(player, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
+        public bool endTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.endTurn(playerGuid, serverGuid, playfieldModelInstanceGuid);
         }
         
         public bool discard(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsToDiscard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {

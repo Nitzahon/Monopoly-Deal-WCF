@@ -131,14 +131,20 @@ namespace MDWcfServiceLibrary
             throw new NotImplementedException();
         }
 
-        public bool draw2AtStartOfTurn(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        public bool draw2AtStartOfTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
+        }
+
+        /*
+        public bool draw2AtStartOfTurnOld(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
             List<Guid> guids = new List<Guid>();
             guids.Add(playerGuid.guid);
             TurnActionModel tamDrawTwoST = new TurnActionModel(guids, serverGuid.guid, playfieldModelInstanceGuid.guid, turnActionGuid.guid, new List<TurnActionTypes>(), TurnActionTypes.drawTwoCardsAtStartOfTurn, true);
-
             return gameStateManager.doAction(tamDrawTwoST);
         }
+         * */
 
         public PlayFieldModel pollState(GuidBox playerGuid, GuidBox gameGuid)
         {
@@ -211,11 +217,6 @@ namespace MDWcfServiceLibrary
             throw new NotImplementedException();
         }
 
-        public bool endTurn(PlayerModel player, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool discard(PlayerModel player, Card[] cardsToDiscard, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
             throw new NotImplementedException();
@@ -244,6 +245,11 @@ namespace MDWcfServiceLibrary
         {
             //Play property card to new set only
             throw new NotImplementedException();
+        }
+
+        public bool endTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.EndTurn);
         }
     }
 }

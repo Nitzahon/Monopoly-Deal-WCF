@@ -35,7 +35,17 @@ namespace MDWcfServiceLibrary
         [EnumMember]
         PlayJustSayNo,
         [EnumMember]
-        AdknowlegeRecievedCurrentState//used if no moves playable
+        AdknowlegeRecievedCurrentState,//used if no moves playable
+        [EnumMember]
+        Discard_1_Card,
+        [EnumMember]
+        Discard_2_Cards,
+        [EnumMember]
+        Discard_3_Cards,
+        [EnumMember]
+        Discard_4_Cards,
+        [EnumMember]
+        Discard_5_Cards
     }
 
     [DataContract]
