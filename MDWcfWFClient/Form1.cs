@@ -121,15 +121,18 @@ namespace MDWcfWFClient
                     break;
                 case 1:
                     drawPlayer0(pfm);
+                    bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
                     break;
                 case 2:
                     drawPlayer0(pfm);
                     drawPlayer1(pfm);
+                    bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
                     break;
                 case 3:
                     drawPlayer0(pfm);
                     drawPlayer1(pfm);
                     drawPlayer2(pfm);
+                    bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
                     break;
                 case 4:
 
@@ -137,6 +140,7 @@ namespace MDWcfWFClient
                     drawPlayer1(pfm);
                     drawPlayer2(pfm);
                     drawPlayer3(pfm);
+                    bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
                     break;
                 case 5:
                     drawPlayer0(pfm);
@@ -144,6 +148,7 @@ namespace MDWcfWFClient
                     drawPlayer2(pfm);
                     drawPlayer3(pfm);
                     drawPlayer4(pfm);
+                    bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
                     break;
             }
         }
@@ -179,7 +184,7 @@ namespace MDWcfWFClient
             listBox1.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(playerIndex).hand.cardsInHand;
             listBox1.DisplayMember = "description";
             //this.listBox1.DisplayMember = "Text";
-            listBox1.ValueMember = "cardID";
+            //listBox1.ValueMember = "cardID";
             //comboBox1.DataSource = dataSet1.Tables["Suppliers"];
             //comboBox1.DisplayMember = "ProductName";
         }
@@ -203,10 +208,6 @@ namespace MDWcfWFClient
             listBoxPSetsP0.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(0).propertySets.playersPropertySets;
             listBoxPSetsP0.DisplayMember = "propertySetColor";
             //listBoxPSetsP0.ValueMember = "id";
-
-            //listBoxPSetsP0.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(0).propertySets.playersPropertySets;
-            //listBoxPSetsP0.DisplayMember = "propertySetColor";
-            //listBoxPSetsP0.ValueMember = "id";
         }
 
         public void bindPlayer1(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -219,9 +220,8 @@ namespace MDWcfWFClient
             listBoxPlayer1Bank.DisplayMember = "description";
             listBoxPlayer1Bank.ValueMember = "cardID";
 
-            //listBoxPlayer1PropertySets.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(1).propertySets.playersPropertySets;
-            //listBoxPlayer1PropertySets.DisplayMember = "description";
-            //listBoxPlayer1PropertySets.ValueMember = "cardID";
+            listBoxPSetsP1.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(1).propertySets.playersPropertySets;
+            listBoxPSetsP1.DisplayMember = "propertySetColor";
         }
 
         public void bindPlayer2(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -234,9 +234,8 @@ namespace MDWcfWFClient
             listBoxPlayer2Bank.DisplayMember = "description";
             listBoxPlayer2Bank.ValueMember = "cardID";
 
-            //listBoxPlayer2PropertySets.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(2).propertySets.playersPropertySets;
-            //listBoxPlayer2PropertySets.DisplayMember = "description";
-            //listBoxPlayer2PropertySets.ValueMember = "cardID";
+            listBoxPSetsP2.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(2).propertySets.playersPropertySets;
+            listBoxPSetsP2.DisplayMember = "propertySetColor";
         }
 
         public void bindPlayer3(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -249,9 +248,8 @@ namespace MDWcfWFClient
             listBoxPlayer3Bank.DisplayMember = "description";
             listBoxPlayer3Bank.ValueMember = "cardID";
 
-            //listBoxPlayer0PropertySets.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(0).propertySets.playersPropertySets;
-            //listBoxPlayer0PropertySets.DisplayMember = "description";
-            //listBoxPlayer0PropertySets.ValueMember = "cardID";
+            listBoxPSetsP3.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(3).propertySets.playersPropertySets;
+            listBoxPSetsP3.DisplayMember = "propertySetColor";
         }
 
         public void bindPlayer4(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -264,9 +262,8 @@ namespace MDWcfWFClient
             listBoxPlayer4Bank.DisplayMember = "description";
             listBoxPlayer4Bank.ValueMember = "cardID";
 
-            //listBoxPlayer4PropertySets.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(4).propertySets.playersPropertySets;
-            //listBoxPlayer4PropertySets.DisplayMember = "description";
-            //listBoxPlayer4PropertySets.ValueMember = "cardID";
+            listBoxPSetsP4.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(4).propertySets.playersPropertySets;
+            listBoxPSetsP4.DisplayMember = "propertySetColor";
         }
 
         public void drawPlayer0(MonopolyDealServiceReference.PlayFieldModel pfm)
@@ -343,22 +340,23 @@ namespace MDWcfWFClient
             int cardIDOfCardToBank = -1;
             if (listBox1.Items.Count != 0)
             {
-                cardIDOfCardToBank = (int)listBox1.SelectedValue;
+                cardIDOfCardToBank = (int)((MonopolyDealServiceReference.Card)listBox1.SelectedValue).cardID;
                 requestHandler.bankCard(cardIDOfCardToBank);
             }
             else
             {
                 buttonBankCard.Enabled = false;
             }
-            //Replace with card picker
-            //MonopolyDealServiceReference.Card card = requestHandler.getPlayerModelByGuid(requestHandler.thisClientGuid).hand.cardsInHand.ElementAt(cardIDOfCardToBank);
-            //requestHandler.bankCard(card.cardID);
         }
 
         public void updateAllowAbleActions(MonopolyDealServiceReference.PlayerModel pm)
         {
             buttonDraw2.Enabled = false;
             buttonBankCard.Enabled = false;
+            buttonDraw5OnTurnStart.Enabled = false;
+            buttonPlayPropNewSetFromHand.Enabled = false;
+            buttonDiscard1.Enabled = false;
+            buttonEndTurn.Enabled = false;
             if (!(pm.actionsCurrentlyAllowed == null || pm.actionsCurrentlyAllowed.Length == 0))
             {
                 foreach (MonopolyDealServiceReference.TurnActionTypes tAT in pm.actionsCurrentlyAllowed)
@@ -370,6 +368,22 @@ namespace MDWcfWFClient
                     else if (tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.BankActionCard) == 0)
                     {
                         buttonBankCard.Enabled = true;
+                    }
+                    else if (tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.PlayPropertyCard_New_Set) == 0)
+                    {
+                        buttonPlayPropNewSetFromHand.Enabled = true;
+                    }
+                    else if (tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.drawFiveCardsAtStartOfTurn) == 0)
+                    {
+                        buttonDraw5OnTurnStart.Enabled = true;
+                    }
+                    else if (tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.Discard_1_Card) == 0)
+                    {
+                        buttonDiscard1.Enabled = true;
+                    }
+                    else if (tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.EndTurn) == 0)
+                    {
+                        buttonEndTurn.Enabled = true;
                     }
                 }
             }
@@ -387,7 +401,7 @@ namespace MDWcfWFClient
         private void button4_Click(object sender, EventArgs e)
         {
             int cardIDOfPropertyToPlay = -1;
-            cardIDOfPropertyToPlay = (int)listBox1.SelectedValue;
+            cardIDOfPropertyToPlay = (int)((MonopolyDealServiceReference.Card)listBox1.SelectedValue).cardID;
             requestHandler.playPropertyToNewSet(cardIDOfPropertyToPlay);
         }
 
@@ -412,6 +426,80 @@ namespace MDWcfWFClient
                 listBoxPSetSelectedP0.DataSource = ((MonopolyDealServiceReference.PropertyCardSet)listBoxPSetsP0.SelectedValue).properties.ToArray<MonopolyDealServiceReference.Card>();
                 listBoxPSetSelectedP0.DisplayMember = "description";
                 listBoxPSetSelectedP0.ValueMember = "cardID";
+            }
+        }
+
+        private void listBoxPSetsP1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxPSetsP1.SelectedValue != null && listBoxPSetsP1.DataSource != null)
+            {
+                listBoxPSetSelectedP1.DataSource = ((MonopolyDealServiceReference.PropertyCardSet)listBoxPSetsP1.SelectedValue).properties.ToArray<MonopolyDealServiceReference.Card>();
+                listBoxPSetSelectedP1.DisplayMember = "description";
+                listBoxPSetSelectedP1.ValueMember = "cardID";
+            }
+        }
+
+        private void listBoxPSetsP2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxPSetsP2.SelectedValue != null && listBoxPSetsP0.DataSource != null)
+            {
+                listBoxPSetSelectedP2.DataSource = ((MonopolyDealServiceReference.PropertyCardSet)listBoxPSetsP2.SelectedValue).properties.ToArray<MonopolyDealServiceReference.Card>();
+                listBoxPSetSelectedP2.DisplayMember = "description";
+                listBoxPSetSelectedP2.ValueMember = "cardID";
+            }
+        }
+
+        private void bindSelectPlayersPropertyCardSetsPropertyCards(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            if (pfm.playerModels != null)
+            {
+                listBoxPlayers.DataSource = pfm.playerModels;
+                listBoxPlayers.DisplayMember = "name";
+                if (listBoxPlayers.SelectedValue != null)
+                {
+                    listBoxSelectedPlayersPropertySets.DataSource = ((MonopolyDealServiceReference.PlayerModel)listBoxPlayers.SelectedValue).propertySets.playersPropertySets;
+                    listBoxSelectedPlayersPropertySets.DisplayMember = "propertySetColor";
+                    if (listBoxSelectedPlayersPropertySets.SelectedValue != null)
+                    {
+                        listBoxSelectedPlayersSelectedSetPropertyCards.DataSource = ((MonopolyDealServiceReference.PropertyCardSet)listBoxSelectedPlayersPropertySets.SelectedValue).properties.ToArray<MonopolyDealServiceReference.Card>();
+                        listBoxSelectedPlayersSelectedSetPropertyCards.DisplayMember = "description";
+                        listBoxSelectedPlayersSelectedSetPropertyCards.ValueMember = "cardID";
+                    }
+                }
+            }
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            requestHandler.discard1Card((int)((MonopolyDealServiceReference.Card)listBox1.SelectedValue).cardID);
+        }
+
+        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void listBoxPlayers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bindSelectPlayersPropertyCardSetsPropertyCards(requestHandler.CurrentPlayFieldModel);
+        }
+
+        private void listBoxSelectedPlayersPropertySets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bindSelectPlayersPropertyCardSetsPropertyCards(requestHandler.CurrentPlayFieldModel);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MonopolyDealServiceReference.Card card = (MonopolyDealServiceReference.Card)listBox1.SelectedValue;
+            MonopolyDealServiceReference.ActionCard actionCard = card as MonopolyDealServiceReference.ActionCard;
+            if (actionCard != null)
+            {
+                if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.PassGo) == 0)
+                {
+                    //card is a pass go card
+                    MessageBox.Show("Playing A Pass Go Action Card");
+                    bool result = requestHandler.passGo(card.cardID);
+                }
             }
         }
     }

@@ -100,26 +100,6 @@ namespace MDWcfServiceLibrary
             return false;
         }
 
-        /*
-        public bool doActionOld(TurnActionModel turnActionToDo)
-        {
-            ///Returns false if action not carried out
-            ///
-            //Get CurrentPlayFieldModelState
-            currentPlayFieldModel = gameModel.gameStates[(gameModel.gameStates.Count - 1)];
-            if (checkIfActionIsForThisState(turnActionToDo, currentPlayFieldModel))
-            {
-                if (turnActionToDo.actionTaken && turnActionToDo.typeOfActionToTake.CompareTo(TurnActionTypes.drawTwoCardsAtStartOfTurn) == 0)
-                {
-                    drawTwoCardsAtTurnStart(gameModel.players[gameModel.playerIdLookup.IndexOf(turnActionToDo.playerGuids[0])]);
-                }
-                //turn action is for this playfieldmodel
-            }
-            return true;
-            throw new NotImplementedException();
-        }
-         * */
-
         public bool checkIfMoveLegal(Guid guidOfPlayerMakingMove, TurnActionTypes typeOfActionAttempted)
         {
             throw new NotImplementedException();
@@ -168,34 +148,25 @@ namespace MDWcfServiceLibrary
             return null;
         }
 
-        public PlayerModel getPlayerFromGuid(PlayerModel pmP)
+        public bool bankCard(int playedCardID, Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid)
         {
-            foreach (PlayerModel p in gameModel.players)
-            {
-                if (p.guid.CompareTo(pmP.guid) == 0)
-                {
-                    return p;
-                }
-            }
-            return null;
-        }
-
-        public void bankCard(Card cardInHandToBeBanked, PlayerModel playerWhoIsBankingCard)
-        {
+            Card cardInHandToBeBanked = gameModel.deck.getCardByID(playedCardID);
             //Get the reference to the players playerModel in the current PlayFieldModel
-            PlayerModel pm = getPlayerFromGuid(playerWhoIsBankingCard);
+            PlayerModel playerWhoIsBankingCard = getPlayerModel(playerGuid, serverGuid, playfieldModelInstanceGuid);
             //Get the reference to the Card in the current PlayFieldModel
 
-            Card card = removeCardFromHand(cardInHandToBeBanked, pm);
+            Card card = removeCardFromHand(cardInHandToBeBanked, playerWhoIsBankingCard);
             if (card != null)
             {
                 playerWhoIsBankingCard.bank.addCardToBank(card);
                 //Change state on success
-                updateState(TurnActionTypes.BankActionCard, currentPlayFieldModel, pm.guid);
+                updateState(TurnActionTypes.BankActionCard, getCurrentPlayFieldModel(), playerWhoIsBankingCard.guid);
+                return true;
             }
             else
             {
                 //Card not in players hand, can't be banked
+                return false;
             }
         }
 
@@ -210,24 +181,6 @@ namespace MDWcfServiceLibrary
                 }
             }
             return null;
-        }
-
-        public bool isActionAllowedForPlayer(TurnActionModel turnActionToDo, Guid playerGuid, PlayFieldModel currentState)
-        {
-            TurnActionTypes tAT = turnActionToDo.typeOfActionToTake;
-            PlayerModel playerAttemptingAction = getPlayerModel(playerGuid, gameModel.gameModelGuid, currentState.thisPlayFieldModelInstanceGuid);
-            if (playerAttemptingAction != null)
-            {
-                foreach (TurnActionTypes t in playerAttemptingAction.actionsCurrentlyAllowed)
-                {
-                    if (t.CompareTo(tAT) == 0)
-                    {
-                        //Action is in allowable list for player
-                        return true;
-                    }
-                }
-            }
-            return false; //Action not allowable
         }
 
         public bool isActionAllowedForPlayer(TurnActionTypes turnActionToDo, Guid playerGuid, PlayFieldModel currentState)
@@ -272,13 +225,15 @@ namespace MDWcfServiceLibrary
 
         private bool checkIfActionIsForThisState(TurnActionTypes ta, Guid stateGuid, Guid playerGuid, Guid gameGuid)
         {
-            return true;
-            throw new NotImplementedException();
-        }
-
-        private void actionPerformed()
-        {
-            //update game state model and turn action model
+            PlayerModel player = getPlayerModel(playerGuid, gameGuid, stateGuid);
+            foreach (TurnActionTypes t in player.actionsCurrentlyAllowed)
+            {
+                if (t.CompareTo(ta) == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public PlayerModel getPlayerByGuid(Guid player, PlayFieldModel pfm)
@@ -327,10 +282,16 @@ namespace MDWcfServiceLibrary
             }
 
             int nextPlayerID = playerTurnCounter;
+
+            pfm.guidOfPlayerWhosTurnItIs = pfm.playerModels[nextPlayerID].guid;
             foreach (PlayerModel p in pfm.playerModels)
             {
                 if (p.guid.CompareTo(pfm.guidOfPlayerWhosTurnItIs) == 0)
                 {
+                    if (p.isThisPlayersTurn)
+                    {
+                        throw new Exception("player allready on turn");
+                    }
                     p.isThisPlayersTurn = true;
                 }
                 else
@@ -339,11 +300,11 @@ namespace MDWcfServiceLibrary
                 }
             }
             pfm.guidOfPlayerWhosTurnItIs = pfm.playerModels.ElementAt(nextPlayerID).guid;
-            pfm.playerModels.ElementAt(nextPlayerID).isThisPlayersTurn = true;
         }
 
         private void updateStateForPropertyPlayedToSet(TurnActionTypes actionToAttemptToPerform, PlayFieldModel currentState, Guid playerWhoPerformedActionGuid, PlayerModel playerWhoPerformedAction, PlayFieldModel newState)
         {
+            throw new NotImplementedException();
         }
 
         private List<TurnActionTypes> setAllowableActionsOnTurn(List<TurnActionTypes> listToSet, PlayFieldModel newState)
@@ -356,6 +317,31 @@ namespace MDWcfServiceLibrary
                 listToSet.Add(TurnActionTypes.PlayPropertyCard_New_Set);
                 listToSet.Add(TurnActionTypes.SwitchAroundPlayedProperties);
                 listToSet.Add(TurnActionTypes.EndTurn);
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards) == 0)
+            {
+                listToSet.Add(TurnActionTypes.Discard_1_Card);
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards) == 0)
+            {
+                listToSet.Add(TurnActionTypes.Discard_1_Card);
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards) == 0)
+            {
+                listToSet.Add(TurnActionTypes.Discard_1_Card);
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards) == 0)
+            {
+                listToSet.Add(TurnActionTypes.Discard_1_Card);
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Ended_8_Cards_In_Hand_Discard_1_Card) == 0)
+            {
+                listToSet.Add(TurnActionTypes.Discard_1_Card);
                 return listToSet;
             }
             else
@@ -543,7 +529,7 @@ namespace MDWcfServiceLibrary
                         List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
 
                         onTurn = setAllowableActionsOnTurn(onTurn, newState);
-                        updateStateForPropertyPlayedToSet(actionToAttemptToPerform, currentState, playerWhoPerformedAction, player, newState);
+                        //updateStateForPropertyPlayedToSet(actionToAttemptToPerform, currentState, playerWhoPerformedAction, player, newState);
                         //Change phase
                         newState.currentPhase = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;
                         updateAllowableStates(newState, notOnTurn, onTurn, newState.guidOfPlayerWhosTurnItIs);
@@ -671,7 +657,7 @@ namespace MDWcfServiceLibrary
                         List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
 
                         onTurn = setAllowableActionsOnTurn(onTurn, newState);
-                        updateStateForPropertyPlayedToSet(actionToAttemptToPerform, currentState, playerWhoPerformedAction, player, newState);
+                        //updateStateForPropertyPlayedToSet(actionToAttemptToPerform, currentState, playerWhoPerformedAction, player, newState);
                         //Change phase
                         newState.currentPhase = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played;
                         updateAllowableStates(newState, notOnTurn, onTurn, newState.guidOfPlayerWhosTurnItIs);
@@ -800,9 +786,10 @@ namespace MDWcfServiceLibrary
                         //action is valid for player at this time
                         List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
                         List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
-
-                        onTurn = setAllowableActionsOnTurn(onTurn, newState);
-                        updateStateForPropertyPlayedToSet(actionToAttemptToPerform, currentState, playerWhoPerformedAction, player, newState);
+                        onTurn.Add(TurnActionTypes.SwitchAroundPlayedProperties);
+                        onTurn.Add(TurnActionTypes.EndTurn);
+                        //onTurn = setAllowableActionsOnTurn(onTurn, newState);
+                        //updateStateForPropertyPlayedToSet(actionToAttemptToPerform, currentState, playerWhoPerformedAction, player, newState);
                         //Change phase
                         newState.currentPhase = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;
                         updateAllowableStates(newState, notOnTurn, onTurn, newState.guidOfPlayerWhosTurnItIs);
@@ -897,6 +884,229 @@ namespace MDWcfServiceLibrary
             }
 
             #endregion Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only
+
+            #region Turn_Ended_12_Cards_In_Hand_Discard_5_Cards
+
+            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards) == 0)
+            {
+                #region discard1Card
+
+                if (actionToAttemptToPerform.CompareTo(TurnActionTypes.Discard_1_Card) == 0)
+                {
+                    //Move was a valid move at current state
+                    //Check if move is valid for player
+                    if (isActionAllowedForPlayer(actionToAttemptToPerform, playerWhoPerformedAction, currentState))
+                    {
+                        //action is valid for player at this time
+
+                        //Could perform the action here instead, for now just change the phase of the state
+                        //Not an action so cant be just say no'd
+                        //Change phase
+                        newState.currentPhase = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
+
+                        //player has drawn their two cards, Now can play up to three cards on their turn
+                        List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                        List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                        onTurn = setAllowableActionsOnTurn(onTurn, newState);
+                        updateAllowableStates(newState, notOnTurn, onTurn, newState.guidOfPlayerWhosTurnItIs);
+                    }
+                }
+
+                #endregion discard1Card
+            }
+
+            #endregion Turn_Ended_12_Cards_In_Hand_Discard_5_Cards
+
+            #region Turn_Ended_11_Cards_In_Hand_Discard_4_Cards
+
+            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards) == 0)
+            {
+                #region discard1Card
+
+                if (actionToAttemptToPerform.CompareTo(TurnActionTypes.Discard_1_Card) == 0)
+                {
+                    //Move was a valid move at current state
+                    //Check if move is valid for player
+                    if (isActionAllowedForPlayer(actionToAttemptToPerform, playerWhoPerformedAction, currentState))
+                    {
+                        //action is valid for player at this time
+
+                        //Could perform the action here instead, for now just change the phase of the state
+                        //Not an action so cant be just say no'd
+                        //Change phase
+                        newState.currentPhase = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
+
+                        //player has drawn their two cards, Now can play up to three cards on their turn
+                        List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                        List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                        onTurn = setAllowableActionsOnTurn(onTurn, newState);
+                        updateAllowableStates(newState, notOnTurn, onTurn, newState.guidOfPlayerWhosTurnItIs);
+                    }
+                }
+
+                #endregion discard1Card
+            }
+
+            #endregion Turn_Ended_11_Cards_In_Hand_Discard_4_Cards
+
+            #region Turn_Ended_10_Cards_In_Hand_Discard_3_Cards
+
+            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards) == 0)
+            {
+                #region discard1Card
+
+                if (actionToAttemptToPerform.CompareTo(TurnActionTypes.Discard_1_Card) == 0)
+                {
+                    //Move was a valid move at current state
+                    //Check if move is valid for player
+                    if (isActionAllowedForPlayer(actionToAttemptToPerform, playerWhoPerformedAction, currentState))
+                    {
+                        //action is valid for player at this time
+
+                        //Could perform the action here instead, for now just change the phase of the state
+                        //Not an action so cant be just say no'd
+                        //Change phase
+                        newState.currentPhase = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+
+                        //player has drawn their two cards, Now can play up to three cards on their turn
+                        List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                        List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                        onTurn = setAllowableActionsOnTurn(onTurn, newState);
+                        updateAllowableStates(newState, notOnTurn, onTurn, newState.guidOfPlayerWhosTurnItIs);
+                    }
+                }
+
+                #endregion discard1Card
+            }
+
+            #endregion Turn_Ended_10_Cards_In_Hand_Discard_3_Cards
+
+            #region Turn_Ended_9_Cards_In_Hand_Discard_2_Cards
+
+            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards) == 0)
+            {
+                #region discard1Card
+
+                if (actionToAttemptToPerform.CompareTo(TurnActionTypes.Discard_1_Card) == 0)
+                {
+                    //Move was a valid move at current state
+                    //Check if move is valid for player
+                    if (isActionAllowedForPlayer(actionToAttemptToPerform, playerWhoPerformedAction, currentState))
+                    {
+                        //action is valid for player at this time
+
+                        //Could perform the action here instead, for now just change the phase of the state
+                        //Not an action so cant be just say no'd
+                        //Change phase
+                        newState.currentPhase = Statephase.Turn_Ended_8_Cards_In_Hand_Discard_1_Card;
+
+                        //player has drawn their two cards, Now can play up to three cards on their turn
+                        List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                        List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                        onTurn = setAllowableActionsOnTurn(onTurn, newState);
+                        updateAllowableStates(newState, notOnTurn, onTurn, newState.guidOfPlayerWhosTurnItIs);
+                    }
+                }
+
+                #endregion discard1Card
+            }
+
+            #endregion Turn_Ended_9_Cards_In_Hand_Discard_2_Cards
+
+            #region Turn_Ended_8_Cards_In_Hand_Discard_1_Card
+
+            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_8_Cards_In_Hand_Discard_1_Card) == 0)
+            {
+                #region discard1Card
+
+                if (actionToAttemptToPerform.CompareTo(TurnActionTypes.Discard_1_Card) == 0)
+                {
+                    //Move was a valid move at current state
+                    //Check if move is valid for player
+                    List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                    List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                    if (isActionAllowedForPlayer(actionToAttemptToPerform, playerWhoPerformedAction, currentState))
+                    {
+                        //action is valid for player at this time
+
+                        //Could perform the action here instead, for now just change the phase of the state
+                        //Not an action so cant be just say no'd
+                        //Change phase
+                        newState.currentPhase = Statephase.Turn_Ended_7_Or_Less_Cards_In_Hand_Setup_NextPlayer;
+                        setNextPlayerOnTurn(newState);
+                        if (getPlayerByGuid(newState.guidOfPlayerWhosTurnItIs, newState).hand.cardsInHand.Count == 0)
+                        {
+                            //Player has 0 cards draws 5 on turn start instead of 2
+                            newState.currentPhase = Statephase.Turn_Started_Draw_5_Cards;
+                            onTurn.Add(TurnActionTypes.drawFiveCardsAtStartOfTurn);
+                        }
+                        else
+                        {
+                            newState.currentPhase = Statephase.Turn_Started_Draw_2_Cards;
+                            onTurn.Add(TurnActionTypes.drawTwoCardsAtStartOfTurn);
+                        }
+
+                        //player has drawn their two cards, Now can play up to three cards on their turn
+
+                        //onTurn = setAllowableActionsOnTurn(onTurn, newState);
+                        updateAllowableStates(newState, notOnTurn, onTurn, newState.guidOfPlayerWhosTurnItIs);
+                    }
+                }
+
+                #endregion discard1Card
+            }
+
+            #endregion Turn_Ended_8_Cards_In_Hand_Discard_1_Card
+        }
+
+        internal bool discard(int cardsToDiscardID, Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid)
+        {
+            Card cardInHandToBeDiscarded = gameModel.deck.getCardByID(cardsToDiscardID);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+            PlayerModel playerWhoIsDiscardingCard = getPlayerModel(playerGuid, serverGuid, playfieldModelInstanceGuid);
+            //Get the reference to the Card in the current PlayFieldModel
+
+            Card card = removeCardFromHand(cardInHandToBeDiscarded, playerWhoIsDiscardingCard);
+            if (card != null)
+            {
+                getCurrentPlayFieldModel().drawPile.discardCard(card);
+                //Change state on success
+                updateState(TurnActionTypes.Discard_1_Card, getCurrentPlayFieldModel(), playerWhoIsDiscardingCard.guid);
+                return true;
+            }
+            else
+            {
+                //Card not in players hand, can't be discarded
+                return false;
+            }
+        }
+
+        internal bool playActionCardPassGo(int passGoCardID, Guid serverGuid, Guid playerGuid, Guid playfieldModelInstanceGuid, TurnActionTypes turnActionTypes)
+        {
+            Card cardInHandToBePlayed = gameModel.deck.getCardByID(passGoCardID);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            PlayerModel player = getPlayerModel(playerGuid, serverGuid, playfieldModelInstanceGuid);
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.PassGo) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, player);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    player.hand.addCardToHand(currentPlayFieldModel.drawPile.drawcard());
+                    player.hand.addCardToHand(currentPlayFieldModel.drawPile.drawcard());
+                    //Change state on success
+                    updateState(TurnActionTypes.PlayActionCard, getCurrentPlayFieldModel(), player.guid);
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                //Card not in players hand, can't be discarded not an actioncard
+                return false;
+            }
         }
     }
 }

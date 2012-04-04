@@ -2493,7 +2493,13 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         bool endTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/discard", ReplyAction="http://tempuri.org/IMonopolyDeal/discardResponse")]
-        bool discard(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsToDiscard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        bool discard(int cardsToDiscardIDs, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playActionCardPassGo", ReplyAction="http://tempuri.org/IMonopolyDeal/playActionCardPassGoResponse")]
+        bool playActionCardPassGo(int passGoCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurn", ReplyAction="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnResponse")]
+        bool draw5AtStartOfTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/hasGameStarted", ReplyAction="http://tempuri.org/IMonopolyDeal/hasGameStartedResponse")]
         bool hasGameStarted(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid);
@@ -2603,8 +2609,16 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
             return base.Channel.endTurn(playerGuid, serverGuid, playfieldModelInstanceGuid);
         }
         
-        public bool discard(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsToDiscard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.discard(player, cardsToDiscard, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
+        public bool discard(int cardsToDiscardIDs, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.discard(cardsToDiscardIDs, playerGuid, serverGuid, playfieldModelInstanceGuid);
+        }
+        
+        public bool playActionCardPassGo(int passGoCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.playActionCardPassGo(passGoCardID, playerGuid, serverGuid, playfieldModelInstanceGuid);
+        }
+        
+        public bool draw5AtStartOfTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.draw5AtStartOfTurn(playerGuid, serverGuid, playfieldModelInstanceGuid);
         }
         
         public bool hasGameStarted(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid) {

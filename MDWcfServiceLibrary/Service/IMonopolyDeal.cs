@@ -60,7 +60,13 @@ namespace MDWcfServiceLibrary
         Boolean endTurn(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//discard  cards at end of turn
-        Boolean discard(PlayerModel player, Card[] cardsToDiscard, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+        Boolean discard(int cardsToDiscardIDs, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]//discard  cards at end of turn
+        Boolean playActionCardPassGo(int passGoCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]
+        Boolean draw5AtStartOfTurn(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]
         Boolean hasGameStarted(GuidBox playerGuid, GuidBox serverGuid);

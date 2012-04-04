@@ -793,6 +793,98 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playActionCardPassGo_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playActionCardPassGo_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_draw5AtStartOfTurn_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_draw5AtStartOfTurn_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="HttpBinding_hasGameStarted_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1014,6 +1106,18 @@
   <wsdl:message name="IMonopolyDeal_discard_OutputMessage">
     <wsdl:part name="parameters" element="tns:discardResponse" />
   </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playActionCardPassGo_InputMessage">
+    <wsdl:part name="parameters" element="tns:playActionCardPassGo" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playActionCardPassGo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:playActionCardPassGoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_draw5AtStartOfTurn_InputMessage">
+    <wsdl:part name="parameters" element="tns:draw5AtStartOfTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_draw5AtStartOfTurn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:draw5AtStartOfTurnResponse" />
+  </wsdl:message>
   <wsdl:message name="IMonopolyDeal_hasGameStarted_InputMessage">
     <wsdl:part name="parameters" element="tns:hasGameStarted" />
   </wsdl:message>
@@ -1086,6 +1190,14 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="discard">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/discard" message="tns:IMonopolyDeal_discard_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/discardResponse" message="tns:IMonopolyDeal_discard_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playActionCardPassGo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardPassGo" message="tns:IMonopolyDeal_playActionCardPassGo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardPassGoResponse" message="tns:IMonopolyDeal_playActionCardPassGo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="draw5AtStartOfTurn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurn" message="tns:IMonopolyDeal_draw5AtStartOfTurn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnResponse" message="tns:IMonopolyDeal_draw5AtStartOfTurn_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="hasGameStarted">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/hasGameStarted" message="tns:IMonopolyDeal_hasGameStarted_InputMessage" />
@@ -1264,6 +1376,28 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="playActionCardPassGo">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playActionCardPassGo" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_playActionCardPassGo_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#HttpBinding_playActionCardPassGo_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="draw5AtStartOfTurn">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurn" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_draw5AtStartOfTurn_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#HttpBinding_draw5AtStartOfTurn_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="hasGameStarted">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/hasGameStarted" style="document" />
       <wsdl:input>
@@ -1418,6 +1552,24 @@
     </wsdl:operation>
     <wsdl:operation name="discard">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/discard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="playActionCardPassGo">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playActionCardPassGo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="draw5AtStartOfTurn">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurn" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

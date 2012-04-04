@@ -106,6 +106,10 @@ namespace MDWcfServiceLibrary
                 {
                     //addToClientsLogs("Player " + p.name + " is Ready");
                 }
+                if (playerIdLookup.Count <= 1)
+                {
+                    allReady = false;
+                }
             }
             if (allReady)
             {
@@ -159,7 +163,7 @@ namespace MDWcfServiceLibrary
             bool result = bankCardValidityCheck(card, pg);
             if (result)
             {
-                gameStateManager.bankCard(card, getPlayerModelByGuid(playerGuid.guid));
+                gameStateManager.bankCard(playedCardID, playerGuid.guid, serverGuid.guid, playfieldModelInstanceGuid.guid);
                 return true;
             }
             else
@@ -217,11 +221,6 @@ namespace MDWcfServiceLibrary
             throw new NotImplementedException();
         }
 
-        public bool discard(PlayerModel player, Card[] cardsToDiscard, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
         public void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam)
         {
             throw new NotImplementedException();
@@ -238,6 +237,10 @@ namespace MDWcfServiceLibrary
                     ///allReady = false;//
                 }
             }
+            if (playerIdLookup.Count <= 1)//minplayers
+            {
+                return false;
+            }
             return true;
         }
 
@@ -250,6 +253,21 @@ namespace MDWcfServiceLibrary
         public bool endTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid)
         {
             return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.EndTurn);
+        }
+
+        public bool discard(int cardsToDiscardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            return gameStateManager.discard(cardsToDiscardID, playerGuid.guid, serverGuid.guid, playfieldModelInstanceGuid.guid);
+        }
+
+        public bool draw5AtStartOfTurn(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            return gameStateManager.doAction(serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawFiveCardsAtStartOfTurn);
+        }
+
+        public bool playActionCardPassGo(int passGoCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            return gameStateManager.playActionCardPassGo(passGoCardID, serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayActionCard);
         }
     }
 }

@@ -322,13 +322,42 @@ namespace MDWcfWFClient
             getServiceReady();
             try
             {
-                //monopolyDealService.(thisClientGuid.boxGuid(), ta.serverGuid.boxGuid(), ta.currentPlayFieldModelGuid.boxGuid(), ta.thisTurnactionGuid.boxGuid());
+                monopolyDealService.draw5AtStartOfTurn(thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
             }
             catch (Exception ex)
             {
                 addToLog(ex.ToString());
                 monopolyDealService.Close();
             }
+        }
+
+        internal void discard1Card(int p)
+        {
+            getServiceReady();
+            try
+            {
+                monopolyDealService.discard(p, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+        }
+
+        internal bool passGo(int p)
+        {
+            getServiceReady();
+            try
+            {
+                return monopolyDealService.playActionCardPassGo(p, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
         }
     }
 }

@@ -64,6 +64,7 @@ namespace MDWcfServiceLibrary
         {
             //set player 0 to be first to play
             Guid firstPlayerGuid = players.ElementAt(FIRST_PLAYER).guid;
+            players.ElementAt(FIRST_PLAYER).isThisPlayersTurn = true;
             currentPlayerTurn = FIRST_PLAYER;
             return firstPlayerGuid;
         }
@@ -111,6 +112,7 @@ namespace MDWcfServiceLibrary
             dealPlayersInitialFiveCards(players, initialDrawPile);
             //It is the start of a players turn
             bool turnStart = true;
+
             //put it all into the intial state
             PlayFieldModel state = new PlayFieldModel(playFieldModelGuid, players, emptyTopPlayPile, firstPlayerGuid, noPlayersAffectedByActionCard,
                 null, noActionsPlayedFirstPlayerToDraw, initialDrawPile, initialPlayPile, NEW_TURN_NUMBER_OF_CARDS_PLAYABLE, turnStart, Statephase.Turn_Started_Draw_2_Cards);
