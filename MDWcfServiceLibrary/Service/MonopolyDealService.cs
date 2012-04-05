@@ -28,6 +28,7 @@ namespace MDWcfServiceLibrary
         private static int NUMBER_OF_DECKS = 1;
         //private static Deck deck;// = new Deck(NUMBER_OF_DECKS);
         private static int MAX_PLAYERS_PER_GAME = 5;
+        private static int MIN_PLAYERS_PER_GAME = 2;
         private static int numberOfPlayers = 0;
         private static String serverLog = "";
         private int i = 0;
@@ -127,28 +128,10 @@ namespace MDWcfServiceLibrary
             return notallreadyG; //not all players ready
         }
 
-        public PlayFieldModel pollState(Guid playerGuid, Guid gameGuid)
-        {
-            //addToClientsLogs("Polled");
-            //getPlayerModelByGuid(message.playerSendingMessage).ICallBack.addToLog("recieved poll");
-            //messageManager.recieveNewMessage(message);
-            throw new NotImplementedException();
-        }
-
         public bool draw2AtStartOfTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
             return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
         }
-
-        /*
-        public bool draw2AtStartOfTurnOld(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            List<Guid> guids = new List<Guid>();
-            guids.Add(playerGuid.guid);
-            TurnActionModel tamDrawTwoST = new TurnActionModel(guids, serverGuid.guid, playfieldModelInstanceGuid.guid, turnActionGuid.guid, new List<TurnActionTypes>(), TurnActionTypes.drawTwoCardsAtStartOfTurn, true);
-            return gameStateManager.doAction(tamDrawTwoST);
-        }
-         * */
 
         public PlayFieldModel pollState(GuidBox playerGuid, GuidBox gameGuid)
         {
