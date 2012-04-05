@@ -8,7 +8,7 @@ namespace MDWcfServiceLibrary
     internal class Lobby
     {
         /// <summary>
-        /// Lobby is a singleton
+        /// Lobby Singleton
         /// </summary>
 
         private List<GameStateManager> gameStateManagers = new List<GameStateManager>();
