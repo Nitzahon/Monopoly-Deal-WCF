@@ -7,8 +7,8 @@ using System.Text;
 
 namespace MDWcfServiceLibrary
 {
-    [ServiceContract(
-    SessionMode = SessionMode.Required)] //Duplex mode specifing callback Contract
+    [ServiceContract/*(
+    SessionMode = SessionMode.Required)*/] //Duplex mode specifing callback Contract
     interface IMonopolyDeal
     {
         // TODO: Add your service operations here
@@ -72,6 +72,31 @@ namespace MDWcfServiceLibrary
         Boolean hasGameStarted(GuidBox playerGuid, GuidBox serverGuid);
 
         [OperationContract]//dummy method to ensure all data contracts are available to client
-        void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam);
+        void referenceAllDataContracts(ActionCard ac, Card c, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam);
+
+        /// <summary>
+        /// Lobby service methods
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]//
+        GuidBox connectToLobby(string name);
+
+        [OperationContract]
+        GameLobbyStatus getGameLobbyStatus(GuidBox gameLobbyGuidP);
+
+        [OperationContract]
+        List<GameLobby> getListOfAllGameLobbys();
+
+        [OperationContract]
+        bool joinExistingGameLobby(GuidBox gameLobbyGuidP, GuidBox clientGuidP);
+
+        [OperationContract]
+        GuidBox joinNewGameLobby(GuidBox clientGuidP);
+
+        [OperationContract]
+        bool exitGameLobby(GuidBox clientGuidP);
+
+        [OperationContract]
+        bool setLobbyClientReady(GuidBox gameLobbyGuidP, GuidBox clientGuidP, bool readyP);
     }
 }

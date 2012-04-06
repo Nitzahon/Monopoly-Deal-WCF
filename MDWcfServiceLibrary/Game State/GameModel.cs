@@ -9,7 +9,7 @@ namespace MDWcfServiceLibrary
 {
     internal class GameModel
     {
-        MessageManager messageManager;
+        //MessageManager messageManager;
         public List<PlayFieldModel> gameStates = new List<PlayFieldModel>();
         PlayFieldModel initialState;
         public PlayFieldModel currentState;
@@ -39,7 +39,6 @@ namespace MDWcfServiceLibrary
             }
             initialState = createInitialState(players);
             gameStates.Add(initialState);
-            messageManager = messageManagerP;
             //State added to gameStates list, notify all players, wait for responses
         }
 
@@ -56,7 +55,6 @@ namespace MDWcfServiceLibrary
             }
             initialState = createInitialState(players);
             gameStates.Add(initialState);
-            messageManager = messageManagerP;
             //State added to gameStates list, notify all players, wait for responses
         }
 

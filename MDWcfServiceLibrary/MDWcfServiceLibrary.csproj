@@ -51,9 +51,15 @@
   <ItemGroup>
     <Compile Include="Cards\ActionCard.cs" />
     <Compile Include="Cards\CardTest.cs" />
+    <Compile Include="IMonopolyDealGame.cs" />
+    <Compile Include="Lobby\IGame.cs" />
+    <Compile Include="Lobby\ILobby.cs" />
     <Compile Include="Lobby\Lobby.cs" />
     <Compile Include="Lobby\LobbyClient.cs" />
     <Compile Include="Lobby\GameLobby.cs" />
+    <Compile Include="Monopoly Deal Game\MonopolyDeal.cs" />
+    <Compile Include="Monopoly Deal Game\MonopolyDeal_GameStateManager.cs" />
+    <Compile Include="Service\IMonopolyDealGames.cs" />
     <Compile Include="Service\MonopolyDealServiceHelper.cs" />
     <Compile Include="Service\Acknowledgement.cs" />
     <Compile Include="Cards\Card.cs" />

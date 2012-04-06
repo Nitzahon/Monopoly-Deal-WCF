@@ -219,14 +219,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPropertyColor" nillable="true" type="tns:ArrayOfPropertyColor" />
-  <xs:complexType name="MoneyCard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
   <xs:complexType name="ActionCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">
@@ -266,6 +258,14 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
+  <xs:complexType name="MoneyCard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Card">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
   <xs:complexType name="PlayerHand">
     <xs:sequence>
       <xs:element minOccurs="0" name="cardsInHand" nillable="true" type="tns:ArrayOfCard" />

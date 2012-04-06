@@ -9,14 +9,14 @@ namespace MDWcfServiceLibrary
 {
     //MonopolyDealService implements IMonopolyDeal interface using Duplex mode
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.PerCall)]
-    public class MonopolyDealService : IMonopolyDeal
+    public class MonopolyDealService : IMonopolyDeal, IMonopolyDealGames
     {
         // NOTE: The variables for storing callbacks and beer inventory are static.
         //       This is necessary since the service is using PerCall instancing.
         //       An instance of the service will be created each time a service method is invoked by a client.
         //       Consequently, the state must be persisted somewhere in between calls.
 
-        private static int id = 2;
+        //private static int id = 2;
 
         //game contains state
         private static GameModel gameModel;
@@ -27,10 +27,10 @@ namespace MDWcfServiceLibrary
         private static bool isStarted = false;
         private static int NUMBER_OF_DECKS = 1;
         //private static Deck deck;// = new Deck(NUMBER_OF_DECKS);
-        private static int MAX_PLAYERS_PER_GAME = 5;
-        private static int MIN_PLAYERS_PER_GAME = 2;
+        public static readonly int MAX_PLAYERS_PER_GAME = 5;
+        public static readonly int MIN_PLAYERS_PER_GAME = 2;
         private static int numberOfPlayers = 0;
-        private static String serverLog = "";
+        //private static String serverLog = "";
         private int i = 0;
         private static GameStateManager gameStateManager;
 
@@ -38,6 +38,10 @@ namespace MDWcfServiceLibrary
         private static bool gameGuidSet = false;
 
         private static MessageManager messageManager;
+        private static IGame gameInterface;
+        private static ILobby lobby = new Lobby(gameInterface);
+
+        private static List<MonopolyDeal> monopolyDealGamesOnService = new List<MonopolyDeal>();
 
         //Create new game
         private void createGame()
@@ -251,6 +255,145 @@ namespace MDWcfServiceLibrary
         public bool playActionCardPassGo(int passGoCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
         {
             return gameStateManager.playActionCardPassGo(passGoCardID, serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayActionCard);
+        }
+
+        public void referenceAllDataContracts(ActionCard ac, Card c, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam)
+        {
+            throw new NotImplementedException();
+        }
+
+        #region gameLobbyMethods
+
+        public GuidBox connectToLobby(string name)
+        {
+            try
+            {
+                GuidBox success = lobby.connectToLobby(name).boxGuid();
+                return success;
+            }
+            catch (Exception ex)
+            {
+                //Replace with better handling for system.servicemodel exceptions
+                return new GuidBox();
+            }
+        }
+
+        public GameLobbyStatus getGameLobbyStatus(GuidBox gameLobbyGuidP)
+        {
+            try
+            {
+                return lobby.getGameLobbyStatus(gameLobbyGuidP.guid);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        public List<GameLobby> getListOfAllGameLobbys()
+        {
+            try
+            {
+                return lobby.getListOfAllGameLobbys();
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        public bool joinExistingGameLobby(GuidBox gameLobbyGuidP, GuidBox clientGuidP)
+        {
+            try
+            {
+                return lobby.joinExistingGameLobby(gameLobbyGuidP.guid, clientGuidP.guid);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        public GuidBox joinNewGameLobby(GuidBox clientGuidP)
+        {
+            try
+            {
+                return lobby.joinNewGameLobby(clientGuidP.guid).boxGuid();
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        public bool exitGameLobby(GuidBox clientGuidP)
+        {
+            try
+            {
+                return lobby.exitGameLobby(clientGuidP.guid);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        public bool setLobbyClientReady(GuidBox gameLobbyGuidP, GuidBox clientGuidP, bool readyP)
+        {
+            try
+            {
+                return lobby.setLobbyClientReady(gameLobbyGuidP.guid, clientGuidP.guid, readyP);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        public bool checkIfGameStarted(GuidBox gameLobbyGuidP)
+        {
+            try
+            {
+                return lobby.checkIfGameStarted(gameLobbyGuidP.guid);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        #endregion gameLobbyMethods
+
+        public int getMinPlayersPerGame()
+        {
+            return MonopolyDeal.getMinPlayers();
+        }
+
+        public int getMaxPlayersPerGame()
+        {
+            return MonopolyDeal.getMaxPlayers();
+        }
+
+        public bool startNewMonopolyDealGame(List<LobbyClient> clients, Guid guidForGame)
+        {
+            try
+            {
+                List<PlayerModel> players = new List<PlayerModel>();
+                foreach (LobbyClient lc in clients)
+                {
+                    PlayerModel p = new PlayerModel(lc.getName());
+                    p.guid = lc.getGuid();
+                    p.isReadyToStartGame = true;
+                    players.Add(p);
+                }
+                MonopolyDeal game = new MonopolyDeal(players, guidForGame);
+                monopolyDealGamesOnService.Add(game);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
         }
     }
 }

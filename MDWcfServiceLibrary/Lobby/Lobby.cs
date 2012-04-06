@@ -5,21 +5,24 @@ using System.Text;
 
 namespace MDWcfServiceLibrary
 {
-    internal class Lobby
+    internal class Lobby : ILobby
     {
         /// <summary>
         /// Lobby Singleton
         /// </summary>
 
-        private List<GameStateManager> gameStateManagers = new List<GameStateManager>();
-        private List<GameModel> gameModels = new List<GameModel>();
-        private List<LobbyClient> lobbyClients = new List<LobbyClient>();
-        private List<GameLobby> gameLobbys = new List<GameLobby>();
+        public List<GameStateManager> gameStateManagers = new List<GameStateManager>();
+        public List<GameModel> gameModels = new List<GameModel>();
+        public List<LobbyClient> lobbyClients = new List<LobbyClient>();
+        public List<GameLobby> gameLobbys = new List<GameLobby>();
+
+        private IGame gameInterface;
 
         #region Contructors
 
-        public Lobby()
+        public Lobby(IGame gameInterfaceP)
         {
+            gameInterface = gameInterfaceP;
         }
 
         #endregion Contructors
@@ -43,9 +46,9 @@ namespace MDWcfServiceLibrary
         /// </summary>
         /// <returns>LobbyClient instance for client
         /// </returns>
-        private LobbyClient setUpNewLobbyClient()
+        private LobbyClient setUpNewLobbyClient(string name)
         {
-            LobbyClient client = new LobbyClient(generateGuid());
+            LobbyClient client = new LobbyClient(generateGuid(), name);
             //Add client to the list of clients
             lobbyClients.Add(client);
             return client;
@@ -60,9 +63,9 @@ namespace MDWcfServiceLibrary
         /// </summary>
         /// <returns>Guid of client to be used in calls to service
         /// </returns>
-        public Guid connectToLobby()
+        public Guid connectToLobby(string name)
         {
-            LobbyClient newClient = setUpNewLobbyClient();
+            LobbyClient newClient = setUpNewLobbyClient(name);
             return newClient.getLobbyClientGuid();
         }
 
@@ -122,6 +125,55 @@ namespace MDWcfServiceLibrary
             LobbyClient lc = getLobbyClientByGuid(clientGuidP);
             bool success = gl.setClientReady(lc, readyP);
             return success;
+        }
+
+        public bool startGame(Guid gameLobbyGuidP)
+        {
+            GameLobby gl = getGameLobby(gameLobbyGuidP);
+            if (gl != null)
+            {
+                if (gameInterface.startNewGame(gl.getListOfClients()))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                //Game does not exist
+                return false;
+            }
+        }
+
+        public bool checkIfGameStarted(Guid gameLobbyGuidP)
+        {
+            GameLobby gl = getGameLobby(gameLobbyGuidP);
+            if (gl != null)
+            {
+                if (gl.getStatus().CompareTo(GameLobbyStatus.Game_In_Progress) == 0)
+                {
+                    //Game started
+                    return true;
+                }
+                else if (gl.areAllClientsReady())
+                {
+                    //Game not started but all clients are ready
+                    GameLobbyStatus gls = gl.getStatus();
+                    if (gls.CompareTo(GameLobbyStatus.Enough_Players_To_Start) == 0 || gls.CompareTo(GameLobbyStatus.Full) == 0)
+                    {
+                        //There is enough clients to start a game and they are all ready
+                        if (startGame(gameLobbyGuidP))
+                        {
+                            //At this point a new game has been started.
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         #endregion Public_Client_Methods
@@ -194,5 +246,19 @@ namespace MDWcfServiceLibrary
         }
 
         #endregion getters
+
+        public bool exitGameLobby(Guid clientGuidP)
+        {
+            try
+            {
+                LobbyClient lc = getLobbyClientByGuid(clientGuidP);
+                GameLobby gl = getGameLobby(lc.getGuidOfGameLobbyAssignedTo());
+                return gl.removeClientFromGame(lc);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

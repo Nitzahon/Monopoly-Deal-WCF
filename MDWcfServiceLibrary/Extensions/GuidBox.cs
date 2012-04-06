@@ -16,5 +16,7 @@ namespace MDWcfServiceLibrary
         public Guid guid2;
         [DataMember]
         public bool bool1;
+        [DataMember]
+        public string message;
     }
 }

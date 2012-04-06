@@ -19,18 +19,27 @@ namespace MDWcfServiceLibrary
         [EnumMember]
         Full,
         [EnumMember]
+        overFull,
+        [EnumMember]
         Game_In_Progress,
         [EnumMember]
         Game_Ended
     }
 
-    internal class GameLobby
+    [DataContract]
+    public class GameLobby
     {
-        private List<LobbyClient> clientsConnectedToGame = new List<LobbyClient>();
-        private Guid guid;
-        private String gameLobbyName;
-        private int id;
-        private GameLobbyStatus status;
+        [DataMember]
+        public List<LobbyClient> clientsConnectedToGame = new List<LobbyClient>();
+        [DataMember]
+        public Guid guid;
+        [DataMember]
+        public String gameLobbyName;
+        [DataMember]
+        public int id;
+        [DataMember]
+        public GameLobbyStatus status;
+        private IGame gameInterFace;
 
         #region static
 
@@ -52,8 +61,9 @@ namespace MDWcfServiceLibrary
         /// </summary>
         /// <param name="firstClient"></param>
         /// <param name="thisGameLobbyGuidP"></param>
-        public GameLobby(LobbyClient firstClient, Guid thisGameLobbyGuidP)
+        public GameLobby(LobbyClient firstClient, Guid thisGameLobbyGuidP, IGame gameInterfaceP)
         {
+            gameInterFace = gameInterfaceP;
             this.guid = thisGameLobbyGuidP;
             id = getNewLobbyID();
             setLobbyName();
@@ -126,6 +136,30 @@ namespace MDWcfServiceLibrary
         /// <returns>Returns true if client added. False if client is not added
         /// </returns>
 
+        private void numberOfClientsInGameLobbyChanged()
+        {
+            if (clientsConnectedToGame.Count > gameInterFace.getMaxPlayersPerGame())
+            {
+                setStatus(GameLobbyStatus.overFull);
+            }
+            else if (clientsConnectedToGame.Count == gameInterFace.getMaxPlayersPerGame())
+            {
+                setStatus(GameLobbyStatus.Full);
+            }
+            else if (clientsConnectedToGame.Count == 0)
+            {
+                setStatus(GameLobbyStatus.Empty);
+            }
+            else if (clientsConnectedToGame.Count == 1)
+            {
+                setStatus(GameLobbyStatus.Not_Enough_Players_To_Start);
+            }
+            else if (clientsConnectedToGame.Count >= gameInterFace.getMinPlayersPerGame())
+            {
+                setStatus(GameLobbyStatus.Enough_Players_To_Start);
+            }
+        }
+
         public bool addClientToGame(LobbyClient client)
         {
             if ((status.CompareTo(GameLobbyStatus.Full) == 0) ||
@@ -137,6 +171,8 @@ namespace MDWcfServiceLibrary
             else
             {
                 clientsConnectedToGame.Add(client);
+                client.assignClientToGameLobby(getGameLobbyGuid());
+                numberOfClientsInGameLobbyChanged();
                 //client added
                 return true;
             }
@@ -146,14 +182,15 @@ namespace MDWcfServiceLibrary
         {
             if ((status.CompareTo(GameLobbyStatus.Game_In_Progress) == 0))
             {
-                //Can't remove client from this game
+                //Can't remove client from this game game in progress
                 return false;
             }
             else
             {
-                if (clientsConnectedToGame.Remove(client))
+                if (clientsConnectedToGame.Remove(client) && client.disassignClientFromGame())
                 {
                     // client was in game and has been removed
+                    numberOfClientsInGameLobbyChanged();
                     return true;
                 }
                 else
@@ -178,6 +215,20 @@ namespace MDWcfServiceLibrary
                 }
             }
             return false;
+        }
+
+        public bool areAllClientsReady()
+        {
+            foreach (LobbyClient client in getListOfClients())
+            {
+                if (!(client.getIfReadyToStart()))
+                {
+                    //A client is not ready
+                    return false;
+                }
+            }
+            //All clients are ready
+            return true;
         }
     }
 }

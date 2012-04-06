@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
 
 namespace MDWcfServiceLibrary
 {
-    internal class LobbyClient
+    [DataContract]
+    public class LobbyClient
     {
+        [DataMember]
         private Guid guid;
-        private Guid gameModelGuid;
+        [DataMember]
+        private Guid gameLobbyGuid;
+        [DataMember]
         private bool readyToStart;
+        [DataMember]
         private String name = "Player";
 
         public LobbyClient(Guid guidP)
@@ -31,11 +38,11 @@ namespace MDWcfServiceLibrary
             return guid;
         }
 
-        public bool assignClientToGame(Guid gameGuidP)
+        public bool assignClientToGameLobby(Guid gameLobbyGuidP)
         {
-            if (gameModelGuid == null || gameModelGuid.CompareTo(new Guid()) == 0)
+            if (gameLobbyGuid == null || gameLobbyGuid.CompareTo(new Guid()) == 0)
             {
-                gameModelGuid = gameGuidP;
+                gameLobbyGuid = gameLobbyGuidP;
                 return true;
             }
             else
@@ -45,13 +52,13 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        public bool disassignClientFromGame(Guid gameGuidP)
+        public bool disassignClientFromGame(Guid gameLobbyGuidP)
         {
-            if (gameModelGuid.CompareTo(gameGuidP) == 0)
+            if (gameLobbyGuid.CompareTo(gameLobbyGuidP) == 0)
             {
                 //Removing client from correct game
                 //set guid to zero guid
-                gameModelGuid = new Guid();
+                gameLobbyGuid = new Guid();
                 //Player can't be ready as no longer assigned to a game lobby
                 setIfReadyToStart(false);
                 return true;
@@ -64,15 +71,15 @@ namespace MDWcfServiceLibrary
 
         public bool disassignClientFromGame()
         {
-            gameModelGuid = new Guid();
+            gameLobbyGuid = new Guid();
             //Player can't be ready as no longer assigned to a game lobby
             setIfReadyToStart(false);
             return true;
         }
 
-        public Guid getGuidOfGameAssignedTo()
+        public Guid getGuidOfGameLobbyAssignedTo()
         {
-            return gameModelGuid;
+            return gameLobbyGuid;
         }
 
         public void setIfReadyToStart(bool readyP)
@@ -88,6 +95,11 @@ namespace MDWcfServiceLibrary
         public Guid getGuid()
         {
             return guid;
+        }
+
+        internal string getName()
+        {
+            return name;
         }
     }
 }

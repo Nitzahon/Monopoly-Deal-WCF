@@ -971,80 +971,80 @@
   <wsdl:message name="IMonopolyDeal_referenceAllDataContracts_OutputMessage">
     <wsdl:part name="parameters" element="tns:referenceAllDataContractsResponse" />
   </wsdl:message>
-  <wsdl:portType msc:usingSession="true" name="IMonopolyDeal">
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="connectToService">
+  <wsdl:portType name="IMonopolyDeal">
+    <wsdl:operation name="connectToService">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/connectToService" message="tns:IMonopolyDeal_connectToService_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/connectToServiceResponse" message="tns:IMonopolyDeal_connectToService_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="startGame">
+    <wsdl:operation name="startGame">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/startGame" message="tns:IMonopolyDeal_startGame_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/startGameResponse" message="tns:IMonopolyDeal_startGame_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="pollState">
+    <wsdl:operation name="pollState">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/pollState" message="tns:IMonopolyDeal_pollState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/pollStateResponse" message="tns:IMonopolyDeal_pollState_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="draw2AtStartOfTurn">
+    <wsdl:operation name="draw2AtStartOfTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/draw2AtStartOfTurn" message="tns:IMonopolyDeal_draw2AtStartOfTurn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/draw2AtStartOfTurnResponse" message="tns:IMonopolyDeal_draw2AtStartOfTurn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playCardFromHandToBank">
+    <wsdl:operation name="playCardFromHandToBank">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playCardFromHandToBank" message="tns:IMonopolyDeal_playCardFromHandToBank_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playCardFromHandToBankResponse" message="tns:IMonopolyDeal_playCardFromHandToBank_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playActionCardOnTurn">
+    <wsdl:operation name="playActionCardOnTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardOnTurn" message="tns:IMonopolyDeal_playActionCardOnTurn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardOnTurnResponse" message="tns:IMonopolyDeal_playActionCardOnTurn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playWildRentActionCardOnTurn">
+    <wsdl:operation name="playWildRentActionCardOnTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurn" message="tns:IMonopolyDeal_playWildRentActionCardOnTurn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurnResponse" message="tns:IMonopolyDeal_playWildRentActionCardOnTurn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playStandardRentActionCardOnTurn">
+    <wsdl:operation name="playStandardRentActionCardOnTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurn" message="tns:IMonopolyDeal_playStandardRentActionCardOnTurn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurnResponse" message="tns:IMonopolyDeal_playStandardRentActionCardOnTurn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playJustSayNo">
+    <wsdl:operation name="playJustSayNo">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playJustSayNo" message="tns:IMonopolyDeal_playJustSayNo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playJustSayNoResponse" message="tns:IMonopolyDeal_playJustSayNo_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playPropertyCard">
+    <wsdl:operation name="playPropertyCard">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playPropertyCard" message="tns:IMonopolyDeal_playPropertyCard_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playPropertyCardResponse" message="tns:IMonopolyDeal_playPropertyCard_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playPropertyCardNewSet">
+    <wsdl:operation name="playPropertyCardNewSet">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playPropertyCardNewSet" message="tns:IMonopolyDeal_playPropertyCardNewSet_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playPropertyCardNewSetResponse" message="tns:IMonopolyDeal_playPropertyCardNewSet_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="movePropertyCard">
+    <wsdl:operation name="movePropertyCard">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/movePropertyCard" message="tns:IMonopolyDeal_movePropertyCard_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/movePropertyCardResponse" message="tns:IMonopolyDeal_movePropertyCard_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="payCards">
+    <wsdl:operation name="payCards">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/payCards" message="tns:IMonopolyDeal_payCards_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/payCardsResponse" message="tns:IMonopolyDeal_payCards_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="endTurn">
+    <wsdl:operation name="endTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/endTurn" message="tns:IMonopolyDeal_endTurn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/endTurnResponse" message="tns:IMonopolyDeal_endTurn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="discard">
+    <wsdl:operation name="discard">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/discard" message="tns:IMonopolyDeal_discard_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/discardResponse" message="tns:IMonopolyDeal_discard_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playActionCardPassGo">
+    <wsdl:operation name="playActionCardPassGo">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardPassGo" message="tns:IMonopolyDeal_playActionCardPassGo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardPassGoResponse" message="tns:IMonopolyDeal_playActionCardPassGo_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="draw5AtStartOfTurn">
+    <wsdl:operation name="draw5AtStartOfTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurn" message="tns:IMonopolyDeal_draw5AtStartOfTurn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnResponse" message="tns:IMonopolyDeal_draw5AtStartOfTurn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="hasGameStarted">
+    <wsdl:operation name="hasGameStarted">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/hasGameStarted" message="tns:IMonopolyDeal_hasGameStarted_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/hasGameStartedResponse" message="tns:IMonopolyDeal_hasGameStarted_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="referenceAllDataContracts">
+    <wsdl:operation name="referenceAllDataContracts">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/referenceAllDataContracts" message="tns:IMonopolyDeal_referenceAllDataContracts_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/referenceAllDataContractsResponse" message="tns:IMonopolyDeal_referenceAllDataContracts_OutputMessage" />
     </wsdl:operation>
