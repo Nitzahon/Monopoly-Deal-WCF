@@ -82,11 +82,51 @@ namespace MDWcfServiceLibrary
         public TurnActionModel currentTurnActionModel;
         [DataMember]
         public Statephase currentPhase;
+        [DataMember]
+        public Guid previousPlayFieldModelGuid;
         //Service side only fields
         public DrawPile drawPile;
         public PlayPile playpile;
         //Guid generator
         public static List<Guid> playFieldModelGuids = new List<Guid>();
+
+        /// <summary>
+        /// Returns a copy of an instance of PlayFieldModel
+        /// </summary>
+        /// <returns></returns>
+        public PlayFieldModel clone(Guid guidOfClone)
+        {
+            Guid oldInstanceGuid = thisPlayFieldModelInstanceGuid.cloneGuid();
+            List<PlayerModel> playersCloned = cloneListPlayerModels(this.playerModels);
+            List<Card> topCardsPlayPileCloned = cloneListCards(topCardsOnPlaypile);
+            Guid oldPlayerWhoseTurnItIsGuid = guidOfPlayerWhosTurnItIs.cloneGuid();
+            int numberOfTurnsForPlayerRemaining = this.numberOfTurnsRemainingForPlayerWhosTurnItIs;
+            bool startOfATurnClone = startOfATurn.cloneBool();
+            PlayFieldModel pfmC = new PlayFieldModel(oldInstanceGuid, guidOfClone, playersCloned, topCardsPlayPileCloned, oldPlayerWhoseTurnItIsGuid, playersAffectedByActionCardGuids.cloneListGuids(), lastActionPlayed.clone(), currentTurnActionModel.clone(), drawPile.clone(), playpile.clone(), numberOfTurnsForPlayerRemaining, startOfATurnClone, currentPhase);
+            return pfmC;
+        }
+
+        public List<PlayerModel> cloneListPlayerModels(List<PlayerModel> playersOld)
+        {
+            List<PlayerModel> playersNew = new List<PlayerModel>();
+            foreach (PlayerModel pm in playersOld)
+            {
+                PlayerModel pmClone = pm.clone();
+                playersNew.Add(pmClone);
+            }
+            return playersNew;
+        }
+
+        public List<Card> cloneListCards(List<Card> oldListCards)
+        {
+            List<Card> newCards = new List<Card>();
+            foreach (Card c in oldListCards)
+            {
+                Card cClone = c.clone();
+                newCards.Add(cClone);
+            }
+            return newCards;
+        }
 
         //Static Methods
         public static Guid generateplayFieldModelGuid()
@@ -142,6 +182,37 @@ namespace MDWcfServiceLibrary
             lastActionPlayed = lastActionP;
             //Current Phase
             currentPhase = phaseP;
+        }
+
+        public PlayFieldModel(Guid previousPlayFieldModelGuidP, Guid thisInstanceGuid, List<PlayerModel> playerModelsP, List<Card> topCardsPlayPileP, Guid guidOfPlayerWhosTurnItIsP,
+            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, TurnActionModel nextActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP, Statephase phaseP)
+        {
+            //The guid of this instance of PlayFieldModel
+            thisPlayFieldModelInstanceGuid = thisInstanceGuid;
+            //The Players
+            playerModels = playerModelsP;
+            //The last 4 played cards
+            topCardsOnPlaypile = topCardsPlayPileP;
+            //The guid of the player whos turn it currently is
+            guidOfPlayerWhosTurnItIs = guidOfPlayerWhosTurnItIsP;
+            //A list of players who are affected by an action card that have just been played
+            playersAffectedByActionCardGuids = playersAffectedByActionCardGuidsP;
+            //The TurnActionModel of the last action
+            lastActionPlayed = lastActionP;
+            //The current State of the deck
+            drawPile = currentDrawPileState;
+            //The current State of the playpile
+            playpile = currentPlayPileState;
+            //The maximun number of cards that the player whos turn it is can play before their turn is over
+            numberOfTurnsRemainingForPlayerWhosTurnItIs = numberOfTurnsRemainingForPlayerP;
+            //This is the first move of a turn so the player whose turn it is should draw two cards
+            startOfATurn = startOfATurnP;
+            currentTurnActionModel = nextActionP;
+            lastActionPlayed = lastActionP;
+            //Current Phase
+            currentPhase = phaseP;
+            //Previous PlayFieldModelGuid
+            previousPlayFieldModelGuid = previousPlayFieldModelGuidP;
         }
     }
 }

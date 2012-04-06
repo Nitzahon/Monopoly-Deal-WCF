@@ -9,7 +9,7 @@ namespace MDWcfServiceLibrary
 {
     //MonopolyDealService implements IMonopolyDeal interface using Duplex mode
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.PerCall)]
-    public class MonopolyDealService : IMonopolyDeal, IMonopolyDealGames
+    public class MonopolyDealService : IMonopolyDeal
     {
         // NOTE: The variables for storing callbacks and beer inventory are static.
         //       This is necessary since the service is using PerCall instancing.
@@ -364,6 +364,8 @@ namespace MDWcfServiceLibrary
 
         #endregion gameLobbyMethods
 
+        #region IGameMethods
+
         public int getMinPlayersPerGame()
         {
             return MonopolyDeal.getMinPlayers();
@@ -374,6 +376,16 @@ namespace MDWcfServiceLibrary
             return MonopolyDeal.getMaxPlayers();
         }
 
+        #endregion IGameMethods
+
+        #region MonopolyDealGameMethods
+
+        /// <summary>
+        /// Creates a new instance of MonopolyDeal and adds it to the list of games on service
+        /// </summary>
+        /// <param name="clients"></param>
+        /// <param name="guidForGame"></param>
+        /// <returns></returns>
         public bool startNewMonopolyDealGame(List<LobbyClient> clients, Guid guidForGame)
         {
             try
@@ -395,5 +407,57 @@ namespace MDWcfServiceLibrary
                 throw new NotImplementedException(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Gets the current state of a Monopoly Deal Game on service
+        /// </summary>
+        /// <param name="playerGuid">Guid of player</param>
+        /// <param name="gameGuid">Guid of MonopolyDeal game instance</param>
+        /// <returns>PlayFieldModel of current state</returns>
+        public PlayFieldModel pollStateMonopolyDeal(GuidBox playerGuid, GuidBox gameGuid)
+        {
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameGuid.guid);
+                if (md != null)
+                {
+                    //Ask GameStateManager for currentState
+                    PlayFieldModel currentState = md.getMonopolyDealGameStateManager().getCurrentState();
+                    //TODO:Current state should be filtered here so players cant see other players hands
+                    //TODO:Could send Acknowledgement at this point but currently will have client send Acknowledgement
+                    return currentState;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets an instance of MonopolyDeal from the list of MonopolyDeal games on service
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        internal MonopolyDeal getMonopolyDeal(Guid guid)
+        {
+            foreach (MonopolyDeal md in monopolyDealGamesOnService)
+            {
+                if (md.getGuid().CompareTo(guid) == 0)
+                {
+                    //Game found
+                    return md;
+                }
+            }
+            //Game not found
+            return null;
+        }
+
+        #endregion MonopolyDealGameMethods
     }
 }

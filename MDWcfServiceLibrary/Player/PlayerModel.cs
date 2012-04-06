@@ -115,5 +115,10 @@ namespace MDWcfServiceLibrary
         #region Methods
 
         #endregion Methods
+
+        internal PlayerModel clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

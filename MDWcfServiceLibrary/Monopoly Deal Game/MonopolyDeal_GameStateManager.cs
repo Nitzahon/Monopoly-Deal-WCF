@@ -7,5 +7,17 @@ namespace MDWcfServiceLibrary
 {
     internal class MonopolyDeal_GameStateManager
     {
+        private MonopolyDeal monopolyDeal;
+
+        public MonopolyDeal_GameStateManager(MonopolyDeal monopolyDeal)
+        {
+            // TODO: Complete member initialization
+            this.monopolyDeal = monopolyDeal;
+        }
+
+        public PlayFieldModel getCurrentState()
+        {
+            return monopolyDeal.currentState;
+        }
     }
 }

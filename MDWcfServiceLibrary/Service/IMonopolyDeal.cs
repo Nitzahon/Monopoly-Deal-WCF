@@ -98,5 +98,14 @@ namespace MDWcfServiceLibrary
 
         [OperationContract]
         bool setLobbyClientReady(GuidBox gameLobbyGuidP, GuidBox clientGuidP, bool readyP);
+
+        /// <summary>
+        /// Gets Current State of a Monopoly Deal game.
+        /// </summary>
+        /// <param name="playerGuid">Guid of player requesting state.</param>
+        /// <param name="gameGuid">Guid of game to get current state of.</param>
+        /// <returns>Returns the current PlayFieldModel </returns>
+        [OperationContract]
+        PlayFieldModel pollStateMonopolyDeal(GuidBox playerGuid, GuidBox gameGuid);
     }
 }

@@ -94,6 +94,12 @@
     <None Include="Service References\MonopolyDealServiceReference\MDWcfServiceLibrary1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\MonopolyDealServiceReference\MDWcfWFClient.MonopolyDealServiceReference.GameLobby.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MonopolyDealServiceReference\MDWcfWFClient.MonopolyDealServiceReference.GameLobbyStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\MonopolyDealServiceReference\MDWcfWFClient.MonopolyDealServiceReference.GuidBox.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

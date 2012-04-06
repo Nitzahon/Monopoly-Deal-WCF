@@ -111,5 +111,10 @@ namespace MDWcfServiceLibrary
         {
             return cardID;
         }
+
+        internal Card clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -36,5 +36,10 @@ namespace MDWcfServiceLibrary
                 return false;
             }
         }
+
+        internal PlayPile clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

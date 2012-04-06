@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Cards\ActionCard.cs" />
     <Compile Include="Cards\CardTest.cs" />
+    <Compile Include="Extensions\ResponseBox.cs" />
     <Compile Include="IMonopolyDealGame.cs" />
     <Compile Include="Lobby\IGame.cs" />
     <Compile Include="Lobby\ILobby.cs" />

@@ -103,5 +103,10 @@ namespace MDWcfServiceLibrary
             typeOfActionToTake = ta.typeOfActionToTake;
             actionTaken = ta.actionTaken;
         }
+
+        internal TurnActionModel clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

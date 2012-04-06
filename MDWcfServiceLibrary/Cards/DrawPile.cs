@@ -53,5 +53,10 @@ namespace MDWcfServiceLibrary
                 return false;
             }
         }
+
+        internal DrawPile clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
