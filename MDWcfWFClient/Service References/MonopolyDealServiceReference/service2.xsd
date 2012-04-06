@@ -445,4 +445,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="pollStateMonopolyDeal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="playerGuid" nillable="true" type="q109:GuidBox" />
+        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="gameGuid" nillable="true" type="q110:GuidBox" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pollStateMonopolyDealResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="pollStateMonopolyDealResult" nillable="true" type="q111:PlayFieldModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

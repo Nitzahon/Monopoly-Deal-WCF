@@ -137,6 +137,9 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         private System.Guid[] playersAffectedByActionCardGuidsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid previousPlayFieldModelGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool startOfATurnField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -242,6 +245,19 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
                 if ((object.ReferenceEquals(this.playersAffectedByActionCardGuidsField, value) != true)) {
                     this.playersAffectedByActionCardGuidsField = value;
                     this.RaisePropertyChanged("playersAffectedByActionCardGuids");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid previousPlayFieldModelGuid {
+            get {
+                return this.previousPlayFieldModelGuidField;
+            }
+            set {
+                if ((this.previousPlayFieldModelGuidField.Equals(value) != true)) {
+                    this.previousPlayFieldModelGuidField = value;
+                    this.RaisePropertyChanged("previousPlayFieldModelGuid");
                 }
             }
         }
@@ -2776,6 +2792,9 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/setLobbyClientReady", ReplyAction="http://tempuri.org/IMonopolyDeal/setLobbyClientReadyResponse")]
         bool setLobbyClientReady(MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuidP, MDWcfWFClient.MonopolyDealServiceReference.GuidBox clientGuidP, bool readyP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/pollStateMonopolyDeal", ReplyAction="http://tempuri.org/IMonopolyDeal/pollStateMonopolyDealResponse")]
+        MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel pollStateMonopolyDeal(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameGuid);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2907,6 +2926,10 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         public bool setLobbyClientReady(MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuidP, MDWcfWFClient.MonopolyDealServiceReference.GuidBox clientGuidP, bool readyP) {
             return base.Channel.setLobbyClientReady(gameLobbyGuidP, clientGuidP, readyP);
+        }
+        
+        public MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel pollStateMonopolyDeal(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameGuid) {
+            return base.Channel.pollStateMonopolyDeal(playerGuid, gameGuid);
         }
     }
 }

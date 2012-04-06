@@ -18,6 +18,7 @@ namespace MDWcfWFClient
         MonopolyDealServiceReference.MonopolyDealClient monopolyDealService = null;
         //
         RequestHandler requestHandler;
+        RequestHanderMonopolyDeal requestHandlerMD;
 
         public Form1()
         {
@@ -30,6 +31,7 @@ namespace MDWcfWFClient
             _uiSyncContext = SynchronizationContext.Current;
             //rqh
             requestHandler = new RequestHandler(_uiSyncContext, this);
+            requestHandlerMD = new RequestHanderMonopolyDeal(_uiSyncContext, this);
         }
 
         /*
@@ -501,6 +503,21 @@ namespace MDWcfWFClient
                     bool result = requestHandler.passGo(card.cardID);
                 }
             }
+        }
+
+        private void buttonConnectToService_Click(object sender, EventArgs e)
+        {
+            requestHandlerMD.connectToLobby(this.textBoxPlayerName.Text);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            requestHandlerMD.iAmReady();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            requestHandlerMD.iAmNotReady();
         }
     }
 }

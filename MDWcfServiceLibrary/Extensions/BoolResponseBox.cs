@@ -8,19 +8,19 @@ using System.Text;
 namespace MDWcfServiceLibrary.Extensions
 {
     [DataContract]
-    internal class ResponseBox
+    internal class BoolResponseBox
     {
         [DataMember]
         public bool success;
         [DataMember]
         public string message;
 
-        public ResponseBox(bool successP)
+        public BoolResponseBox(bool successP)
         {
             success = successP;
         }
 
-        public ResponseBox(bool successP, string messageP)
+        public BoolResponseBox(bool successP, string messageP)
         {
             success = successP;
             message = messageP;

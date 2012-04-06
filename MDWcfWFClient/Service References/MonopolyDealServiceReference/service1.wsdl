@@ -1084,6 +1084,44 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_pollStateMonopolyDeal_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_pollStateMonopolyDeal_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="TcpBinding_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1279,6 +1317,12 @@
   <wsdl:message name="IMonopolyDeal_setLobbyClientReady_OutputMessage">
     <wsdl:part name="parameters" element="tns:setLobbyClientReadyResponse" />
   </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_pollStateMonopolyDeal_InputMessage">
+    <wsdl:part name="parameters" element="tns:pollStateMonopolyDeal" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_pollStateMonopolyDeal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:pollStateMonopolyDealResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMonopolyDeal">
     <wsdl:operation name="connectToService">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/connectToService" message="tns:IMonopolyDeal_connectToService_InputMessage" />
@@ -1383,6 +1427,10 @@
     <wsdl:operation name="setLobbyClientReady">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/setLobbyClientReady" message="tns:IMonopolyDeal_setLobbyClientReady_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/setLobbyClientReadyResponse" message="tns:IMonopolyDeal_setLobbyClientReady_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="pollStateMonopolyDeal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/pollStateMonopolyDeal" message="tns:IMonopolyDeal_pollStateMonopolyDeal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/pollStateMonopolyDealResponse" message="tns:IMonopolyDeal_pollStateMonopolyDeal_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="HttpBinding" type="tns:IMonopolyDeal">
@@ -1674,6 +1722,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="pollStateMonopolyDeal">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/pollStateMonopolyDeal" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_pollStateMonopolyDeal_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#HttpBinding_pollStateMonopolyDeal_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="TcpBinding" type="tns:IMonopolyDeal">
     <wsp:PolicyReference URI="#TcpBinding_policy" />
@@ -1905,6 +1964,15 @@
     </wsdl:operation>
     <wsdl:operation name="setLobbyClientReady">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/setLobbyClientReady" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pollStateMonopolyDeal">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/pollStateMonopolyDeal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

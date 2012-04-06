@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MDWcfServiceLibrary
 {
+    /// <summary>
+    /// Replaces old GameStateManager
+    /// </summary>
     internal class MonopolyDeal_GameStateManager
     {
         private MonopolyDeal monopolyDeal;

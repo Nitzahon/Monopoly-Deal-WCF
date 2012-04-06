@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace MDWcfWFClient
 {
     // Specify for the callback to NOT use the current synchronization context
-    [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Single, UseSynchronizationContext = false)]
+    //[CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Single, UseSynchronizationContext = false)]
     public class RequestHandler //: MonopolyDealServiceReference.IMonopolyDealCallback
     {
         SynchronizationContext uiSync;

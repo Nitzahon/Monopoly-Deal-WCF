@@ -718,6 +718,7 @@
             this.buttonConnectToService.TabIndex = 97;
             this.buttonConnectToService.Text = "Connect Lobby";
             this.buttonConnectToService.UseVisualStyleBackColor = true;
+            this.buttonConnectToService.Click += new System.EventHandler(this.buttonConnectToService_Click);
             // 
             // button1
             // 
@@ -754,6 +755,7 @@
             this.button7.TabIndex = 101;
             this.button7.Text = "I\'m Ready";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -763,6 +765,7 @@
             this.button8.TabIndex = 102;
             this.button8.Text = "I\'m Not Ready";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 

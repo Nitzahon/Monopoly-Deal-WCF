@@ -52,6 +52,7 @@
     <Compile Include="ClientMessageHandler.cs" />
     <Compile Include="Ext.cs" />
     <Compile Include="IClientUI.cs" />
+    <Compile Include="RequestHanderMonopolyDeal.cs" />
     <Compile Include="RequestHandler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
