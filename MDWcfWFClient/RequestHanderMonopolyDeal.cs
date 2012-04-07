@@ -206,5 +206,26 @@ namespace MDWcfWFClient
                 addToLog(ex.Message);
             }
         }
+
+        internal void leaveGameLobby()
+        {
+            try
+            {
+                getServiceReady();
+                bool success = monopolyDealService.exitGameLobby(thisClientGuid.boxGuid());
+                if (success)
+                {
+                    addToLog("Disconnected from game.");
+                }
+                else
+                {
+                    addToLog("Unable to disconnect.");
+                }
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.Message);
+            }
+        }
     }
 }

@@ -103,6 +103,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.buttonPollMD = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -351,7 +352,7 @@
             // 
             // buttonRearrange
             // 
-            this.buttonRearrange.Location = new System.Drawing.Point(121, 332);
+            this.buttonRearrange.Location = new System.Drawing.Point(116, 333);
             this.buttonRearrange.Name = "buttonRearrange";
             this.buttonRearrange.Size = new System.Drawing.Size(97, 23);
             this.buttonRearrange.TabIndex = 55;
@@ -749,6 +750,7 @@
             this.button6.TabIndex = 100;
             this.button6.Text = "Leave Game";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -789,11 +791,21 @@
             this.button10.Text = "Update GameLobby";
             this.button10.UseVisualStyleBackColor = true;
             // 
+            // buttonPollMD
+            // 
+            this.buttonPollMD.Location = new System.Drawing.Point(218, 503);
+            this.buttonPollMD.Name = "buttonPollMD";
+            this.buttonPollMD.Size = new System.Drawing.Size(91, 23);
+            this.buttonPollMD.TabIndex = 105;
+            this.buttonPollMD.Text = "Poll MD State";
+            this.buttonPollMD.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 644);
+            this.Controls.Add(this.buttonPollMD);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
@@ -954,6 +966,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button buttonPollMD;
     }
 }
 

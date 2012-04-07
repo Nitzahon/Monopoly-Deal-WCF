@@ -16,15 +16,26 @@ namespace MDWcfServiceLibrary
             games = monopolyDealGames;
         }
 
-        public MonopolyDeal createGame(List<PlayerModel> players, Guid guidForGame)
+        public bool createGame(List<LobbyClient> clients, Guid guidForGame)
         {
-            MonopolyDeal md = new MonopolyDeal(players, guidForGame);
-            return md;
-        }
-
-        internal bool startNewGame(List<LobbyClient> list)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                List<PlayerModel> playersMD = new List<PlayerModel>();
+                foreach (LobbyClient lc in clients)
+                {
+                    PlayerModel p = new PlayerModel(lc.getName());
+                    p.guid = lc.getGuid();
+                    p.isReadyToStartGame = true;
+                    playersMD.Add(p);
+                }
+                MonopolyDeal game = new MonopolyDeal(playersMD, guidForGame);
+                games.Add(game);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

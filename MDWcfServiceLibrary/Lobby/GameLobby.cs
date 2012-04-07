@@ -88,7 +88,7 @@ namespace MDWcfServiceLibrary
 
         #region Setters
 
-        private void setStatus(GameLobbyStatus s)
+        internal void setStatus(GameLobbyStatus s)
         {
             status = s;
             setDescription();
