@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MDWcfServiceLibrary
 {
-    interface IMonopolyDealGames : IGame
+    interface IMonopolyDealGames
     {
     }
 }

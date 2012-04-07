@@ -38,8 +38,11 @@ namespace MDWcfServiceLibrary
         private static bool gameGuidSet = false;
 
         private static MessageManager messageManager;
-        private static IGame gameInterface;
-        private static ILobby lobby = new Lobby(gameInterface);
+        internal static List<MonopolyDeal> gamesOnService = new List<MonopolyDeal>();
+        internal static MonopolyDealGameGen mdGen = new MonopolyDealGameGen(gamesOnService);
+
+        //public static MonopolyDeal gameInterface = new MonopolyDeal(null, new Guid()); //for getting game info only
+        private static ILobby lobby = new Lobby(mdGen);
 
         private static List<MonopolyDeal> monopolyDealGamesOnService = new List<MonopolyDeal>();
 
@@ -286,7 +289,7 @@ namespace MDWcfServiceLibrary
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw new FaultException(ex.Message);
             }
         }
 
@@ -298,7 +301,7 @@ namespace MDWcfServiceLibrary
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw new FaultException(ex.Message);
             }
         }
 
@@ -310,7 +313,7 @@ namespace MDWcfServiceLibrary
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw ex;
             }
         }
 
@@ -322,7 +325,7 @@ namespace MDWcfServiceLibrary
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw new FaultException(ex.Message);
             }
         }
 
@@ -334,7 +337,7 @@ namespace MDWcfServiceLibrary
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw new FaultException(ex.Message);
             }
         }
 
@@ -346,7 +349,7 @@ namespace MDWcfServiceLibrary
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw new FaultException(ex.Message);
             }
         }
 
@@ -358,7 +361,7 @@ namespace MDWcfServiceLibrary
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw new FaultException(ex.Message);
             }
         }
 

@@ -12,11 +12,11 @@ namespace MDWcfWFClient
     {
         private System.Threading.SynchronizationContext _uiSyncContext;
         private Form1 mainForm;
-        public Guid thisClientGuid;
+        //public Guid thisClientGuid;
         public Guid gameOnServiceGuid;
         public MonopolyDealServiceReference.PlayFieldModel CurrentPlayFieldModel;
         MonopolyDealServiceReference.MonopolyDealClient monopolyDealService;
-        public Guid playerGuid;
+        public Guid thisClientGuid;
         public Guid gameLobbyGuid;
 
         public RequestHanderMonopolyDeal(System.Threading.SynchronizationContext _uiSyncContext, Form1 form1)
@@ -35,10 +35,10 @@ namespace MDWcfWFClient
             {
                 getServiceReady();
 
-                playerGuid = monopolyDealService.connectToLobby(name).guid;
+                thisClientGuid = monopolyDealService.connectToLobby(name).guid;
                 mainForm.buttonConnect.Enabled = false;
                 mainForm.buttonStartGame.Enabled = true;
-                addToLog("connected .guid" + playerGuid);
+                addToLog("connected .guid" + thisClientGuid);
             }
             catch (Exception ex)
             {
@@ -108,6 +108,16 @@ namespace MDWcfWFClient
             _uiSyncContext.Post(callback, description);
         }
 
+        public void displayLobbies(MonopolyDealServiceReference.GameLobby[] lobbies)
+        {
+            SendOrPostCallback callBack = delegate(Object state)
+            {
+                mainForm.displayLobbiesState(state as MonopolyDealServiceReference.GameLobby[]);
+            };
+
+            _uiSyncContext.Post(callBack, lobbies);
+        }
+
         #endregion Graphical Calls to Form
 
         internal void iAmReady()
@@ -140,6 +150,56 @@ namespace MDWcfWFClient
 
                 bool success = monopolyDealService.setLobbyClientReady(gameLobbyGuid.boxGuid(), thisClientGuid.boxGuid(), false);
                 addToLog("I am not ready");
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.Message);
+            }
+        }
+
+        internal void updateLobbies()
+        {
+            try
+            {
+                getServiceReady();
+                MonopolyDealServiceReference.GameLobby[] gameLobbies = monopolyDealService.getListOfAllGameLobbys();
+                displayLobbies(gameLobbies);
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.Message);
+            }
+        }
+
+        internal void connectToNewLobby()
+        {
+            try
+            {
+                getServiceReady();
+                gameLobbyGuid = monopolyDealService.joinNewGameLobby(thisClientGuid.boxGuid()).guid;
+                addToLog("Connected to game. Guid:" + gameLobbyGuid.ToString());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.Message);
+            }
+        }
+
+        internal void connectToExistingLobby(Guid guid)
+        {
+            try
+            {
+                getServiceReady();
+                bool success = monopolyDealService.joinExistingGameLobby(guid.boxGuid(), thisClientGuid.boxGuid());
+                if (success)
+                {
+                    gameLobbyGuid = guid;
+                    addToLog("Connected to game. Guid:" + gameLobbyGuid.ToString());
+                }
+                else
+                {
+                    addToLog("Failed to connect to game.");
+                }
             }
             catch (Exception ex)
             {

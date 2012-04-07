@@ -39,7 +39,9 @@ namespace MDWcfServiceLibrary
         public int id;
         [DataMember]
         public GameLobbyStatus status;
-        private IGame gameInterFace;
+        [DataMember]
+        public String description;
+        private MonopolyDeal monopolyDealGame;
 
         #region static
 
@@ -61,9 +63,9 @@ namespace MDWcfServiceLibrary
         /// </summary>
         /// <param name="firstClient"></param>
         /// <param name="thisGameLobbyGuidP"></param>
-        public GameLobby(LobbyClient firstClient, Guid thisGameLobbyGuidP, IGame gameInterfaceP)
+        public GameLobby(LobbyClient firstClient, Guid thisGameLobbyGuidP)
         {
-            gameInterFace = gameInterfaceP;
+            //monopolyDealGame = monopolyDealGameP;
             this.guid = thisGameLobbyGuidP;
             id = getNewLobbyID();
             setLobbyName();
@@ -89,6 +91,7 @@ namespace MDWcfServiceLibrary
         private void setStatus(GameLobbyStatus s)
         {
             status = s;
+            setDescription();
         }
 
         private void setLobbyName()
@@ -138,11 +141,12 @@ namespace MDWcfServiceLibrary
 
         private void numberOfClientsInGameLobbyChanged()
         {
-            if (clientsConnectedToGame.Count > gameInterFace.getMaxPlayersPerGame())
+            if (clientsConnectedToGame.Count > MonopolyDeal.getMaxPlayers())
             {
                 setStatus(GameLobbyStatus.overFull);
+                //To many players to start game
             }
-            else if (clientsConnectedToGame.Count == gameInterFace.getMaxPlayersPerGame())
+            else if (clientsConnectedToGame.Count == MonopolyDeal.getMaxPlayers())
             {
                 setStatus(GameLobbyStatus.Full);
             }
@@ -154,7 +158,7 @@ namespace MDWcfServiceLibrary
             {
                 setStatus(GameLobbyStatus.Not_Enough_Players_To_Start);
             }
-            else if (clientsConnectedToGame.Count >= gameInterFace.getMinPlayersPerGame())
+            else if (clientsConnectedToGame.Count >= MonopolyDeal.getMinPlayers())
             {
                 setStatus(GameLobbyStatus.Enough_Players_To_Start);
             }
@@ -229,6 +233,11 @@ namespace MDWcfServiceLibrary
             }
             //All clients are ready
             return true;
+        }
+
+        public void setDescription()
+        {
+            description = gameLobbyName + " Status:" + status.ToString();
         }
     }
 }

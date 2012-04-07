@@ -54,12 +54,12 @@
     <Compile Include="Extensions\BoolResponseBox.cs" />
     <Compile Include="Extensions\ObjectResponseBox.cs" />
     <Compile Include="IMonopolyDealGame.cs" />
-    <Compile Include="Lobby\IGame.cs" />
     <Compile Include="Lobby\ILobby.cs" />
     <Compile Include="Lobby\Lobby.cs" />
     <Compile Include="Lobby\LobbyClient.cs" />
     <Compile Include="Lobby\GameLobby.cs" />
     <Compile Include="Monopoly Deal Game\MonopolyDeal.cs" />
+    <Compile Include="Monopoly Deal Game\MonopolyDealGameGen.cs" />
     <Compile Include="Monopoly Deal Game\MonopolyDeal_GameStateManager.cs" />
     <Compile Include="Service\IMonopolyDealGames.cs" />
     <Compile Include="Service\MonopolyDealServiceHelper.cs" />

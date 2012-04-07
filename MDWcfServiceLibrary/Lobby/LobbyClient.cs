@@ -18,12 +18,15 @@ namespace MDWcfServiceLibrary
         private bool readyToStart;
         [DataMember]
         private String name = "Player";
+        [DataMember]
+        private String description = "Player";
 
         public LobbyClient(Guid guidP)
         {
             this.guid = guidP;
             readyToStart = false;
             name = name + " " + getGuid().ToString();
+            setDescription();
         }
 
         public LobbyClient(Guid guidP, String nameP)
@@ -31,6 +34,7 @@ namespace MDWcfServiceLibrary
             this.guid = guidP;
             readyToStart = false;
             name = nameP;
+            setDescription();
         }
 
         public Guid getLobbyClientGuid()
@@ -85,6 +89,7 @@ namespace MDWcfServiceLibrary
         public void setIfReadyToStart(bool readyP)
         {
             readyToStart = readyP;
+            setDescription();
         }
 
         public bool getIfReadyToStart()
@@ -100,6 +105,18 @@ namespace MDWcfServiceLibrary
         internal string getName()
         {
             return name;
+        }
+
+        private void setDescription()
+        {
+            if (readyToStart)
+            {
+                description = name + " Ready";
+            }
+            else
+            {
+                description = name + " Not Ready";
+            }
         }
     }
 }

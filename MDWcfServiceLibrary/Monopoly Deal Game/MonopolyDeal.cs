@@ -98,5 +98,10 @@ namespace MDWcfServiceLibrary
         {
             return MONOPOLY_DEAL_GAME_GUID;
         }
+
+        internal int getMaxPlayersPerGame()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -701,6 +701,7 @@
             this.listBoxGameLobbies.Name = "listBoxGameLobbies";
             this.listBoxGameLobbies.Size = new System.Drawing.Size(194, 56);
             this.listBoxGameLobbies.TabIndex = 95;
+            this.listBoxGameLobbies.SelectedIndexChanged += new System.EventHandler(this.listBoxGameLobbies_SelectedIndexChanged);
             // 
             // listBoxPlayersInLobby
             // 
@@ -722,12 +723,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(121, 532);
+            this.button1.Location = new System.Drawing.Point(118, 532);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(91, 23);
             this.button1.TabIndex = 98;
             this.button1.Text = "Join New Game";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_3);
             // 
             // button4
             // 
@@ -737,6 +739,7 @@
             this.button4.TabIndex = 99;
             this.button4.Text = "Join Existing Game";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // button6
             // 
@@ -775,6 +778,7 @@
             this.button9.TabIndex = 103;
             this.button9.Text = "Update Lobbies";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 

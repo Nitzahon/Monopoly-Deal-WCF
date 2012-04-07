@@ -367,6 +367,17 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MessageType" nillable="true" type="tns:MessageType" />
+  <xs:complexType name="FieldUpdateMessage">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Message">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
+          <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FieldUpdateMessage" nillable="true" type="tns:FieldUpdateMessage" />
   <xs:complexType name="PollForFieldUpdateMessage">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Message">
@@ -380,17 +391,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="PollForFieldUpdateMessage" nillable="true" type="tns:PollForFieldUpdateMessage" />
-  <xs:complexType name="FieldUpdateMessage">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Message">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="fieldModel" nillable="true" type="tns:PlayFieldModel" />
-          <xs:element minOccurs="0" name="referenceThisGuidToRespond" type="ser:guid" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="FieldUpdateMessage" nillable="true" type="tns:FieldUpdateMessage" />
   <xs:simpleType name="GameLobbyStatus">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Empty" />
@@ -412,6 +412,7 @@
   <xs:complexType name="GameLobby">
     <xs:sequence>
       <xs:element minOccurs="0" name="clientsConnectedToGame" nillable="true" type="tns:ArrayOfLobbyClient" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="gameLobbyName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="guid" type="ser:guid" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
@@ -427,6 +428,7 @@
   <xs:element name="ArrayOfLobbyClient" nillable="true" type="tns:ArrayOfLobbyClient" />
   <xs:complexType name="LobbyClient">
     <xs:sequence>
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="gameLobbyGuid" type="ser:guid" />
       <xs:element minOccurs="0" name="guid" type="ser:guid" />
       <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />

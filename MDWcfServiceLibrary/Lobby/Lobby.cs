@@ -16,13 +16,13 @@ namespace MDWcfServiceLibrary
         public List<LobbyClient> lobbyClients = new List<LobbyClient>();
         public List<GameLobby> gameLobbys = new List<GameLobby>();
 
-        private IGame gameInterface;
+        internal MonopolyDealGameGen gameGenerator;
 
         #region Contructors
 
-        public Lobby(IGame gameInterfaceP)
+        public Lobby(MonopolyDealGameGen gameGen)
         {
-            gameInterface = gameInterfaceP;
+            gameGenerator = gameGen;
         }
 
         #endregion Contructors
@@ -101,7 +101,7 @@ namespace MDWcfServiceLibrary
         {
             GameLobby gl = getGameLobby(gameLobbyGuidP);
             LobbyClient lc = getLobbyClientByGuid(clientGuidP);
-            if (gl.addClientToGame(lc))
+            if (lc != null && gl.addClientToGame(lc))
             {
                 //Client successfully added to GameLobby
                 return true;
@@ -124,6 +124,10 @@ namespace MDWcfServiceLibrary
             GameLobby gl = getGameLobby(gameLobbyGuidP);
             LobbyClient lc = getLobbyClientByGuid(clientGuidP);
             bool success = gl.setClientReady(lc, readyP);
+            if (success)
+            {
+                checkIfGameStarted(gameLobbyGuidP);
+            }
             return success;
         }
 
@@ -132,7 +136,7 @@ namespace MDWcfServiceLibrary
             GameLobby gl = getGameLobby(gameLobbyGuidP);
             if (gl != null)
             {
-                if (gameInterface.startNewGame(gl.getListOfClients()))
+                if (gameGenerator.startNewGame(gl.getListOfClients()))
                 {
                     return true;
                 }

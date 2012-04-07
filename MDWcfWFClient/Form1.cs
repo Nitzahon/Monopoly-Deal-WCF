@@ -519,5 +519,68 @@ namespace MDWcfWFClient
         {
             requestHandlerMD.iAmNotReady();
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            requestHandlerMD.updateLobbies();
+        }
+
+        public void displayLobbiesState(MonopolyDealServiceReference.GameLobby[] gameLobbies)
+        {
+            if (gameLobbies.Length >= 1)
+            {
+                listBoxGameLobbies.DataSource = gameLobbies;
+                listBoxGameLobbies.DisplayMember = "description";
+            }
+            else
+            {
+                List<String> empty = new List<string>();
+                empty.Add("Create new game");
+                listBoxGameLobbies.DataSource = empty;
+            }
+        }
+
+        public void updateLobby(Object lobby)
+        {
+            if (lobby is List<String>)
+            {
+                //Connect to new lobby
+            }
+            else
+            {
+                MonopolyDealServiceReference.GameLobby gl = lobby as MonopolyDealServiceReference.GameLobby;
+                listBoxPlayersInLobby.DataSource = gl.clientsConnectedToGame;
+                listBoxPlayersInLobby.DisplayMember = "description";
+            }
+        }
+
+        private void listBoxGameLobbies_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MonopolyDealServiceReference.GameLobby gl = listBoxGameLobbies.SelectedValue as MonopolyDealServiceReference.GameLobby;
+            if (gl != null)
+            {
+                updateLobby(gl);
+            }
+        }
+
+        private void button1_Click_3(object sender, EventArgs e)
+        {
+            //Connect to new lobby
+            requestHandlerMD.connectToNewLobby();
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            if (listBoxGameLobbies.SelectedValue is String)
+            {
+                //Connect to new lobby
+                requestHandlerMD.connectToNewLobby();
+            }
+            else
+            {
+                MonopolyDealServiceReference.GameLobby gl = listBoxGameLobbies.SelectedValue as MonopolyDealServiceReference.GameLobby;
+                requestHandlerMD.connectToExistingLobby(gl.guid);
+            }
+        }
     }
 }
