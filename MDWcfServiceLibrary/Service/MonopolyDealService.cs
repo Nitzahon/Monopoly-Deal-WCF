@@ -461,6 +461,81 @@ namespace MDWcfServiceLibrary
             return null;
         }
 
+        public bool draw2AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playCardFromHandToBankMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playActionCardOnTurnMD(PlayerModel player, Card playedCard, PlayerModel playerTargeted, List<Card> cardsTargeted, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playWildRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PlayerModel playerTargeted, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playStandardRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playJustSayNoMD(PlayerModel player, Card playedCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playPropertyCardMD(PlayerModel player, Card playedCard, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playPropertyCardNewSetMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool movePropertyCardMD(PlayerModel player, Card propertyCard, PropertyCardSet oldSet, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool payCardsMD(PlayerModel playerPaying, PlayerModel playerRecieving, List<Card> cards, GuidBox gameLobbyGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool endTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool discardMD(int cardsToDiscardIDs, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playActionCardPassGoMD(int passGoCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool draw5AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool hasGameStartedMD(GuidBox playerGuid, GuidBox gameLobbyGuid)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion MonopolyDealGameMethods
     }
 }

@@ -107,5 +107,51 @@ namespace MDWcfServiceLibrary
         /// <returns>Returns the current PlayFieldModel </returns>
         [OperationContract]
         PlayFieldModel pollStateMonopolyDeal(GuidBox playerGuid, GuidBox gameGuid);
+
+        //Make a moves
+        [OperationContract]//Returns false if move is not valid for player at current time
+        bool draw2AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to play card from hand to bank, returns true if move valid and played and card should be removed from players hand, false if move not valid and card stays in players hand
+        Boolean playCardFromHandToBankMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to play action card on their turn
+        Boolean playActionCardOnTurnMD(PlayerModel player, Card playedCard, PlayerModel playerTargeted, List<Card> cardsTargeted, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to play action card on their turn
+        Boolean playWildRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PlayerModel playerTargeted, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to play action card on their turn
+        Boolean playStandardRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to play just say no card against action, returns true if card valid and action canceled
+        Boolean playJustSayNoMD(PlayerModel player, Card playedCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to play property to set
+        Boolean playPropertyCardMD(PlayerModel player, Card playedCard, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to play property to new set
+        Boolean playPropertyCardNewSetMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]//Player calls this method to move a property between sets, return true if card is valid for set and is added to the set
+        Boolean movePropertyCardMD(PlayerModel player, Card propertyCard, PropertyCardSet oldSet, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to give cards for payment, returns true if cards sufficent for payment, false if not
+        Boolean payCardsMD(PlayerModel playerPaying, PlayerModel playerRecieving, List<Card> cards, GuidBox gameLobbyGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+
+        [OperationContract]//Player calls this method to end their turn, returns true to notify turn over completed with 7 or less cards, returns false if error ,requiring cards to be discarded will be in next state
+        Boolean endTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]//discard  cards at end of turn
+        Boolean discardMD(int cardsToDiscardIDs, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]//discard  cards at end of turn
+        Boolean playActionCardPassGoMD(int passGoCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]
+        Boolean draw5AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]
+        Boolean hasGameStartedMD(GuidBox playerGuid, GuidBox gameLobbyGuid);
     }
 }
