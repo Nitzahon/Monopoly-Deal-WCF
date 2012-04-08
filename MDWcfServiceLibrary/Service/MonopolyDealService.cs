@@ -38,13 +38,12 @@ namespace MDWcfServiceLibrary
         private static bool gameGuidSet = false;
 
         private static MessageManager messageManager;
-        internal static List<MonopolyDeal> gamesOnService = new List<MonopolyDeal>();
-        internal static MonopolyDealGameGen mdGen = new MonopolyDealGameGen(gamesOnService);
+        //internal static List<MonopolyDeal> gamesOnService = new List<MonopolyDeal>();
+        private static List<MonopolyDeal> monopolyDealGamesOnService = new List<MonopolyDeal>();
+        internal static MonopolyDealGameGen mdGen = new MonopolyDealGameGen(monopolyDealGamesOnService);
 
         //public static MonopolyDeal gameInterface = new MonopolyDeal(null, new Guid()); //for getting game info only
         private static ILobby lobby = new Lobby(mdGen);
-
-        private static List<MonopolyDeal> monopolyDealGamesOnService = new List<MonopolyDeal>();
 
         //Create new game
         private void createGame()
@@ -405,7 +404,7 @@ namespace MDWcfServiceLibrary
                 monopolyDealGamesOnService.Add(game);
                 return true;
             }
-            catch (Exception ex)
+            catch (System.ServiceModel.CommunicationException ex)
             {
                 throw new NotImplementedException(ex.Message);
             }
@@ -436,7 +435,7 @@ namespace MDWcfServiceLibrary
                     return null;
                 }
             }
-            catch (Exception ex)
+            catch (System.ServiceModel.CommunicationException ex)
             {
                 throw new FaultException(ex.Message);
             }
@@ -463,12 +462,55 @@ namespace MDWcfServiceLibrary
 
         public bool draw2AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+                if (md != null)
+                {
+                    return md.getMonopolyDealGameStateManager().doAction(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public bool playCardFromHandToBankMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+                if (md != null)
+                {
+                    Guid pg = playerGuid.guid;
+                    Card card = md.deck.getCardByID(playedCardID);
+                    bool result = md.bankCardValidityCheck(card, pg);
+                    if (result)
+                    {
+                        md.getMonopolyDealGameStateManager().bankCard(playedCardID, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public bool playActionCardOnTurnMD(PlayerModel player, Card playedCard, PlayerModel playerTargeted, List<Card> cardsTargeted, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
@@ -498,7 +540,23 @@ namespace MDWcfServiceLibrary
 
         public bool playPropertyCardNewSetMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+                if (md != null)
+                {
+                    return md.getMonopolyDealGameStateManager().playPropertyCardToNewSet(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayPropertyCard_New_Set, playedCardID);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public bool movePropertyCardMD(PlayerModel player, Card propertyCard, PropertyCardSet oldSet, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
@@ -513,22 +571,86 @@ namespace MDWcfServiceLibrary
 
         public bool endTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+                if (md != null)
+                {
+                    return md.getMonopolyDealGameStateManager().doAction(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.EndTurn);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public bool discardMD(int cardsToDiscardIDs, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+                if (md != null)
+                {
+                    return md.getMonopolyDealGameStateManager().discard(cardsToDiscardIDs, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public bool playActionCardPassGoMD(int passGoCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+                if (md != null)
+                {
+                    return md.getMonopolyDealGameStateManager().playActionCardPassGo(passGoCardID, gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayActionCard);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public bool draw5AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+                if (md != null)
+                {
+                    return md.getMonopolyDealGameStateManager().doAction(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawFiveCardsAtStartOfTurn);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public bool hasGameStartedMD(GuidBox playerGuid, GuidBox gameLobbyGuid)

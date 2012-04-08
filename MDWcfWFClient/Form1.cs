@@ -17,7 +17,7 @@ namespace MDWcfWFClient
         private SynchronizationContext _uiSyncContext = null;
         MonopolyDealServiceReference.MonopolyDealClient monopolyDealService = null;
         //
-        RequestHandler requestHandler;
+        RequestHanderMonopolyDeal requestHandler;
         RequestHanderMonopolyDeal requestHandlerMD;
 
         public Form1()
@@ -30,8 +30,9 @@ namespace MDWcfWFClient
             // Capture the UI synchronization context
             _uiSyncContext = SynchronizationContext.Current;
             //rqh
-            requestHandler = new RequestHandler(_uiSyncContext, this);
+            //requestHandler = new RequestHandler(_uiSyncContext, this);
             requestHandlerMD = new RequestHanderMonopolyDeal(_uiSyncContext, this);
+            requestHandler = requestHandlerMD;
         }
 
         /*
@@ -82,12 +83,12 @@ namespace MDWcfWFClient
         //UI
         private void button1_Click(object sender, EventArgs e)
         {
-            requestHandler.connect();
+            //requestHandler.connect();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            requestHandler.startGame();
+            //requestHandler.startGame();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -586,6 +587,19 @@ namespace MDWcfWFClient
         private void button6_Click(object sender, EventArgs e)
         {
             requestHandlerMD.leaveGameLobby();
+        }
+
+        private void buttonPollMD_Click(object sender, EventArgs e)
+        {
+            requestHandlerMD.pollState();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void buttonRearrange_Click(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -358,6 +358,7 @@
             this.buttonRearrange.TabIndex = 55;
             this.buttonRearrange.Text = "Rearrange Properties";
             this.buttonRearrange.UseVisualStyleBackColor = true;
+            this.buttonRearrange.Click += new System.EventHandler(this.buttonRearrange_Click);
             // 
             // buttonEndTurn
             // 
@@ -648,6 +649,7 @@
             this.button5.TabIndex = 88;
             this.button5.Text = "Play Property To Selected Set";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // buttonDraw5OnTurnStart
             // 
@@ -799,6 +801,7 @@
             this.buttonPollMD.TabIndex = 105;
             this.buttonPollMD.Text = "Poll MD State";
             this.buttonPollMD.UseVisualStyleBackColor = true;
+            this.buttonPollMD.Click += new System.EventHandler(this.buttonPollMD_Click);
             // 
             // Form1
             // 
