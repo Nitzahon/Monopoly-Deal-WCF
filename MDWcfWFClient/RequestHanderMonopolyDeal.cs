@@ -36,7 +36,7 @@ namespace MDWcfWFClient
                 getServiceReady();
 
                 thisClientGuid = monopolyDealService.connectToLobby(name).guid;
-                mainForm.buttonConnect.Enabled = false;
+                mainForm.buttonConnect1.Enabled = false;
                 mainForm.buttonStartGame.Enabled = true;
                 addToLog("connected .guid" + thisClientGuid);
             }
@@ -207,7 +207,6 @@ namespace MDWcfWFClient
                         addToLog("Failed to connect to game.");
                     }
                 }
-                throw new Exception("Guid of game invalid");
             }
             catch (Exception ex)
             {
@@ -380,6 +379,27 @@ namespace MDWcfWFClient
             try
             {
                 monopolyDealService.discardMD(p, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+        }
+
+        internal void playPropertyToSelectedSet(MonopolyDealServiceReference.PropertyCard pc, MonopolyDealServiceReference.PropertyCardSet pcs)
+        {
+            getServiceReady();
+            try
+            {
+                if (monopolyDealService.playPropertyCardMD(null, pc, pcs, thisClientGuid.boxGuid(), gameLobbyGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid(), null))
+                {
+                    addToLog("Property played to new set");
+                }
+                else
+                {
+                    addToLog("Error, card not played");
+                }
             }
             catch (Exception ex)
             {

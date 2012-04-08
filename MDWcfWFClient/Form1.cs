@@ -19,6 +19,7 @@ namespace MDWcfWFClient
         //
         RequestHanderMonopolyDeal requestHandler;
         RequestHanderMonopolyDeal requestHandlerMD;
+        int playerIDNum = -1;
 
         public Form1()
         {
@@ -202,11 +203,11 @@ namespace MDWcfWFClient
         {
             listBoxPlayer0Hand.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(0).hand.cardsInHand;
             listBoxPlayer0Hand.DisplayMember = "description";
-            listBoxPlayer0Hand.ValueMember = "cardID";
+            //listBoxPlayer0Hand.ValueMember = "cardID";
 
             listBoxPlayer0Bank.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(0).bank.cardsInBank;
             listBoxPlayer0Bank.DisplayMember = "description";
-            listBoxPlayer0Bank.ValueMember = "cardID";
+            //listBoxPlayer0Bank.ValueMember = "cardID";
 
             listBoxPSetsP0.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(0).propertySets.playersPropertySets;
             listBoxPSetsP0.DisplayMember = "propertySetColor";
@@ -217,11 +218,11 @@ namespace MDWcfWFClient
         {
             listBoxPlayer1Hand.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(1).hand.cardsInHand;
             listBoxPlayer1Hand.DisplayMember = "description";
-            listBoxPlayer1Hand.ValueMember = "cardID";
+            //listBoxPlayer1Hand.ValueMember = "cardID";
 
             listBoxPlayer1Bank.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(1).bank.cardsInBank;
             listBoxPlayer1Bank.DisplayMember = "description";
-            listBoxPlayer1Bank.ValueMember = "cardID";
+            //listBoxPlayer1Bank.ValueMember = "cardID";
 
             listBoxPSetsP1.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(1).propertySets.playersPropertySets;
             listBoxPSetsP1.DisplayMember = "propertySetColor";
@@ -231,11 +232,11 @@ namespace MDWcfWFClient
         {
             listBoxPlayer2Hand.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(2).hand.cardsInHand;
             listBoxPlayer2Hand.DisplayMember = "description";
-            listBoxPlayer2Hand.ValueMember = "cardID";
+            //listBoxPlayer2Hand.ValueMember = "cardID";
 
             listBoxPlayer2Bank.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(2).bank.cardsInBank;
             listBoxPlayer2Bank.DisplayMember = "description";
-            listBoxPlayer2Bank.ValueMember = "cardID";
+            //listBoxPlayer2Bank.ValueMember = "cardID";
 
             listBoxPSetsP2.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(2).propertySets.playersPropertySets;
             listBoxPSetsP2.DisplayMember = "propertySetColor";
@@ -245,11 +246,11 @@ namespace MDWcfWFClient
         {
             listBoxPlayer3Hand.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(3).hand.cardsInHand;
             listBoxPlayer3Hand.DisplayMember = "description";
-            listBoxPlayer3Hand.ValueMember = "cardID";
+            //listBoxPlayer3Hand.ValueMember = "cardID";
 
             listBoxPlayer3Bank.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(3).bank.cardsInBank;
             listBoxPlayer3Bank.DisplayMember = "description";
-            listBoxPlayer3Bank.ValueMember = "cardID";
+            //listBoxPlayer3Bank.ValueMember = "cardID";
 
             listBoxPSetsP3.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(3).propertySets.playersPropertySets;
             listBoxPSetsP3.DisplayMember = "propertySetColor";
@@ -259,11 +260,11 @@ namespace MDWcfWFClient
         {
             listBoxPlayer4Hand.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(4).hand.cardsInHand;
             listBoxPlayer4Hand.DisplayMember = "description";
-            listBoxPlayer4Hand.ValueMember = "cardID";
+            // listBoxPlayer4Hand.ValueMember = "cardID";
 
             listBoxPlayer4Bank.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(4).bank.cardsInBank;
             listBoxPlayer4Bank.DisplayMember = "description";
-            listBoxPlayer4Bank.ValueMember = "cardID";
+            //listBoxPlayer4Bank.ValueMember = "cardID";
 
             listBoxPSetsP4.DataSource = requestHandler.CurrentPlayFieldModel.playerModels.ElementAt(4).propertySets.playersPropertySets;
             listBoxPSetsP4.DisplayMember = "propertySetColor";
@@ -277,6 +278,7 @@ namespace MDWcfWFClient
                 //This is the player on this client
                 BindListBox(0);
                 updateAllowAbleActions(pfm.playerModels[0]);
+                playerIDNum = 0;
             }
         }
 
@@ -287,6 +289,7 @@ namespace MDWcfWFClient
             {
                 BindListBox(1);
                 updateAllowAbleActions(pfm.playerModels[1]);
+                playerIDNum = 1;
             }
         }
 
@@ -297,6 +300,7 @@ namespace MDWcfWFClient
             {
                 BindListBox(2);
                 updateAllowAbleActions(pfm.playerModels[2]);
+                playerIDNum = 2;
             }
         }
 
@@ -307,6 +311,7 @@ namespace MDWcfWFClient
             {
                 BindListBox(3);
                 updateAllowAbleActions(pfm.playerModels[3]);
+                playerIDNum = 3;
             }
         }
 
@@ -317,6 +322,7 @@ namespace MDWcfWFClient
             {
                 BindListBox(4);
                 updateAllowAbleActions(pfm.playerModels[4]);
+                playerIDNum = 4;
             }
         }
 
@@ -380,7 +386,7 @@ namespace MDWcfWFClient
                     {
                         buttonDraw5OnTurnStart.Enabled = true;
                     }
-                    else if (tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.Discard_1_Card) == 0)
+                    else if (tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.Discard_1_Card) == 0 || tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.Discard_2_Cards) == 0 || tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.Discard_3_Cards) == 0 || tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.Discard_4_Cards) == 0 || tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.Discard_5_Cards) == 0)
                     {
                         buttonDiscard1.Enabled = true;
                     }
@@ -596,9 +602,44 @@ namespace MDWcfWFClient
 
         private void button5_Click(object sender, EventArgs e)
         {
+            MonopolyDealServiceReference.PropertyCardSet pcs = null;
+            MonopolyDealServiceReference.PropertyCard pc = null;
+            if (playerIDNum == 0)
+            {
+                pc = listBoxPlayer0Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP0.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            else if (playerIDNum == 1)
+            {
+                pc = listBoxPlayer1Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP1.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            else if (playerIDNum == 2)
+            {
+                pc = listBoxPlayer2Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP2.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            else if (playerIDNum == 3)
+            {
+                pc = listBoxPlayer3Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP3.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            else if (playerIDNum == 4)
+            {
+                pc = listBoxPlayer4Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP4.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            if (pc != null && pcs != null)
+            {
+                requestHandlerMD.playPropertyToSelectedSet(pc, pcs);
+            }
         }
 
         private void buttonRearrange_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button10_Click(object sender, EventArgs e)
         {
         }
     }

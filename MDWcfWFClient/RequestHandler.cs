@@ -48,7 +48,7 @@ namespace MDWcfWFClient
                 //monopolyDealService.connect(mainForm.textBoxPlayerName.Text);
                 thisClientGuid = monopolyDealService.connectToService(mainForm.textBoxPlayerName.Text);
                 //Disable Connect button
-                mainForm.buttonConnect.Enabled = false;
+                mainForm.buttonConnect1.Enabled = false;
                 mainForm.buttonStartGame.Enabled = true;
                 addToLog("connected .guid" + thisClientGuid);
             }
@@ -56,7 +56,7 @@ namespace MDWcfWFClient
             {
                 MessageBox.Show(r.ToString());
 
-                mainForm.buttonConnect.Enabled = true;
+                mainForm.buttonConnect1.Enabled = true;
                 monopolyDealService.Close();
             }
         }
@@ -275,7 +275,7 @@ namespace MDWcfWFClient
 
         internal bool checkHasGameStarted()
         {
-            if (mainForm.buttonConnect.Enabled)
+            if (mainForm.buttonConnect1.Enabled)
             {
                 monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient("HttpBinding");
             }

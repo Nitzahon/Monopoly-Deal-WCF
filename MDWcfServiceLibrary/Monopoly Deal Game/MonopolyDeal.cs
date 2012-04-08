@@ -193,11 +193,6 @@ namespace MDWcfServiceLibrary
             throw new NotImplementedException();
         }
 
-        public void referenceAllDataContracts(ActionCard ac, Card c, FieldUpdateMessage fum, Message msg, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PollForFieldUpdateMessage pffum, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool hasGameStarted(GuidBox playerGuid, GuidBox serverGuid)
         {
             // bool allReady = true;

@@ -33,7 +33,9 @@ namespace MDWcfServiceLibrary
         [EnumMember]
         Hotel,
         [EnumMember]
-        PassGo
+        PassGo,
+        [EnumMember]
+        NotAnActionCard
     }
 
     [DataContract]

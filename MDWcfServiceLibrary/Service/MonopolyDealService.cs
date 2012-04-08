@@ -535,7 +535,23 @@ namespace MDWcfServiceLibrary
 
         public bool playPropertyCardMD(PlayerModel player, Card playedCard, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+                if (md != null)
+                {
+                    return md.getMonopolyDealGameStateManager().playPropertyCardToExistingSet(playedCard, setToPlayPropertyTo, gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public bool playPropertyCardNewSetMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)

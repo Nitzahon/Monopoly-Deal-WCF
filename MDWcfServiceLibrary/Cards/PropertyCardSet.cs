@@ -48,10 +48,18 @@ namespace MDWcfServiceLibrary
         public Card house;
         [DataMember]
         public Card hotel;
+        [DataMember]
+        public Guid guid;
+
+        public Guid generateGuid()
+        {
+            return Guid.NewGuid();
+        }
 
         public PropertyCardSet(PropertyCard propertyCard)
         {
             id = generateID();
+            guid = generateGuid();
             properties = new LinkedList<PropertyCard>();
             properties.AddFirst(propertyCard);
             propertySetColor = propertyCard.currentPropertyColor;

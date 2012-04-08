@@ -78,6 +78,11 @@ namespace MDWcfServiceLibrary
             this.threeCardInSetRentValue = threeCardVal;
             this.fourCardInSetRentValue = fourCardVal;
             this.fiveCardInSetRentValue = fiveCardVal;
+            propertyColors.Add(color);
+            foreach (PropertyColor pc in propertyColors)
+            {
+                description = pc.ToString() + " " + description;
+            }
         }
 
         public PropertyCard(PropertyColor colorUp, PropertyColor colorDown, String nameUp, int fullsetSizeUp, int oneCardValUp, int twoCardValUp, int threeCardValUp, int fourCardValUp, int fiveCardValUp,
@@ -124,6 +129,16 @@ namespace MDWcfServiceLibrary
             isMultiWild = true;
             propertyColors = new List<PropertyColor>();
             propertyColors.Add(PropertyColor.Wild_MultiColored);
+            propertyColors.Add(PropertyColor.Blue);
+            propertyColors.Add(PropertyColor.Brown);
+            propertyColors.Add(PropertyColor.Green);
+            propertyColors.Add(PropertyColor.LightBlue);
+            propertyColors.Add(PropertyColor.Orange);
+            propertyColors.Add(PropertyColor.Pink);
+            propertyColors.Add(PropertyColor.Red);
+            propertyColors.Add(PropertyColor.Station);
+            propertyColors.Add(PropertyColor.Utilities);
+            propertyColors.Add(PropertyColor.Yellow);
             this.currentPropertyColor = PropertyColor.Wild_MultiColored;
         }
 

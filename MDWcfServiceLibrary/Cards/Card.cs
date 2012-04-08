@@ -91,7 +91,7 @@ namespace MDWcfServiceLibrary
             this.cardText = cardText;
             this.cardType = cardType;
             this.cardValue = cardValue;
-            description = cardID + " " + cardName + " $" + cardValue;
+            description = description + " " + cardID + " " + cardName + " $" + cardValue;
             this.cardGuid = generateGuid();
         }
 

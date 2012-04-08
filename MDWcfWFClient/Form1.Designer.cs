@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonConnect = new System.Windows.Forms.Button();
+            this.buttonConnect1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxPlayerName = new System.Windows.Forms.TextBox();
             this.buttonStartGame = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.labelPropertiesP2 = new System.Windows.Forms.Label();
+            this.labelBankP2 = new System.Windows.Forms.Label();
+            this.labelHandP2 = new System.Windows.Forms.Label();
+            this.labelPropertiesP3 = new System.Windows.Forms.Label();
+            this.labelBankP3 = new System.Windows.Forms.Label();
+            this.labelHandP3 = new System.Windows.Forms.Label();
+            this.labelPropertiesP1 = new System.Windows.Forms.Label();
+            this.labelBankP1 = new System.Windows.Forms.Label();
+            this.labelHandP1 = new System.Windows.Forms.Label();
+            this.labelPropertiesP4 = new System.Windows.Forms.Label();
+            this.labelBankP4 = new System.Windows.Forms.Label();
+            this.labelHandP4 = new System.Windows.Forms.Label();
+            this.labelPropertiesP5 = new System.Windows.Forms.Label();
+            this.labelBankP5 = new System.Windows.Forms.Label();
+            this.labelHandP5 = new System.Windows.Forms.Label();
             this.buttonPoll = new System.Windows.Forms.Button();
             this.buttonDraw2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -95,7 +95,7 @@
             this.listBoxSelectedPlayersSelectedSetPropertyCards = new System.Windows.Forms.ListBox();
             this.listBoxGameLobbies = new System.Windows.Forms.ListBox();
             this.listBoxPlayersInLobby = new System.Windows.Forms.ListBox();
-            this.buttonConnectToService = new System.Windows.Forms.Button();
+            this.buttonConnect = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -104,17 +104,18 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.buttonPollMD = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // buttonConnect
+            // buttonConnect1
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(12, 37);
-            this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(100, 23);
-            this.buttonConnect.TabIndex = 0;
-            this.buttonConnect.Text = "Connect";
-            this.buttonConnect.UseVisualStyleBackColor = true;
-            this.buttonConnect.Click += new System.EventHandler(this.button1_Click);
+            this.buttonConnect1.Location = new System.Drawing.Point(289, 571);
+            this.buttonConnect1.Name = "buttonConnect1";
+            this.buttonConnect1.Size = new System.Drawing.Size(100, 23);
+            this.buttonConnect1.TabIndex = 0;
+            this.buttonConnect1.Text = "Connect";
+            this.buttonConnect1.UseVisualStyleBackColor = true;
+            this.buttonConnect1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -173,145 +174,145 @@
             this.label3.TabIndex = 16;
             this.label3.Text = "MyHand";
             // 
-            // label6
+            // labelPropertiesP2
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(661, 167);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 13);
-            this.label6.TabIndex = 26;
-            this.label6.Text = "MyPropertiesP2";
+            this.labelPropertiesP2.AutoSize = true;
+            this.labelPropertiesP2.Location = new System.Drawing.Point(661, 167);
+            this.labelPropertiesP2.Name = "labelPropertiesP2";
+            this.labelPropertiesP2.Size = new System.Drawing.Size(67, 13);
+            this.labelPropertiesP2.TabIndex = 26;
+            this.labelPropertiesP2.Text = "PropertiesP2";
             // 
-            // label7
+            // labelBankP2
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(286, 167);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 13);
-            this.label7.TabIndex = 23;
-            this.label7.Text = "MyBankP2";
+            this.labelBankP2.AutoSize = true;
+            this.labelBankP2.Location = new System.Drawing.Point(286, 167);
+            this.labelBankP2.Name = "labelBankP2";
+            this.labelBankP2.Size = new System.Drawing.Size(45, 13);
+            this.labelBankP2.TabIndex = 23;
+            this.labelBankP2.Text = "BankP2";
             // 
-            // label8
+            // labelHandP2
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(482, 167);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(60, 13);
-            this.label8.TabIndex = 22;
-            this.label8.Text = "MyHandP2";
+            this.labelHandP2.AutoSize = true;
+            this.labelHandP2.Location = new System.Drawing.Point(482, 167);
+            this.labelHandP2.Name = "labelHandP2";
+            this.labelHandP2.Size = new System.Drawing.Size(46, 13);
+            this.labelHandP2.TabIndex = 22;
+            this.labelHandP2.Text = "HandP2";
             // 
-            // label9
+            // labelPropertiesP3
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(661, 229);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(81, 13);
-            this.label9.TabIndex = 32;
-            this.label9.Text = "MyPropertiesP3";
+            this.labelPropertiesP3.AutoSize = true;
+            this.labelPropertiesP3.Location = new System.Drawing.Point(661, 229);
+            this.labelPropertiesP3.Name = "labelPropertiesP3";
+            this.labelPropertiesP3.Size = new System.Drawing.Size(67, 13);
+            this.labelPropertiesP3.TabIndex = 32;
+            this.labelPropertiesP3.Text = "PropertiesP3";
             // 
-            // label10
+            // labelBankP3
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(286, 229);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 13);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "MyBankP3";
+            this.labelBankP3.AutoSize = true;
+            this.labelBankP3.Location = new System.Drawing.Point(286, 229);
+            this.labelBankP3.Name = "labelBankP3";
+            this.labelBankP3.Size = new System.Drawing.Size(45, 13);
+            this.labelBankP3.TabIndex = 29;
+            this.labelBankP3.Text = "BankP3";
             // 
-            // label11
+            // labelHandP3
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(482, 229);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(60, 13);
-            this.label11.TabIndex = 28;
-            this.label11.Text = "MyHandP3";
+            this.labelHandP3.AutoSize = true;
+            this.labelHandP3.Location = new System.Drawing.Point(482, 229);
+            this.labelHandP3.Name = "labelHandP3";
+            this.labelHandP3.Size = new System.Drawing.Size(46, 13);
+            this.labelHandP3.TabIndex = 28;
+            this.labelHandP3.Text = "HandP3";
             // 
-            // label12
+            // labelPropertiesP1
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(661, 94);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(81, 13);
-            this.label12.TabIndex = 38;
-            this.label12.Text = "MyPropertiesP1";
+            this.labelPropertiesP1.AutoSize = true;
+            this.labelPropertiesP1.Location = new System.Drawing.Point(661, 94);
+            this.labelPropertiesP1.Name = "labelPropertiesP1";
+            this.labelPropertiesP1.Size = new System.Drawing.Size(67, 13);
+            this.labelPropertiesP1.TabIndex = 38;
+            this.labelPropertiesP1.Text = "PropertiesP1";
             // 
-            // label13
+            // labelBankP1
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(286, 94);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(59, 13);
-            this.label13.TabIndex = 35;
-            this.label13.Text = "MyBankP1";
+            this.labelBankP1.AutoSize = true;
+            this.labelBankP1.Location = new System.Drawing.Point(286, 94);
+            this.labelBankP1.Name = "labelBankP1";
+            this.labelBankP1.Size = new System.Drawing.Size(45, 13);
+            this.labelBankP1.TabIndex = 35;
+            this.labelBankP1.Text = "BankP1";
             // 
-            // label14
+            // labelHandP1
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(482, 94);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(60, 13);
-            this.label14.TabIndex = 34;
-            this.label14.Text = "MyHandP1";
+            this.labelHandP1.AutoSize = true;
+            this.labelHandP1.Location = new System.Drawing.Point(482, 94);
+            this.labelHandP1.Name = "labelHandP1";
+            this.labelHandP1.Size = new System.Drawing.Size(46, 13);
+            this.labelHandP1.TabIndex = 34;
+            this.labelHandP1.Text = "HandP1";
             // 
-            // label15
+            // labelPropertiesP4
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(661, 297);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(81, 13);
-            this.label15.TabIndex = 44;
-            this.label15.Text = "MyPropertiesP4";
+            this.labelPropertiesP4.AutoSize = true;
+            this.labelPropertiesP4.Location = new System.Drawing.Point(661, 297);
+            this.labelPropertiesP4.Name = "labelPropertiesP4";
+            this.labelPropertiesP4.Size = new System.Drawing.Size(67, 13);
+            this.labelPropertiesP4.TabIndex = 44;
+            this.labelPropertiesP4.Text = "PropertiesP4";
             // 
-            // label16
+            // labelBankP4
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(286, 297);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(59, 13);
-            this.label16.TabIndex = 41;
-            this.label16.Text = "MyBankP4";
+            this.labelBankP4.AutoSize = true;
+            this.labelBankP4.Location = new System.Drawing.Point(286, 297);
+            this.labelBankP4.Name = "labelBankP4";
+            this.labelBankP4.Size = new System.Drawing.Size(45, 13);
+            this.labelBankP4.TabIndex = 41;
+            this.labelBankP4.Text = "BankP4";
             // 
-            // label17
+            // labelHandP4
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(482, 297);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(60, 13);
-            this.label17.TabIndex = 40;
-            this.label17.Text = "MyHandP4";
+            this.labelHandP4.AutoSize = true;
+            this.labelHandP4.Location = new System.Drawing.Point(482, 297);
+            this.labelHandP4.Name = "labelHandP4";
+            this.labelHandP4.Size = new System.Drawing.Size(46, 13);
+            this.labelHandP4.TabIndex = 40;
+            this.labelHandP4.Text = "HandP4";
             // 
-            // label18
+            // labelPropertiesP5
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(661, 366);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(81, 13);
-            this.label18.TabIndex = 50;
-            this.label18.Text = "MyPropertiesP5";
+            this.labelPropertiesP5.AutoSize = true;
+            this.labelPropertiesP5.Location = new System.Drawing.Point(661, 366);
+            this.labelPropertiesP5.Name = "labelPropertiesP5";
+            this.labelPropertiesP5.Size = new System.Drawing.Size(67, 13);
+            this.labelPropertiesP5.TabIndex = 50;
+            this.labelPropertiesP5.Text = "PropertiesP5";
             // 
-            // label19
+            // labelBankP5
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(286, 366);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(59, 13);
-            this.label19.TabIndex = 47;
-            this.label19.Text = "MyBankP5";
+            this.labelBankP5.AutoSize = true;
+            this.labelBankP5.Location = new System.Drawing.Point(286, 366);
+            this.labelBankP5.Name = "labelBankP5";
+            this.labelBankP5.Size = new System.Drawing.Size(45, 13);
+            this.labelBankP5.TabIndex = 47;
+            this.labelBankP5.Text = "BankP5";
             // 
-            // label20
+            // labelHandP5
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(482, 366);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(60, 13);
-            this.label20.TabIndex = 46;
-            this.label20.Text = "MyHandP5";
+            this.labelHandP5.AutoSize = true;
+            this.labelHandP5.Location = new System.Drawing.Point(482, 366);
+            this.labelHandP5.Name = "labelHandP5";
+            this.labelHandP5.Size = new System.Drawing.Size(46, 13);
+            this.labelHandP5.TabIndex = 46;
+            this.labelHandP5.Text = "HandP5";
             // 
             // buttonPoll
             // 
             this.buttonPoll.Enabled = false;
-            this.buttonPoll.Location = new System.Drawing.Point(121, 61);
+            this.buttonPoll.Location = new System.Drawing.Point(292, 600);
             this.buttonPoll.Name = "buttonPoll";
             this.buttonPoll.Size = new System.Drawing.Size(97, 23);
             this.buttonPoll.TabIndex = 51;
@@ -343,6 +344,7 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.HorizontalScrollbar = true;
             this.listBox1.Location = new System.Drawing.Point(12, 167);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
@@ -415,6 +417,7 @@
             // listBoxPlayer0Hand
             // 
             this.listBoxPlayer0Hand.FormattingEnabled = true;
+            this.listBoxPlayer0Hand.HorizontalScrollbar = true;
             this.listBoxPlayer0Hand.Location = new System.Drawing.Point(422, 109);
             this.listBoxPlayer0Hand.Name = "listBoxPlayer0Hand";
             this.listBoxPlayer0Hand.Size = new System.Drawing.Size(174, 43);
@@ -423,6 +426,7 @@
             // listBoxPlayer1Hand
             // 
             this.listBoxPlayer1Hand.FormattingEnabled = true;
+            this.listBoxPlayer1Hand.HorizontalScrollbar = true;
             this.listBoxPlayer1Hand.Location = new System.Drawing.Point(422, 181);
             this.listBoxPlayer1Hand.Name = "listBoxPlayer1Hand";
             this.listBoxPlayer1Hand.Size = new System.Drawing.Size(174, 43);
@@ -431,6 +435,7 @@
             // listBoxPlayer2Hand
             // 
             this.listBoxPlayer2Hand.FormattingEnabled = true;
+            this.listBoxPlayer2Hand.HorizontalScrollbar = true;
             this.listBoxPlayer2Hand.Location = new System.Drawing.Point(422, 245);
             this.listBoxPlayer2Hand.Name = "listBoxPlayer2Hand";
             this.listBoxPlayer2Hand.Size = new System.Drawing.Size(174, 43);
@@ -439,6 +444,7 @@
             // listBoxPlayer3Hand
             // 
             this.listBoxPlayer3Hand.FormattingEnabled = true;
+            this.listBoxPlayer3Hand.HorizontalScrollbar = true;
             this.listBoxPlayer3Hand.Location = new System.Drawing.Point(422, 313);
             this.listBoxPlayer3Hand.Name = "listBoxPlayer3Hand";
             this.listBoxPlayer3Hand.Size = new System.Drawing.Size(174, 43);
@@ -447,6 +453,7 @@
             // listBoxPlayer4Hand
             // 
             this.listBoxPlayer4Hand.FormattingEnabled = true;
+            this.listBoxPlayer4Hand.HorizontalScrollbar = true;
             this.listBoxPlayer4Hand.Location = new System.Drawing.Point(422, 382);
             this.listBoxPlayer4Hand.Name = "listBoxPlayer4Hand";
             this.listBoxPlayer4Hand.Size = new System.Drawing.Size(174, 43);
@@ -455,6 +462,7 @@
             // listBoxPlayer0Bank
             // 
             this.listBoxPlayer0Bank.FormattingEnabled = true;
+            this.listBoxPlayer0Bank.HorizontalScrollbar = true;
             this.listBoxPlayer0Bank.Location = new System.Drawing.Point(232, 109);
             this.listBoxPlayer0Bank.Name = "listBoxPlayer0Bank";
             this.listBoxPlayer0Bank.Size = new System.Drawing.Size(179, 43);
@@ -463,6 +471,7 @@
             // listBoxPlayer1Bank
             // 
             this.listBoxPlayer1Bank.FormattingEnabled = true;
+            this.listBoxPlayer1Bank.HorizontalScrollbar = true;
             this.listBoxPlayer1Bank.Location = new System.Drawing.Point(232, 181);
             this.listBoxPlayer1Bank.Name = "listBoxPlayer1Bank";
             this.listBoxPlayer1Bank.Size = new System.Drawing.Size(179, 43);
@@ -471,6 +480,7 @@
             // listBoxPlayer2Bank
             // 
             this.listBoxPlayer2Bank.FormattingEnabled = true;
+            this.listBoxPlayer2Bank.HorizontalScrollbar = true;
             this.listBoxPlayer2Bank.Location = new System.Drawing.Point(232, 245);
             this.listBoxPlayer2Bank.Name = "listBoxPlayer2Bank";
             this.listBoxPlayer2Bank.Size = new System.Drawing.Size(179, 43);
@@ -479,6 +489,7 @@
             // listBoxPlayer3Bank
             // 
             this.listBoxPlayer3Bank.FormattingEnabled = true;
+            this.listBoxPlayer3Bank.HorizontalScrollbar = true;
             this.listBoxPlayer3Bank.Location = new System.Drawing.Point(232, 313);
             this.listBoxPlayer3Bank.Name = "listBoxPlayer3Bank";
             this.listBoxPlayer3Bank.Size = new System.Drawing.Size(179, 43);
@@ -487,6 +498,7 @@
             // listBoxPlayer4Bank
             // 
             this.listBoxPlayer4Bank.FormattingEnabled = true;
+            this.listBoxPlayer4Bank.HorizontalScrollbar = true;
             this.listBoxPlayer4Bank.Location = new System.Drawing.Point(232, 382);
             this.listBoxPlayer4Bank.Name = "listBoxPlayer4Bank";
             this.listBoxPlayer4Bank.Size = new System.Drawing.Size(179, 43);
@@ -494,7 +506,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 61);
+            this.button2.Location = new System.Drawing.Point(289, 542);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 23);
             this.button2.TabIndex = 71;
@@ -505,6 +517,7 @@
             // listBoxPSetsP0
             // 
             this.listBoxPSetsP0.FormattingEnabled = true;
+            this.listBoxPSetsP0.HorizontalScrollbar = true;
             this.listBoxPSetsP0.Location = new System.Drawing.Point(616, 110);
             this.listBoxPSetsP0.Name = "listBoxPSetsP0";
             this.listBoxPSetsP0.Size = new System.Drawing.Size(156, 43);
@@ -514,6 +527,7 @@
             // listBoxPSetsP1
             // 
             this.listBoxPSetsP1.FormattingEnabled = true;
+            this.listBoxPSetsP1.HorizontalScrollbar = true;
             this.listBoxPSetsP1.Location = new System.Drawing.Point(616, 181);
             this.listBoxPSetsP1.Name = "listBoxPSetsP1";
             this.listBoxPSetsP1.Size = new System.Drawing.Size(156, 43);
@@ -523,6 +537,7 @@
             // listBoxPSetsP2
             // 
             this.listBoxPSetsP2.FormattingEnabled = true;
+            this.listBoxPSetsP2.HorizontalScrollbar = true;
             this.listBoxPSetsP2.Location = new System.Drawing.Point(616, 245);
             this.listBoxPSetsP2.Name = "listBoxPSetsP2";
             this.listBoxPSetsP2.Size = new System.Drawing.Size(156, 43);
@@ -532,6 +547,7 @@
             // listBoxPSetsP3
             // 
             this.listBoxPSetsP3.FormattingEnabled = true;
+            this.listBoxPSetsP3.HorizontalScrollbar = true;
             this.listBoxPSetsP3.Location = new System.Drawing.Point(616, 313);
             this.listBoxPSetsP3.Name = "listBoxPSetsP3";
             this.listBoxPSetsP3.Size = new System.Drawing.Size(156, 43);
@@ -540,6 +556,7 @@
             // listBoxPSetsP4
             // 
             this.listBoxPSetsP4.FormattingEnabled = true;
+            this.listBoxPSetsP4.HorizontalScrollbar = true;
             this.listBoxPSetsP4.Location = new System.Drawing.Point(616, 382);
             this.listBoxPSetsP4.Name = "listBoxPSetsP4";
             this.listBoxPSetsP4.Size = new System.Drawing.Size(156, 43);
@@ -548,6 +565,7 @@
             // listBoxPSetSelectedP0
             // 
             this.listBoxPSetSelectedP0.FormattingEnabled = true;
+            this.listBoxPSetSelectedP0.HorizontalScrollbar = true;
             this.listBoxPSetSelectedP0.Location = new System.Drawing.Point(778, 110);
             this.listBoxPSetSelectedP0.Name = "listBoxPSetSelectedP0";
             this.listBoxPSetSelectedP0.Size = new System.Drawing.Size(156, 43);
@@ -556,6 +574,7 @@
             // listBoxPSetSelectedP1
             // 
             this.listBoxPSetSelectedP1.FormattingEnabled = true;
+            this.listBoxPSetSelectedP1.HorizontalScrollbar = true;
             this.listBoxPSetSelectedP1.Location = new System.Drawing.Point(778, 181);
             this.listBoxPSetSelectedP1.Name = "listBoxPSetSelectedP1";
             this.listBoxPSetSelectedP1.Size = new System.Drawing.Size(156, 43);
@@ -564,6 +583,7 @@
             // listBoxPSetSelectedP2
             // 
             this.listBoxPSetSelectedP2.FormattingEnabled = true;
+            this.listBoxPSetSelectedP2.HorizontalScrollbar = true;
             this.listBoxPSetSelectedP2.Location = new System.Drawing.Point(778, 245);
             this.listBoxPSetSelectedP2.Name = "listBoxPSetSelectedP2";
             this.listBoxPSetSelectedP2.Size = new System.Drawing.Size(156, 43);
@@ -572,6 +592,7 @@
             // listBoxPSetSelectedP3
             // 
             this.listBoxPSetSelectedP3.FormattingEnabled = true;
+            this.listBoxPSetSelectedP3.HorizontalScrollbar = true;
             this.listBoxPSetSelectedP3.Location = new System.Drawing.Point(778, 313);
             this.listBoxPSetSelectedP3.Name = "listBoxPSetSelectedP3";
             this.listBoxPSetSelectedP3.Size = new System.Drawing.Size(156, 43);
@@ -580,6 +601,7 @@
             // listBoxPSetSelectedP4
             // 
             this.listBoxPSetSelectedP4.FormattingEnabled = true;
+            this.listBoxPSetSelectedP4.HorizontalScrollbar = true;
             this.listBoxPSetSelectedP4.Location = new System.Drawing.Point(778, 382);
             this.listBoxPSetSelectedP4.Name = "listBoxPSetSelectedP4";
             this.listBoxPSetSelectedP4.Size = new System.Drawing.Size(156, 43);
@@ -714,31 +736,31 @@
             this.listBoxPlayersInLobby.Size = new System.Drawing.Size(194, 69);
             this.listBoxPlayersInLobby.TabIndex = 96;
             // 
-            // buttonConnectToService
+            // buttonConnect
             // 
-            this.buttonConnectToService.Location = new System.Drawing.Point(12, 503);
-            this.buttonConnectToService.Name = "buttonConnectToService";
-            this.buttonConnectToService.Size = new System.Drawing.Size(97, 23);
-            this.buttonConnectToService.TabIndex = 97;
-            this.buttonConnectToService.Text = "Connect Lobby";
-            this.buttonConnectToService.UseVisualStyleBackColor = true;
-            this.buttonConnectToService.Click += new System.EventHandler(this.buttonConnectToService_Click);
+            this.buttonConnect.Location = new System.Drawing.Point(13, 37);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(97, 23);
+            this.buttonConnect.TabIndex = 97;
+            this.buttonConnect.Text = "Connect";
+            this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnectToService_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(118, 532);
+            this.button1.Location = new System.Drawing.Point(118, 503);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(91, 23);
             this.button1.TabIndex = 98;
-            this.button1.Text = "Join New Game";
+            this.button1.Text = "Create New Game";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_3);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(112, 561);
+            this.button4.Location = new System.Drawing.Point(18, 503);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(97, 23);
+            this.button4.Size = new System.Drawing.Size(91, 23);
             this.button4.TabIndex = 99;
             this.button4.Text = "Join Existing Game";
             this.button4.UseVisualStyleBackColor = true;
@@ -746,7 +768,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(121, 503);
+            this.button6.Location = new System.Drawing.Point(18, 532);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(91, 23);
             this.button6.TabIndex = 100;
@@ -756,9 +778,9 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(12, 532);
+            this.button7.Location = new System.Drawing.Point(118, 561);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.Size = new System.Drawing.Size(91, 23);
             this.button7.TabIndex = 101;
             this.button7.Text = "I\'m Ready";
             this.button7.UseVisualStyleBackColor = true;
@@ -766,9 +788,9 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(12, 562);
+            this.button8.Location = new System.Drawing.Point(20, 561);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.Size = new System.Drawing.Size(89, 23);
             this.button8.TabIndex = 102;
             this.button8.Text = "I\'m Not Ready";
             this.button8.UseVisualStyleBackColor = true;
@@ -776,9 +798,9 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(12, 591);
+            this.button9.Location = new System.Drawing.Point(12, 61);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(100, 23);
+            this.button9.Size = new System.Drawing.Size(98, 23);
             this.button9.TabIndex = 103;
             this.button9.Text = "Update Lobbies";
             this.button9.UseVisualStyleBackColor = true;
@@ -786,28 +808,39 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(121, 591);
+            this.button10.Location = new System.Drawing.Point(395, 542);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(116, 23);
+            this.button10.Size = new System.Drawing.Size(113, 23);
             this.button10.TabIndex = 104;
             this.button10.Text = "Update GameLobby";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // buttonPollMD
             // 
-            this.buttonPollMD.Location = new System.Drawing.Point(218, 503);
+            this.buttonPollMD.Location = new System.Drawing.Point(122, 61);
             this.buttonPollMD.Name = "buttonPollMD";
-            this.buttonPollMD.Size = new System.Drawing.Size(91, 23);
+            this.buttonPollMD.Size = new System.Drawing.Size(96, 23);
             this.buttonPollMD.TabIndex = 105;
             this.buttonPollMD.Text = "Poll MD State";
             this.buttonPollMD.UseVisualStyleBackColor = true;
             this.buttonPollMD.Click += new System.EventHandler(this.buttonPollMD_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(229, 428);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(296, 13);
+            this.label4.TabIndex = 106;
+            this.label4.Text = "Choose a Player to: DealBreak / Rent /Sly Deal/Forced Deal";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 644);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonPollMD);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
@@ -816,7 +849,7 @@
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonConnectToService);
+            this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.listBoxPlayersInLobby);
             this.Controls.Add(this.listBoxGameLobbies);
             this.Controls.Add(this.listBoxSelectedPlayersSelectedSetPropertyCards);
@@ -862,28 +895,28 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.buttonDraw2);
             this.Controls.Add(this.buttonPoll);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.label20);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.labelPropertiesP5);
+            this.Controls.Add(this.labelBankP5);
+            this.Controls.Add(this.labelHandP5);
+            this.Controls.Add(this.labelPropertiesP4);
+            this.Controls.Add(this.labelBankP4);
+            this.Controls.Add(this.labelHandP4);
+            this.Controls.Add(this.labelPropertiesP1);
+            this.Controls.Add(this.labelBankP1);
+            this.Controls.Add(this.labelHandP1);
+            this.Controls.Add(this.labelPropertiesP3);
+            this.Controls.Add(this.labelBankP3);
+            this.Controls.Add(this.labelHandP3);
+            this.Controls.Add(this.labelPropertiesP2);
+            this.Controls.Add(this.labelBankP2);
+            this.Controls.Add(this.labelHandP2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonStartGame);
             this.Controls.Add(this.textBoxPlayerName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonConnect);
+            this.Controls.Add(this.buttonConnect1);
             this.Name = "Form1";
             this.Text = "Monopoly Deal Windows Form Client";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -894,28 +927,28 @@
 
         #endregion
 
-        internal System.Windows.Forms.Button buttonConnect;
+        internal System.Windows.Forms.Button buttonConnect1;
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TextBox textBoxPlayerName;
         internal System.Windows.Forms.Button buttonStartGame;
         internal System.Windows.Forms.Label label2;
         internal System.Windows.Forms.TextBox textBoxLog;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label labelPropertiesP2;
+        private System.Windows.Forms.Label labelBankP2;
+        private System.Windows.Forms.Label labelHandP2;
+        private System.Windows.Forms.Label labelPropertiesP3;
+        private System.Windows.Forms.Label labelBankP3;
+        private System.Windows.Forms.Label labelHandP3;
+        private System.Windows.Forms.Label labelPropertiesP1;
+        private System.Windows.Forms.Label labelBankP1;
+        private System.Windows.Forms.Label labelHandP1;
+        private System.Windows.Forms.Label labelPropertiesP4;
+        private System.Windows.Forms.Label labelBankP4;
+        private System.Windows.Forms.Label labelHandP4;
+        private System.Windows.Forms.Label labelPropertiesP5;
+        private System.Windows.Forms.Label labelBankP5;
+        private System.Windows.Forms.Label labelHandP5;
         private System.Windows.Forms.Button buttonPoll;
         private System.Windows.Forms.Button buttonDraw2;
         private System.Windows.Forms.Button button3;
@@ -961,7 +994,7 @@
         private System.Windows.Forms.ListBox listBoxSelectedPlayersSelectedSetPropertyCards;
         private System.Windows.Forms.ListBox listBoxGameLobbies;
         private System.Windows.Forms.ListBox listBoxPlayersInLobby;
-        private System.Windows.Forms.Button buttonConnectToService;
+        private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button6;
@@ -970,6 +1003,7 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button buttonPollMD;
+        private System.Windows.Forms.Label label4;
     }
 }
 
