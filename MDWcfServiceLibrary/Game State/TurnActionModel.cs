@@ -45,7 +45,9 @@ namespace MDWcfServiceLibrary
         [EnumMember]
         Discard_4_Cards,
         [EnumMember]
-        Discard_5_Cards
+        Discard_5_Cards,
+        [EnumMember]
+        PayDebt
     }
 
     [DataContract]

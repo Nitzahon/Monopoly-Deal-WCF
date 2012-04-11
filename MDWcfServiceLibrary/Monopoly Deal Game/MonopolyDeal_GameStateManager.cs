@@ -8,7 +8,7 @@ namespace MDWcfServiceLibrary
     /// <summary>
     /// Replaces old GameStateManager
     /// </summary>
-    internal class MonopolyDeal_GameStateManager
+    internal class MonopolyDeal_GameStateManager : MDWcfServiceLibrary.Monopoly_Deal_Game.IMonopolyDeal_GameStateManager
     {
         private MonopolyDeal monopolyDeal;
 
@@ -76,7 +76,7 @@ namespace MDWcfServiceLibrary
             throw new NotImplementedException();
         }
 
-        public bool playPropertyCardToNewSet(Guid gameGuid, Guid playerGuid, Guid gameStateActionShouldBeAppliedOnGuid, TurnActionTypes actionType, int propertyCardID)
+        public bool playPropertyCardToNewSet(Guid gameGuid, bool isOrientedUp, Guid playerGuid, Guid gameStateActionShouldBeAppliedOnGuid, TurnActionTypes actionType, int propertyCardID)
         {
             //Get CurrentPlayFieldModelState
             currentPlayFieldModel = getCurrentPlayFieldModel();
@@ -94,6 +94,7 @@ namespace MDWcfServiceLibrary
                             {
                                 PropertyCard cP = c as PropertyCard;
                                 PropertyCardSet ps = new PropertyCardSet(cP);
+                                cP.setPropertyColor(isOrientedUp);
                                 player.propertySets.addSet(ps);
                                 updateState(TurnActionTypes.PlayPropertyCard_New_Set, ActionCardAction.NotAnActionCard, currentPlayFieldModel, player.guid);
                                 return true;
@@ -103,11 +104,6 @@ namespace MDWcfServiceLibrary
                 }
             }
             return false;
-        }
-
-        public bool checkIfMoveLegal(Guid guidOfPlayerMakingMove, TurnActionTypes typeOfActionAttempted)
-        {
-            throw new NotImplementedException();
         }
 
         public void drawTwoCardsAtTurnStart(PlayerModel player)
@@ -1175,6 +1171,9 @@ namespace MDWcfServiceLibrary
                     player.hand.addCardToHand(currentPlayFieldModel.drawPile.drawcard());
                     player.hand.addCardToHand(currentPlayFieldModel.drawPile.drawcard());
                     //Change state on success
+
+                    //Put card in discard pile
+                    getCurrentPlayFieldModel().playpile.playCardOnPile(card);
                     updateState(TurnActionTypes.PlayActionCard, ActionCardAction.PassGo, getCurrentPlayFieldModel(), player.guid);
                     return true;
                 }
@@ -1231,6 +1230,7 @@ namespace MDWcfServiceLibrary
                     if (pset.addProperty(pc))
                     {
                         removeCardFromHand(pc, pm);
+                        updateState(TurnActionTypes.PlayPropertyCard_New_Set, ActionCardAction.NotAnActionCard, currentPlayFieldModel, playerGuid);
                         return true;
                     }
                     else

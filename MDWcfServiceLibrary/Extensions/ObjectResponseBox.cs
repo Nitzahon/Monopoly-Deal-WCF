@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-namespace MDWcfServiceLibrary.Extensions
+namespace MDWcfServiceLibrary
 {
     [DataContract]
     internal class ObjectResponseBox

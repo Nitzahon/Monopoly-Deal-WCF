@@ -86,6 +86,7 @@ namespace MDWcfServiceLibrary
         public Guid previousPlayFieldModelGuid;
         //Service side only fields
         public DrawPile drawPile;
+        [DataMember]
         public PlayPile playpile;
         //Guid generator
         public static List<Guid> playFieldModelGuids = new List<Guid>();

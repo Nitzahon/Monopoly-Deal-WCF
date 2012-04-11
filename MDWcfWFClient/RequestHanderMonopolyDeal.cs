@@ -265,12 +265,12 @@ namespace MDWcfWFClient
             }
         }
 
-        internal void playPropertyToNewSet(int cardIDOfPropertyToPlay)
+        internal void playPropertyToNewSet(int cardIDOfPropertyToPlay, bool isOrientedUp)
         {
             getServiceReady();
             try
             {
-                if (monopolyDealService.playPropertyCardNewSetMD(cardIDOfPropertyToPlay, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid()))
+                if (monopolyDealService.playPropertyCardNewSetMD(cardIDOfPropertyToPlay, isOrientedUp, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid()))
                 {
                     addToLog("Property played to new set");
                 }

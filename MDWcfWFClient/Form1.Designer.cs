@@ -89,7 +89,7 @@
             this.buttonPlayPropNewSetFromHand = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.buttonDraw5OnTurnStart = new System.Windows.Forms.Button();
-            this.listBoxPropertySetNew = new System.Windows.Forms.ListBox();
+            this.listBoxDiscardPile = new System.Windows.Forms.ListBox();
             this.listBoxPlayers = new System.Windows.Forms.ListBox();
             this.listBoxSelectedPlayersPropertySets = new System.Windows.Forms.ListBox();
             this.listBoxSelectedPlayersSelectedSetPropertyCards = new System.Windows.Forms.ListBox();
@@ -684,13 +684,13 @@
             this.buttonDraw5OnTurnStart.UseVisualStyleBackColor = true;
             this.buttonDraw5OnTurnStart.Click += new System.EventHandler(this.buttonDraw5OnTurnStart_Click);
             // 
-            // listBoxPropertySetNew
+            // listBoxDiscardPile
             // 
-            this.listBoxPropertySetNew.FormattingEnabled = true;
-            this.listBoxPropertySetNew.Location = new System.Drawing.Point(778, 443);
-            this.listBoxPropertySetNew.Name = "listBoxPropertySetNew";
-            this.listBoxPropertySetNew.Size = new System.Drawing.Size(156, 56);
-            this.listBoxPropertySetNew.TabIndex = 91;
+            this.listBoxDiscardPile.FormattingEnabled = true;
+            this.listBoxDiscardPile.Location = new System.Drawing.Point(634, 542);
+            this.listBoxDiscardPile.Name = "listBoxDiscardPile";
+            this.listBoxDiscardPile.Size = new System.Drawing.Size(156, 56);
+            this.listBoxDiscardPile.TabIndex = 91;
             // 
             // listBoxPlayers
             // 
@@ -855,7 +855,7 @@
             this.Controls.Add(this.listBoxSelectedPlayersSelectedSetPropertyCards);
             this.Controls.Add(this.listBoxSelectedPlayersPropertySets);
             this.Controls.Add(this.listBoxPlayers);
-            this.Controls.Add(this.listBoxPropertySetNew);
+            this.Controls.Add(this.listBoxDiscardPile);
             this.Controls.Add(this.buttonDraw5OnTurnStart);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.buttonPlayPropNewSetFromHand);
@@ -988,7 +988,7 @@
         private System.Windows.Forms.Button buttonPlayPropNewSetFromHand;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button buttonDraw5OnTurnStart;
-        private System.Windows.Forms.ListBox listBoxPropertySetNew;
+        private System.Windows.Forms.ListBox listBoxDiscardPile;
         private System.Windows.Forms.ListBox listBoxPlayers;
         private System.Windows.Forms.ListBox listBoxSelectedPlayersPropertySets;
         private System.Windows.Forms.ListBox listBoxSelectedPlayersSelectedSetPropertyCards;

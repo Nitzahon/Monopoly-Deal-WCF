@@ -125,6 +125,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="playedCardID" type="xs:int" />
+        <xs:element minOccurs="0" name="isOrientedUp" type="xs:boolean" />
         <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="playerGuid" nillable="true" type="q41:GuidBox" />
         <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="gameLobbyGuid" nillable="true" type="q42:GuidBox" />
         <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="playfieldModelInstanceGuid" nillable="true" type="q43:GuidBox" />

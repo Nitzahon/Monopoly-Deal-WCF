@@ -118,7 +118,9 @@ namespace MDWcfWFClient
             //textBoxHand1.Text = "";
             //Player0
             int numPlayers = pfm.playerModels.Count();
-
+            //Draw playpile
+            listBoxDiscardPile.DataSource = pfm.playpile.playPile;
+            listBoxDiscardPile.DisplayMember = "description";
             switch (numPlayers)
             {
                 case 0:
@@ -411,7 +413,8 @@ namespace MDWcfWFClient
         {
             int cardIDOfPropertyToPlay = -1;
             cardIDOfPropertyToPlay = (int)((MonopolyDealServiceReference.Card)listBox1.SelectedValue).cardID;
-            requestHandler.playPropertyToNewSet(cardIDOfPropertyToPlay);
+            bool isOrientedUp = true;
+            requestHandler.playPropertyToNewSet(cardIDOfPropertyToPlay, isOrientedUp);
         }
 
         private void buttonEndTurn_Click(object sender, EventArgs e)

@@ -554,7 +554,7 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        public bool playPropertyCardNewSetMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        public bool playPropertyCardNewSetMD(int playedCardID, bool isOrientedUp, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
             try
             {
@@ -562,7 +562,7 @@ namespace MDWcfServiceLibrary
                 MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
                 if (md != null)
                 {
-                    return md.getMonopolyDealGameStateManager().playPropertyCardToNewSet(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayPropertyCard_New_Set, playedCardID);
+                    return md.getMonopolyDealGameStateManager().playPropertyCardToNewSet(gameLobbyGuid.guid, isOrientedUp, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayPropertyCard_New_Set, playedCardID);
                 }
                 else
                 {
