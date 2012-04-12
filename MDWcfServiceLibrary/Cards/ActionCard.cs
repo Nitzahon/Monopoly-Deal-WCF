@@ -52,5 +52,17 @@ namespace MDWcfServiceLibrary
         {
             this.actionType = actionType;
         }
+
+        public ActionCard(ActionCardAction actionType, int value, String name, String text, int id, Guid guid, String description, bool monetaryValueOnly)
+            : base(name, text, value, CardType.Action, id, guid)
+        {
+            this.actionType = actionType;
+        }
+
+        public override Card clone()
+        {
+            ActionCard clone = new ActionCard(this.actionType, this.cardValue, this.cardName, this.cardText, this.cardID, this.cardGuid, this.description, this.MonetaryValueOnly);
+            return clone;
+        }
     }
 }

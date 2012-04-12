@@ -23,5 +23,17 @@ namespace MDWcfServiceLibrary
             this.colorDown = colorDown;
             this.colorUp = colorUp;
         }
+
+        public RentStandard(RentStandard rentStandard)
+            : base(rentStandard.actionType, rentStandard.cardValue, rentStandard.cardName, rentStandard.cardText, rentStandard.cardID, rentStandard.cardGuid, rentStandard.description, rentStandard.MonetaryValueOnly)
+        {
+            this.colorDown = rentStandard.colorDown;
+            this.colorUp = rentStandard.colorUp;
+        }
+
+        public override Card clone()
+        {
+            return new RentStandard(this);
+        }
     }
 }

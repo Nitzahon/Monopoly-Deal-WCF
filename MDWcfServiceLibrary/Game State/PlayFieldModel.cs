@@ -84,6 +84,7 @@ namespace MDWcfServiceLibrary
         public Statephase currentPhase;
         [DataMember]
         public Guid previousPlayFieldModelGuid;
+        public Deck deck;
         //Service side only fields
         public DrawPile drawPile;
         [DataMember]
@@ -98,21 +99,27 @@ namespace MDWcfServiceLibrary
         public PlayFieldModel clone(Guid guidOfClone)
         {
             Guid oldInstanceGuid = thisPlayFieldModelInstanceGuid.cloneGuid();
-            List<PlayerModel> playersCloned = cloneListPlayerModels(this.playerModels);
+            //TODO Clone Deck
+
+            List<PlayerModel> playersCloned = cloneListPlayerModels(this.playerModels, this);
             List<Card> topCardsPlayPileCloned = cloneListCards(topCardsOnPlaypile);
             Guid oldPlayerWhoseTurnItIsGuid = guidOfPlayerWhosTurnItIs.cloneGuid();
             int numberOfTurnsForPlayerRemaining = this.numberOfTurnsRemainingForPlayerWhosTurnItIs;
             bool startOfATurnClone = startOfATurn.cloneBool();
-            PlayFieldModel pfmC = new PlayFieldModel(oldInstanceGuid, guidOfClone, playersCloned, topCardsPlayPileCloned, oldPlayerWhoseTurnItIsGuid, playersAffectedByActionCardGuids.cloneListGuids(), lastActionPlayed.clone(), currentTurnActionModel.clone(), drawPile.clone(), playpile.clone(), numberOfTurnsForPlayerRemaining, startOfATurnClone, currentPhase);
+            if (lastActionPlayed == null)
+            {
+                lastActionPlayed = new TurnActionModel(null, new Guid(), new Guid(), new Guid(), null, TurnActionTypes.gameStarted, false);
+            }
+            PlayFieldModel pfmC = new PlayFieldModel(oldInstanceGuid, guidOfClone, playersCloned, topCardsPlayPileCloned, oldPlayerWhoseTurnItIsGuid, playersAffectedByActionCardGuids.cloneListGuids(), lastActionPlayed.clone(), currentTurnActionModel.clone(), drawPile.clone(deck), playpile.clone(deck), numberOfTurnsForPlayerRemaining, startOfATurnClone, currentPhase, deck.cloneDeck());
             return pfmC;
         }
 
-        public List<PlayerModel> cloneListPlayerModels(List<PlayerModel> playersOld)
+        public List<PlayerModel> cloneListPlayerModels(List<PlayerModel> playersOld, PlayFieldModel state)
         {
             List<PlayerModel> playersNew = new List<PlayerModel>();
             foreach (PlayerModel pm in playersOld)
             {
-                PlayerModel pmClone = pm.clone();
+                PlayerModel pmClone = pm.clone(state);
                 playersNew.Add(pmClone);
             }
             return playersNew;
@@ -157,7 +164,7 @@ namespace MDWcfServiceLibrary
         }
 
         public PlayFieldModel(Guid thisInstanceGuid, List<PlayerModel> playerModelsP, List<Card> topCardsPlayPileP, Guid guidOfPlayerWhosTurnItIsP,
-            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, TurnActionModel nextActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP, Statephase phaseP)
+            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, TurnActionModel nextActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP, Statephase phaseP, Deck deckP)
         {
             //The guid of this instance of PlayFieldModel
             thisPlayFieldModelInstanceGuid = thisInstanceGuid;
@@ -172,6 +179,7 @@ namespace MDWcfServiceLibrary
             //The TurnActionModel of the last action
             lastActionPlayed = lastActionP;
             //The current State of the deck
+
             drawPile = currentDrawPileState;
             //The current State of the playpile
             playpile = currentPlayPileState;
@@ -183,10 +191,12 @@ namespace MDWcfServiceLibrary
             lastActionPlayed = lastActionP;
             //Current Phase
             currentPhase = phaseP;
+            //Deck
+            this.deck = deckP;
         }
 
         public PlayFieldModel(Guid previousPlayFieldModelGuidP, Guid thisInstanceGuid, List<PlayerModel> playerModelsP, List<Card> topCardsPlayPileP, Guid guidOfPlayerWhosTurnItIsP,
-            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, TurnActionModel nextActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP, Statephase phaseP)
+            List<Guid> playersAffectedByActionCardGuidsP, TurnActionModel lastActionP, TurnActionModel nextActionP, DrawPile currentDrawPileState, PlayPile currentPlayPileState, int numberOfTurnsRemainingForPlayerP, bool startOfATurnP, Statephase phaseP, Deck deckP)
         {
             //The guid of this instance of PlayFieldModel
             thisPlayFieldModelInstanceGuid = thisInstanceGuid;
@@ -214,6 +224,8 @@ namespace MDWcfServiceLibrary
             currentPhase = phaseP;
             //Previous PlayFieldModelGuid
             previousPlayFieldModelGuid = previousPlayFieldModelGuidP;
+            //Deck
+            deck = deckP;
         }
     }
 }

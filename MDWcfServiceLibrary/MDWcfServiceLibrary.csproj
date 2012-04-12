@@ -53,7 +53,7 @@
     <Compile Include="Cards\CardTest.cs" />
     <Compile Include="Extensions\BoolResponseBox.cs" />
     <Compile Include="Extensions\ObjectResponseBox.cs" />
-    <Compile Include="GameStateMangerAdapter.cs" />
+    <Compile Include="GameStateManagerToMoveAdapter.cs" />
     <Compile Include="IMonopolyDealGame.cs" />
     <Compile Include="Lobby\ILobby.cs" />
     <Compile Include="Lobby\Lobby.cs" />
@@ -65,6 +65,7 @@
     <Compile Include="Monopoly Deal Game\MonopolyDeal_GameStateManager.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="MoveInfo.cs" />
+    <Compile Include="PayAdknowledgeJustSayNo.cs" />
     <Compile Include="Service\IMonopolyDealGames.cs" />
     <Compile Include="Service\MonopolyDealServiceHelper.cs" />
     <Compile Include="Service\Acknowledgement.cs" />

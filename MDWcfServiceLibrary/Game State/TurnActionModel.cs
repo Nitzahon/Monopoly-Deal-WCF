@@ -27,6 +27,10 @@ namespace MDWcfServiceLibrary
         [EnumMember]
         PlayPropertyCard_New_Set,
         [EnumMember]
+        PlayPropertyCardFromHand,
+        [EnumMember]
+        MovePropertyCard,
+        [EnumMember]
         BankMoneyCard,
         [EnumMember]
         PlayActionCard,
@@ -108,7 +112,8 @@ namespace MDWcfServiceLibrary
 
         internal TurnActionModel clone()
         {
-            throw new NotImplementedException();
+            return new TurnActionModel(this.playerGuids.cloneListGuids(), this.serverGuid, this.currentPlayFieldModelGuid, this.thisTurnactionGuid,
+            this.typesOfActionListedPlayersCanTake.cloneListTurnActionTypes(), this.typeOfActionToTake, actionTaken);
         }
     }
 }

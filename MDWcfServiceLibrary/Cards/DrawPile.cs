@@ -7,8 +7,8 @@ namespace MDWcfServiceLibrary
 {
     public class DrawPile
     {
-        List<Card> drawPile;
-        PlayPile playPile;
+        internal List<Card> drawPile;
+        internal PlayPile playPile;
 
         public DrawPile(List<Card> cards, PlayPile playPile)
         {
@@ -54,8 +54,9 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        internal DrawPile clone()
+        internal DrawPile clone(Deck deck)
         {
+            return new DrawPile(drawPile.cloneListCard(deck), playPile);
             throw new NotImplementedException();
         }
     }

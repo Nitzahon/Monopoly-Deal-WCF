@@ -25,5 +25,11 @@ namespace MDWcfServiceLibrary
         {
             cardsInBank.Add(card);
         }
+
+        public PlayerBank(PlayerBank bank, PlayFieldModel state)
+        {
+            this.playerGuid = bank.playerGuid;
+            this.cardsInBank = bank.cardsInBank.cloneListCard(state.deck);
+        }
     }
 }

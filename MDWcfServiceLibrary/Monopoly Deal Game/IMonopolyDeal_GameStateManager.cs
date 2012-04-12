@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MDWcfServiceLibrary.Monopoly_Deal_Game
+namespace MDWcfServiceLibrary
 {
     interface IMonopolyDeal_GameStateManager
     {
@@ -16,6 +16,10 @@ namespace MDWcfServiceLibrary.Monopoly_Deal_Game
         void drawFiveCards(PlayerModel player);
 
         void drawTwoCardsAtTurnStart(PlayerModel player);
+
+        BoolResponseBox drawTwoCardsAtTurnStart(Guid player);
+
+        BoolResponseBox drawFiveCards(Guid player);
 
         void endTurn(PlayerModel player);
 
@@ -34,5 +38,11 @@ namespace MDWcfServiceLibrary.Monopoly_Deal_Game
         bool isActionAllowedForPlayer(TurnActionTypes turnActionToDo, Guid playerGuid, PlayFieldModel currentState);
 
         bool playPropertyCardToNewSet(Guid gameGuid, bool isOrientedUp, Guid playerGuid, Guid gameStateActionShouldBeAppliedOnGuid, TurnActionTypes actionType, int propertyCardID);
+
+        bool discard(int cardsToDiscardID, Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid);
+
+        bool playActionCardPassGo(int passGoCardID, Guid serverGuid, Guid playerGuid, Guid playfieldModelInstanceGuid, TurnActionTypes turnActionTypes);
+
+        bool playPropertyCardToExistingSet(Card playedCard, PropertyCardSet setToPlayPropertyTo, Guid gameLobbyGuid, Guid playerGuid, Guid playfieldModelInstanceGuid);
     }
 }

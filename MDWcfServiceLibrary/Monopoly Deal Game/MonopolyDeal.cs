@@ -16,7 +16,7 @@ namespace MDWcfServiceLibrary
         public static readonly int MIN_PLAYERS = 2;
         public static readonly int NUMBER_OF_DECKS = 1;
         public static readonly int NEW_TURN_NUMBER_OF_CARDS_PLAYABLE = 3;
-        public MonopolyDeal_GameStateManager gameStateManager;
+        public IMonopolyDeal_GameStateManager gameStateManager;
         public MessageManager messageManager;
         internal List<PlayerModel> players;
         internal List<PlayFieldModel> gameStates = new List<PlayFieldModel>();
@@ -33,6 +33,7 @@ namespace MDWcfServiceLibrary
 
         public Deck deck;
         public Guid gameModelGuid;
+        public bool useMoveManager = true;
 
         #region Constructor
 
@@ -44,9 +45,19 @@ namespace MDWcfServiceLibrary
         {
             //Assign Guid to this game of Monopoly Deal
             MONOPOLY_DEAL_GAME_GUID = thisGameGuidP;
+            gameModelGuid = thisGameGuidP;
             //Assign Players to this game of Monopoly Deal
             players = playersP;
-            gameStateManager = new MonopolyDeal_GameStateManager(this);
+            //Old GamestateManager
+
+            if (useMoveManager)
+            {
+                gameStateManager = new GameStateManagerToMoveAdapter(this);
+            }
+            else
+            {
+                gameStateManager = new MonopolyDeal_GameStateManager(this);
+            }
             addPlayersToIDLookup(playersP);
             initialState = createInitialState(players);
             gameStates.Add(initialState);
@@ -62,7 +73,7 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        public MonopolyDeal_GameStateManager getMonopolyDealGameStateManager()
+        public IMonopolyDeal_GameStateManager getMonopolyDealGameStateManager()
         {
             return gameStateManager;
         }
@@ -119,7 +130,15 @@ namespace MDWcfServiceLibrary
 
         public bool draw2AtStartOfTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
-            return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
+            if (useMoveManager)
+            {
+                gameStateManager.drawTwoCardsAtTurnStart(getPlayerModel(playerGuid.guid));
+                return true;
+            }
+            else
+            {
+                return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
+            }
         }
 
         public PlayFieldModel pollState(GuidBox playerGuid, GuidBox gameGuid)
@@ -278,7 +297,7 @@ namespace MDWcfServiceLibrary
 
             //put it all into the intial state
             PlayFieldModel state = new PlayFieldModel(playFieldModelGuid, players, emptyTopPlayPile, firstPlayerGuid, noPlayersAffectedByActionCard,
-                null, noActionsPlayedFirstPlayerToDraw, initialDrawPile, initialPlayPile, NEW_TURN_NUMBER_OF_CARDS_PLAYABLE, turnStart, Statephase.Turn_Started_Draw_2_Cards);
+                null, noActionsPlayedFirstPlayerToDraw, initialDrawPile, initialPlayPile, NEW_TURN_NUMBER_OF_CARDS_PLAYABLE, turnStart, Statephase.Turn_Started_Draw_2_Cards, deck);
             //stateCreated
             currentState = state;
             return state;

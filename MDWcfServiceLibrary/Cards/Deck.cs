@@ -13,6 +13,7 @@ namespace MDWcfServiceLibrary
         int hotelValue = 4;
         Card[] deck;
         int nextCardID = 0;
+        int numberOfDecks;
 
         public Deck(int numberOfDecks)
         {
@@ -26,6 +27,22 @@ namespace MDWcfServiceLibrary
             }
             deck = cardDeck.ToArray();
             durstenfeldShuffle();
+        }
+
+        public Deck(Deck oldDeck)
+        {
+            numberOfDecks = oldDeck.numberOfDecks;
+            List<Card> newDecksCards = new List<Card>();
+            foreach (Card card in oldDeck.deck)
+            {
+                newDecksCards.Add(card.clone());
+            }
+            deck = newDecksCards.ToArray<Card>();
+        }
+
+        public Deck cloneDeck()
+        {
+            return new Deck(this);
         }
 
         public Card getCardByID(int id)

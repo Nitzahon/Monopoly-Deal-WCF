@@ -491,37 +491,43 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         PlayPropertyCard_New_Set = 7,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        BankMoneyCard = 8,
+        PlayPropertyCardFromHand = 8,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        PlayActionCard = 9,
+        MovePropertyCard = 9,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        BankActionCard = 10,
+        BankMoneyCard = 10,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        PlayJustSayNo = 11,
+        PlayActionCard = 11,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        AdknowlegeRecievedCurrentState = 12,
+        BankActionCard = 12,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_1_Card = 13,
+        PlayJustSayNo = 13,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_2_Cards = 14,
+        AdknowlegeRecievedCurrentState = 14,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_3_Cards = 15,
+        Discard_1_Card = 15,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_4_Cards = 16,
+        Discard_2_Cards = 16,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_5_Cards = 17,
+        Discard_3_Cards = 17,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        PayDebt = 18,
+        Discard_4_Cards = 18,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_5_Cards = 19,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PayDebt = 20,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

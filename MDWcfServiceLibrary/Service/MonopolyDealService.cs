@@ -468,7 +468,15 @@ namespace MDWcfServiceLibrary
                 MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
                 if (md != null)
                 {
-                    return md.getMonopolyDealGameStateManager().doAction(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
+                    if (md.useMoveManager)
+                    {
+                        BoolResponseBox result = md.getMonopolyDealGameStateManager().drawTwoCardsAtTurnStart(playerGuid.guid);
+                        return result.success;
+                    }
+                    else
+                    {
+                        return md.getMonopolyDealGameStateManager().doAction(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
+                    }
                 }
                 else
                 {
@@ -489,17 +497,25 @@ namespace MDWcfServiceLibrary
                 MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
                 if (md != null)
                 {
-                    Guid pg = playerGuid.guid;
-                    Card card = md.deck.getCardByID(playedCardID);
-                    bool result = md.bankCardValidityCheck(card, pg);
-                    if (result)
+                    if (md.useMoveManager)
                     {
-                        md.getMonopolyDealGameStateManager().bankCard(playedCardID, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
-                        return true;
+                        // md.getMonopolyDealGameStateManager().drawFiveCards(md.get)
+                        return false;
                     }
                     else
                     {
-                        return false;
+                        Guid pg = playerGuid.guid;
+                        Card card = md.deck.getCardByID(playedCardID);
+                        bool result = md.bankCardValidityCheck(card, pg);
+                        if (result)
+                        {
+                            md.getMonopolyDealGameStateManager().bankCard(playedCardID, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 }
                 else

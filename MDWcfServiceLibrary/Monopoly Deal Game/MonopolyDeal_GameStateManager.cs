@@ -8,7 +8,7 @@ namespace MDWcfServiceLibrary
     /// <summary>
     /// Replaces old GameStateManager
     /// </summary>
-    internal class MonopolyDeal_GameStateManager : MDWcfServiceLibrary.Monopoly_Deal_Game.IMonopolyDeal_GameStateManager
+    internal class MonopolyDeal_GameStateManager : IMonopolyDeal_GameStateManager
     {
         private MonopolyDeal monopolyDeal;
 
@@ -1133,7 +1133,7 @@ namespace MDWcfServiceLibrary
             #endregion Turn_Ended_8_Cards_In_Hand_Discard_1_Card
         }
 
-        internal bool discard(int cardsToDiscardID, Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid)
+        public bool discard(int cardsToDiscardID, Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid)
         {
             Card cardInHandToBeDiscarded = monopolyDeal.deck.getCardByID(cardsToDiscardID);
             //Get the reference to the players playerModel in the current PlayFieldModel
@@ -1155,7 +1155,7 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        internal bool playActionCardPassGo(int passGoCardID, Guid serverGuid, Guid playerGuid, Guid playfieldModelInstanceGuid, TurnActionTypes turnActionTypes)
+        public bool playActionCardPassGo(int passGoCardID, Guid serverGuid, Guid playerGuid, Guid playfieldModelInstanceGuid, TurnActionTypes turnActionTypes)
         {
             Card cardInHandToBePlayed = monopolyDeal.deck.getCardByID(passGoCardID);
             //Get the reference to the players playerModel in the current PlayFieldModel
@@ -1188,7 +1188,7 @@ namespace MDWcfServiceLibrary
 
         #endregion From GameStateManager
 
-        internal PropertyCardSet getPropertySet(Guid setGuid, Guid playerGuid, Guid gameLobbyGuid, Guid stateGuid)
+        public PropertyCardSet getPropertySet(Guid setGuid, Guid playerGuid, Guid gameLobbyGuid, Guid stateGuid)
         {
             PlayFieldModel pfm = getCurrentState();
             PlayerModel pm = getPlayerModel(playerGuid, gameLobbyGuid, stateGuid);
@@ -1202,7 +1202,7 @@ namespace MDWcfServiceLibrary
             return null;
         }
 
-        internal bool playPropertyCardToExistingSet(Card playedCard, PropertyCardSet setToPlayPropertyTo, Guid gameLobbyGuid, Guid playerGuid, Guid playfieldModelInstanceGuid)
+        public bool playPropertyCardToExistingSet(Card playedCard, PropertyCardSet setToPlayPropertyTo, Guid gameLobbyGuid, Guid playerGuid, Guid playfieldModelInstanceGuid)
         {
             ///Check if Card is in hand
             bool cardIsInHand = false;
@@ -1241,6 +1241,16 @@ namespace MDWcfServiceLibrary
                 }
             }
             return false;
+        }
+
+        public BoolResponseBox drawTwoCardsAtTurnStart(Guid player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BoolResponseBox drawFiveCards(Guid player)
+        {
+            throw new NotImplementedException();
         }
     }
 }

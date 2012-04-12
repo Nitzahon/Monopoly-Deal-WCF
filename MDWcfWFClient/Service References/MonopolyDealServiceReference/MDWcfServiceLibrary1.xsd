@@ -42,6 +42,8 @@
       <xs:enumeration value="SwitchAroundPlayedProperties" />
       <xs:enumeration value="PlayCard" />
       <xs:enumeration value="PlayPropertyCard_New_Set" />
+      <xs:enumeration value="PlayPropertyCardFromHand" />
+      <xs:enumeration value="MovePropertyCard" />
       <xs:enumeration value="BankMoneyCard" />
       <xs:enumeration value="PlayActionCard" />
       <xs:enumeration value="BankActionCard" />

@@ -90,12 +90,10 @@ namespace MDWcfServiceLibrary
 
         #region Constructors
 
-        public PlayerModel(/*IMonopolyDealCallback ICallBackP,*/ String nameP)
+        public PlayerModel(String nameP)
         {
             //Set ID
             guid = generatePlayerGuid();
-            //Set Callback interface
-            // ICallBack = ICallBackP;
             //Set name
             name = nameP;
             //Give emptyhand
@@ -110,15 +108,29 @@ namespace MDWcfServiceLibrary
             isReadyToStartGame = false;
         }
 
+        //Clone Constructors
+        public PlayerModel(PlayerModel player, PlayFieldModel state)
+        {
+            this.hand = new PlayerHand(player.hand, state);
+            this.bank = new PlayerBank(player.bank, state);
+            this.propertySets = new PlayerPropertySets(player.propertySets, state);
+            this.guid = player.guid;
+            this.id = player.id;
+            this.isThisPlayersTurn = player.isThisPlayersTurn;
+            this.name = player.name;
+            this.actionsCurrentlyAllowed = player.actionsCurrentlyAllowed.cloneListTurnActionTypes();
+            this.isReadyToStartGame = player.isReadyToStartGame;
+        }
+
         #endregion Constructors
 
         #region Methods
 
         #endregion Methods
 
-        internal PlayerModel clone()
+        internal PlayerModel clone(PlayFieldModel state)
         {
-            throw new NotImplementedException();
+            return new PlayerModel(this, state);
         }
     }
 }

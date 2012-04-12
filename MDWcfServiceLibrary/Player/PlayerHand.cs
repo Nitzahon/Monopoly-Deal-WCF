@@ -25,5 +25,11 @@ namespace MDWcfServiceLibrary
         {
             cardsInHand.Add(card);
         }
+
+        public PlayerHand(PlayerHand hand, PlayFieldModel pfm)
+        {
+            this.playerGuid = hand.playerGuid;
+            this.cardsInHand = hand.cardsInHand.cloneListCard(pfm.deck);
+        }
     }
 }

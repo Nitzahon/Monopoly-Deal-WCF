@@ -8,6 +8,7 @@ namespace MDWcfServiceLibrary
     internal class Move
     {
         private MonopolyDeal monopolyDeal;
+        private int playerTurnCounter = 0;
 
         public Move(MonopolyDeal monopolyDeal)
         {
@@ -20,7 +21,7 @@ namespace MDWcfServiceLibrary
             return Guid.NewGuid();
         }
 
-        private PlayerModel getPlayerModel(Guid playerGuid, PlayFieldModel pfm)
+        public PlayerModel getPlayerModel(Guid playerGuid, PlayFieldModel pfm)
         {
             foreach (PlayerModel pm in pfm.playerModels)
             {
@@ -68,7 +69,15 @@ namespace MDWcfServiceLibrary
                 listToSet.Add(TurnActionTypes.PlayActionCard);
                 listToSet.Add(TurnActionTypes.PlayPropertyCard_New_Set);
                 listToSet.Add(TurnActionTypes.SwitchAroundPlayedProperties);
+                listToSet.Add(TurnActionTypes.MovePropertyCard);
                 listToSet.Add(TurnActionTypes.EndTurn);
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only) == 0)
+            {
+                listToSet.Add(TurnActionTypes.EndTurn);
+                listToSet.Add(TurnActionTypes.MovePropertyCard);
+                listToSet.Add(TurnActionTypes.SwitchAroundPlayedProperties);
                 return listToSet;
             }
             else if (newState.currentPhase.CompareTo(Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards) == 0)
@@ -177,7 +186,44 @@ namespace MDWcfServiceLibrary
             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has drawn 5 cards");
         }
 
-        private int playerTurnCounter = 0;
+        public BoolResponseBox playActionCardPassGo(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhaseIfSuccessful, MoveInfo passGoInfo)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+
+            Card cardInHandToBePlayed = monopolyDeal.deck.getCardByID(passGoInfo.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            PlayerModel player = getPlayerModel(passGoInfo.playerMakingMove, nextState);
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.PassGo) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, player);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    player.hand.addCardToHand(nextState.drawPile.drawcard());
+                    player.hand.addCardToHand(nextState.drawPile.drawcard());
+                    //Change state on success
+
+                    //Put card in discard pile
+                    nextState.playpile.playCardOnPile(card);
+                    List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                    List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                    onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                    //change the current state to the next state
+                    addNextState(nextState);
+                    return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has drawn 5 cards");
+                }
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card is not in hand or is not a pass go card");
+        }
 
         private void setNextPlayerOnTurn(PlayFieldModel pfm)
         {
@@ -190,6 +236,7 @@ namespace MDWcfServiceLibrary
             int nextPlayerID = playerTurnCounter;
 
             pfm.guidOfPlayerWhosTurnItIs = pfm.playerModels[nextPlayerID].guid;
+
             foreach (PlayerModel p in pfm.playerModels)
             {
                 if (p.guid.CompareTo(pfm.guidOfPlayerWhosTurnItIs) == 0)
@@ -198,6 +245,7 @@ namespace MDWcfServiceLibrary
                     {
                         throw new Exception("player allready on turn");
                     }
+
                     p.isThisPlayersTurn = true;
                 }
                 else
@@ -303,7 +351,7 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        private BoolResponseBox doAppropriateAction(PlayFieldModel lastState, PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, TurnActionTypes typeOfActionToPerform, Statephase justSayNoAble, Statephase notJustSayNoAble, Statephase rearrangeProperties, Statephase drawCardsAtTurnStart, Statephase JustSayNoUsedByOpposition, MoveInfo cardsAndPlayersInvolved)
+        private BoolResponseBox doAppropriateAction(PlayFieldModel lastState, PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, TurnActionTypes typeOfActionToPerform, Statephase justSayNoAble, Statephase notJustSayNoAble, Statephase rearrangeProperties, Statephase drawCardsAtTurnStart, Statephase JustSayNoUsedByOpposition, MoveInfo moveInformation)
         {
             if (typeOfActionToPerform.CompareTo(TurnActionTypes.drawTwoCardsAtStartOfTurn) == 0)
             {
@@ -317,9 +365,26 @@ namespace MDWcfServiceLibrary
             {
                 return endTurn(currentState, nextState, playerPerformingAction);
             }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.MovePropertyCard) == 0)
+            {
+                throw new NotImplementedException();
+            }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayActionCard) == 0)
+            {
+                if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.PassGo) == 0)
+                {
+                    Statephase nextStatePhase = notJustSayNoAble;
+                    return playActionCardPassGo(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
+                throw new NotImplementedException();
+            }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayJustSayNo) == 0)
+            {
+                throw new NotImplementedException();
+            }
             else
             {
-                return new BoolResponseBox(false, "Unsupported action");
+                return new BoolResponseBox(false, "Unsupported action:" + typeOfActionToPerform.ToString());
             }
         }
 
@@ -516,6 +581,28 @@ namespace MDWcfServiceLibrary
                 return new BoolResponseBox(false, "Game is in an invalid state");
             }
             return new BoolResponseBox(false, "Game is in an invalid state");
+        }
+
+        public Card checkIfCardInHand(Card card, PlayerModel pm)
+        {
+            foreach (Card c in pm.hand.cardsInHand)
+            {
+                if (c.cardID == card.cardID)
+                {
+                    return c;
+                }
+            }
+            return null;
+        }
+
+        private Card removeCardFromHand(Card card, PlayerModel pm)
+        {
+            Card cardInHand = checkIfCardInHand(card, pm);
+            if (cardInHand != null && pm.hand.cardsInHand.Remove(cardInHand))
+            {
+                return cardInHand;
+            }
+            return null;
         }
     }
 }

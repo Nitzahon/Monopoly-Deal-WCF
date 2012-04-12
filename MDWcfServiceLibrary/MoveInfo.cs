@@ -9,15 +9,25 @@ namespace MDWcfServiceLibrary
 {
     internal class MoveInfo
     {
-        public PlayerModel playerWhoseTurnItIs;
+        public Guid GuidOfGameOnService;
 
-        public PlayerModel playerMakingMove;
+        public Guid GuidOfLobbyOnService;
+
+        public Guid GuidOfStateRespondingTo; //The current state
+
+        public Guid playerWhoseTurnItIs;
+
+        public Guid playerMakingMove;
 
         public List<PlayerModel> playersAffectedByMove;
 
-        TurnActionTypes moveBeingMade;
+        public TurnActionTypes moveBeingMade;
 
-        Guid guidOfActionCardBeingUsed;
+        public ActionCardAction actionCardActionType;
+
+        public Guid guidOfCardBeingUsed;
+
+        public int idOfCardBeingUsed;
 
         //Pass Go does not need any extra info
 
@@ -27,62 +37,63 @@ namespace MDWcfServiceLibrary
 
         //Ending turn and discarding cards
 
-        List<Guid> listOfGuidOfCardsPlayerIsDiscardingAtTheEndOfTheirTurn;
+        public List<Guid> listOfGuidOfCardsPlayerIsDiscardingAtTheEndOfTheirTurn;
 
         //Adknowledgements do not need extra information
 
         //Sly Deal
-        Guid guidOfCardToBeSlyDealed;
-        Guid guidOfSetCardToBeSlyDealedIsIn;
-        Guid guidOfPlayerWhoIsBeingSlyDealed;
+        public Guid guidOfCardToBeSlyDealed;
+        public Guid guidOfSetCardToBeSlyDealedIsIn;
+        public Guid guidOfPlayerWhoIsBeingSlyDealed;
 
         //Forced Deal
-        Guid guidOfCardToBeForcedDealed;
-        Guid guidOfSetCardToBeForcedDealedIsIn;
-        Guid guidOfPlayerWhoIsBeingForcedDealed;
+        public Guid guidOfCardToBeForcedDealed;
+        public Guid guidOfSetCardToBeForcedDealedIsIn;
+        public Guid guidOfPlayerWhoIsBeingForcedDealed;
         //Forced Deal given up card
-        Guid guidOfCardToBeGivenUpInForcedDeal;
-        Guid guidOfSetCardGivenUpInForcedDealIsIn;
+        public Guid guidOfCardToBeGivenUpInForcedDeal;
+        public Guid guidOfSetCardGivenUpInForcedDealIsIn;
 
         //Deal Breaker
-        Guid guidOfFullSetToBeDealBreakered;
-        Guid guidOfPlayerWhoIsBeingDealBreakered;
+        public Guid guidOfFullSetToBeDealBreakered;
+        public Guid guidOfPlayerWhoIsBeingDealBreakered;
 
         //Debt Collector
-        Guid guidOfPlayerBeingDebtCollected;
+        public Guid guidOfPlayerBeingDebtCollected;
 
         //It's My Birthday
-        List<Guid> guidsOfPlayersWhoHaveToPayForBirthday;
+        public List<Guid> guidsOfPlayersWhoHaveToPayForBirthday;
 
         //MultiColoured Rent
-        Guid guidOfSetToCollectRentOnAgainstOnePlayer;
-        Guid guidOfPlayerToPayRent;
+        public Guid guidOfSetToCollectRentOnAgainstOnePlayer;
+        public Guid guidOfPlayerToPayRent;
 
         //Standard2Colour Rent
-        Guid guidOfSetToCollectRentOn;
-        List<Guid> guidsOfPlayersWhoHaveToPayRent;
+        public Guid guidOfSetToCollectRentOn;
+        public List<Guid> guidsOfPlayersWhoHaveToPayRent;
 
         //Double The Rent
-        bool isDoubleTheRentCardBeingUsed;
-        Guid guidOfDoubleTheRentCardBeingUsed;
+        public bool isDoubleTheRentCardBeingUsed;
+        public Guid guidOfDoubleTheRentCardBeingUsed;
+        public int idOfDoubleTheRentCardBeingUsed;
 
         //House
-        Guid guidFullSetToAddHouseTo;
+        public Guid guidFullSetToAddHouseTo;
 
         //House
-        Guid guidFullSetWithHouseToAddHotelTo;
+        public Guid guidFullSetWithHouseToAddHotelTo;
 
         //Move Property in set and set orientation
-        Guid guidOfSetPropertyToMoveIsIn;
-        Guid guidOfPropertyToMove;
-        bool isPropertyToMoveOrientedUp;
-        bool addPropertyToMoveToExistingSet;
-        Guid guidOfExistingSetToMovePropertyTo;
+        public Guid guidOfSetPropertyToMoveIsIn;
+        public Guid guidOfPropertyToMove;
+        public bool isPropertyToMoveOrientedUp;
+        public bool addPropertyToMoveToExistingSet;
+        public Guid guidOfExistingSetToMovePropertyTo;
 
         //Play property from hand to a set
-        Guid guidOfPropertyToPlay;
-        bool isPropertyToPlayOrientedUp;
-        bool addPropertyToPlayToExistingSet;
-        Guid guidOfExistingSetToPlayPropertyTo;
+        public Guid guidOfPropertyToPlay;
+        public bool isPropertyToPlayOrientedUp;
+        public bool addPropertyToPlayToExistingSet;
+        public Guid guidOfExistingSetToPlayPropertyTo;
     }
 }

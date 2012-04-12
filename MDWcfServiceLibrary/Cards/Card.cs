@@ -95,6 +95,17 @@ namespace MDWcfServiceLibrary
             this.cardGuid = generateGuid();
         }
 
+        public Card(String cardName, String cardText, int cardValue, CardType cardType, int cardID, Guid guid)
+        {
+            this.cardID = cardID;
+            this.cardName = cardName;
+            this.cardText = cardText;
+            this.cardType = cardType;
+            this.cardValue = cardValue;
+            description = description + " " + cardID + " " + cardName + " $" + cardValue;
+            this.cardGuid = guid;
+        }
+
         public bool equals(Card checkAgainst)
         {
             if (cardID == checkAgainst.cardID)
@@ -112,9 +123,10 @@ namespace MDWcfServiceLibrary
             return cardID;
         }
 
-        internal Card clone()
+        public virtual Card clone()
         {
-            throw new NotImplementedException();
+            Card clone = new Card(this.cardName, this.cardText, this.cardValue, this.cardType, this.cardID, this.cardGuid);
+            return clone;
         }
     }
 }

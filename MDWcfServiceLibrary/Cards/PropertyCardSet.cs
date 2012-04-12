@@ -65,6 +65,18 @@ namespace MDWcfServiceLibrary
             propertySetColor = propertyCard.currentPropertyColor;
         }
 
+        public PropertyCardSet(PropertyCardSet pcs, PlayFieldModel state)
+        {
+            id = pcs.id;
+            guid = pcs.guid;
+            hasHouse = pcs.hasHouse;
+            hasHotel = pcs.hasHotel;
+            pcs.hotel = state.deck.getCardByID(pcs.hotel.cardID);
+            pcs.house = state.deck.getCardByID(pcs.house.cardID);
+            properties = pcs.properties.cloneLinkedListPropertyCard(state.deck);
+            propertySetColor = pcs.propertySetColor;
+        }
+
         public bool isFullSet()
         {
             //Should be static method

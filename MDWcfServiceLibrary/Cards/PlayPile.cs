@@ -37,9 +37,14 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        internal PlayPile clone()
+        internal PlayPile clone(Deck deck)
         {
-            throw new NotImplementedException();
+            PlayPile ppclone = new PlayPile();
+            foreach (Card c in this.playPile)
+            {
+                ppclone.playCardOnPile(deck.getCardByID(c.cardID));
+            }
+            return ppclone;
         }
     }
 }

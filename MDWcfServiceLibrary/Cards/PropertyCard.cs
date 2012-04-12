@@ -142,6 +142,34 @@ namespace MDWcfServiceLibrary
             this.currentPropertyColor = PropertyColor.Wild_MultiColored;
         }
 
+        public PropertyCard(PropertyCard original)
+            : base(original.cardName, original.cardText, original.cardValue, original.cardType, original.cardID, original.cardGuid)
+        {
+            this.currentColorSetCompleteSize = original.currentColorSetCompleteSize;
+            this.currentPropertyColor = original.currentPropertyColor;
+            this.downSetSize = original.downSetSize;
+            this.fiveCardInSetRentValue = original.fiveCardInSetRentValue;
+            this.fiveCardInSetRentValueDown = original.fiveCardInSetRentValueDown;
+            this.fiveCardInSetRentValueUp = original.fiveCardInSetRentValueUp;
+            this.fourCardInSetRentValue = original.fourCardInSetRentValue;
+            this.fourCardInSetRentValueDown = original.fourCardInSetRentValueDown;
+            this.fourCardInSetRentValueUp = original.fourCardInSetRentValueUp;
+            this.isCardUp = original.isCardUp;
+            this.isMultiWild = original.isMultiWild;
+            this.isWild = original.isWild;
+            this.oneCardInSetRentValue = original.oneCardInSetRentValue;
+            this.oneCardInSetRentValueDown = original.oneCardInSetRentValueDown;
+            this.oneCardInSetRentValueUp = this.oneCardInSetRentValueUp;
+            this.propertyColors = original.propertyColors.cloneListPropertyColor();
+            this.threeCardInSetRentValue = original.threeCardInSetRentValue;
+            this.threeCardInSetRentValueDown = original.threeCardInSetRentValueDown;
+            this.threeCardInSetRentValueUp = original.threeCardInSetRentValueUp;
+            this.twoCardInSetRentValue = original.twoCardInSetRentValue;
+            this.twoCardInSetRentValueDown = original.twoCardInSetRentValueDown;
+            this.twoCardInSetRentValueUp = original.twoCardInSetRentValueUp;
+            this.upSetSize = original.upSetSize;
+        }
+
         public PropertyColor getPropertyColor()
         {
             if (isCardUp)
@@ -158,6 +186,12 @@ namespace MDWcfServiceLibrary
         public void setPropertyColor(bool isUp)
         {
             isCardUp = isUp;
+        }
+
+        public override Card clone()
+        {
+            PropertyCard pClone = new PropertyCard(this);
+            return pClone;
         }
 
         [DataMember]
