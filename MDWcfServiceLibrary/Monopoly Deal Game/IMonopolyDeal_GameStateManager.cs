@@ -11,17 +11,11 @@ namespace MDWcfServiceLibrary
 
         PlayFieldModel copyPlayFieldModel(PlayFieldModel currentPlayFieldModel);
 
-        bool doAction(Guid gameGuid, Guid playerGuid, Guid gameStateActionShouldBeAppliedOnGuid, TurnActionTypes actionType);
+        BoolResponseBox drawTwoCardsAtTurnStart(Guid player, Guid stateGuid);
 
-        void drawFiveCards(PlayerModel player);
+        BoolResponseBox drawFiveCards(Guid player, Guid stateGuid);
 
-        void drawTwoCardsAtTurnStart(PlayerModel player);
-
-        BoolResponseBox drawTwoCardsAtTurnStart(Guid player);
-
-        BoolResponseBox drawFiveCards(Guid player);
-
-        void endTurn(PlayerModel player);
+        BoolResponseBox endTurn(Guid player, Guid stateGuid);
 
         PlayFieldModel getCurrentPlayFieldModel();
 

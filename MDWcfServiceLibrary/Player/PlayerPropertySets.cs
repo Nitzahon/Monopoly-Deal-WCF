@@ -26,10 +26,11 @@ namespace MDWcfServiceLibrary
             playersPropertySets.Add(ps);
         }
 
-        public PlayerPropertySets(PlayerPropertySets playerPropertySets, PlayFieldModel state)
+        public PlayerPropertySets(PlayerPropertySets playerPropertySetCollection, PlayFieldModel state)
         {
-            this.playerGuid = playerPropertySets.playerGuid;
-            this.playersPropertySets = playersPropertySets.cloneListPropertyCardSet(state);
+            this.playerGuid = playerPropertySetCollection.playerGuid;
+
+            this.playersPropertySets = playerPropertySetCollection.playersPropertySets.cloneListPropertyCardSet(state);
         }
     }
 }

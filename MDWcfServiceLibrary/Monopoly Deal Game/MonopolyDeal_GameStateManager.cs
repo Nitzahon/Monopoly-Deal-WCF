@@ -41,7 +41,7 @@ namespace MDWcfServiceLibrary
             return monopolyDeal.gameStates[(monopolyDeal.gameStates.Count - 1)];
         }
 
-        public void endTurn(PlayerModel player)
+        public void endTurn(PlayerModel player, Guid stateGuid)
         {
             updateState(TurnActionTypes.EndTurn, ActionCardAction.NotAnActionCard, getCurrentPlayFieldModel(), player.guid);
         }
@@ -64,7 +64,7 @@ namespace MDWcfServiceLibrary
                 }
                 if (actionType.CompareTo(TurnActionTypes.EndTurn) == 0)
                 {
-                    endTurn(getPlayerByGuid(playerGuid, currentPlayFieldModel));
+                    endTurn(getPlayerByGuid(playerGuid, currentPlayFieldModel), gameStateActionShouldBeAppliedOnGuid);
                 }
                 if (actionType.CompareTo(TurnActionTypes.PlayPropertyCard_New_Set) == 0)
                 {
@@ -1249,6 +1249,21 @@ namespace MDWcfServiceLibrary
         }
 
         public BoolResponseBox drawFiveCards(Guid player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BoolResponseBox drawTwoCardsAtTurnStart(Guid player, Guid stateGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BoolResponseBox drawFiveCards(Guid player, Guid stateGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BoolResponseBox endTurn(Guid player, Guid stateGuid)
         {
             throw new NotImplementedException();
         }

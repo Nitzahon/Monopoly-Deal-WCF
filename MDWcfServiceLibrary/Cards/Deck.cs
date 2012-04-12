@@ -38,6 +38,7 @@ namespace MDWcfServiceLibrary
                 newDecksCards.Add(card.clone());
             }
             deck = newDecksCards.ToArray<Card>();
+            cardDeck = oldDeck.cardDeck.cloneLinkedListCard();
         }
 
         public Deck cloneDeck()

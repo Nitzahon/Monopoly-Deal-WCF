@@ -76,49 +76,52 @@ namespace MDWcfServiceLibrary
             throw new NotSupportedException();
         }
 
-        public void drawFiveCards(PlayerModel player)
+        public BoolResponseBox drawFiveCards(Guid player, Guid state)
         {
             PlayFieldModel lastState = getPreviousState();
             PlayFieldModel currentState = getCurrentState();
             PlayFieldModel nextState = null;
-            PlayerModel playerModelAtCurrentState = move.getPlayerModel(player.guid, currentState);
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(player, currentState);
 
             MoveInfo draw5CardsInfo = new MoveInfo();
-            draw5CardsInfo.playerWhoseTurnItIs = player.guid;
-            draw5CardsInfo.playerMakingMove = player.guid;
+            draw5CardsInfo.playerWhoseTurnItIs = player;
+            draw5CardsInfo.playerMakingMove = player;
             draw5CardsInfo.moveBeingMade = TurnActionTypes.drawFiveCardsAtStartOfTurn;
 
             BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, draw5CardsInfo.moveBeingMade, draw5CardsInfo);
+            return result;
         }
 
-        public void drawTwoCardsAtTurnStart(PlayerModel player)
+        public BoolResponseBox drawTwoCardsAtTurnStart(Guid player, Guid state)
         {
             PlayFieldModel lastState = getPreviousState();
             PlayFieldModel currentState = getCurrentState();
             PlayFieldModel nextState = null;
-            PlayerModel playerModelAtCurrentState = move.getPlayerModel(player.guid, currentState);
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(player, currentState);
 
             MoveInfo draw2CardsInfo = new MoveInfo();
-            draw2CardsInfo.playerWhoseTurnItIs = player.guid;
-            draw2CardsInfo.playerMakingMove = player.guid;
+            draw2CardsInfo.playerWhoseTurnItIs = player;
+            draw2CardsInfo.playerMakingMove = player;
             draw2CardsInfo.moveBeingMade = TurnActionTypes.drawTwoCardsAtStartOfTurn;
 
             BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, draw2CardsInfo.moveBeingMade, draw2CardsInfo);
+            return result;
         }
 
-        public void endTurn(PlayerModel player)
+        public BoolResponseBox endTurn(Guid playerGuid, Guid stateGuid)
         {
             PlayFieldModel lastState = getPreviousState();
             PlayFieldModel currentState = getCurrentState();
             PlayFieldModel nextState = null;
-            PlayerModel playerModelAtCurrentState = move.getPlayerModel(player.guid, currentState);
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
 
             MoveInfo endTurnInfo = new MoveInfo();
-            endTurnInfo.playerWhoseTurnItIs = player.guid;
-            endTurnInfo.playerMakingMove = player.guid;
+            endTurnInfo.playerWhoseTurnItIs = playerGuid;
+            endTurnInfo.playerMakingMove = playerGuid;
             endTurnInfo.moveBeingMade = TurnActionTypes.EndTurn;
 
             BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, endTurnInfo.moveBeingMade, endTurnInfo);
+            return result;
         }
 
         public PlayFieldModel getCurrentPlayFieldModel()
@@ -183,7 +186,21 @@ namespace MDWcfServiceLibrary
 
         public bool discard(int cardsToDiscardID, Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid)
         {
-            throw new NotImplementedException();
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            Card playedcard = currentState.deck.getCardByID(cardsToDiscardID);
+            if (playedcard != null && checkIfCardInHand(playedcard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo discard1Card = new MoveInfo();
+                discard1Card.moveBeingMade = TurnActionTypes.Discard_1_Card;
+                discard1Card.idOfCardBeingUsed = cardsToDiscardID;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, discard1Card.moveBeingMade, discard1Card);
+                return result.success;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand").success;
         }
 
         public bool playActionCardPassGo(int passGoCardID, Guid serverGuid, Guid playerGuid, Guid playfieldModelInstanceGuid, TurnActionTypes turnActionTypes)
@@ -192,7 +209,7 @@ namespace MDWcfServiceLibrary
             PlayFieldModel currentState = getCurrentState();
             PlayFieldModel nextState = null;
             PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
-            PropertyCard playedPropertycard = monopolyDeal.deck.getCardByID(passGoCardID) as PropertyCard;
+            ActionCard playedPropertycard = monopolyDeal.deck.getCardByID(passGoCardID) as ActionCard;
             if (playedPropertycard != null && checkIfCardInHand(playedPropertycard, playerModelAtCurrentState) != null)
             {
                 MoveInfo playPassGo = new MoveInfo();

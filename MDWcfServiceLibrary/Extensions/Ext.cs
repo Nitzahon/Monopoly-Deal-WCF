@@ -105,6 +105,18 @@ namespace MDWcfServiceLibrary
             return clonedList;
         }
 
+        public static LinkedList<Card> cloneLinkedListCard(this LinkedList<Card> ListOld)
+        {
+            //Property Cards will be inconsistant if deck is not cloned for each state
+            LinkedList<Card> clonedList = new LinkedList<Card>();
+
+            foreach (Card t in ListOld)
+            {
+                clonedList.AddLast(t.clone());
+            }
+            return clonedList;
+        }
+
         public static List<PropertyCardSet> cloneListPropertyCardSet(this List<PropertyCardSet> ListOld, PlayFieldModel state)
         {
             //Property Cards will be inconsistant if deck is not cloned for each state

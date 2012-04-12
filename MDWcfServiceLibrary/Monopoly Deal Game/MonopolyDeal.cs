@@ -130,15 +130,18 @@ namespace MDWcfServiceLibrary
 
         public bool draw2AtStartOfTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
+            throw new NotSupportedException();
+            /*
             if (useMoveManager)
             {
-                gameStateManager.drawTwoCardsAtTurnStart(getPlayerModel(playerGuid.guid));
+                gameStateManager.drawTwoCardsAtTurnStart(getPlayerModel(playerGuid.guid),playfieldModelInstanceGuid.guid);
                 return true;
             }
             else
             {
                 return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
             }
+             * */
         }
 
         public PlayFieldModel pollState(GuidBox playerGuid, GuidBox gameGuid)
@@ -239,17 +242,20 @@ namespace MDWcfServiceLibrary
 
         public bool endTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid)
         {
-            return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.EndTurn);
+            throw new NotSupportedException();
+            //return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.EndTurn);
         }
 
         public bool discard(int cardsToDiscardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
         {
-            return gameStateManager.discard(cardsToDiscardID, playerGuid.guid, serverGuid.guid, playfieldModelInstanceGuid.guid);
+            throw new NotSupportedException();
+            //return gameStateManager.discard(cardsToDiscardID, playerGuid.guid, serverGuid.guid, playfieldModelInstanceGuid.guid);
         }
 
         public bool draw5AtStartOfTurn(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
         {
-            return gameStateManager.doAction(serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawFiveCardsAtStartOfTurn);
+            throw new NotSupportedException();
+            //return gameStateManager.doAction(serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawFiveCardsAtStartOfTurn);
         }
 
         #endregion From Service

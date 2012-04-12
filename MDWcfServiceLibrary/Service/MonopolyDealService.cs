@@ -45,6 +45,9 @@ namespace MDWcfServiceLibrary
         //public static MonopolyDeal gameInterface = new MonopolyDeal(null, new Guid()); //for getting game info only
         private static ILobby lobby = new Lobby(mdGen);
 
+        #region old unsupported
+
+        /*
         //Create new game
         private void createGame()
         {
@@ -263,6 +266,9 @@ namespace MDWcfServiceLibrary
         {
             throw new NotImplementedException();
         }
+         * */
+
+        #endregion old unsupported
 
         #region gameLobbyMethods
 
@@ -468,24 +474,14 @@ namespace MDWcfServiceLibrary
                 MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
                 if (md != null)
                 {
-                    if (md.useMoveManager)
-                    {
-                        BoolResponseBox result = md.getMonopolyDealGameStateManager().drawTwoCardsAtTurnStart(playerGuid.guid);
-                        return result.success;
-                    }
-                    else
-                    {
-                        return md.getMonopolyDealGameStateManager().doAction(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
-                    }
+                    BoolResponseBox result = md.getMonopolyDealGameStateManager().drawTwoCardsAtTurnStart(playerGuid.guid, playfieldModelInstanceGuid.guid);
+                    return result.success;
                 }
-                else
-                {
-                    return false;
-                }
+                else return new BoolResponseBox(false, "Unable to find game with specified Guid").success;
             }
             catch (System.ServiceModel.CommunicationException ex)
             {
-                throw new FaultException(ex.Message);
+                throw ex;
             }
         }
 
@@ -497,26 +493,7 @@ namespace MDWcfServiceLibrary
                 MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
                 if (md != null)
                 {
-                    if (md.useMoveManager)
-                    {
-                        // md.getMonopolyDealGameStateManager().drawFiveCards(md.get)
-                        return false;
-                    }
-                    else
-                    {
-                        Guid pg = playerGuid.guid;
-                        Card card = md.deck.getCardByID(playedCardID);
-                        bool result = md.bankCardValidityCheck(card, pg);
-                        if (result)
-                        {
-                            md.getMonopolyDealGameStateManager().bankCard(playedCardID, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
+                    return md.getMonopolyDealGameStateManager().bankCard(playedCardID, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
                 }
                 else
                 {
@@ -525,7 +502,7 @@ namespace MDWcfServiceLibrary
             }
             catch (System.ServiceModel.CommunicationException ex)
             {
-                throw new FaultException(ex.Message);
+                throw ex;
             }
         }
 
@@ -609,7 +586,7 @@ namespace MDWcfServiceLibrary
                 MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
                 if (md != null)
                 {
-                    return md.getMonopolyDealGameStateManager().doAction(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.EndTurn);
+                    return md.getMonopolyDealGameStateManager().endTurn(playerGuid.guid, playfieldModelInstanceGuid.guid).success;
                 }
                 else
                 {
@@ -672,7 +649,7 @@ namespace MDWcfServiceLibrary
                 MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
                 if (md != null)
                 {
-                    return md.getMonopolyDealGameStateManager().doAction(gameLobbyGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawFiveCardsAtStartOfTurn);
+                    return md.getMonopolyDealGameStateManager().drawFiveCards(playerGuid.guid, playfieldModelInstanceGuid.guid).success;
                 }
                 else
                 {

@@ -67,6 +67,7 @@ namespace MDWcfServiceLibrary
                 listToSet.Add(TurnActionTypes.BankMoneyCard);
                 listToSet.Add(TurnActionTypes.PlayCard);
                 listToSet.Add(TurnActionTypes.PlayActionCard);
+                listToSet.Add(TurnActionTypes.PlayPropertyCardFromHand);
                 listToSet.Add(TurnActionTypes.PlayPropertyCard_New_Set);
                 listToSet.Add(TurnActionTypes.SwitchAroundPlayedProperties);
                 listToSet.Add(TurnActionTypes.MovePropertyCard);
@@ -109,6 +110,28 @@ namespace MDWcfServiceLibrary
             {
                 throw new NotImplementedException();
             }
+        }
+
+        private Card removeCardFromHand(Card card, PlayerModel pm)
+        {
+            Card cardInHand = checkIfCardInHand(card, pm);
+            if (cardInHand != null && pm.hand.cardsInHand.Remove(cardInHand))
+            {
+                return cardInHand;
+            }
+            return null;
+        }
+
+        public Card checkIfCardInHand(Card card, PlayerModel pm)
+        {
+            foreach (Card c in pm.hand.cardsInHand)
+            {
+                if (c.cardID == card.cardID)
+                {
+                    return c;
+                }
+            }
+            return null;
         }
 
         private void updateAllowableStates(PlayFieldModel state, List<TurnActionTypes> allowedForPlayersNotOnTurn, List<TurnActionTypes> allowedForPlayerOnTurn, Guid playerOnTurnGuid)
@@ -194,7 +217,7 @@ namespace MDWcfServiceLibrary
             nextState = currentState.clone(generateGuidForNextState());
             PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
 
-            Card cardInHandToBePlayed = monopolyDeal.deck.getCardByID(passGoInfo.idOfCardBeingUsed);
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(passGoInfo.idOfCardBeingUsed);
             //Get the reference to the players playerModel in the current PlayFieldModel
 
             PlayerModel player = getPlayerModel(passGoInfo.playerMakingMove, nextState);
@@ -208,7 +231,8 @@ namespace MDWcfServiceLibrary
                     player.hand.addCardToHand(nextState.drawPile.drawcard());
                     player.hand.addCardToHand(nextState.drawPile.drawcard());
                     //Change state on success
-
+                    //has been performed, advance the phase of the game
+                    nextState.currentPhase = nextStatePhaseIfSuccessful;
                     //Put card in discard pile
                     nextState.playpile.playCardOnPile(card);
                     List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
@@ -218,7 +242,7 @@ namespace MDWcfServiceLibrary
                     updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
                     //change the current state to the next state
                     addNextState(nextState);
-                    return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has drawn 5 cards");
+                    return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has passed go and drawn 2 cards");
                 }
                 return new BoolResponseBox(false, "Card is not in hand.");
             }
@@ -351,7 +375,7 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        private BoolResponseBox doAppropriateAction(PlayFieldModel lastState, PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, TurnActionTypes typeOfActionToPerform, Statephase justSayNoAble, Statephase notJustSayNoAble, Statephase rearrangeProperties, Statephase drawCardsAtTurnStart, Statephase JustSayNoUsedByOpposition, MoveInfo moveInformation)
+        private BoolResponseBox doAppropriateAction(PlayFieldModel lastState, PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, TurnActionTypes typeOfActionToPerform, Statephase justSayNoAble, Statephase notJustSayNoAble, Statephase rearrangeProperties, Statephase drawCardsAtTurnStart, Statephase JustSayNoUsedByOpposition, MoveInfo moveInformation, Statephase discard)
         {
             if (typeOfActionToPerform.CompareTo(TurnActionTypes.drawTwoCardsAtStartOfTurn) == 0)
             {
@@ -367,9 +391,34 @@ namespace MDWcfServiceLibrary
             }
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.MovePropertyCard) == 0)
             {
+                return movePropertyCard(currentState, nextState, playerPerformingAction, moveInformation, rearrangeProperties);
+            }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayPropertyCardFromHand) == 0)
+            {
+                return playPropertyCardFromHand(currentState, nextState, playerPerformingAction, moveInformation, notJustSayNoAble);
+            }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayPropertyCard_New_Set) == 0)
+            {
+                return playPropertyCardFromHandToNewSet(currentState, nextState, playerPerformingAction, moveInformation, notJustSayNoAble);
+            }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.BankActionCard) == 0)
+            {
+                return playCardFromHandToBank(currentState, nextState, playerPerformingAction, moveInformation, notJustSayNoAble);
+            }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.BankMoneyCard) == 0)
+            {
+                return playCardFromHandToBank(currentState, nextState, playerPerformingAction, moveInformation, notJustSayNoAble);
+            }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.Discard_1_Card) == 0)
+            {
+                return discard1Card(currentState, nextState, playerPerformingAction, moveInformation, discard);
+            }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PayDebt) == 0)
+            {
                 throw new NotImplementedException();
             }
-            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayActionCard) == 0)
+
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayActionCard) == 0 || typeOfActionToPerform.CompareTo(TurnActionTypes.PlayCard) == 0)
             {
                 if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.PassGo) == 0)
                 {
@@ -386,6 +435,245 @@ namespace MDWcfServiceLibrary
             {
                 return new BoolResponseBox(false, "Unsupported action:" + typeOfActionToPerform.ToString());
             }
+        }
+
+        private BoolResponseBox discard1Card(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase notJustSayNoAble)
+        {
+            //Clone the current state to create next state then draws two cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            Card cardInHandToBeDiscarded = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+            PlayerModel playerWhoIsDiscardingCard = getPlayerModel(playerPerformingAction.guid, nextState);
+            //Get the reference to the Card in the current PlayFieldModel
+
+            Card card = removeCardFromHand(cardInHandToBeDiscarded, playerWhoIsDiscardingCard);
+            if (card != null)
+            {
+                nextState.drawPile.discardCard(card);
+
+                //action is valid for player at this time
+                List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                //Could perform the action here instead, for now just change the phase of the state
+                //Not an action so cant be just say no'd
+                //Change phase
+                switch (playerWhoIsDiscardingCard.hand.cardsInHand.Count)
+                {
+                    case 8:
+                        {
+                            nextState.currentPhase = Statephase.Turn_Ended_8_Cards_In_Hand_Discard_1_Card;
+                            onTurn.Add(TurnActionTypes.Discard_1_Card);
+                            //Update the moves for players
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 8 cards and must discard 1 card");
+                        }
+                    case 9:
+                        {
+                            nextState.currentPhase = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                            onTurn.Add(TurnActionTypes.Discard_1_Card);
+                            //Update the moves for players
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 9 cards and must discard 2 cards");
+                        }
+                    case 10:
+                        {
+                            nextState.currentPhase = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
+                            onTurn.Add(TurnActionTypes.Discard_1_Card);
+                            //Update the moves for players
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 10 cards and must discard 3 cards");
+                        }
+                    case 11:
+                        {
+                            nextState.currentPhase = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
+                            onTurn.Add(TurnActionTypes.Discard_1_Card);
+                            //Update the moves for players
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 11 cards and must discard 4 cards");
+                        }
+                    case 12:
+                        {
+                            nextState.currentPhase = Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards;
+                            onTurn.Add(TurnActionTypes.Discard_1_Card);
+                            //Update the moves for players
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 12 cards and must discard 5 cards");
+                        }
+                    default:
+                        {
+                            nextState.currentPhase = Statephase.Turn_Ended_7_Or_Less_Cards_In_Hand_Setup_NextPlayer;
+                            setNextPlayerOnTurn(nextState);
+                            if (getPlayerModel(nextState.guidOfPlayerWhosTurnItIs, nextState).hand.cardsInHand.Count == 0)
+                            {
+                                //Player has 0 cards draws 5 on turn start instead of 2
+                                nextState.currentPhase = Statephase.Turn_Started_Draw_5_Cards;
+                                onTurn.Add(TurnActionTypes.drawFiveCardsAtStartOfTurn);
+                                //Update the moves for players
+                                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                                //change the current state to the next state
+                                addNextState(nextState);
+                                return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn." + "Player:" + getPlayerModel(nextState.guidOfPlayerWhosTurnItIs, nextState).name + "\'s Turn. Draw 5 Cards.");
+                            }
+                            else
+                            {
+                                //Player has at least one and at most seven cards, draws 2
+                                nextState.currentPhase = Statephase.Turn_Started_Draw_2_Cards;
+                                onTurn.Add(TurnActionTypes.drawTwoCardsAtStartOfTurn);
+                                //Update the moves for players
+                                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                                //change the current state to the next state
+                                addNextState(nextState);
+                                return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn." + "Player:" + getPlayerModel(nextState.guidOfPlayerWhosTurnItIs, nextState).name + "\'s Turn. Draw 2 Cards.");
+                            }
+                        }
+                }
+            }
+            else
+            {
+                //Card not in players hand, can't be discarded
+                return new BoolResponseBox(false, "Card not in hand");
+            }
+        }
+
+        private BoolResponseBox playCardFromHandToBank(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase notJustSayNoAble)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+
+            Card cardInHandToBePlayed = currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            PlayerModel player = getPlayerModel(moveInformation.playerMakingMove, nextState);
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, player);
+                if (card != null)
+                {
+                    player.bank.addCardToBank(card);
+                    //Change state on success
+                    //has been performed, advance the phase of the game
+                    nextState.currentPhase = notJustSayNoAble;
+                    List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                    List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                    onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                    //change the current state to the next state
+                    addNextState(nextState);
+                    return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has banked " + card.cardName);
+                }
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card id does not exist");
+        }
+
+        private BoolResponseBox playPropertyCardFromHandToNewSet(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase notJustSayNoAble)
+        {
+            //Clone the current state to create next state
+            nextState = currentState.clone(generateGuidForNextState());
+            //Get CurrentPlayFieldModelState
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            PlayerModel player = getPlayerModel(playerPerformingAction.guid, nextState);
+            Card card = removeCardFromHand(cardInHandToBePlayed, player);
+            if (card != null)
+            {
+                PropertyCard cP = cardInHandToBePlayed as PropertyCard;
+                cP.setPropertyColor(moveInformation.isPropertyToPlayOrientedUp);
+                PropertyCardSet ps = new PropertyCardSet(cP);
+
+                player.propertySets.addSet(ps);
+                //Change state on success
+                //has been performed, advance the phase of the game
+                nextState.currentPhase = notJustSayNoAble;
+                List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                //change the current state to the next state
+                addNextState(nextState);
+                return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has played to a new set " + card.cardName);
+            }
+            return new BoolResponseBox(false, "Card is not in hand.");
+        }
+
+        private PropertyCardSet getPropertyCardSet(PlayerPropertySets pps, Guid guidOfSet)
+        {
+            foreach (PropertyCardSet ps in pps.playersPropertySets)
+            {
+                if (ps.guid.CompareTo(guidOfSet) == 0)
+                {
+                    return ps;
+                }
+            }
+            return null;
+        }
+
+        private BoolResponseBox playPropertyCardFromHand(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase notJustSayNoAble)
+        {
+            if (moveInformation.guidOfExistingSetToPlayPropertyTo.CompareTo(new Guid()) != 0)
+            {
+                //Clone the current state to create next state
+                nextState = currentState.clone(generateGuidForNextState());
+                PropertyColor oldColour = ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).getPropertyColor();
+                bool oldOrientation = ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).isCardUp;
+                ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).setPropertyColor(moveInformation.isPropertyToPlayOrientedUp);
+                if ((getPropertyCardSet(getPlayerModel(playerPerformingAction.guid, nextState).propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo)).propertySetColor.CompareTo(((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).currentPropertyColor) == 0)
+                {
+                    //Get CurrentPlayFieldModelState
+                    Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+                    PlayerModel player = getPlayerModel(playerPerformingAction.guid, nextState);
+                    Card card = removeCardFromHand(cardInHandToBePlayed, player);
+                    if (card != null)
+                    {
+                        PropertyCard cP = cardInHandToBePlayed as PropertyCard;
+                        cP.setPropertyColor(moveInformation.isPropertyToPlayOrientedUp);
+                        PropertyCardSet ps = getPropertyCardSet(player.propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo);
+                        ps.addProperty(cP);
+                        //Change state on success
+                        //has been performed, advance the phase of the game
+                        nextState.currentPhase = notJustSayNoAble;
+                        List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                        List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                        onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                        //change the current state to the next state
+                        addNextState(nextState);
+                        return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has played to a existing set " + card.cardName);
+                    }
+                    return new BoolResponseBox(false, "Card is not in hand.");
+                }
+                else
+                {
+                    nextState = null;
+                    ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).setPropertyColor(oldOrientation);//change back the orientation of the property
+                    return new BoolResponseBox(false, "Property Card is not the correct colour to be added to this set");
+                }
+            }
+            else
+            {
+                return playPropertyCardFromHandToNewSet(currentState, nextState, playerPerformingAction, moveInformation, notJustSayNoAble);
+            }
+        }
+
+        private BoolResponseBox movePropertyCard(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase rearrangeProperties)
+        {
+            throw new NotImplementedException();
         }
 
         private BoolResponseBox checkIfMoveAllowedAtThisState(TurnActionTypes turnActionToDo, PlayerModel player, PlayFieldModel currentState)
@@ -439,11 +727,12 @@ namespace MDWcfServiceLibrary
                 Statephase rearrangeProperties = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;//No cards can be rearranged at this phase
                 //Draw
                 Statephase drawCardsAtTurnStart = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;//Only action allowable at this phase
+                Statephase discard = Statephase.Turn_Started_Draw_2_Cards;
                 BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
                 if (isMoveTypeAllowableAtCurrentPhase.success)
                 {
                     //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
-                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved);
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
 
                     return result;//True if action performed, False if not
                 }
@@ -465,11 +754,12 @@ namespace MDWcfServiceLibrary
                 Statephase rearrangeProperties = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;//No cards can be rearranged at this phase
                 //Draw
                 Statephase drawCardsAtTurnStart = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;//Only action allowable at this phase
+                Statephase discard = Statephase.Turn_Started_Draw_5_Cards;
                 BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
                 if (isMoveTypeAllowableAtCurrentPhase.success)
                 {
                     //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
-                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved);
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
 
                     return result;//True if action performed, False if not
                 }
@@ -490,12 +780,13 @@ namespace MDWcfServiceLibrary
                 //Property card rearranging next state
                 Statephase rearrangeProperties = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;//No cards can be rearranged at this phase
                 //Draw
+                Statephase discard = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;
                 Statephase drawCardsAtTurnStart = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;//Only action allowable at this phase
                 BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
                 if (isMoveTypeAllowableAtCurrentPhase.success)
                 {
                     //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
-                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved);
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
 
                     return result;//True if action performed, False if not
                 }
@@ -507,21 +798,30 @@ namespace MDWcfServiceLibrary
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No) == 0)
             {
+                throw new NotImplementedException();
+            }
+            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
+            {
+                throw new NotImplementedException();
+            }
+            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0)
+            {
                 //Action card that can be just say no carded next state
-                Statephase justSayNoAble = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No;//Action cards not playable at this phase
+                Statephase justSayNoAble = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No;//Action cards not playable at this phase
                 //Any move that plays a card excluding justSayNo move next state
-                Statephase notJustSayNoAble = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;//No cards playable at this phase
+                Statephase notJustSayNoAble = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played;//cards playable at this phase
                 //Just Say No card played by off turn player
-                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No;
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No;
                 //Property card rearranging next state
-                Statephase rearrangeProperties = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;//No cards can be rearranged at this phase
+                Statephase rearrangeProperties = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;//cards can be rearranged at this phase
                 //Draw
-                Statephase drawCardsAtTurnStart = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played;//Only action allowable at this phase
+                Statephase drawCardsAtTurnStart = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;//not allowable at this phase
                 BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                Statephase discard = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;
                 if (isMoveTypeAllowableAtCurrentPhase.success)
                 {
                     //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
-                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved);
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
 
                     return result;//True if action performed, False if not
                 }
@@ -531,12 +831,6 @@ namespace MDWcfServiceLibrary
                     return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
                 }
             }
-            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
-            {
-            }
-            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0)
-            {
-            }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No) == 0)
             {
             }
@@ -545,6 +839,31 @@ namespace MDWcfServiceLibrary
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played) == 0)
             {
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No;//Action cards playable at this phase
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;//cards playable at this phase
+                //Just Say No card played by off turn player
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No;
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played;//cards can be rearranged at this phase
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played;//not allowable at this phase
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+
+                Statephase discard = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played;
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No) == 0)
             {
@@ -554,55 +873,186 @@ namespace MDWcfServiceLibrary
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only) == 0)
             {
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;//Action cards not playable at this phase
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;//cards not playable at this phase
+                //Just Say No card played by off turn player
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;//cards can be rearranged at this phase
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;//not allowable at this phase
+
+                Statephase discard = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards) == 0)
             {
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards;
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards;
+                //Just Say No card played by off turn player
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards;
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards;
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards;//not allowable at this phase
+                //Discard
+                Statephase discard = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
+
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards) == 0)
             {
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
+                //Just Say No card played by off turn player
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;//not allowable at this phase
+                //Discard
+                Statephase discard = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
+
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards) == 0)
             {
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
+                //Just Say No card played by off turn player
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;//not allowable at this phase
+                //Discard
+                Statephase discard = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards) == 0)
             {
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                //Just Say No card played by off turn player
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;//not allowable at this phase
+                //Discard
+                Statephase discard = Statephase.Turn_Ended_8_Cards_In_Hand_Discard_1_Card;
+
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
-            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_8_Or_More_Cards_In_Hand_Discard_Cards) == 0)
+            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_8_Cards_In_Hand_Discard_1_Card) == 0)
             {
-            }
-            else if (currentState.currentPhase.CompareTo(Statephase.Turn_Ended_7_Or_Less_Cards_In_Hand_Setup_NextPlayer) == 0)
-            {
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                //Just Say No card played by off turn player
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;//not allowable at this phase
+                //Discard
+                Statephase discard = Statephase.Turn_Ended_7_Or_Less_Cards_In_Hand_Setup_NextPlayer;
+
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Game_Started) == 0)
             {
+                throw new NotImplementedException();
             }
             else
             {
                 return new BoolResponseBox(false, "Game is in an invalid state");
             }
             return new BoolResponseBox(false, "Game is in an invalid state");
-        }
-
-        public Card checkIfCardInHand(Card card, PlayerModel pm)
-        {
-            foreach (Card c in pm.hand.cardsInHand)
-            {
-                if (c.cardID == card.cardID)
-                {
-                    return c;
-                }
-            }
-            return null;
-        }
-
-        private Card removeCardFromHand(Card card, PlayerModel pm)
-        {
-            Card cardInHand = checkIfCardInHand(card, pm);
-            if (cardInHand != null && pm.hand.cardsInHand.Remove(cardInHand))
-            {
-                return cardInHand;
-            }
-            return null;
         }
     }
 }

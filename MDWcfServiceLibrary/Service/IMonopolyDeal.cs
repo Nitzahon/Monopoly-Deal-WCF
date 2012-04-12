@@ -12,6 +12,7 @@ namespace MDWcfServiceLibrary
     interface IMonopolyDeal
     {
         // TODO: Add your service operations here
+        /*
         //connect returns an int with the players id
         [OperationContract]
         Guid connectToService(string name); //connects Player To Service returns Guid for player
@@ -73,6 +74,7 @@ namespace MDWcfServiceLibrary
 
         [OperationContract]//dummy method to ensure all data contracts are available to client
         void referenceAllDataContracts(ActionCard ac, Card c, MoneyCard mc, PlayerBank pb, PlayerHand ph, PlayerModel pm, PlayerPropertySets pps, PlayFieldModel pfm, PlayPile pp, PropertyCard pc, PropertyCardSet pcs, PropertySetInfo psi, RentStandard rs, TakeActionOnTurnMessage taotm, TurnActionModel tam);
+        */
 
         /// <summary>
         /// Lobby service methods

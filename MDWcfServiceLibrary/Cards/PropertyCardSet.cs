@@ -71,8 +71,14 @@ namespace MDWcfServiceLibrary
             guid = pcs.guid;
             hasHouse = pcs.hasHouse;
             hasHotel = pcs.hasHotel;
-            pcs.hotel = state.deck.getCardByID(pcs.hotel.cardID);
-            pcs.house = state.deck.getCardByID(pcs.house.cardID);
+            if (pcs.hotel != null)
+            {
+                pcs.hotel = state.deck.getCardByID(pcs.hotel.cardID);
+            }
+            if (pcs.house != null)
+            {
+                pcs.house = state.deck.getCardByID(pcs.house.cardID);
+            }
             properties = pcs.properties.cloneLinkedListPropertyCard(state.deck);
             propertySetColor = pcs.propertySetColor;
         }
