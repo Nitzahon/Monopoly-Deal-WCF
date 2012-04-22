@@ -31,5 +31,14 @@ namespace MDWcfServiceLibrary
             this.playerGuid = bank.playerGuid;
             this.cardsInBank = bank.cardsInBank.cloneListCard(state.deck);
         }
+
+        public Card removeCardFromBank(Card card)
+        {
+            if (cardsInBank.Remove(card))
+            {
+                return card;
+            }
+            return null;
+        }
     }
 }

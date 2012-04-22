@@ -51,7 +51,9 @@ namespace MDWcfServiceLibrary
         [EnumMember]
         Discard_5_Cards,
         [EnumMember]
-        PayDebt
+        PayDebt,
+        [EnumMember]
+        Dont_Play_Just_Say_No
     }
 
     [DataContract]

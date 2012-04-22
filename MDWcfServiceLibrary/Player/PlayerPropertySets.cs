@@ -32,5 +32,17 @@ namespace MDWcfServiceLibrary
 
             this.playersPropertySets = playerPropertySetCollection.playersPropertySets.cloneListPropertyCardSet(state);
         }
+
+        internal bool removeEmptySet(PropertyCardSet ps)
+        {
+            if (playersPropertySets.Remove(ps))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

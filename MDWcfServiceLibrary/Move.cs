@@ -46,6 +46,20 @@ namespace MDWcfServiceLibrary
             }
         }
 
+        private List<TurnActionTypes> setAllowableActionsNotOnTurnInDebt(List<TurnActionTypes> listToSet, PlayFieldModel newState)
+        {
+            if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No) == 0)
+            {
+                listToSet.Add(TurnActionTypes.PlayJustSayNo);
+                listToSet.Add(TurnActionTypes.PayDebt);
+                return listToSet;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         private List<TurnActionTypes> setAllowableActionsOnTurnJustSayNoUsedAgainst(List<TurnActionTypes> listToSet, PlayFieldModel newState)
         {
             if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
@@ -106,6 +120,36 @@ namespace MDWcfServiceLibrary
                 listToSet.Add(TurnActionTypes.Discard_1_Card);
                 return listToSet;
             }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No) == 0)
+            {
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No) == 0)
+            {
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
+            {
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
+            {
+                listToSet.Add(TurnActionTypes.PlayJustSayNo);
+                listToSet.Add(TurnActionTypes.Dont_Play_Just_Say_No);
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
+            {
+                listToSet.Add(TurnActionTypes.PlayJustSayNo);
+                listToSet.Add(TurnActionTypes.Dont_Play_Just_Say_No);
+                return listToSet;
+            }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
+            {
+                listToSet.Add(TurnActionTypes.PlayJustSayNo);
+                listToSet.Add(TurnActionTypes.Dont_Play_Just_Say_No);
+                return listToSet;
+            }
             else
             {
                 throw new NotImplementedException();
@@ -134,7 +178,7 @@ namespace MDWcfServiceLibrary
             return null;
         }
 
-        private void updateAllowableStates(PlayFieldModel state, List<TurnActionTypes> allowedForPlayersNotOnTurn, List<TurnActionTypes> allowedForPlayerOnTurn, Guid playerOnTurnGuid)
+        private void updateAllowableStates(PlayFieldModel state, List<TurnActionTypes> allowedForPlayersNotOnTurn, List<TurnActionTypes> allowedForPlayerOnTurn, Guid playerOnTurnGuid, Guid playerWhoPerformedActionGuid)
         {
             foreach (PlayerModel p in state.playerModels)
             {
@@ -147,6 +191,27 @@ namespace MDWcfServiceLibrary
                 else
                 {
                     p.actionsCurrentlyAllowed = allowedForPlayersNotOnTurn;
+                }
+            }
+        }
+
+        private void updateAllowableStatesDebtPaid(PlayFieldModel state, List<TurnActionTypes> allowedForPlayersWhoDontHaveToPay, List<TurnActionTypes> allowedForPlayerOnTurn, Guid playerOnTurnGuid, List<TurnActionTypes> allowedForPlayersWhoDoHaveToPay)
+        {
+            foreach (PlayerModel p in state.playerModels)
+            {
+                if (p.guid.CompareTo(playerOnTurnGuid) == 0)
+                //if (p.isThisPlayersTurn)
+                {
+                    //its p's turn
+                    p.actionsCurrentlyAllowed = allowedForPlayerOnTurn;
+                }
+                else if (p.owesAnotherPlayer)
+                {
+                    p.actionsCurrentlyAllowed = allowedForPlayersWhoDoHaveToPay;
+                }
+                else
+                {
+                    p.actionsCurrentlyAllowed = allowedForPlayersWhoDontHaveToPay;
                 }
             }
         }
@@ -172,7 +237,7 @@ namespace MDWcfServiceLibrary
             List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
             List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
             onTurn = setAllowableActionsOnTurn(onTurn, nextState);
-            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
             //change the current state to the next state
             addNextState(nextState);
             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has drawn 2 cards");
@@ -202,7 +267,7 @@ namespace MDWcfServiceLibrary
             List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
             List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
             onTurn = setAllowableActionsOnTurn(onTurn, nextState);
-            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
 
             //change the current state to the next state
             addNextState(nextState);
@@ -239,7 +304,7 @@ namespace MDWcfServiceLibrary
                     List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
                     onTurn = setAllowableActionsOnTurn(onTurn, nextState);
 
-                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                     //change the current state to the next state
                     addNextState(nextState);
                     return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has passed go and drawn 2 cards");
@@ -300,7 +365,7 @@ namespace MDWcfServiceLibrary
                         nextState.currentPhase = Statephase.Turn_Ended_8_Cards_In_Hand_Discard_1_Card;
                         onTurn.Add(TurnActionTypes.Discard_1_Card);
                         //Update the moves for players
-                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                         //change the current state to the next state
                         addNextState(nextState);
                         return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 8 cards and must discard 1 card");
@@ -310,7 +375,7 @@ namespace MDWcfServiceLibrary
                         nextState.currentPhase = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
                         onTurn.Add(TurnActionTypes.Discard_1_Card);
                         //Update the moves for players
-                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                         //change the current state to the next state
                         addNextState(nextState);
                         return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 9 cards and must discard 2 cards");
@@ -320,7 +385,7 @@ namespace MDWcfServiceLibrary
                         nextState.currentPhase = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
                         onTurn.Add(TurnActionTypes.Discard_1_Card);
                         //Update the moves for players
-                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                         //change the current state to the next state
                         addNextState(nextState);
                         return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 10 cards and must discard 3 cards");
@@ -330,7 +395,7 @@ namespace MDWcfServiceLibrary
                         nextState.currentPhase = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
                         onTurn.Add(TurnActionTypes.Discard_1_Card);
                         //Update the moves for players
-                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                         //change the current state to the next state
                         addNextState(nextState);
                         return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 11 cards and must discard 4 cards");
@@ -340,7 +405,7 @@ namespace MDWcfServiceLibrary
                         nextState.currentPhase = Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards;
                         onTurn.Add(TurnActionTypes.Discard_1_Card);
                         //Update the moves for players
-                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                         //change the current state to the next state
                         addNextState(nextState);
                         return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 12 cards and must discard 5 cards");
@@ -355,7 +420,7 @@ namespace MDWcfServiceLibrary
                             nextState.currentPhase = Statephase.Turn_Started_Draw_5_Cards;
                             onTurn.Add(TurnActionTypes.drawFiveCardsAtStartOfTurn);
                             //Update the moves for players
-                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                             //change the current state to the next state
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn." + "Player:" + getPlayerModel(nextState.guidOfPlayerWhosTurnItIs, nextState).name + "\'s Turn. Draw 5 Cards.");
@@ -366,7 +431,7 @@ namespace MDWcfServiceLibrary
                             nextState.currentPhase = Statephase.Turn_Started_Draw_2_Cards;
                             onTurn.Add(TurnActionTypes.drawTwoCardsAtStartOfTurn);
                             //Update the moves for players
-                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                             //change the current state to the next state
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn." + "Player:" + getPlayerModel(nextState.guidOfPlayerWhosTurnItIs, nextState).name + "\'s Turn. Draw 2 Cards.");
@@ -415,9 +480,9 @@ namespace MDWcfServiceLibrary
             }
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PayDebt) == 0)
             {
-                throw new NotImplementedException();
+                return payDebt(currentState, nextState, playerPerformingAction, moveInformation, justSayNoAble, notJustSayNoAble);
             }
-
+            //ActionCards
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayActionCard) == 0 || typeOfActionToPerform.CompareTo(TurnActionTypes.PlayCard) == 0)
             {
                 if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.PassGo) == 0)
@@ -425,6 +490,12 @@ namespace MDWcfServiceLibrary
                     Statephase nextStatePhase = notJustSayNoAble;
                     return playActionCardPassGo(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
                 }
+                else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.DebtCollector) == 0)
+                {
+                    Statephase nextStatePhase = justSayNoAble;
+                    return playActionCardDebtCollector(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
+
                 throw new NotImplementedException();
             }
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayJustSayNo) == 0)
@@ -436,6 +507,223 @@ namespace MDWcfServiceLibrary
                 return new BoolResponseBox(false, "Unsupported action:" + typeOfActionToPerform.ToString());
             }
         }
+
+        private bool hasPlayerEnoughCardsToPayFullValue(PlayerModel player, int amountOwed)
+        {
+            int playersTotalValue = 0;
+            //Player has insufficent cards selected to pay debt
+            //Find players net worth to see if they have payed everthing they have
+            foreach (Card c in player.bank.cardsInBank)
+            {
+                playersTotalValue += c.cardValue;
+            }
+            foreach (PropertyCardSet ps in player.propertySets.playersPropertySets)
+            {
+                foreach (Card c in ps.properties)
+                {
+                    playersTotalValue += c.cardValue;
+                }
+                if (ps.hasHouse)
+                {
+                    playersTotalValue += ps.house.cardValue;
+                    if (ps.hasHotel)
+                    {
+                        playersTotalValue += ps.hotel.cardValue;
+                    }
+                }
+            }
+            if (playersTotalValue >= amountOwed)
+            {
+                //Player has enough cards to pay
+                return true;
+            }
+            else
+            {
+                //Player does not have enough cards to pay
+                return false;
+            }
+        }
+
+        private List<Card> takeAllCardsFromPlayer(PlayerModel player)
+        {
+            List<Card> cardsTaken = new List<Card>();
+            //Find players net worth to see if they have payed everthing they have
+            foreach (Card c in player.bank.cardsInBank)
+            {
+                Card card = player.bank.removeCardFromBank(c);
+                if (card != null)
+                {
+                    cardsTaken.Add(card);
+                }
+            }
+            foreach (PropertyCardSet ps in player.propertySets.playersPropertySets)
+            {
+                foreach (Card c in ps.properties)
+                {
+                    cardsTaken.Add(c);
+                }
+                if (ps.hasHouse)
+                {
+                    cardsTaken.Add(ps.removeHouse());
+                    if (ps.hasHotel)
+                    {
+                        cardsTaken.Add(ps.removeHotel());
+                    }
+                }
+                //player property set now empty remove the set from the player
+                player.propertySets.removeEmptySet(ps);
+            }
+            return cardsTaken;
+        }
+
+        private BoolResponseBox payDebt(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase justSayNoAble, Statephase notJustSayNoAble)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+
+            //Player Paying Debt
+            PlayerModel playerModelForPlayerPaying = getPlayerModel(playerPerformingAction.guid, nextState);
+
+            //Player Being paid debt
+            PlayerModel playerModelForPlayerToBePaid = getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, nextState);
+
+            //Get all the cards the player intends to pay with
+            List<Card> cardsToUseToPayDebt = new List<Card>();
+            foreach (int i in moveInformation.listOfIDsOfCardsBeingUsedToPayDebt)
+            {
+                Card card = nextState.deck.getCardByID(i);
+                if (card is PropertyCard)
+                {
+                    PropertyCard property = (PropertyCard)card;
+                    if (playerModelForPlayerPaying.removePropertyCardFromPlayersPropertySets(property) != null)
+                    {
+                        //Property was in set and has been removed
+                        cardsToUseToPayDebt.Add(property);
+                    }
+                }
+                else if (card != null)
+                {
+                    //not a propertyCard
+                    cardsToUseToPayDebt.Add(card);
+                }
+            }
+            bool otherPlayersPaying = false;
+            //Get if player paying is the only player who has to pay
+            foreach (PlayerModel player in nextState.playerModels)
+            {
+                if (player.guid.CompareTo(playerModelForPlayerPaying.guid) != 0 && player.owesAnotherPlayer)
+                {
+                    //Another player owes money
+                    otherPlayersPaying = true;
+                    break;
+                }
+            }
+            Statephase nextStatePhaseIfSuccessful;
+            if (otherPlayersPaying)
+            {
+                //Other players must pay so states phase does not change
+                nextStatePhaseIfSuccessful = nextState.currentPhase;
+            }
+            else
+            {
+                //No other players have to pay debt
+                nextStatePhaseIfSuccessful = notJustSayNoAble;
+            }
+
+            //Determine if payment is sufficent
+            //Value of all cards must be at least the same as the debt owed or must be every property, house, hotel, banked card the player has
+            int valueOfPayment = 0;
+            foreach (Card c in cardsToUseToPayDebt)
+            {
+                valueOfPayment += c.cardValue;
+            }
+            if (valueOfPayment < moveInformation.amountOwed)
+            {
+                if (hasPlayerEnoughCardsToPayFullValue(playerModelForPlayerPaying, moveInformation.amountOwed))
+                {
+                    return new BoolResponseBox(false, "Player has enough played cards to pay debt but has not selected enough to pay.");
+                }
+                else
+                {
+                    //Player does not have enough to pay. Take all players played cards
+                    cardsToUseToPayDebt = takeAllCardsFromPlayer(playerModelForPlayerPaying);
+                }
+            }
+            //put properties used as payment into new sets for player being paid and put money and actioncards into player being paids bank
+            foreach (Card card in cardsToUseToPayDebt)
+            {
+                if (card is PropertyCard)
+                {
+                    playerModelForPlayerToBePaid.propertySets.addSet(new PropertyCardSet((PropertyCard)card));
+                }
+                else
+                {
+                    playerModelForPlayerToBePaid.bank.addCardToBank(card);
+                }
+            }
+            //Player has now paid debt
+            playerModelForPlayerPaying.owesAnotherPlayer = false;
+            //Update the state
+
+            //Change state on success
+            //has been performed, advance the phase of the game
+            nextState.currentPhase = nextStatePhaseIfSuccessful;
+            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+            List<TurnActionTypes> inDebt = new List<TurnActionTypes>();
+            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+            inDebt = setAllowableActionsNotOnTurnInDebt(inDebt, nextState);
+            updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, inDebt);
+            //change the current state to the next state
+            addNextState(nextState);
+            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has paid");
+        }
+
+        private BoolResponseBox playActionCardDebtCollector(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhaseIfSuccessful, MoveInfo debtCollectorInfo)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(debtCollectorInfo.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            PlayerModel player = getPlayerModel(debtCollectorInfo.playerMakingMove, nextState);
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.DebtCollector) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, player);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    //Do action
+                    throw new NotImplementedException("Debt Collector Action Not implemented");
+
+                    //Change state on success
+                    //has been performed, advance the phase of the game
+                    nextState.currentPhase = nextStatePhaseIfSuccessful;
+                    //Put card in discard pile
+                    nextState.playpile.playCardOnPile(card);
+                    List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                    List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                    onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
+                    //change the current state to the next state
+                    addNextState(nextState);
+                    return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Debt Collector");
+                }
+
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card is not in hand or is not a Debt Collector card");
+        }
+
+        #region implemented moves
 
         private BoolResponseBox discard1Card(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase notJustSayNoAble)
         {
@@ -464,7 +752,7 @@ namespace MDWcfServiceLibrary
                             nextState.currentPhase = Statephase.Turn_Ended_8_Cards_In_Hand_Discard_1_Card;
                             onTurn.Add(TurnActionTypes.Discard_1_Card);
                             //Update the moves for players
-                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                             //change the current state to the next state
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 8 cards and must discard 1 card");
@@ -474,7 +762,7 @@ namespace MDWcfServiceLibrary
                             nextState.currentPhase = Statephase.Turn_Ended_9_Cards_In_Hand_Discard_2_Cards;
                             onTurn.Add(TurnActionTypes.Discard_1_Card);
                             //Update the moves for players
-                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                             //change the current state to the next state
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 9 cards and must discard 2 cards");
@@ -484,7 +772,7 @@ namespace MDWcfServiceLibrary
                             nextState.currentPhase = Statephase.Turn_Ended_10_Cards_In_Hand_Discard_3_Cards;
                             onTurn.Add(TurnActionTypes.Discard_1_Card);
                             //Update the moves for players
-                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                             //change the current state to the next state
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 10 cards and must discard 3 cards");
@@ -494,7 +782,7 @@ namespace MDWcfServiceLibrary
                             nextState.currentPhase = Statephase.Turn_Ended_11_Cards_In_Hand_Discard_4_Cards;
                             onTurn.Add(TurnActionTypes.Discard_1_Card);
                             //Update the moves for players
-                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                             //change the current state to the next state
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 11 cards and must discard 4 cards");
@@ -504,7 +792,7 @@ namespace MDWcfServiceLibrary
                             nextState.currentPhase = Statephase.Turn_Ended_12_Cards_In_Hand_Discard_5_Cards;
                             onTurn.Add(TurnActionTypes.Discard_1_Card);
                             //Update the moves for players
-                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                             //change the current state to the next state
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn with 12 cards and must discard 5 cards");
@@ -519,7 +807,7 @@ namespace MDWcfServiceLibrary
                                 nextState.currentPhase = Statephase.Turn_Started_Draw_5_Cards;
                                 onTurn.Add(TurnActionTypes.drawFiveCardsAtStartOfTurn);
                                 //Update the moves for players
-                                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                                 //change the current state to the next state
                                 addNextState(nextState);
                                 return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn." + "Player:" + getPlayerModel(nextState.guidOfPlayerWhosTurnItIs, nextState).name + "\'s Turn. Draw 5 Cards.");
@@ -530,7 +818,7 @@ namespace MDWcfServiceLibrary
                                 nextState.currentPhase = Statephase.Turn_Started_Draw_2_Cards;
                                 onTurn.Add(TurnActionTypes.drawTwoCardsAtStartOfTurn);
                                 //Update the moves for players
-                                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                                 //change the current state to the next state
                                 addNextState(nextState);
                                 return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn." + "Player:" + getPlayerModel(nextState.guidOfPlayerWhosTurnItIs, nextState).name + "\'s Turn. Draw 2 Cards.");
@@ -571,7 +859,7 @@ namespace MDWcfServiceLibrary
                     List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
                     onTurn = setAllowableActionsOnTurn(onTurn, nextState);
 
-                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                     //change the current state to the next state
                     addNextState(nextState);
                     return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has banked " + card.cardName);
@@ -603,24 +891,12 @@ namespace MDWcfServiceLibrary
                 List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
                 onTurn = setAllowableActionsOnTurn(onTurn, nextState);
 
-                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                 //change the current state to the next state
                 addNextState(nextState);
                 return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has played to a new set " + card.cardName);
             }
             return new BoolResponseBox(false, "Card is not in hand.");
-        }
-
-        private PropertyCardSet getPropertyCardSet(PlayerPropertySets pps, Guid guidOfSet)
-        {
-            foreach (PropertyCardSet ps in pps.playersPropertySets)
-            {
-                if (ps.guid.CompareTo(guidOfSet) == 0)
-                {
-                    return ps;
-                }
-            }
-            return null;
         }
 
         private BoolResponseBox playPropertyCardFromHand(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase notJustSayNoAble)
@@ -651,7 +927,7 @@ namespace MDWcfServiceLibrary
                         List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
                         onTurn = setAllowableActionsOnTurn(onTurn, nextState);
 
-                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs);
+                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
                         //change the current state to the next state
                         addNextState(nextState);
                         return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has played to a existing set " + card.cardName);
@@ -669,6 +945,20 @@ namespace MDWcfServiceLibrary
             {
                 return playPropertyCardFromHandToNewSet(currentState, nextState, playerPerformingAction, moveInformation, notJustSayNoAble);
             }
+        }
+
+        #endregion implemented moves
+
+        private PropertyCardSet getPropertyCardSet(PlayerPropertySets pps, Guid guidOfSet)
+        {
+            foreach (PropertyCardSet ps in pps.playersPropertySets)
+            {
+                if (ps.guid.CompareTo(guidOfSet) == 0)
+                {
+                    return ps;
+                }
+            }
+            return null;
         }
 
         private BoolResponseBox movePropertyCard(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase rearrangeProperties)
@@ -715,6 +1005,9 @@ namespace MDWcfServiceLibrary
         public BoolResponseBox evaluateMove(PlayFieldModel lastState, PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, TurnActionTypes typeOfActionToPerform, MoveInfo cardsAndPlayersInvolved)
         {
             BoolResponseBox result;
+
+            #region Draw2State
+
             if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Draw_2_Cards) == 0)
             {
                 //Action card that can be just say no carded next state
@@ -742,6 +1035,11 @@ namespace MDWcfServiceLibrary
                     return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
                 }
             }
+
+            #endregion Draw2State
+
+            #region Draw5State
+
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Draw_5_Cards) == 0)
             {
                 //Action card that can be just say no carded next state
@@ -769,6 +1067,11 @@ namespace MDWcfServiceLibrary
                     return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
                 }
             }
+
+            #endregion Draw5State
+
+            #region Turn Started Cards Drawn 0 Cards Played
+
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played) == 0)
             {
                 //Action card that can be just say no carded next state
@@ -796,9 +1099,45 @@ namespace MDWcfServiceLibrary
                     return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
                 }
             }
+
+            #endregion Turn Started Cards Drawn 0 Cards Played
+
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No) == 0)
             {
-                throw new NotImplementedException();
+                Statephase discard = Statephase.Invalid_Action_For_Turn;
+
+                //Player used Just Say No
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No;
+                /*
+                //Player did not play just say no and is dealbreakered or sly dealed or forced dealed
+                Statephase JustSayNoNotUsed = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;
+
+                //Player has to pay rent or Birthday or Debt Collector
+                Statephase PayDebt = Statephase.Turn_Started_Cards_Drawn_1_Cards_Play
+                */
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No;//Action cards not playable at this phase
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;//cards playable at this phase
+
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Invalid_Action_For_Turn;//cards can be rearranged at this phase
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Invalid_Action_For_Turn;//not allowable at this phase
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                //In this state players may be required to pay rent, birthday or debt collector money or use a just say no
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
             {

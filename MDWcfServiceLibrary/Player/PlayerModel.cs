@@ -50,6 +50,9 @@ namespace MDWcfServiceLibrary
         public bool isReadyToStartGame;
 
         [DataMember]
+        public bool owesAnotherPlayer = false;
+
+        [DataMember]
         //List<TurnActionTypes> actionsAllowableAtCurrentState;
 
         //StaticFields
@@ -120,6 +123,7 @@ namespace MDWcfServiceLibrary
             this.name = player.name;
             this.actionsCurrentlyAllowed = player.actionsCurrentlyAllowed.cloneListTurnActionTypes();
             this.isReadyToStartGame = player.isReadyToStartGame;
+            this.owesAnotherPlayer = player.owesAnotherPlayer;
         }
 
         #endregion Constructors
@@ -131,6 +135,30 @@ namespace MDWcfServiceLibrary
         internal PlayerModel clone(PlayFieldModel state)
         {
             return new PlayerModel(this, state);
+        }
+
+        internal PropertyCard removePropertyCardFromPlayersPropertySets(PropertyCard propertyCardToRemove)
+        {
+            foreach (PropertyCardSet ps in propertySets.playersPropertySets)
+            {
+                if (ps.removeProperty(propertyCardToRemove))
+                {
+                    //Card removed, remove any houses and hotels and place them in players bank
+                    Card hotel = ps.removeHotel();
+                    if (hotel != null)
+                    {
+                        bank.addCardToBank(hotel);
+                    }
+                    Card house = ps.removeHouse();
+                    if (hotel != null)
+                    {
+                        bank.addCardToBank(house);
+                    }
+                    return propertyCardToRemove;
+                }
+            }
+            //Card not removed
+            return null;
         }
     }
 }

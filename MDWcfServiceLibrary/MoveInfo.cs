@@ -60,7 +60,7 @@ namespace MDWcfServiceLibrary
 
         //Debt Collector
         public Guid guidOfPlayerBeingDebtCollected;
-
+        public Guid guidOfPlayerToPayDebtTo;
         //It's My Birthday
         public List<Guid> guidsOfPlayersWhoHaveToPayForBirthday;
 
@@ -95,5 +95,9 @@ namespace MDWcfServiceLibrary
         public bool isPropertyToPlayOrientedUp;
         public bool addPropertyToPlayToExistingSet;
         public Guid guidOfExistingSetToPlayPropertyTo;
+
+        //Pay Debt
+        public int amountOwed;
+        public List<int> listOfIDsOfCardsBeingUsedToPayDebt;
     }
 }

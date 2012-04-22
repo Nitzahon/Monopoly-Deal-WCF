@@ -150,6 +150,9 @@ namespace MDWcfServiceLibrary
         [OperationContract]//discard  cards at end of turn
         Boolean playActionCardPassGoMD(int passGoCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
+        [OperationContract]//discard  cards at end of turn
+        Boolean playActionCardDebtCollectorMD(int debtCollectorCardID, GuidBox targetedPlayerGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
         [OperationContract]
         Boolean draw5AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 

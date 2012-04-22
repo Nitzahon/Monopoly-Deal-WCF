@@ -62,7 +62,7 @@
     <Compile Include="Monopoly Deal Game\IMonopolyDeal_GameStateManager.cs" />
     <Compile Include="Monopoly Deal Game\MonopolyDeal.cs" />
     <Compile Include="Monopoly Deal Game\MonopolyDealGameGen.cs" />
-    <Compile Include="Monopoly Deal Game\MonopolyDeal_GameStateManager.cs" />
+    <Compile Include="Unused\MonopolyDeal_GameStateManager.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="MoveInfo.cs" />
     <Compile Include="PayAdknowledgeJustSayNo.cs" />
@@ -102,7 +102,9 @@
     <Compile Include="Game State\TurnActionModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="UML Models\MDWCFServiceLibrary.cd" />
     <None Include="Unused\oldAppconfig.config" />

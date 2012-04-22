@@ -54,6 +54,9 @@ namespace MDWcfServiceLibrary
         Turn_Ended_11_Cards_In_Hand_Discard_4_Cards,
         [EnumMember]
         Turn_Ended_12_Cards_In_Hand_Discard_5_Cards,
+
+        [EnumMember]
+        Invalid_Action_For_Turn
     }
 
     [DataContract]

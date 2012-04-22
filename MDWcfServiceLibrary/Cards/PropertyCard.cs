@@ -159,7 +159,7 @@ namespace MDWcfServiceLibrary
             this.isWild = original.isWild;
             this.oneCardInSetRentValue = original.oneCardInSetRentValue;
             this.oneCardInSetRentValueDown = original.oneCardInSetRentValueDown;
-            this.oneCardInSetRentValueUp = this.oneCardInSetRentValueUp;
+            this.oneCardInSetRentValueUp = original.oneCardInSetRentValueUp;
             this.propertyColors = original.propertyColors.cloneListPropertyColor();
             this.threeCardInSetRentValue = original.threeCardInSetRentValue;
             this.threeCardInSetRentValueDown = original.threeCardInSetRentValueDown;

@@ -668,5 +668,19 @@ namespace MDWcfServiceLibrary
         }
 
         #endregion MonopolyDealGameMethods
+
+        public bool playActionCardDebtCollectorMD(int debtCollectorCardID, GuidBox targetedPlayerGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().playDebtCollector(debtCollectorCardID, targetedPlayerGuid.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayActionCard);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
