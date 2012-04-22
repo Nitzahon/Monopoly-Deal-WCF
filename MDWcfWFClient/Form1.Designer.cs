@@ -105,11 +105,20 @@
             this.button10 = new System.Windows.Forms.Button();
             this.buttonPollMD = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.listBoxAllPlayersPlayedCards = new System.Windows.Forms.ListBox();
+            this.listBoxCardsToPayWith = new System.Windows.Forms.ListBox();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonPay = new System.Windows.Forms.Button();
+            this.labelAmountToPay = new System.Windows.Forms.Label();
+            this.labelSelectedCardsToPayValue = new System.Windows.Forms.Label();
+            this.labelTotalPlayerValue = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonConnect1
             // 
-            this.buttonConnect1.Location = new System.Drawing.Point(289, 571);
+            this.buttonConnect1.Location = new System.Drawing.Point(13, 619);
             this.buttonConnect1.Name = "buttonConnect1";
             this.buttonConnect1.Size = new System.Drawing.Size(100, 23);
             this.buttonConnect1.TabIndex = 0;
@@ -312,7 +321,7 @@
             // buttonPoll
             // 
             this.buttonPoll.Enabled = false;
-            this.buttonPoll.Location = new System.Drawing.Point(292, 600);
+            this.buttonPoll.Location = new System.Drawing.Point(16, 648);
             this.buttonPoll.Name = "buttonPoll";
             this.buttonPoll.Size = new System.Drawing.Size(97, 23);
             this.buttonPoll.TabIndex = 51;
@@ -506,7 +515,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(289, 542);
+            this.button2.Location = new System.Drawing.Point(13, 590);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 23);
             this.button2.TabIndex = 71;
@@ -687,9 +696,9 @@
             // listBoxDiscardPile
             // 
             this.listBoxDiscardPile.FormattingEnabled = true;
-            this.listBoxDiscardPile.Location = new System.Drawing.Point(634, 542);
+            this.listBoxDiscardPile.Location = new System.Drawing.Point(730, 532);
             this.listBoxDiscardPile.Name = "listBoxDiscardPile";
-            this.listBoxDiscardPile.Size = new System.Drawing.Size(156, 56);
+            this.listBoxDiscardPile.Size = new System.Drawing.Size(175, 82);
             this.listBoxDiscardPile.TabIndex = 91;
             // 
             // listBoxPlayers
@@ -808,7 +817,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(395, 542);
+            this.button10.Location = new System.Drawing.Point(119, 590);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(113, 23);
             this.button10.TabIndex = 104;
@@ -835,11 +844,104 @@
             this.label4.TabIndex = 106;
             this.label4.Text = "Choose a Player to: DealBreak / Rent /Sly Deal/Forced Deal";
             // 
+            // listBoxAllPlayersPlayedCards
+            // 
+            this.listBoxAllPlayersPlayedCards.FormattingEnabled = true;
+            this.listBoxAllPlayersPlayedCards.Location = new System.Drawing.Point(264, 532);
+            this.listBoxAllPlayersPlayedCards.Name = "listBoxAllPlayersPlayedCards";
+            this.listBoxAllPlayersPlayedCards.Size = new System.Drawing.Size(171, 82);
+            this.listBoxAllPlayersPlayedCards.TabIndex = 107;
+            this.listBoxAllPlayersPlayedCards.SelectedIndexChanged += new System.EventHandler(this.listBoxAllPlayersPlayedCards_SelectedIndexChanged);
+            // 
+            // listBoxCardsToPayWith
+            // 
+            this.listBoxCardsToPayWith.FormattingEnabled = true;
+            this.listBoxCardsToPayWith.Location = new System.Drawing.Point(522, 532);
+            this.listBoxCardsToPayWith.Name = "listBoxCardsToPayWith";
+            this.listBoxCardsToPayWith.Size = new System.Drawing.Size(167, 82);
+            this.listBoxCardsToPayWith.TabIndex = 108;
+            this.listBoxCardsToPayWith.SelectedIndexChanged += new System.EventHandler(this.listBoxCardsToPayWith_SelectedIndexChanged);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(441, 532);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 109;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // buttonRemove
+            // 
+            this.buttonRemove.Location = new System.Drawing.Point(441, 561);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemove.TabIndex = 110;
+            this.buttonRemove.Text = "Remove";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
+            // buttonPay
+            // 
+            this.buttonPay.Location = new System.Drawing.Point(441, 590);
+            this.buttonPay.Name = "buttonPay";
+            this.buttonPay.Size = new System.Drawing.Size(75, 23);
+            this.buttonPay.TabIndex = 111;
+            this.buttonPay.Text = "Pay";
+            this.buttonPay.UseVisualStyleBackColor = true;
+            this.buttonPay.Click += new System.EventHandler(this.buttonPay_Click);
+            // 
+            // labelAmountToPay
+            // 
+            this.labelAmountToPay.AutoSize = true;
+            this.labelAmountToPay.Location = new System.Drawing.Point(261, 513);
+            this.labelAmountToPay.Name = "labelAmountToPay";
+            this.labelAmountToPay.Size = new System.Drawing.Size(80, 13);
+            this.labelAmountToPay.TabIndex = 112;
+            this.labelAmountToPay.Text = "Amount To Pay";
+            // 
+            // labelSelectedCardsToPayValue
+            // 
+            this.labelSelectedCardsToPayValue.AutoSize = true;
+            this.labelSelectedCardsToPayValue.Location = new System.Drawing.Point(519, 513);
+            this.labelSelectedCardsToPayValue.Name = "labelSelectedCardsToPayValue";
+            this.labelSelectedCardsToPayValue.Size = new System.Drawing.Size(125, 13);
+            this.labelSelectedCardsToPayValue.TabIndex = 113;
+            this.labelSelectedCardsToPayValue.Text = "Amount Selected To Pay";
+            // 
+            // labelTotalPlayerValue
+            // 
+            this.labelTotalPlayerValue.AutoSize = true;
+            this.labelTotalPlayerValue.Location = new System.Drawing.Point(261, 617);
+            this.labelTotalPlayerValue.Name = "labelTotalPlayerValue";
+            this.labelTotalPlayerValue.Size = new System.Drawing.Size(156, 13);
+            this.labelTotalPlayerValue.TabIndex = 114;
+            this.labelTotalPlayerValue.Text = "Total Value Of All Players Cards";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(727, 513);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(63, 13);
+            this.label5.TabIndex = 115;
+            this.label5.Text = "Discard Pile";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 644);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelTotalPlayerValue);
+            this.Controls.Add(this.labelSelectedCardsToPayValue);
+            this.Controls.Add(this.labelAmountToPay);
+            this.Controls.Add(this.buttonPay);
+            this.Controls.Add(this.buttonRemove);
+            this.Controls.Add(this.buttonAdd);
+            this.Controls.Add(this.listBoxCardsToPayWith);
+            this.Controls.Add(this.listBoxAllPlayersPlayedCards);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonPollMD);
             this.Controls.Add(this.button10);
@@ -1004,6 +1106,15 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button buttonPollMD;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox listBoxAllPlayersPlayedCards;
+        private System.Windows.Forms.ListBox listBoxCardsToPayWith;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Button buttonPay;
+        private System.Windows.Forms.Label labelAmountToPay;
+        private System.Windows.Forms.Label labelSelectedCardsToPayValue;
+        private System.Windows.Forms.Label labelTotalPlayerValue;
+        private System.Windows.Forms.Label label5;
     }
 }
 

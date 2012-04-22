@@ -23,6 +23,7 @@ namespace MDWcfWFClient
             clientGuid = guid;
         }
 
+        /*
         public void processMessage(MonopolyDealServiceReference.Message message)
         {
             //INCOMPLETE
@@ -33,6 +34,7 @@ namespace MDWcfWFClient
                 savefield(messageFM.fieldModel);
             }
         }
+        */
 
         public void savefield(MonopolyDealServiceReference.PlayFieldModel pfm)
         {

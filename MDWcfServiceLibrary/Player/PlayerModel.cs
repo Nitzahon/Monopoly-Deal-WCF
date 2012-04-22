@@ -51,6 +51,8 @@ namespace MDWcfServiceLibrary
 
         [DataMember]
         public bool owesAnotherPlayer = false;
+        [DataMember]
+        public int amountOwedToAnotherPlayer = 0;
 
         [DataMember]
         //List<TurnActionTypes> actionsAllowableAtCurrentState;
@@ -124,6 +126,7 @@ namespace MDWcfServiceLibrary
             this.actionsCurrentlyAllowed = player.actionsCurrentlyAllowed.cloneListTurnActionTypes();
             this.isReadyToStartGame = player.isReadyToStartGame;
             this.owesAnotherPlayer = player.owesAnotherPlayer;
+            this.amountOwedToAnotherPlayer = player.amountOwedToAnotherPlayer;
         }
 
         #endregion Constructors

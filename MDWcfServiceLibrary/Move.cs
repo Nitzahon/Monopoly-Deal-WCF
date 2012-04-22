@@ -48,7 +48,7 @@ namespace MDWcfServiceLibrary
 
         private List<TurnActionTypes> setAllowableActionsNotOnTurnInDebt(List<TurnActionTypes> listToSet, PlayFieldModel newState)
         {
-            if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No) == 0)
+            if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played) == 0)
             {
                 listToSet.Add(TurnActionTypes.PlayJustSayNo);
                 listToSet.Add(TurnActionTypes.PayDebt);
@@ -656,26 +656,29 @@ namespace MDWcfServiceLibrary
             {
                 if (card is PropertyCard)
                 {
+                    playerModelForPlayerPaying.removePropertyCardFromPlayersPropertySets((PropertyCard)card);
                     playerModelForPlayerToBePaid.propertySets.addSet(new PropertyCardSet((PropertyCard)card));
                 }
                 else
                 {
+                    removeCardFromHand(card, playerModelForPlayerPaying);
                     playerModelForPlayerToBePaid.bank.addCardToBank(card);
                 }
             }
             //Player has now paid debt
             playerModelForPlayerPaying.owesAnotherPlayer = false;
+            playerModelForPlayerPaying.amountOwedToAnotherPlayer = 0;
             //Update the state
 
             //Change state on success
             //has been performed, advance the phase of the game
             nextState.currentPhase = nextStatePhaseIfSuccessful;
-            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+            List<TurnActionTypes> notInDebt = new List<TurnActionTypes>();
             List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
             List<TurnActionTypes> inDebt = new List<TurnActionTypes>();
             onTurn = setAllowableActionsOnTurn(onTurn, nextState);
             inDebt = setAllowableActionsNotOnTurnInDebt(inDebt, nextState);
-            updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, inDebt);
+            updateAllowableStatesDebtPaid(nextState, notInDebt, onTurn, nextState.guidOfPlayerWhosTurnItIs, inDebt);
             //change the current state to the next state
             addNextState(nextState);
             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has paid");
@@ -688,31 +691,30 @@ namespace MDWcfServiceLibrary
             //Clone the current state to create next state then draws 5 cards in the next state
             nextState = currentState.clone(generateGuidForNextState());
             PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
-
+            PlayerModel playerModelForPlayerToDebtCollect = getPlayerModel(debtCollectorInfo.guidOfPlayerBeingDebtCollected, nextState);
             Card cardInHandToBePlayed = nextState.deck.getCardByID(debtCollectorInfo.idOfCardBeingUsed);
             //Get the reference to the players playerModel in the current PlayFieldModel
 
-            PlayerModel player = getPlayerModel(debtCollectorInfo.playerMakingMove, nextState);
             //Get the reference to the Card in the current PlayFieldModel
             if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.DebtCollector) == 0)
             {
-                Card card = removeCardFromHand(cardInHandToBePlayed, player);
+                Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
                 if (card != null)
                 {
                     ActionCard actionCard = card as ActionCard;
                     //Do action
-                    throw new NotImplementedException("Debt Collector Action Not implemented");
+                    playerModelForPlayerToDebtCollect.owesAnotherPlayer = true;
+                    playerModelForPlayerToDebtCollect.amountOwedToAnotherPlayer = ActionCard.Debt_Collector_Value;
 
                     //Change state on success
                     //has been performed, advance the phase of the game
                     nextState.currentPhase = nextStatePhaseIfSuccessful;
                     //Put card in discard pile
-                    nextState.playpile.playCardOnPile(card);
+                    nextState.playpile.playCardOnPile(actionCard);
                     List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
                     List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
                     onTurn = setAllowableActionsOnTurn(onTurn, nextState);
-
-                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
+                    updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
                     //change the current state to the next state
                     addNextState(nextState);
                     return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Debt Collector");
@@ -1172,9 +1174,77 @@ namespace MDWcfServiceLibrary
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No) == 0)
             {
+                Statephase discard = Statephase.Invalid_Action_For_Turn;
+
+                //Player used Just Say No
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No;
+                /*
+                //Player did not play just say no and is dealbreakered or sly dealed or forced dealed
+                Statephase JustSayNoNotUsed = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;
+
+                //Player has to pay rent or Birthday or Debt Collector
+                Statephase PayDebt = Statephase.Turn_Started_Cards_Drawn_1_Cards_Play
+                */
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No;//Action cards not playable at this phase
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played;//cards playable at this phase
+
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Invalid_Action_For_Turn;//cards can be rearranged at this phase
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Invalid_Action_For_Turn;//not allowable at this phase
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                //In this state players may be required to pay rent, birthday or debt collector money or use a just say no
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
             {
+                Statephase discard = Statephase.Invalid_Action_For_Turn;
+
+                //Player used Just Say No
+                Statephase JustSayNoUsedByOpposition = Statephase.Invalid_Action_For_Turn;
+                /*
+                //Player did not play just say no and is dealbreakered or sly dealed or forced dealed
+                Statephase JustSayNoNotUsed = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;
+
+                //Player has to pay rent or Birthday or Debt Collector
+                Statephase PayDebt = Statephase.Turn_Started_Cards_Drawn_1_Cards_Play
+                */
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No;//Action cards not playable at this phase
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played;//cards playable at this phase
+
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Invalid_Action_For_Turn;//cards can be rearranged at this phase
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Invalid_Action_For_Turn;//not allowable at this phase
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                //In this state players may be required to pay rent, birthday or debt collector money or use a just say no
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played) == 0)
             {
@@ -1206,6 +1276,40 @@ namespace MDWcfServiceLibrary
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No) == 0)
             {
+                Statephase discard = Statephase.Invalid_Action_For_Turn;
+
+                //Player used Just Say No
+                Statephase JustSayNoUsedByOpposition = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No;
+                /*
+                //Player did not play just say no and is dealbreakered or sly dealed or forced dealed
+                Statephase JustSayNoNotUsed = Statephase.Turn_Started_Cards_Drawn_1_Cards_Played;
+
+                //Player has to pay rent or Birthday or Debt Collector
+                Statephase PayDebt = Statephase.Turn_Started_Cards_Drawn_1_Cards_Play
+                */
+                //Action card that can be just say no carded next state
+                Statephase justSayNoAble = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No;//Action cards not playable at this phase
+                //Any move that plays a card excluding justSayNo move next state
+                Statephase notJustSayNoAble = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;//cards playable at this phase
+
+                //Property card rearranging next state
+                Statephase rearrangeProperties = Statephase.Invalid_Action_For_Turn;//cards can be rearranged at this phase
+                //Draw
+                Statephase drawCardsAtTurnStart = Statephase.Invalid_Action_For_Turn;//not allowable at this phase
+                BoolResponseBox isMoveTypeAllowableAtCurrentPhase = checkIfMoveAllowedAtThisState(typeOfActionToPerform, playerPerformingAction, currentState);
+                //In this state players may be required to pay rent, birthday or debt collector money or use a just say no
+                if (isMoveTypeAllowableAtCurrentPhase.success)
+                {
+                    //type of move is allowable at this point for this player. Check if move is doable ex is a set stealable
+                    result = doAppropriateAction(lastState, currentState, nextState, playerPerformingAction, typeOfActionToPerform, justSayNoAble, notJustSayNoAble, rearrangeProperties, drawCardsAtTurnStart, JustSayNoUsedByOpposition, cardsAndPlayersInvolved, discard);
+
+                    return result;//True if action performed, False if not
+                }
+                else
+                {
+                    //No other actionTypes are allowable in this state
+                    return new BoolResponseBox(false, "Player:" + playerPerformingAction.name + " is not able to perform " + typeOfActionToPerform + " at this state:" + currentState.currentPhase.ToString());
+                }
             }
             else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No) == 0)
             {

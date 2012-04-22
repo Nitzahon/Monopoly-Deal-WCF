@@ -48,16 +48,9 @@ namespace MDWcfServiceLibrary
             gameModelGuid = thisGameGuidP;
             //Assign Players to this game of Monopoly Deal
             players = playersP;
-            //Old GamestateManager
 
-            if (useMoveManager)
-            {
-                gameStateManager = new GameStateManagerToMoveAdapter(this);
-            }
-            else
-            {
-                gameStateManager = new MonopolyDeal_GameStateManager(this);
-            }
+            gameStateManager = new GameStateManagerToMoveAdapter(this);
+
             addPlayersToIDLookup(playersP);
             initialState = createInitialState(players);
             gameStates.Add(initialState);

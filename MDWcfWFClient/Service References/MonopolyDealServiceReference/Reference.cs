@@ -106,6 +106,774 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         }
     }
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GameLobbyStatus", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    public enum GameLobbyStatus : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Empty = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Not_Enough_Players_To_Start = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Enough_Players_To_Start = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Full = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        overFull = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Game_In_Progress = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Game_Ended = 6,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GameLobby", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    public partial class GameLobby : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.LobbyClient[] clientsConnectedToGameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string descriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string gameLobbyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid guidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.GameLobbyStatus statusField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.LobbyClient[] clientsConnectedToGame {
+            get {
+                return this.clientsConnectedToGameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.clientsConnectedToGameField, value) != true)) {
+                    this.clientsConnectedToGameField = value;
+                    this.RaisePropertyChanged("clientsConnectedToGame");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
+                    this.descriptionField = value;
+                    this.RaisePropertyChanged("description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string gameLobbyName {
+            get {
+                return this.gameLobbyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.gameLobbyNameField, value) != true)) {
+                    this.gameLobbyNameField = value;
+                    this.RaisePropertyChanged("gameLobbyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid guid {
+            get {
+                return this.guidField;
+            }
+            set {
+                if ((this.guidField.Equals(value) != true)) {
+                    this.guidField = value;
+                    this.RaisePropertyChanged("guid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((this.idField.Equals(value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.GameLobbyStatus status {
+            get {
+                return this.statusField;
+            }
+            set {
+                if ((this.statusField.Equals(value) != true)) {
+                    this.statusField = value;
+                    this.RaisePropertyChanged("status");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LobbyClient", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    public partial class LobbyClient : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string descriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid gameLobbyGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid guidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool readyToStartField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
+                    this.descriptionField = value;
+                    this.RaisePropertyChanged("description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid gameLobbyGuid {
+            get {
+                return this.gameLobbyGuidField;
+            }
+            set {
+                if ((this.gameLobbyGuidField.Equals(value) != true)) {
+                    this.gameLobbyGuidField = value;
+                    this.RaisePropertyChanged("gameLobbyGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid guid {
+            get {
+                return this.guidField;
+            }
+            set {
+                if ((this.guidField.Equals(value) != true)) {
+                    this.guidField = value;
+                    this.RaisePropertyChanged("guid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameField, value) != true)) {
+                    this.nameField = value;
+                    this.RaisePropertyChanged("name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool readyToStart {
+            get {
+                return this.readyToStartField;
+            }
+            set {
+                if ((this.readyToStartField.Equals(value) != true)) {
+                    this.readyToStartField = value;
+                    this.RaisePropertyChanged("readyToStart");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlayFieldModel", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    public partial class PlayFieldModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.Statephase currentPhaseField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel currentTurnActionModelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid guidOfPlayerWhosTurnItIsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel lastActionPlayedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int numberOfTurnsRemainingForPlayerWhosTurnItIsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.PlayerModel[] playerModelsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid[] playersAffectedByActionCardGuidsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.PlayPile playpileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid previousPlayFieldModelGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool startOfATurnField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid thisPlayFieldModelInstanceGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.Card[] topCardsOnPlaypileField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.Statephase currentPhase {
+            get {
+                return this.currentPhaseField;
+            }
+            set {
+                if ((this.currentPhaseField.Equals(value) != true)) {
+                    this.currentPhaseField = value;
+                    this.RaisePropertyChanged("currentPhase");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel currentTurnActionModel {
+            get {
+                return this.currentTurnActionModelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.currentTurnActionModelField, value) != true)) {
+                    this.currentTurnActionModelField = value;
+                    this.RaisePropertyChanged("currentTurnActionModel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid guidOfPlayerWhosTurnItIs {
+            get {
+                return this.guidOfPlayerWhosTurnItIsField;
+            }
+            set {
+                if ((this.guidOfPlayerWhosTurnItIsField.Equals(value) != true)) {
+                    this.guidOfPlayerWhosTurnItIsField = value;
+                    this.RaisePropertyChanged("guidOfPlayerWhosTurnItIs");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel lastActionPlayed {
+            get {
+                return this.lastActionPlayedField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.lastActionPlayedField, value) != true)) {
+                    this.lastActionPlayedField = value;
+                    this.RaisePropertyChanged("lastActionPlayed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int numberOfTurnsRemainingForPlayerWhosTurnItIs {
+            get {
+                return this.numberOfTurnsRemainingForPlayerWhosTurnItIsField;
+            }
+            set {
+                if ((this.numberOfTurnsRemainingForPlayerWhosTurnItIsField.Equals(value) != true)) {
+                    this.numberOfTurnsRemainingForPlayerWhosTurnItIsField = value;
+                    this.RaisePropertyChanged("numberOfTurnsRemainingForPlayerWhosTurnItIs");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.PlayerModel[] playerModels {
+            get {
+                return this.playerModelsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playerModelsField, value) != true)) {
+                    this.playerModelsField = value;
+                    this.RaisePropertyChanged("playerModels");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid[] playersAffectedByActionCardGuids {
+            get {
+                return this.playersAffectedByActionCardGuidsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playersAffectedByActionCardGuidsField, value) != true)) {
+                    this.playersAffectedByActionCardGuidsField = value;
+                    this.RaisePropertyChanged("playersAffectedByActionCardGuids");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.PlayPile playpile {
+            get {
+                return this.playpileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playpileField, value) != true)) {
+                    this.playpileField = value;
+                    this.RaisePropertyChanged("playpile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid previousPlayFieldModelGuid {
+            get {
+                return this.previousPlayFieldModelGuidField;
+            }
+            set {
+                if ((this.previousPlayFieldModelGuidField.Equals(value) != true)) {
+                    this.previousPlayFieldModelGuidField = value;
+                    this.RaisePropertyChanged("previousPlayFieldModelGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool startOfATurn {
+            get {
+                return this.startOfATurnField;
+            }
+            set {
+                if ((this.startOfATurnField.Equals(value) != true)) {
+                    this.startOfATurnField = value;
+                    this.RaisePropertyChanged("startOfATurn");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid thisPlayFieldModelInstanceGuid {
+            get {
+                return this.thisPlayFieldModelInstanceGuidField;
+            }
+            set {
+                if ((this.thisPlayFieldModelInstanceGuidField.Equals(value) != true)) {
+                    this.thisPlayFieldModelInstanceGuidField = value;
+                    this.RaisePropertyChanged("thisPlayFieldModelInstanceGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.Card[] topCardsOnPlaypile {
+            get {
+                return this.topCardsOnPlaypileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.topCardsOnPlaypileField, value) != true)) {
+                    this.topCardsOnPlaypileField = value;
+                    this.RaisePropertyChanged("topCardsOnPlaypile");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TurnActionModel", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.DrawOnTurnStart))]
+    public partial class TurnActionModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool actionTakenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid currentPlayFieldModelGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int numberOfCardPlaysRemainingField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid[] playerGuidsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid serverGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid thisTurnactionGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes turnActionTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes typeOfActionToTakeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[] typesOfActionListedPlayersCanTakeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool actionTaken {
+            get {
+                return this.actionTakenField;
+            }
+            set {
+                if ((this.actionTakenField.Equals(value) != true)) {
+                    this.actionTakenField = value;
+                    this.RaisePropertyChanged("actionTaken");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid currentPlayFieldModelGuid {
+            get {
+                return this.currentPlayFieldModelGuidField;
+            }
+            set {
+                if ((this.currentPlayFieldModelGuidField.Equals(value) != true)) {
+                    this.currentPlayFieldModelGuidField = value;
+                    this.RaisePropertyChanged("currentPlayFieldModelGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int numberOfCardPlaysRemaining {
+            get {
+                return this.numberOfCardPlaysRemainingField;
+            }
+            set {
+                if ((this.numberOfCardPlaysRemainingField.Equals(value) != true)) {
+                    this.numberOfCardPlaysRemainingField = value;
+                    this.RaisePropertyChanged("numberOfCardPlaysRemaining");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid[] playerGuids {
+            get {
+                return this.playerGuidsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playerGuidsField, value) != true)) {
+                    this.playerGuidsField = value;
+                    this.RaisePropertyChanged("playerGuids");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid serverGuid {
+            get {
+                return this.serverGuidField;
+            }
+            set {
+                if ((this.serverGuidField.Equals(value) != true)) {
+                    this.serverGuidField = value;
+                    this.RaisePropertyChanged("serverGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid thisTurnactionGuid {
+            get {
+                return this.thisTurnactionGuidField;
+            }
+            set {
+                if ((this.thisTurnactionGuidField.Equals(value) != true)) {
+                    this.thisTurnactionGuidField = value;
+                    this.RaisePropertyChanged("thisTurnactionGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes turnActionType {
+            get {
+                return this.turnActionTypeField;
+            }
+            set {
+                if ((this.turnActionTypeField.Equals(value) != true)) {
+                    this.turnActionTypeField = value;
+                    this.RaisePropertyChanged("turnActionType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes typeOfActionToTake {
+            get {
+                return this.typeOfActionToTakeField;
+            }
+            set {
+                if ((this.typeOfActionToTakeField.Equals(value) != true)) {
+                    this.typeOfActionToTakeField = value;
+                    this.RaisePropertyChanged("typeOfActionToTake");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[] typesOfActionListedPlayersCanTake {
+            get {
+                return this.typesOfActionListedPlayersCanTakeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.typesOfActionListedPlayersCanTakeField, value) != true)) {
+                    this.typesOfActionListedPlayersCanTakeField = value;
+                    this.RaisePropertyChanged("typesOfActionListedPlayersCanTake");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlayPile", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    public partial class PlayPile : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.Card[] playPileField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.Card[] playPile {
+            get {
+                return this.playPileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playPileField, value) != true)) {
+                    this.playPileField = value;
+                    this.RaisePropertyChanged("playPile");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Statephase", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    public enum Statephase : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Game_Started = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Draw_2_Cards = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Draw_5_Cards = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_0_Cards_Played = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_1_Cards_Played = 6,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No = 7,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_1_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No = 8,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_2_Cards_Played = 9,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No = 10,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No = 11,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only = 12,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Ended_7_Or_Less_Cards_In_Hand_Setup_NextPlayer = 13,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Ended_8_Or_More_Cards_In_Hand_Discard_Cards = 14,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Ended_8_Cards_In_Hand_Discard_1_Card = 15,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Ended_9_Cards_In_Hand_Discard_2_Cards = 16,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Ended_10_Cards_In_Hand_Discard_3_Cards = 17,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Ended_11_Cards_In_Hand_Discard_4_Cards = 18,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Turn_Ended_12_Cards_In_Hand_Discard_5_Cards = 19,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Invalid_Action_For_Turn = 20,
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PlayerModel", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
@@ -117,6 +885,9 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[] actionsCurrentlyAllowedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int amountOwedToAnotherPlayerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private MDWcfWFClient.MonopolyDealServiceReference.PlayerBank bankField;
@@ -140,6 +911,9 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         private string nameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool owesAnotherPlayerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private MDWcfWFClient.MonopolyDealServiceReference.PlayerPropertySets propertySetsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -161,6 +935,19 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
                 if ((object.ReferenceEquals(this.actionsCurrentlyAllowedField, value) != true)) {
                     this.actionsCurrentlyAllowedField = value;
                     this.RaisePropertyChanged("actionsCurrentlyAllowed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int amountOwedToAnotherPlayer {
+            get {
+                return this.amountOwedToAnotherPlayerField;
+            }
+            set {
+                if ((this.amountOwedToAnotherPlayerField.Equals(value) != true)) {
+                    this.amountOwedToAnotherPlayerField = value;
+                    this.RaisePropertyChanged("amountOwedToAnotherPlayer");
                 }
             }
         }
@@ -257,6 +1044,19 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool owesAnotherPlayer {
+            get {
+                return this.owesAnotherPlayerField;
+            }
+            set {
+                if ((this.owesAnotherPlayerField.Equals(value) != true)) {
+                    this.owesAnotherPlayerField = value;
+                    this.RaisePropertyChanged("owesAnotherPlayer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public MDWcfWFClient.MonopolyDealServiceReference.PlayerPropertySets propertySets {
             get {
                 return this.propertySetsField;
@@ -277,6 +1077,245 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Card", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.ActionCard))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.RentStandard))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertyCard))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.MoneyCard))]
+    public partial class Card : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid cardGuidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cardIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cardNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cardTextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private MDWcfWFClient.MonopolyDealServiceReference.CardType cardTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cardValueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string descriptionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid cardGuid {
+            get {
+                return this.cardGuidField;
+            }
+            set {
+                if ((this.cardGuidField.Equals(value) != true)) {
+                    this.cardGuidField = value;
+                    this.RaisePropertyChanged("cardGuid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cardID {
+            get {
+                return this.cardIDField;
+            }
+            set {
+                if ((this.cardIDField.Equals(value) != true)) {
+                    this.cardIDField = value;
+                    this.RaisePropertyChanged("cardID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cardName {
+            get {
+                return this.cardNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cardNameField, value) != true)) {
+                    this.cardNameField = value;
+                    this.RaisePropertyChanged("cardName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cardText {
+            get {
+                return this.cardTextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cardTextField, value) != true)) {
+                    this.cardTextField = value;
+                    this.RaisePropertyChanged("cardText");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MDWcfWFClient.MonopolyDealServiceReference.CardType cardType {
+            get {
+                return this.cardTypeField;
+            }
+            set {
+                if ((this.cardTypeField.Equals(value) != true)) {
+                    this.cardTypeField = value;
+                    this.RaisePropertyChanged("cardType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cardValue {
+            get {
+                return this.cardValueField;
+            }
+            set {
+                if ((this.cardValueField.Equals(value) != true)) {
+                    this.cardValueField = value;
+                    this.RaisePropertyChanged("cardValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
+                    this.descriptionField = value;
+                    this.RaisePropertyChanged("description");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DrawOnTurnStart", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    [System.SerializableAttribute()]
+    public partial class DrawOnTurnStart : MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool bField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool b {
+            get {
+                return this.bField;
+            }
+            set {
+                if ((this.bField.Equals(value) != true)) {
+                    this.bField = value;
+                    this.RaisePropertyChanged("b");
+                }
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TurnActionTypes", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
+    public enum TurnActionTypes : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        gameStarted = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        turnStarted = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        drawTwoCardsAtStartOfTurn = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        drawFiveCardsAtStartOfTurn = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        EndTurn = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        SwitchAroundPlayedProperties = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PlayCard = 6,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PlayPropertyCard_New_Set = 7,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PlayPropertyCardFromHand = 8,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        MovePropertyCard = 9,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        BankMoneyCard = 10,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PlayActionCard = 11,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        BankActionCard = 12,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PlayJustSayNo = 13,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        AdknowlegeRecievedCurrentState = 14,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_1_Card = 15,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_2_Cards = 16,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_3_Cards = 17,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_4_Cards = 18,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Discard_5_Cards = 19,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PayDebt = 20,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Dont_Play_Just_Say_No = 21,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -448,219 +1487,6 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
                 if ((object.ReferenceEquals(this.playersPropertySetsField, value) != true)) {
                     this.playersPropertySetsField = value;
                     this.RaisePropertyChanged("playersPropertySets");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TurnActionTypes", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    public enum TurnActionTypes : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        gameStarted = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        turnStarted = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        drawTwoCardsAtStartOfTurn = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        drawFiveCardsAtStartOfTurn = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        EndTurn = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        SwitchAroundPlayedProperties = 5,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        PlayCard = 6,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        PlayPropertyCard_New_Set = 7,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        PlayPropertyCardFromHand = 8,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        MovePropertyCard = 9,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        BankMoneyCard = 10,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        PlayActionCard = 11,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        BankActionCard = 12,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        PlayJustSayNo = 13,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        AdknowlegeRecievedCurrentState = 14,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_1_Card = 15,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_2_Cards = 16,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_3_Cards = 17,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_4_Cards = 18,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Discard_5_Cards = 19,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        PayDebt = 20,
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Card", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.ActionCard))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.RentStandard))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertyCard))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.MoneyCard))]
-    public partial class Card : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid cardGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int cardIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string cardNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string cardTextField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.CardType cardTypeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int cardValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string descriptionField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid cardGuid {
-            get {
-                return this.cardGuidField;
-            }
-            set {
-                if ((this.cardGuidField.Equals(value) != true)) {
-                    this.cardGuidField = value;
-                    this.RaisePropertyChanged("cardGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int cardID {
-            get {
-                return this.cardIDField;
-            }
-            set {
-                if ((this.cardIDField.Equals(value) != true)) {
-                    this.cardIDField = value;
-                    this.RaisePropertyChanged("cardID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string cardName {
-            get {
-                return this.cardNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.cardNameField, value) != true)) {
-                    this.cardNameField = value;
-                    this.RaisePropertyChanged("cardName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string cardText {
-            get {
-                return this.cardTextField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.cardTextField, value) != true)) {
-                    this.cardTextField = value;
-                    this.RaisePropertyChanged("cardText");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.CardType cardType {
-            get {
-                return this.cardTypeField;
-            }
-            set {
-                if ((this.cardTypeField.Equals(value) != true)) {
-                    this.cardTypeField = value;
-                    this.RaisePropertyChanged("cardType");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int cardValue {
-            get {
-                return this.cardValueField;
-            }
-            set {
-                if ((this.cardValueField.Equals(value) != true)) {
-                    this.cardValueField = value;
-                    this.RaisePropertyChanged("cardValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
-                    this.descriptionField = value;
-                    this.RaisePropertyChanged("description");
                 }
             }
         }
@@ -1413,1482 +2239,9 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PlayFieldModel", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class PlayFieldModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.Statephase currentPhaseField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel currentTurnActionModelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid guidOfPlayerWhosTurnItIsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel lastActionPlayedField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int numberOfTurnsRemainingForPlayerWhosTurnItIsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.PlayerModel[] playerModelsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid[] playersAffectedByActionCardGuidsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.PlayPile playpileField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid previousPlayFieldModelGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool startOfATurnField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid thisPlayFieldModelInstanceGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.Card[] topCardsOnPlaypileField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.Statephase currentPhase {
-            get {
-                return this.currentPhaseField;
-            }
-            set {
-                if ((this.currentPhaseField.Equals(value) != true)) {
-                    this.currentPhaseField = value;
-                    this.RaisePropertyChanged("currentPhase");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel currentTurnActionModel {
-            get {
-                return this.currentTurnActionModelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.currentTurnActionModelField, value) != true)) {
-                    this.currentTurnActionModelField = value;
-                    this.RaisePropertyChanged("currentTurnActionModel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid guidOfPlayerWhosTurnItIs {
-            get {
-                return this.guidOfPlayerWhosTurnItIsField;
-            }
-            set {
-                if ((this.guidOfPlayerWhosTurnItIsField.Equals(value) != true)) {
-                    this.guidOfPlayerWhosTurnItIsField = value;
-                    this.RaisePropertyChanged("guidOfPlayerWhosTurnItIs");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel lastActionPlayed {
-            get {
-                return this.lastActionPlayedField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.lastActionPlayedField, value) != true)) {
-                    this.lastActionPlayedField = value;
-                    this.RaisePropertyChanged("lastActionPlayed");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int numberOfTurnsRemainingForPlayerWhosTurnItIs {
-            get {
-                return this.numberOfTurnsRemainingForPlayerWhosTurnItIsField;
-            }
-            set {
-                if ((this.numberOfTurnsRemainingForPlayerWhosTurnItIsField.Equals(value) != true)) {
-                    this.numberOfTurnsRemainingForPlayerWhosTurnItIsField = value;
-                    this.RaisePropertyChanged("numberOfTurnsRemainingForPlayerWhosTurnItIs");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.PlayerModel[] playerModels {
-            get {
-                return this.playerModelsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.playerModelsField, value) != true)) {
-                    this.playerModelsField = value;
-                    this.RaisePropertyChanged("playerModels");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid[] playersAffectedByActionCardGuids {
-            get {
-                return this.playersAffectedByActionCardGuidsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.playersAffectedByActionCardGuidsField, value) != true)) {
-                    this.playersAffectedByActionCardGuidsField = value;
-                    this.RaisePropertyChanged("playersAffectedByActionCardGuids");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.PlayPile playpile {
-            get {
-                return this.playpileField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.playpileField, value) != true)) {
-                    this.playpileField = value;
-                    this.RaisePropertyChanged("playpile");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid previousPlayFieldModelGuid {
-            get {
-                return this.previousPlayFieldModelGuidField;
-            }
-            set {
-                if ((this.previousPlayFieldModelGuidField.Equals(value) != true)) {
-                    this.previousPlayFieldModelGuidField = value;
-                    this.RaisePropertyChanged("previousPlayFieldModelGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool startOfATurn {
-            get {
-                return this.startOfATurnField;
-            }
-            set {
-                if ((this.startOfATurnField.Equals(value) != true)) {
-                    this.startOfATurnField = value;
-                    this.RaisePropertyChanged("startOfATurn");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid thisPlayFieldModelInstanceGuid {
-            get {
-                return this.thisPlayFieldModelInstanceGuidField;
-            }
-            set {
-                if ((this.thisPlayFieldModelInstanceGuidField.Equals(value) != true)) {
-                    this.thisPlayFieldModelInstanceGuidField = value;
-                    this.RaisePropertyChanged("thisPlayFieldModelInstanceGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.Card[] topCardsOnPlaypile {
-            get {
-                return this.topCardsOnPlaypileField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.topCardsOnPlaypileField, value) != true)) {
-                    this.topCardsOnPlaypileField = value;
-                    this.RaisePropertyChanged("topCardsOnPlaypile");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TurnActionModel", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.DrawOnTurnStart))]
-    public partial class TurnActionModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool actionTakenField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid currentPlayFieldModelGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int numberOfCardPlaysRemainingField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid[] playerGuidsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid serverGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid thisTurnactionGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes turnActionTypeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes typeOfActionToTakeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[] typesOfActionListedPlayersCanTakeField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool actionTaken {
-            get {
-                return this.actionTakenField;
-            }
-            set {
-                if ((this.actionTakenField.Equals(value) != true)) {
-                    this.actionTakenField = value;
-                    this.RaisePropertyChanged("actionTaken");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid currentPlayFieldModelGuid {
-            get {
-                return this.currentPlayFieldModelGuidField;
-            }
-            set {
-                if ((this.currentPlayFieldModelGuidField.Equals(value) != true)) {
-                    this.currentPlayFieldModelGuidField = value;
-                    this.RaisePropertyChanged("currentPlayFieldModelGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int numberOfCardPlaysRemaining {
-            get {
-                return this.numberOfCardPlaysRemainingField;
-            }
-            set {
-                if ((this.numberOfCardPlaysRemainingField.Equals(value) != true)) {
-                    this.numberOfCardPlaysRemainingField = value;
-                    this.RaisePropertyChanged("numberOfCardPlaysRemaining");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid[] playerGuids {
-            get {
-                return this.playerGuidsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.playerGuidsField, value) != true)) {
-                    this.playerGuidsField = value;
-                    this.RaisePropertyChanged("playerGuids");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid serverGuid {
-            get {
-                return this.serverGuidField;
-            }
-            set {
-                if ((this.serverGuidField.Equals(value) != true)) {
-                    this.serverGuidField = value;
-                    this.RaisePropertyChanged("serverGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid thisTurnactionGuid {
-            get {
-                return this.thisTurnactionGuidField;
-            }
-            set {
-                if ((this.thisTurnactionGuidField.Equals(value) != true)) {
-                    this.thisTurnactionGuidField = value;
-                    this.RaisePropertyChanged("thisTurnactionGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes turnActionType {
-            get {
-                return this.turnActionTypeField;
-            }
-            set {
-                if ((this.turnActionTypeField.Equals(value) != true)) {
-                    this.turnActionTypeField = value;
-                    this.RaisePropertyChanged("turnActionType");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes typeOfActionToTake {
-            get {
-                return this.typeOfActionToTakeField;
-            }
-            set {
-                if ((this.typeOfActionToTakeField.Equals(value) != true)) {
-                    this.typeOfActionToTakeField = value;
-                    this.RaisePropertyChanged("typeOfActionToTake");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[] typesOfActionListedPlayersCanTake {
-            get {
-                return this.typesOfActionListedPlayersCanTakeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.typesOfActionListedPlayersCanTakeField, value) != true)) {
-                    this.typesOfActionListedPlayersCanTakeField = value;
-                    this.RaisePropertyChanged("typesOfActionListedPlayersCanTake");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PlayPile", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class PlayPile : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.Card[] playPileField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.Card[] playPile {
-            get {
-                return this.playPileField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.playPileField, value) != true)) {
-                    this.playPileField = value;
-                    this.RaisePropertyChanged("playPile");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Statephase", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    public enum Statephase : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Game_Started = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Draw_2_Cards = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Draw_5_Cards = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_0_Cards_Played = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_0_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No = 5,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_1_Cards_Played = 6,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No = 7,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_1_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No = 8,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_2_Cards_Played = 9,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No = 10,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_2_Cards_Played_Just_Say_No_Used_By_Oppostion_Ask_Player_On_Turn_Just_Say_No = 11,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only = 12,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Ended_7_Or_Less_Cards_In_Hand_Setup_NextPlayer = 13,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Ended_8_Or_More_Cards_In_Hand_Discard_Cards = 14,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Ended_8_Cards_In_Hand_Discard_1_Card = 15,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Ended_9_Cards_In_Hand_Discard_2_Cards = 16,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Ended_10_Cards_In_Hand_Discard_3_Cards = 17,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Ended_11_Cards_In_Hand_Discard_4_Cards = 18,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Turn_Ended_12_Cards_In_Hand_Discard_5_Cards = 19,
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DrawOnTurnStart", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class DrawOnTurnStart : MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool bField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool b {
-            get {
-                return this.bField;
-            }
-            set {
-                if ((this.bField.Equals(value) != true)) {
-                    this.bField = value;
-                    this.RaisePropertyChanged("b");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PropertySetInfo", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class PropertySetInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int fourPropertyCardRentValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int hotelValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int houseValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int numberOfCardsInFullSetField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int onePropertyCardRentValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.PropertyColor propertyColorField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int threePropertyCardRentValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int twoPropertCardRentValueField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int fourPropertyCardRentValue {
-            get {
-                return this.fourPropertyCardRentValueField;
-            }
-            set {
-                if ((this.fourPropertyCardRentValueField.Equals(value) != true)) {
-                    this.fourPropertyCardRentValueField = value;
-                    this.RaisePropertyChanged("fourPropertyCardRentValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int hotelValue {
-            get {
-                return this.hotelValueField;
-            }
-            set {
-                if ((this.hotelValueField.Equals(value) != true)) {
-                    this.hotelValueField = value;
-                    this.RaisePropertyChanged("hotelValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int houseValue {
-            get {
-                return this.houseValueField;
-            }
-            set {
-                if ((this.houseValueField.Equals(value) != true)) {
-                    this.houseValueField = value;
-                    this.RaisePropertyChanged("houseValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int numberOfCardsInFullSet {
-            get {
-                return this.numberOfCardsInFullSetField;
-            }
-            set {
-                if ((this.numberOfCardsInFullSetField.Equals(value) != true)) {
-                    this.numberOfCardsInFullSetField = value;
-                    this.RaisePropertyChanged("numberOfCardsInFullSet");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int onePropertyCardRentValue {
-            get {
-                return this.onePropertyCardRentValueField;
-            }
-            set {
-                if ((this.onePropertyCardRentValueField.Equals(value) != true)) {
-                    this.onePropertyCardRentValueField = value;
-                    this.RaisePropertyChanged("onePropertyCardRentValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.PropertyColor propertyColor {
-            get {
-                return this.propertyColorField;
-            }
-            set {
-                if ((this.propertyColorField.Equals(value) != true)) {
-                    this.propertyColorField = value;
-                    this.RaisePropertyChanged("propertyColor");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int threePropertyCardRentValue {
-            get {
-                return this.threePropertyCardRentValueField;
-            }
-            set {
-                if ((this.threePropertyCardRentValueField.Equals(value) != true)) {
-                    this.threePropertyCardRentValueField = value;
-                    this.RaisePropertyChanged("threePropertyCardRentValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int twoPropertCardRentValue {
-            get {
-                return this.twoPropertCardRentValueField;
-            }
-            set {
-                if ((this.twoPropertCardRentValueField.Equals(value) != true)) {
-                    this.twoPropertCardRentValueField = value;
-                    this.RaisePropertyChanged("twoPropertCardRentValue");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Message", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PollForFieldUpdateMessage))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.FieldUpdateMessage))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.TakeActionOnTurnMessage))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.GuidBox))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.TurnActionTypes))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PlayerBank))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.Card[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.Card))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.CardType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.RentStandard))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.ActionCard))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.ActionCardAction))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertyCard))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertyColor))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertyColor[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.MoneyCard))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PlayerHand))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PlayerPropertySets))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertyCard[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.Statephase))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.DrawOnTurnStart))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PlayPile))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.PropertySetInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.MessageType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.GameLobbyStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.GameLobby[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.GameLobby))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.LobbyClient[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MDWcfWFClient.MonopolyDealServiceReference.LobbyClient))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Guid[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(object[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Type))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Reflection.MemberInfo))]
-    public partial class Message : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid messageRespondingToGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.MessageType messageTypeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object[] objectsInMessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid playerSendingMessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid[] playersRecievingMessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid serverGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool serviceSendingMessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid thisMessageGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Type typeField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid messageRespondingToGuid {
-            get {
-                return this.messageRespondingToGuidField;
-            }
-            set {
-                if ((this.messageRespondingToGuidField.Equals(value) != true)) {
-                    this.messageRespondingToGuidField = value;
-                    this.RaisePropertyChanged("messageRespondingToGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.MessageType messageType {
-            get {
-                return this.messageTypeField;
-            }
-            set {
-                if ((this.messageTypeField.Equals(value) != true)) {
-                    this.messageTypeField = value;
-                    this.RaisePropertyChanged("messageType");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public object[] objectsInMessage {
-            get {
-                return this.objectsInMessageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.objectsInMessageField, value) != true)) {
-                    this.objectsInMessageField = value;
-                    this.RaisePropertyChanged("objectsInMessage");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid playerSendingMessage {
-            get {
-                return this.playerSendingMessageField;
-            }
-            set {
-                if ((this.playerSendingMessageField.Equals(value) != true)) {
-                    this.playerSendingMessageField = value;
-                    this.RaisePropertyChanged("playerSendingMessage");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid[] playersRecievingMessage {
-            get {
-                return this.playersRecievingMessageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.playersRecievingMessageField, value) != true)) {
-                    this.playersRecievingMessageField = value;
-                    this.RaisePropertyChanged("playersRecievingMessage");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid serverGuid {
-            get {
-                return this.serverGuidField;
-            }
-            set {
-                if ((this.serverGuidField.Equals(value) != true)) {
-                    this.serverGuidField = value;
-                    this.RaisePropertyChanged("serverGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool serviceSendingMessage {
-            get {
-                return this.serviceSendingMessageField;
-            }
-            set {
-                if ((this.serviceSendingMessageField.Equals(value) != true)) {
-                    this.serviceSendingMessageField = value;
-                    this.RaisePropertyChanged("serviceSendingMessage");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid thisMessageGuid {
-            get {
-                return this.thisMessageGuidField;
-            }
-            set {
-                if ((this.thisMessageGuidField.Equals(value) != true)) {
-                    this.thisMessageGuidField = value;
-                    this.RaisePropertyChanged("thisMessageGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Type type {
-            get {
-                return this.typeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.typeField, value) != true)) {
-                    this.typeField = value;
-                    this.RaisePropertyChanged("type");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PollForFieldUpdateMessage", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class PollForFieldUpdateMessage : MDWcfWFClient.MonopolyDealServiceReference.Message {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel actionsToTakeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel fieldModelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid fieldModelGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid referenceThisGuidToRespondField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel actionsToTake {
-            get {
-                return this.actionsToTakeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.actionsToTakeField, value) != true)) {
-                    this.actionsToTakeField = value;
-                    this.RaisePropertyChanged("actionsToTake");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel fieldModel {
-            get {
-                return this.fieldModelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.fieldModelField, value) != true)) {
-                    this.fieldModelField = value;
-                    this.RaisePropertyChanged("fieldModel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid fieldModelGuid {
-            get {
-                return this.fieldModelGuidField;
-            }
-            set {
-                if ((this.fieldModelGuidField.Equals(value) != true)) {
-                    this.fieldModelGuidField = value;
-                    this.RaisePropertyChanged("fieldModelGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid referenceThisGuidToRespond {
-            get {
-                return this.referenceThisGuidToRespondField;
-            }
-            set {
-                if ((this.referenceThisGuidToRespondField.Equals(value) != true)) {
-                    this.referenceThisGuidToRespondField = value;
-                    this.RaisePropertyChanged("referenceThisGuidToRespond");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FieldUpdateMessage", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class FieldUpdateMessage : MDWcfWFClient.MonopolyDealServiceReference.Message {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel fieldModelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid referenceThisGuidToRespondField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel fieldModel {
-            get {
-                return this.fieldModelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.fieldModelField, value) != true)) {
-                    this.fieldModelField = value;
-                    this.RaisePropertyChanged("fieldModel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid referenceThisGuidToRespond {
-            get {
-                return this.referenceThisGuidToRespondField;
-            }
-            set {
-                if ((this.referenceThisGuidToRespondField.Equals(value) != true)) {
-                    this.referenceThisGuidToRespondField = value;
-                    this.RaisePropertyChanged("referenceThisGuidToRespond");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TakeActionOnTurnMessage", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class TakeActionOnTurnMessage : MDWcfWFClient.MonopolyDealServiceReference.Message {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel actionsToTakeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel fieldModelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid fieldModelGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid referenceThisGuidToRespondField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel actionsToTake {
-            get {
-                return this.actionsToTakeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.actionsToTakeField, value) != true)) {
-                    this.actionsToTakeField = value;
-                    this.RaisePropertyChanged("actionsToTake");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel fieldModel {
-            get {
-                return this.fieldModelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.fieldModelField, value) != true)) {
-                    this.fieldModelField = value;
-                    this.RaisePropertyChanged("fieldModel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid fieldModelGuid {
-            get {
-                return this.fieldModelGuidField;
-            }
-            set {
-                if ((this.fieldModelGuidField.Equals(value) != true)) {
-                    this.fieldModelGuidField = value;
-                    this.RaisePropertyChanged("fieldModelGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid referenceThisGuidToRespond {
-            get {
-                return this.referenceThisGuidToRespondField;
-            }
-            set {
-                if ((this.referenceThisGuidToRespondField.Equals(value) != true)) {
-                    this.referenceThisGuidToRespondField = value;
-                    this.RaisePropertyChanged("referenceThisGuidToRespond");
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MessageType", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    public enum MessageType : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        notify = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        sendChat = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        recieveChat = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        connect = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ready = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        gameStarted = 5,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        playcard = 6,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        fieldupdate = 7,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        actionTaken = 8,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        pollForFieldUpdate = 9,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GameLobbyStatus", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    public enum GameLobbyStatus : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Empty = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Not_Enough_Players_To_Start = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Enough_Players_To_Start = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Full = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        overFull = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Game_In_Progress = 5,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Game_Ended = 6,
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GameLobby", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class GameLobby : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.LobbyClient[] clientsConnectedToGameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string descriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string gameLobbyNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid guidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private MDWcfWFClient.MonopolyDealServiceReference.GameLobbyStatus statusField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.LobbyClient[] clientsConnectedToGame {
-            get {
-                return this.clientsConnectedToGameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.clientsConnectedToGameField, value) != true)) {
-                    this.clientsConnectedToGameField = value;
-                    this.RaisePropertyChanged("clientsConnectedToGame");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
-                    this.descriptionField = value;
-                    this.RaisePropertyChanged("description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string gameLobbyName {
-            get {
-                return this.gameLobbyNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.gameLobbyNameField, value) != true)) {
-                    this.gameLobbyNameField = value;
-                    this.RaisePropertyChanged("gameLobbyName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid guid {
-            get {
-                return this.guidField;
-            }
-            set {
-                if ((this.guidField.Equals(value) != true)) {
-                    this.guidField = value;
-                    this.RaisePropertyChanged("guid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id {
-            get {
-                return this.idField;
-            }
-            set {
-                if ((this.idField.Equals(value) != true)) {
-                    this.idField = value;
-                    this.RaisePropertyChanged("id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MDWcfWFClient.MonopolyDealServiceReference.GameLobbyStatus status {
-            get {
-                return this.statusField;
-            }
-            set {
-                if ((this.statusField.Equals(value) != true)) {
-                    this.statusField = value;
-                    this.RaisePropertyChanged("status");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="LobbyClient", Namespace="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary")]
-    [System.SerializableAttribute()]
-    public partial class LobbyClient : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string descriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid gameLobbyGuidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid guidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string nameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool readyToStartField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
-                    this.descriptionField = value;
-                    this.RaisePropertyChanged("description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid gameLobbyGuid {
-            get {
-                return this.gameLobbyGuidField;
-            }
-            set {
-                if ((this.gameLobbyGuidField.Equals(value) != true)) {
-                    this.gameLobbyGuidField = value;
-                    this.RaisePropertyChanged("gameLobbyGuid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid guid {
-            get {
-                return this.guidField;
-            }
-            set {
-                if ((this.guidField.Equals(value) != true)) {
-                    this.guidField = value;
-                    this.RaisePropertyChanged("guid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nameField, value) != true)) {
-                    this.nameField = value;
-                    this.RaisePropertyChanged("name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool readyToStart {
-            get {
-                return this.readyToStartField;
-            }
-            set {
-                if ((this.readyToStartField.Equals(value) != true)) {
-                    this.readyToStartField = value;
-                    this.RaisePropertyChanged("readyToStart");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MonopolyDealServiceReference.IMonopolyDeal")]
     public interface IMonopolyDeal {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playCardFromHandToBankMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playCardFromHandToBankMDResponse")]
-        bool playCardFromHandToBankMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playActionCardOnTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playActionCardOnTurnMDResponse")]
-        bool playActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsTargeted, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurnMDResponse")]
-        bool playWildRentActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurnMDResponse")]
-        bool playStandardRentActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playJustSayNoMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playJustSayNoMDResponse")]
-        bool playJustSayNoMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playPropertyCardMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playPropertyCardMDResponse")]
-        bool playPropertyCardMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playPropertyCardNewSetMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playPropertyCardNewSetMDResponse")]
-        bool playPropertyCardNewSetMD(int playedCardID, bool isOrientedUp, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/movePropertyCardMD", ReplyAction="http://tempuri.org/IMonopolyDeal/movePropertyCardMDResponse")]
-        bool movePropertyCardMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card propertyCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet oldSet, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/payCardsMD", ReplyAction="http://tempuri.org/IMonopolyDeal/payCardsMDResponse")]
-        bool payCardsMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerPaying, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerRecieving, MDWcfWFClient.MonopolyDealServiceReference.Card[] cards, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/endTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/endTurnMDResponse")]
-        bool endTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/discardMD", ReplyAction="http://tempuri.org/IMonopolyDeal/discardMDResponse")]
-        bool discardMD(int cardsToDiscardIDs, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playActionCardPassGoMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playActionCardPassGoMDResponse")]
-        bool playActionCardPassGoMD(int passGoCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnMDResponse")]
-        bool draw5AtStartOfTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/hasGameStartedMD", ReplyAction="http://tempuri.org/IMonopolyDeal/hasGameStartedMDResponse")]
-        bool hasGameStartedMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/connectToService", ReplyAction="http://tempuri.org/IMonopolyDeal/connectToServiceResponse")]
-        System.Guid connectToService(string name);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/startGame", ReplyAction="http://tempuri.org/IMonopolyDeal/startGameResponse")]
-        MDWcfWFClient.MonopolyDealServiceReference.GuidBox startGame(MDWcfWFClient.MonopolyDealServiceReference.GuidBox guidBoxed);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/pollState", ReplyAction="http://tempuri.org/IMonopolyDeal/pollStateResponse")]
-        MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel pollState(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/draw2AtStartOfTurn", ReplyAction="http://tempuri.org/IMonopolyDeal/draw2AtStartOfTurnResponse")]
-        bool draw2AtStartOfTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playCardFromHandToBank", ReplyAction="http://tempuri.org/IMonopolyDeal/playCardFromHandToBankResponse")]
-        bool playCardFromHandToBank(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playActionCardOnTurn", ReplyAction="http://tempuri.org/IMonopolyDeal/playActionCardOnTurnResponse")]
-        bool playActionCardOnTurn(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsTargeted, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurn", ReplyAction="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurnResponse")]
-        bool playWildRentActionCardOnTurn(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurn", ReplyAction="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurnResponse")]
-        bool playStandardRentActionCardOnTurn(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playJustSayNo", ReplyAction="http://tempuri.org/IMonopolyDeal/playJustSayNoResponse")]
-        bool playJustSayNo(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playPropertyCard", ReplyAction="http://tempuri.org/IMonopolyDeal/playPropertyCardResponse")]
-        bool playPropertyCard(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playPropertyCardNewSet", ReplyAction="http://tempuri.org/IMonopolyDeal/playPropertyCardNewSetResponse")]
-        bool playPropertyCardNewSet(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/movePropertyCard", ReplyAction="http://tempuri.org/IMonopolyDeal/movePropertyCardResponse")]
-        bool movePropertyCard(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card propertyCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet oldSet, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/payCards", ReplyAction="http://tempuri.org/IMonopolyDeal/payCardsResponse")]
-        bool payCards(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerPaying, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerRecieving, MDWcfWFClient.MonopolyDealServiceReference.Card[] cards, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/endTurn", ReplyAction="http://tempuri.org/IMonopolyDeal/endTurnResponse")]
-        bool endTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/discard", ReplyAction="http://tempuri.org/IMonopolyDeal/discardResponse")]
-        bool discard(int cardsToDiscardIDs, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playActionCardPassGo", ReplyAction="http://tempuri.org/IMonopolyDeal/playActionCardPassGoResponse")]
-        bool playActionCardPassGo(int passGoCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurn", ReplyAction="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnResponse")]
-        bool draw5AtStartOfTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/hasGameStarted", ReplyAction="http://tempuri.org/IMonopolyDeal/hasGameStartedResponse")]
-        bool hasGameStarted(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/referenceAllDataContracts", ReplyAction="http://tempuri.org/IMonopolyDeal/referenceAllDataContractsResponse")]
-        void referenceAllDataContracts(MDWcfWFClient.MonopolyDealServiceReference.ActionCard ac, MDWcfWFClient.MonopolyDealServiceReference.Card c, MDWcfWFClient.MonopolyDealServiceReference.MoneyCard mc, MDWcfWFClient.MonopolyDealServiceReference.PlayerBank pb, MDWcfWFClient.MonopolyDealServiceReference.PlayerHand ph, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel pm, MDWcfWFClient.MonopolyDealServiceReference.PlayerPropertySets pps, MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel pfm, MDWcfWFClient.MonopolyDealServiceReference.PlayPile pp, MDWcfWFClient.MonopolyDealServiceReference.PropertyCard pc, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet pcs, MDWcfWFClient.MonopolyDealServiceReference.PropertySetInfo psi, MDWcfWFClient.MonopolyDealServiceReference.RentStandard rs, MDWcfWFClient.MonopolyDealServiceReference.TakeActionOnTurnMessage taotm, MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel tam);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/connectToLobby", ReplyAction="http://tempuri.org/IMonopolyDeal/connectToLobbyResponse")]
         MDWcfWFClient.MonopolyDealServiceReference.GuidBox connectToLobby(string name);
@@ -2916,6 +2269,51 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/draw2AtStartOfTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/draw2AtStartOfTurnMDResponse")]
         bool draw2AtStartOfTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playCardFromHandToBankMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playCardFromHandToBankMDResponse")]
+        bool playCardFromHandToBankMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playActionCardOnTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playActionCardOnTurnMDResponse")]
+        bool playActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsTargeted, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurnMDResponse")]
+        bool playWildRentActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurnMDResponse")]
+        bool playStandardRentActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playJustSayNoMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playJustSayNoMDResponse")]
+        bool playJustSayNoMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playPropertyCardMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playPropertyCardMDResponse")]
+        bool playPropertyCardMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playPropertyCardNewSetMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playPropertyCardNewSetMDResponse")]
+        bool playPropertyCardNewSetMD(int playedCardID, bool isOrientedUp, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/movePropertyCardMD", ReplyAction="http://tempuri.org/IMonopolyDeal/movePropertyCardMDResponse")]
+        bool movePropertyCardMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card propertyCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet oldSet, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/payCardsMD", ReplyAction="http://tempuri.org/IMonopolyDeal/payCardsMDResponse")]
+        bool payCardsMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerPaying, int[] cardsToPayWith, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/endTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/endTurnMDResponse")]
+        bool endTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/discardMD", ReplyAction="http://tempuri.org/IMonopolyDeal/discardMDResponse")]
+        bool discardMD(int cardsToDiscardIDs, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playActionCardPassGoMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playActionCardPassGoMDResponse")]
+        bool playActionCardPassGoMD(int passGoCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playActionCardDebtCollectorMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playActionCardDebtCollectorMDResponse")]
+        bool playActionCardDebtCollectorMD(int debtCollectorCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox targetedPlayerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnMDResponse")]
+        bool draw5AtStartOfTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/hasGameStartedMD", ReplyAction="http://tempuri.org/IMonopolyDeal/hasGameStartedMDResponse")]
+        bool hasGameStartedMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2943,138 +2341,6 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         public MonopolyDealClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
-        }
-        
-        public bool playCardFromHandToBankMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playCardFromHandToBankMD(playedCardID, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsTargeted, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playActionCardOnTurnMD(player, playedCard, playerTargeted, cardsTargeted, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playWildRentActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playWildRentActionCardOnTurnMD(player, playedCard, playerTargeted, setOfPropertiesToRentOn, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playStandardRentActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playStandardRentActionCardOnTurnMD(player, playedCard, setOfPropertiesToRentOn, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playJustSayNoMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playJustSayNoMD(player, playedCard, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playPropertyCardMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playPropertyCardMD(player, playedCard, setToPlayPropertyTo, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playPropertyCardNewSetMD(int playedCardID, bool isOrientedUp, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.playPropertyCardNewSetMD(playedCardID, isOrientedUp, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool movePropertyCardMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card propertyCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet oldSet, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.movePropertyCardMD(player, propertyCard, oldSet, setToPlayPropertyTo, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool payCardsMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerPaying, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerRecieving, MDWcfWFClient.MonopolyDealServiceReference.Card[] cards, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.payCardsMD(playerPaying, playerRecieving, cards, gameLobbyGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool endTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.endTurnMD(playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool discardMD(int cardsToDiscardIDs, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.discardMD(cardsToDiscardIDs, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool playActionCardPassGoMD(int passGoCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.playActionCardPassGoMD(passGoCardID, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool draw5AtStartOfTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.draw5AtStartOfTurnMD(playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool hasGameStartedMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid) {
-            return base.Channel.hasGameStartedMD(playerGuid, gameLobbyGuid);
-        }
-        
-        public System.Guid connectToService(string name) {
-            return base.Channel.connectToService(name);
-        }
-        
-        public MDWcfWFClient.MonopolyDealServiceReference.GuidBox startGame(MDWcfWFClient.MonopolyDealServiceReference.GuidBox guidBoxed) {
-            return base.Channel.startGame(guidBoxed);
-        }
-        
-        public MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel pollState(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameGuid) {
-            return base.Channel.pollState(playerGuid, gameGuid);
-        }
-        
-        public bool draw2AtStartOfTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.draw2AtStartOfTurn(playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playCardFromHandToBank(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playCardFromHandToBank(playedCardID, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playActionCardOnTurn(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsTargeted, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playActionCardOnTurn(player, playedCard, playerTargeted, cardsTargeted, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playWildRentActionCardOnTurn(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playWildRentActionCardOnTurn(player, playedCard, playerTargeted, setOfPropertiesToRentOn, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playStandardRentActionCardOnTurn(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playStandardRentActionCardOnTurn(player, playedCard, setOfPropertiesToRentOn, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playJustSayNo(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playJustSayNo(player, playedCard, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playPropertyCard(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.playPropertyCard(player, playedCard, setToPlayPropertyTo, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool playPropertyCardNewSet(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.playPropertyCardNewSet(playedCardID, playerGuid, serverGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool movePropertyCard(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card propertyCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet oldSet, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.movePropertyCard(player, propertyCard, oldSet, setToPlayPropertyTo, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool payCards(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerPaying, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerRecieving, MDWcfWFClient.MonopolyDealServiceReference.Card[] cards, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
-            return base.Channel.payCards(playerPaying, playerRecieving, cards, playerGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
-        }
-        
-        public bool endTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.endTurn(playerGuid, serverGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool discard(int cardsToDiscardIDs, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.discard(cardsToDiscardIDs, playerGuid, serverGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool playActionCardPassGo(int passGoCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.playActionCardPassGo(passGoCardID, playerGuid, serverGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool draw5AtStartOfTurn(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.draw5AtStartOfTurn(playerGuid, serverGuid, playfieldModelInstanceGuid);
-        }
-        
-        public bool hasGameStarted(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid) {
-            return base.Channel.hasGameStarted(playerGuid, serverGuid);
-        }
-        
-        public void referenceAllDataContracts(MDWcfWFClient.MonopolyDealServiceReference.ActionCard ac, MDWcfWFClient.MonopolyDealServiceReference.Card c, MDWcfWFClient.MonopolyDealServiceReference.MoneyCard mc, MDWcfWFClient.MonopolyDealServiceReference.PlayerBank pb, MDWcfWFClient.MonopolyDealServiceReference.PlayerHand ph, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel pm, MDWcfWFClient.MonopolyDealServiceReference.PlayerPropertySets pps, MDWcfWFClient.MonopolyDealServiceReference.PlayFieldModel pfm, MDWcfWFClient.MonopolyDealServiceReference.PlayPile pp, MDWcfWFClient.MonopolyDealServiceReference.PropertyCard pc, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet pcs, MDWcfWFClient.MonopolyDealServiceReference.PropertySetInfo psi, MDWcfWFClient.MonopolyDealServiceReference.RentStandard rs, MDWcfWFClient.MonopolyDealServiceReference.TakeActionOnTurnMessage taotm, MDWcfWFClient.MonopolyDealServiceReference.TurnActionModel tam) {
-            base.Channel.referenceAllDataContracts(ac, c, mc, pb, ph, pm, pps, pfm, pp, pc, pcs, psi, rs, taotm, tam);
         }
         
         public MDWcfWFClient.MonopolyDealServiceReference.GuidBox connectToLobby(string name) {
@@ -3111,6 +2377,66 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         
         public bool draw2AtStartOfTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
             return base.Channel.draw2AtStartOfTurnMD(playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool playCardFromHandToBankMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
+            return base.Channel.playCardFromHandToBankMD(playedCardID, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool playActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.Card[] cardsTargeted, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
+            return base.Channel.playActionCardOnTurnMD(player, playedCard, playerTargeted, cardsTargeted, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool playWildRentActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PlayerModel playerTargeted, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
+            return base.Channel.playWildRentActionCardOnTurnMD(player, playedCard, playerTargeted, setOfPropertiesToRentOn, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool playStandardRentActionCardOnTurnMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
+            return base.Channel.playStandardRentActionCardOnTurnMD(player, playedCard, setOfPropertiesToRentOn, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool playJustSayNoMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
+            return base.Channel.playJustSayNoMD(player, playedCard, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool playPropertyCardMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card playedCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
+            return base.Channel.playPropertyCardMD(player, playedCard, setToPlayPropertyTo, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool playPropertyCardNewSetMD(int playedCardID, bool isOrientedUp, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.playPropertyCardNewSetMD(playedCardID, isOrientedUp, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
+        }
+        
+        public bool movePropertyCardMD(MDWcfWFClient.MonopolyDealServiceReference.PlayerModel player, MDWcfWFClient.MonopolyDealServiceReference.Card propertyCard, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet oldSet, MDWcfWFClient.MonopolyDealServiceReference.PropertyCardSet setToPlayPropertyTo, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
+            return base.Channel.movePropertyCardMD(player, propertyCard, oldSet, setToPlayPropertyTo, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool payCardsMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerPaying, int[] cardsToPayWith, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox serverGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid) {
+            return base.Channel.payCardsMD(playerPaying, cardsToPayWith, gameLobbyGuid, serverGuid, playfieldModelInstanceGuid, turnActionGuid);
+        }
+        
+        public bool endTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.endTurnMD(playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
+        }
+        
+        public bool discardMD(int cardsToDiscardIDs, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.discardMD(cardsToDiscardIDs, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
+        }
+        
+        public bool playActionCardPassGoMD(int passGoCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.playActionCardPassGoMD(passGoCardID, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
+        }
+        
+        public bool playActionCardDebtCollectorMD(int debtCollectorCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox targetedPlayerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.playActionCardDebtCollectorMD(debtCollectorCardID, targetedPlayerGuid, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
+        }
+        
+        public bool draw5AtStartOfTurnMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.draw5AtStartOfTurnMD(playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
+        }
+        
+        public bool hasGameStartedMD(MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid) {
+            return base.Channel.hasGameStartedMD(playerGuid, gameLobbyGuid);
         }
     }
 }

@@ -39,6 +39,8 @@ namespace MDWcfServiceLibrary
 
         bool playPropertyCardToExistingSet(Card playedCard, PropertyCardSet setToPlayPropertyTo, Guid gameLobbyGuid, Guid playerGuid, Guid playfieldModelInstanceGuid);
 
-        bool playDebtCollector(int debtCollectorCardID, Guid guid, Guid guid_2, Guid guid_3, Guid guid_4, TurnActionTypes turnActionTypes);
+        bool playDebtCollector(int debtCollectorCardID, Guid targetedPlayerGuid, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        bool payDebt(List<int> idOfCardsToPayWith, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
     }
 }

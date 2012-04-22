@@ -54,14 +54,21 @@ namespace MDWcfServiceLibrary
             Card playedcard = monopolyDeal.deck.getCardByID(playedCardID);
             if (checkIfCardInHand(playedcard, playerModelAtCurrentState) != null)
             {
-                MoveInfo bankCardInfo = new MoveInfo();
-                bankCardInfo.playerWhoseTurnItIs = playerGuid;
-                bankCardInfo.playerMakingMove = playerGuid;
-                bankCardInfo.moveBeingMade = TurnActionTypes.BankMoneyCard;
-                bankCardInfo.idOfCardBeingUsed = playedCardID;
+                if (playedcard is PropertyCard)
+                {
+                    return new BoolResponseBox(false, "Property Cards can not be Banked").success;
+                }
+                else
+                {
+                    MoveInfo bankCardInfo = new MoveInfo();
+                    bankCardInfo.playerWhoseTurnItIs = playerGuid;
+                    bankCardInfo.playerMakingMove = playerGuid;
+                    bankCardInfo.moveBeingMade = TurnActionTypes.BankMoneyCard;
+                    bankCardInfo.idOfCardBeingUsed = playedCardID;
 
-                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, bankCardInfo.moveBeingMade, bankCardInfo);
-                return result.success;
+                    BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, bankCardInfo.moveBeingMade, bankCardInfo);
+                    return result.success;
+                }
             }
             return new BoolResponseBox(false, "Selected Card is not in players hand.").success;
         }
@@ -276,7 +283,7 @@ namespace MDWcfServiceLibrary
             throw new NotImplementedException();
         }
 
-        public bool playDebtCollector(int debtCollectorCardID, Guid targetedPlayerGuid, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid, TurnActionTypes turnActionTypes)
+        public bool playDebtCollector(int debtCollectorCardID, Guid targetedPlayerGuid, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
         {
             PlayFieldModel lastState = getPreviousState();
             PlayFieldModel currentState = getCurrentState();
@@ -299,6 +306,22 @@ namespace MDWcfServiceLibrary
                 return result.success;
             }
             return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card").success;
+        }
+
+        public bool payDebt(List<int> idOfCardsToPayWith, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            MoveInfo payDebt = new MoveInfo();
+            payDebt.playerMakingMove = playerGuid;
+            payDebt.moveBeingMade = TurnActionTypes.PayDebt;
+            payDebt.listOfIDsOfCardsBeingUsedToPayDebt = idOfCardsToPayWith;
+            payDebt.guidOfPlayerToPayDebtTo = currentState.guidOfPlayerWhosTurnItIs;
+            payDebt.amountOwed = playerModelAtCurrentState.amountOwedToAnotherPlayer;
+            BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, payDebt.moveBeingMade, payDebt);
+            return result.success;
         }
     }
 }

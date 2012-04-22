@@ -59,7 +59,6 @@
       <DependentUpon>Pay Cards.cs</DependentUpon>
     </Compile>
     <Compile Include="RequestHanderMonopolyDeal.cs" />
-    <Compile Include="RequestHandler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,12 +120,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\MonopolyDealServiceReference\service21.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\MonopolyDealServiceReference\System.Reflection.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\MonopolyDealServiceReference\System.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

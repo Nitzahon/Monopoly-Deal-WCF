@@ -8,7 +8,7 @@ namespace MDWcfServiceLibrary
     /// <summary>
     /// Replaces old GameStateManager
     /// </summary>
-    internal class MonopolyDeal_GameStateManager : IMonopolyDeal_GameStateManager
+    internal class MonopolyDeal_GameStateManager
     {
         private MonopolyDeal monopolyDeal;
 

@@ -46,6 +46,10 @@ namespace MDWcfServiceLibrary
         public ActionCardAction actionType;
         [DataMember]
         public bool MonetaryValueOnly = false;
+        [DataMember]
+        public const int Debt_Collector_Value = 5;
+        [DataMember]
+        public const int Its_My_Birthday_Value = 2;
 
         public ActionCard(ActionCardAction actionType, int value, String name, String text)
             : base(name, text, value, CardType.Action)

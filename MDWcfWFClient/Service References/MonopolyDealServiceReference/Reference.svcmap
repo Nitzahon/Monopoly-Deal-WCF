@@ -26,8 +26,6 @@
     <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="bce11856-1398-4c21-8a77-b6dcc35338b3" SourceId="1" SourceUrl="http://localhost:9079/MonopolyDeal/mex" />
     <MetadataFile FileName="MDWcfServiceLibrary1.xsd" MetadataType="Schema" ID="53ec2242-d19d-4404-9c94-9385813525ed" SourceId="1" SourceUrl="http://localhost:9079/MonopolyDeal/mex" />
     <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="18ecf940-3f3e-4432-a794-1cf1ba198a36" SourceId="1" SourceUrl="http://localhost:9079/MonopolyDeal/mex" />
-    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="dba40143-bbe1-4a3d-8f49-c83aa28d6c32" SourceId="1" SourceUrl="http://localhost:9079/MonopolyDeal/mex" />
-    <MetadataFile FileName="System.Reflection.xsd" MetadataType="Schema" ID="6dfd0410-f069-4941-bfd1-c5f1ba340c23" SourceId="1" SourceUrl="http://localhost:9079/MonopolyDeal/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

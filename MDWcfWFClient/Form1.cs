@@ -20,6 +20,8 @@ namespace MDWcfWFClient
         RequestHanderMonopolyDeal requestHandler;
         RequestHanderMonopolyDeal requestHandlerMD;
         int playerIDNum = -1;
+        List<MonopolyDealServiceReference.Card> playersSelectedToPayWithCards = new List<MonopolyDealServiceReference.Card>();
+        List<MonopolyDealServiceReference.Card> playersPlayedCards = new List<MonopolyDealServiceReference.Card>();
 
         public Form1()
         {
@@ -115,7 +117,6 @@ namespace MDWcfWFClient
 
         public void drawField(MonopolyDealServiceReference.PlayFieldModel pfm)
         {
-            //textBoxHand1.Text = "";
             //Player0
             int numPlayers = pfm.playerModels.Count();
             //Draw playpile
@@ -127,18 +128,27 @@ namespace MDWcfWFClient
                     break;
                 case 1:
                     drawPlayer0(pfm);
+                    playersPlayedCards = new List<MonopolyDealServiceReference.Card>();
+                    playersSelectedToPayWithCards = new List<MonopolyDealServiceReference.Card>();
                     bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
+                    bindPlayerPayDebt(pfm);
                     break;
                 case 2:
                     drawPlayer0(pfm);
                     drawPlayer1(pfm);
+                    playersPlayedCards = new List<MonopolyDealServiceReference.Card>();
+                    playersSelectedToPayWithCards = new List<MonopolyDealServiceReference.Card>();
                     bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
+                    bindPlayerPayDebt(pfm);
                     break;
                 case 3:
                     drawPlayer0(pfm);
                     drawPlayer1(pfm);
                     drawPlayer2(pfm);
+                    playersPlayedCards = new List<MonopolyDealServiceReference.Card>();
+                    playersSelectedToPayWithCards = new List<MonopolyDealServiceReference.Card>();
                     bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
+                    bindPlayerPayDebt(pfm);
                     break;
                 case 4:
 
@@ -146,7 +156,10 @@ namespace MDWcfWFClient
                     drawPlayer1(pfm);
                     drawPlayer2(pfm);
                     drawPlayer3(pfm);
+                    playersPlayedCards = new List<MonopolyDealServiceReference.Card>();
+                    playersSelectedToPayWithCards = new List<MonopolyDealServiceReference.Card>();
                     bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
+                    bindPlayerPayDebt(pfm);
                     break;
                 case 5:
                     drawPlayer0(pfm);
@@ -154,7 +167,10 @@ namespace MDWcfWFClient
                     drawPlayer2(pfm);
                     drawPlayer3(pfm);
                     drawPlayer4(pfm);
+                    playersPlayedCards = new List<MonopolyDealServiceReference.Card>();
+                    playersSelectedToPayWithCards = new List<MonopolyDealServiceReference.Card>();
                     bindSelectPlayersPropertyCardSetsPropertyCards(pfm);
+                    bindPlayerPayDebt(pfm);
                     break;
             }
         }
@@ -344,6 +360,8 @@ namespace MDWcfWFClient
         private void buttonDraw2_Click(object sender, EventArgs e)
         {
             requestHandler.drawTwoAtTurnStart();
+            //Update State
+            buttonPollMD_Click(null, null);
         }
 
         private void buttonBankCard_Click(object sender, EventArgs e)
@@ -358,6 +376,8 @@ namespace MDWcfWFClient
             {
                 buttonBankCard.Enabled = false;
             }
+            //Update State
+            buttonPollMD_Click(null, null);
         }
 
         public void updateAllowAbleActions(MonopolyDealServiceReference.PlayerModel pm)
@@ -368,6 +388,9 @@ namespace MDWcfWFClient
             buttonPlayPropNewSetFromHand.Enabled = false;
             buttonDiscard1.Enabled = false;
             buttonEndTurn.Enabled = false;
+            buttonAdd.Enabled = false;
+            buttonRemove.Enabled = false;
+            buttonPay.Enabled = false;
             if (!(pm.actionsCurrentlyAllowed == null || pm.actionsCurrentlyAllowed.Length == 0))
             {
                 foreach (MonopolyDealServiceReference.TurnActionTypes tAT in pm.actionsCurrentlyAllowed)
@@ -396,6 +419,12 @@ namespace MDWcfWFClient
                     {
                         buttonEndTurn.Enabled = true;
                     }
+                    else if (tAT.CompareTo(MonopolyDealServiceReference.TurnActionTypes.PayDebt) == 0)
+                    {
+                        buttonAdd.Enabled = true;
+                        buttonRemove.Enabled = true;
+                        buttonPay.Enabled = true;
+                    }
                 }
             }
         }
@@ -404,6 +433,7 @@ namespace MDWcfWFClient
         {
             if (requestHandler.checkHasGameStarted())
             {
+                buttonPollMD.Enabled = true;
                 buttonPoll.Enabled = true;
                 button2.Enabled = false;
             }
@@ -415,11 +445,15 @@ namespace MDWcfWFClient
             cardIDOfPropertyToPlay = (int)((MonopolyDealServiceReference.Card)listBox1.SelectedValue).cardID;
             bool isOrientedUp = true;
             requestHandler.playPropertyToNewSet(cardIDOfPropertyToPlay, isOrientedUp);
+            //Update State
+            buttonPollMD_Click(null, null);
         }
 
         private void buttonEndTurn_Click(object sender, EventArgs e)
         {
             requestHandler.endTurn();
+            //Update State
+            buttonPollMD_Click(null, null);
         }
 
         private void buttonSelectOption_Click(object sender, EventArgs e)
@@ -429,6 +463,8 @@ namespace MDWcfWFClient
         private void buttonDraw5OnTurnStart_Click(object sender, EventArgs e)
         {
             requestHandler.drawFiveAtTurnStart();
+            //Update State
+            buttonPollMD_Click(null, null);
         }
 
         private void listBoxPSetsP0_SelectedIndexChanged(object sender, EventArgs e)
@@ -481,9 +517,64 @@ namespace MDWcfWFClient
             }
         }
 
+        private void bindPlayerPayDebt(MonopolyDealServiceReference.PlayFieldModel pfm)
+        {
+            listBoxAllPlayersPlayedCards.DataSource = null;
+            listBoxCardsToPayWith.DataSource = null;
+            int playersTotalValue = getAllPlayersPlayedCards(pfm, playersPlayedCards);
+            listBoxAllPlayersPlayedCards.DataSource = playersPlayedCards;
+            listBoxAllPlayersPlayedCards.DisplayMember = "description";
+            listBoxCardsToPayWith.DataSource = playersSelectedToPayWithCards;
+            listBoxCardsToPayWith.DisplayMember = "description";
+        }
+
+        /// <summary>
+        /// Gets all of the clients property, house, hotel and banked cards and puts them in a list passed to the method.
+        /// Returns the total value of the players played cards
+        /// </summary>
+        /// <param name="pfm">The current game state</param>
+        /// <param name="playersPlayedCards">List to place cards in.</param>
+        /// <returns>Total value of all of a players played cards</returns>
+        public int getAllPlayersPlayedCards(MonopolyDealServiceReference.PlayFieldModel pfm, List<MonopolyDealServiceReference.Card> playersPlayedCards)
+        {
+            int totalValue = 0;
+            foreach (MonopolyDealServiceReference.PlayerModel player in pfm.playerModels)
+            {
+                if (requestHandler.thisClientGuid.CompareTo(player.guid) == 0)
+                {
+                    foreach (MonopolyDealServiceReference.Card c in player.bank.cardsInBank)
+                    {
+                        playersPlayedCards.Add(c);
+                        totalValue += c.cardValue;
+                    }
+                    foreach (MonopolyDealServiceReference.PropertyCardSet ps in player.propertySets.playersPropertySets)
+                    {
+                        foreach (MonopolyDealServiceReference.Card property in ps.properties)
+                        {
+                            playersPlayedCards.Add(property);
+                            totalValue += property.cardValue;
+                        }
+                        if (ps.hasHouse)
+                        {
+                            playersPlayedCards.Add(ps.house);
+                            totalValue += ps.house.cardValue;
+                            if (ps.hasHotel)
+                            {
+                                playersPlayedCards.Add(ps.hotel);
+                                totalValue += ps.hotel.cardValue;
+                            }
+                        }
+                    }
+                }
+            }
+            return totalValue;
+        }
+
         private void button1_Click_2(object sender, EventArgs e)
         {
             requestHandler.discard1Card((int)((MonopolyDealServiceReference.Card)listBox1.SelectedValue).cardID);
+            //Update State
+            buttonPollMD_Click(null, null);
         }
 
         private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
@@ -504,6 +595,7 @@ namespace MDWcfWFClient
         {
             MonopolyDealServiceReference.Card card = (MonopolyDealServiceReference.Card)listBox1.SelectedValue;
             MonopolyDealServiceReference.ActionCard actionCard = card as MonopolyDealServiceReference.ActionCard;
+            MonopolyDealServiceReference.PlayerModel playerTargeted = (MonopolyDealServiceReference.PlayerModel)listBoxPlayers.SelectedItem;
             if (actionCard != null)
             {
                 if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.PassGo) == 0)
@@ -512,7 +604,31 @@ namespace MDWcfWFClient
                     MessageBox.Show("Playing A Pass Go Action Card");
                     bool result = requestHandler.passGo(card.cardID);
                 }
+                if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.DebtCollector) == 0)
+                {
+                    MessageBox.Show("Playing a Debt Collector Card");
+                    //card is a Debt Collector card
+                    if (playerTargeted.guid.CompareTo(requestHandlerMD.thisClientGuid) == 0)
+                    {
+                        MessageBox.Show("You can not play a Debt Collector card against yourself. Action canceled");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Playing A Debt Collector Action Card against " + playerTargeted.name);
+                        bool result = requestHandler.debtCollector(card.cardID, playerTargeted.guid);
+                        if (result)
+                        {
+                            MessageBox.Show("Action Performed");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Action not performed");
+                        }
+                    }
+                }
             }
+            //Update State
+            buttonPollMD_Click(null, null);
         }
 
         private void buttonConnectToService_Click(object sender, EventArgs e)
@@ -636,6 +752,8 @@ namespace MDWcfWFClient
             {
                 requestHandlerMD.playPropertyToSelectedSet(pc, pcs);
             }
+            //Update State
+            buttonPollMD_Click(null, null);
         }
 
         private void buttonRearrange_Click(object sender, EventArgs e)
@@ -643,6 +761,61 @@ namespace MDWcfWFClient
         }
 
         private void button10_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            MonopolyDealServiceReference.Card card = listBoxAllPlayersPlayedCards.SelectedItem as MonopolyDealServiceReference.Card;
+            if (card != null)
+            {
+                playersPlayedCards.Remove(card);
+                playersSelectedToPayWithCards.Add(card);
+                updateCardsToPayWithTotalValue(calculateTotalValueOfCardsInList(((List<MonopolyDealServiceReference.Card>)listBoxCardsToPayWith.DataSource)));
+                bindPlayerPayDebt(requestHandlerMD.CurrentPlayFieldModel);
+            }
+        }
+
+        private void updateCardsToPayWithTotalValue(int total)
+        {
+            labelSelectedCardsToPayValue.Text = "Total Value of Selected Cards: $" + total;
+        }
+
+        private int calculateTotalValueOfCardsInList(List<MonopolyDealServiceReference.Card> listOfCards)
+        {
+            int totalValue = 0;
+            foreach (MonopolyDealServiceReference.Card c in listOfCards)
+            {
+                totalValue += c.cardValue;
+            }
+            return totalValue;
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            MonopolyDealServiceReference.Card card = listBoxCardsToPayWith.SelectedItem as MonopolyDealServiceReference.Card;
+            if (card != null)
+            {
+                playersSelectedToPayWithCards.Remove(card);
+                playersPlayedCards.Add(card);
+                updateCardsToPayWithTotalValue(calculateTotalValueOfCardsInList(((List<MonopolyDealServiceReference.Card>)listBoxCardsToPayWith.DataSource)));
+                bindPlayerPayDebt(requestHandlerMD.CurrentPlayFieldModel);
+            }
+        }
+
+        private void buttonPay_Click(object sender, EventArgs e)
+        {
+            requestHandlerMD.payDebt(((List<MonopolyDealServiceReference.Card>)listBoxCardsToPayWith.DataSource));
+            bindPlayerPayDebt(requestHandlerMD.CurrentPlayFieldModel);
+            //Update State
+            buttonPollMD_Click(null, null);
+        }
+
+        private void listBoxAllPlayersPlayedCards_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void listBoxCardsToPayWith_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
     }

@@ -573,11 +573,6 @@ namespace MDWcfServiceLibrary
             throw new NotImplementedException();
         }
 
-        public bool payCardsMD(PlayerModel playerPaying, PlayerModel playerRecieving, List<Card> cards, GuidBox gameLobbyGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool endTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
             try
@@ -675,7 +670,21 @@ namespace MDWcfServiceLibrary
             MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
             if (md != null)
             {
-                return md.getMonopolyDealGameStateManager().playDebtCollector(debtCollectorCardID, targetedPlayerGuid.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayActionCard);
+                return md.getMonopolyDealGameStateManager().playDebtCollector(debtCollectorCardID, targetedPlayerGuid.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool payCardsMD(GuidBox playerPaying, List<int> cardsToPayWith, GuidBox gameLobbyGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().payDebt(cardsToPayWith, playerPaying.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
             }
             else
             {

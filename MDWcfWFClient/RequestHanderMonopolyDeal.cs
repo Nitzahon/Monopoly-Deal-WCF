@@ -407,5 +407,46 @@ namespace MDWcfWFClient
                 monopolyDealService.Close();
             }
         }
+
+        internal void payDebt(List<MonopolyDealServiceReference.Card> list)
+        {
+            List<int> listCardsToPayWithIds = new List<int>();
+            foreach (MonopolyDealServiceReference.Card c in list)
+            {
+                listCardsToPayWithIds.Add(c.cardID);
+            }
+            getServiceReady();
+            try
+            {
+                if (monopolyDealService.payCardsMD(thisClientGuid.boxGuid(), listCardsToPayWithIds.ToArray(), gameLobbyGuid.boxGuid(), gameLobbyGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid(), null))
+                {
+                    addToLog("Player has paid debt");
+                }
+                else
+                {
+                    addToLog("Error, player has not paid debt");
+                }
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+        }
+
+        internal bool debtCollector(int cardBeingUsedId, Guid targetPlayerGuid)
+        {
+            getServiceReady();
+            try
+            {
+                return monopolyDealService.playActionCardDebtCollectorMD(cardBeingUsedId, targetPlayerGuid.boxGuid(), thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
     }
 }
