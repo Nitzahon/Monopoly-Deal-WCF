@@ -42,5 +42,9 @@ namespace MDWcfServiceLibrary
         bool playDebtCollector(int debtCollectorCardID, Guid targetedPlayerGuid, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
 
         bool payDebt(List<int> idOfCardsToPayWith, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        bool playActionCardItsMyBirthday(int myBirthdayCardID, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        bool playActionCardJustSayNo(int playedCard, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
     }
 }

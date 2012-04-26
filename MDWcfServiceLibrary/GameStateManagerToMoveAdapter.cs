@@ -293,7 +293,7 @@ namespace MDWcfServiceLibrary
             if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
             {
                 MoveInfo playDebtCollector = new MoveInfo();
-                playDebtCollector.playerWhoseTurnItIs = playerGuid;
+                playDebtCollector.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
                 playDebtCollector.playerMakingMove = playerGuid;
                 playDebtCollector.moveBeingMade = TurnActionTypes.PlayActionCard;
                 playDebtCollector.idOfCardBeingUsed = debtCollectorCardID;
@@ -321,6 +321,43 @@ namespace MDWcfServiceLibrary
             payDebt.guidOfPlayerToPayDebtTo = currentState.guidOfPlayerWhosTurnItIs;
             payDebt.amountOwed = playerModelAtCurrentState.amountOwedToAnotherPlayer;
             BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, payDebt.moveBeingMade, payDebt);
+            return result.success;
+        }
+
+        public bool playActionCardItsMyBirthday(int myBirthdayCardID, Guid playerGuid, Guid gameLobbyGuid, Guid stateGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            ActionCard playedActionCard = monopolyDeal.deck.getCardByID(myBirthdayCardID) as ActionCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo playBirthday = new MoveInfo();
+                playBirthday.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
+                playBirthday.playerMakingMove = playerGuid;
+                playBirthday.moveBeingMade = TurnActionTypes.PlayActionCard;
+                playBirthday.idOfCardBeingUsed = myBirthdayCardID;
+
+                playBirthday.actionCardActionType = ActionCardAction.ItsMyBirthday;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playBirthday.moveBeingMade, playBirthday);
+                return result.success;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card").success;
+        }
+
+        public bool playActionCardJustSayNo(int playedCard, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            MoveInfo playJustSayNo = new MoveInfo();
+            playJustSayNo.playerMakingMove = playerGuid;
+            playJustSayNo.moveBeingMade = TurnActionTypes.PlayJustSayNo;
+            playJustSayNo.idOfCardBeingUsed = playedCard;
+            BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playJustSayNo.moveBeingMade, playJustSayNo);
             return result.success;
         }
     }

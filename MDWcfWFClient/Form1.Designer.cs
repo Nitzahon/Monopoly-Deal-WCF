@@ -114,11 +114,13 @@
             this.labelSelectedCardsToPayValue = new System.Windows.Forms.Label();
             this.labelTotalPlayerValue = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonConnect1
             // 
-            this.buttonConnect1.Location = new System.Drawing.Point(13, 619);
+            this.buttonConnect1.Location = new System.Drawing.Point(337, 656);
             this.buttonConnect1.Name = "buttonConnect1";
             this.buttonConnect1.Size = new System.Drawing.Size(100, 23);
             this.buttonConnect1.TabIndex = 0;
@@ -400,6 +402,7 @@
             this.buttonJustSayNo.TabIndex = 58;
             this.buttonJustSayNo.Text = "Use Just Say No!";
             this.buttonJustSayNo.UseVisualStyleBackColor = true;
+            this.buttonJustSayNo.Click += new System.EventHandler(this.buttonJustSayNo_Click);
             // 
             // buttonBankCard
             // 
@@ -515,7 +518,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(13, 590);
+            this.button2.Location = new System.Drawing.Point(112, 648);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 23);
             this.button2.TabIndex = 71;
@@ -731,7 +734,7 @@
             // listBoxGameLobbies
             // 
             this.listBoxGameLobbies.FormattingEnabled = true;
-            this.listBoxGameLobbies.Location = new System.Drawing.Point(18, 366);
+            this.listBoxGameLobbies.Location = new System.Drawing.Point(18, 382);
             this.listBoxGameLobbies.Name = "listBoxGameLobbies";
             this.listBoxGameLobbies.Size = new System.Drawing.Size(194, 56);
             this.listBoxGameLobbies.TabIndex = 95;
@@ -740,7 +743,7 @@
             // listBoxPlayersInLobby
             // 
             this.listBoxPlayersInLobby.FormattingEnabled = true;
-            this.listBoxPlayersInLobby.Location = new System.Drawing.Point(18, 428);
+            this.listBoxPlayersInLobby.Location = new System.Drawing.Point(15, 457);
             this.listBoxPlayersInLobby.Name = "listBoxPlayersInLobby";
             this.listBoxPlayersInLobby.Size = new System.Drawing.Size(194, 69);
             this.listBoxPlayersInLobby.TabIndex = 96;
@@ -757,7 +760,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(118, 503);
+            this.button1.Location = new System.Drawing.Point(118, 532);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(91, 23);
             this.button1.TabIndex = 98;
@@ -767,7 +770,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(18, 503);
+            this.button4.Location = new System.Drawing.Point(16, 532);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(91, 23);
             this.button4.TabIndex = 99;
@@ -777,7 +780,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(18, 532);
+            this.button6.Location = new System.Drawing.Point(15, 561);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(91, 23);
             this.button6.TabIndex = 100;
@@ -787,7 +790,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(118, 561);
+            this.button7.Location = new System.Drawing.Point(121, 590);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(91, 23);
             this.button7.TabIndex = 101;
@@ -797,7 +800,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(20, 561);
+            this.button8.Location = new System.Drawing.Point(17, 591);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(89, 23);
             this.button8.TabIndex = 102;
@@ -817,7 +820,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(119, 590);
+            this.button10.Location = new System.Drawing.Point(218, 656);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(113, 23);
             this.button10.TabIndex = 104;
@@ -928,11 +931,31 @@
             this.label5.TabIndex = 115;
             this.label5.Text = "Discard Pile";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(18, 442);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(84, 13);
+            this.label6.TabIndex = 116;
+            this.label6.Text = "Players in Lobby";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 366);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.TabIndex = 117;
+            this.label7.Text = "Lobbies";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 644);
+            this.ClientSize = new System.Drawing.Size(1008, 691);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.labelTotalPlayerValue);
             this.Controls.Add(this.labelSelectedCardsToPayValue);
@@ -1115,6 +1138,8 @@
         private System.Windows.Forms.Label labelSelectedCardsToPayValue;
         private System.Windows.Forms.Label labelTotalPlayerValue;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

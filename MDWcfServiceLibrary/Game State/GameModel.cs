@@ -26,7 +26,7 @@ namespace MDWcfServiceLibrary
         int NUMBER_OF_DECKS = 1;
         int NEW_TURN_NUMBER_OF_CARDS_PLAYABLE = 3;
 
-        public GameModel(List<PlayerModel> playersP, MessageManager messageManagerP)
+        public GameModel(List<PlayerModel> playersP)
         {
             //give this a guid
             gameModelGuid = Guid.NewGuid();
@@ -42,7 +42,7 @@ namespace MDWcfServiceLibrary
             //State added to gameStates list, notify all players, wait for responses
         }
 
-        public GameModel(List<PlayerModel> playersP, MessageManager messageManagerP, Guid guidS)
+        public GameModel(List<PlayerModel> playersP, Guid guidS)
         {
             //give this a guid
             gameModelGuid = guidS;

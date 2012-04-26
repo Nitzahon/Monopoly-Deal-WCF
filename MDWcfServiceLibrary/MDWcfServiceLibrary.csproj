@@ -49,57 +49,58 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionCardEvent.cs" />
+    <Compile Include="ActionCardEventDebtCollector.cs" />
     <Compile Include="Cards\ActionCard.cs" />
     <Compile Include="Cards\CardTest.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="DrawOnTurnStart.cs" />
     <Compile Include="Extensions\BoolResponseBox.cs" />
     <Compile Include="Extensions\ObjectResponseBox.cs" />
+    <Compile Include="FieldUpdateMessage.cs" />
+    <Compile Include="Game State\GameModel.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="GameStateManagerToMoveAdapter.cs" />
-    <Compile Include="IMonopolyDealGame.cs" />
     <Compile Include="Lobby\ILobby.cs" />
     <Compile Include="Lobby\Lobby.cs" />
     <Compile Include="Lobby\LobbyClient.cs" />
     <Compile Include="Lobby\GameLobby.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageManager.cs" />
     <Compile Include="Monopoly Deal Game\IMonopolyDeal_GameStateManager.cs" />
     <Compile Include="Monopoly Deal Game\MonopolyDeal.cs" />
     <Compile Include="Monopoly Deal Game\MonopolyDealGameGen.cs" />
-    <Compile Include="Unused\MonopolyDeal_GameStateManager.cs" />
+    <Compile Include="MonopolyDeal_GameStateManager.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="MoveInfo.cs" />
     <Compile Include="PayAdknowledgeJustSayNo.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PollForFieldUpdateMessage.cs" />
     <Compile Include="Service\IMonopolyDealGames.cs" />
     <Compile Include="Service\MonopolyDealServiceHelper.cs" />
     <Compile Include="Service\Acknowledgement.cs" />
     <Compile Include="Cards\Card.cs" />
-    <Compile Include="Unused\Client.cs" />
     <Compile Include="Cards\Deck.cs" />
-    <Compile Include="Unused\DrawOnTurnStart.cs" />
     <Compile Include="Cards\DrawPile.cs" />
     <Compile Include="Extensions\Ext.cs" />
-    <Compile Include="Unused\FieldUpdateMessage.cs" />
-    <Compile Include="Unused\Game.cs" />
-    <Compile Include="Game State\GameModel.cs" />
     <Compile Include="Game State\GameStateManager.cs" />
     <Compile Include="Extensions\GuidBox.cs" />
     <Compile Include="Service\IMonopolyDeal.cs" />
-    <Compile Include="Unused\Message.cs" />
-    <Compile Include="Unused\MessageManager.cs" />
     <Compile Include="Cards\MoneyCard.cs" />
     <Compile Include="Service\MonopolyDealService.cs" />
-    <Compile Include="Unused\Player.cs" />
     <Compile Include="Player\PlayerBank.cs" />
     <Compile Include="Player\PlayerHand.cs" />
     <Compile Include="Player\PlayerModel.cs" />
     <Compile Include="Player\PlayerPropertySets.cs" />
     <Compile Include="Game State\PlayFieldModel.cs" />
     <Compile Include="Cards\PlayPile.cs" />
-    <Compile Include="Unused\PollForFieldUpdateMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cards\PropertyCard.cs" />
     <Compile Include="Cards\PropertyCardSet.cs" />
     <Compile Include="Cards\PropertySetInfo.cs" />
     <Compile Include="Cards\RentStandard.cs" />
-    <Compile Include="Unused\TakeActionOnTurnMessage.cs" />
     <Compile Include="Game State\TurnActionModel.cs" />
+    <Compile Include="TakeActionOnTurnMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -107,7 +108,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="UML Models\MDWCFServiceLibrary.cd" />
-    <None Include="Unused\oldAppconfig.config" />
     <None Include="UML Models\SequenceDiagram1.sequencediagram" />
   </ItemGroup>
   <ItemGroup>

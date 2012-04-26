@@ -58,6 +58,7 @@
   <xs:element name="LobbyClient" nillable="true" type="tns:LobbyClient" />
   <xs:complexType name="PlayFieldModel">
     <xs:sequence>
+      <xs:element minOccurs="0" name="actionCardEvent" nillable="true" type="tns:ActionCardEvent" />
       <xs:element minOccurs="0" name="currentPhase" type="tns:Statephase" />
       <xs:element minOccurs="0" name="currentTurnActionModel" nillable="true" type="tns:TurnActionModel" />
       <xs:element minOccurs="0" name="guidOfPlayerWhosTurnItIs" type="ser:guid" />
@@ -73,6 +74,67 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlayFieldModel" nillable="true" type="tns:PlayFieldModel" />
+  <xs:complexType name="ActionCardEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="actionCardTypeUsed" type="tns:ActionCardAction" />
+      <xs:element minOccurs="0" name="actionJustSayNoUsedByAffectedPlayer" type="xs:boolean" />
+      <xs:element minOccurs="0" name="actionJustSayNoUsedByOnTurnPlayer" type="xs:boolean" />
+      <xs:element minOccurs="0" name="actionTypeTaken" type="tns:TurnActionTypes" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="bankedCardsTakenFromPlayer" nillable="true" type="q2:ArrayOfint" />
+      <xs:element minOccurs="0" name="debtAmount" type="xs:int" />
+      <xs:element minOccurs="0" name="originalActionCardId" type="xs:int" />
+      <xs:element minOccurs="0" name="playerAffectedByAction" type="ser:guid" />
+      <xs:element minOccurs="0" name="playerWhoPerformedActionOnTurn" type="ser:guid" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="propertyCardsTakenFromPlayerAndSetTheCardWasIn" nillable="true" type="q3:ArrayOfArrayOfint" />
+      <xs:element minOccurs="0" name="propertySetTakenFromPlayer" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ActionCardEvent" nillable="true" type="tns:ActionCardEvent" />
+  <xs:simpleType name="ActionCardAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NotAnActionCard" />
+      <xs:enumeration value="SlyDeal" />
+      <xs:enumeration value="ForcedDeal" />
+      <xs:enumeration value="DealBreaker" />
+      <xs:enumeration value="JustSayNo" />
+      <xs:enumeration value="DebtCollector" />
+      <xs:enumeration value="ItsMyBirthday" />
+      <xs:enumeration value="RentMultiColor" />
+      <xs:enumeration value="RentStandard" />
+      <xs:enumeration value="DoubleTheRent" />
+      <xs:enumeration value="House" />
+      <xs:enumeration value="Hotel" />
+      <xs:enumeration value="PassGo" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ActionCardAction" nillable="true" type="tns:ActionCardAction" />
+  <xs:simpleType name="TurnActionTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="gameStarted" />
+      <xs:enumeration value="turnStarted" />
+      <xs:enumeration value="drawTwoCardsAtStartOfTurn" />
+      <xs:enumeration value="drawFiveCardsAtStartOfTurn" />
+      <xs:enumeration value="EndTurn" />
+      <xs:enumeration value="SwitchAroundPlayedProperties" />
+      <xs:enumeration value="PlayCard" />
+      <xs:enumeration value="PlayPropertyCard_New_Set" />
+      <xs:enumeration value="PlayPropertyCardFromHand" />
+      <xs:enumeration value="MovePropertyCard" />
+      <xs:enumeration value="BankMoneyCard" />
+      <xs:enumeration value="PlayActionCard" />
+      <xs:enumeration value="BankActionCard" />
+      <xs:enumeration value="PlayJustSayNo" />
+      <xs:enumeration value="AdknowlegeRecievedCurrentState" />
+      <xs:enumeration value="Discard_1_Card" />
+      <xs:enumeration value="Discard_2_Cards" />
+      <xs:enumeration value="Discard_3_Cards" />
+      <xs:enumeration value="Discard_4_Cards" />
+      <xs:enumeration value="Discard_5_Cards" />
+      <xs:enumeration value="PayDebt" />
+      <xs:enumeration value="Dont_Play_Just_Say_No" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TurnActionTypes" nillable="true" type="tns:TurnActionTypes" />
   <xs:simpleType name="Statephase">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Game_Started" />
@@ -104,7 +166,7 @@
       <xs:element minOccurs="0" name="actionTaken" type="xs:boolean" />
       <xs:element minOccurs="0" name="currentPlayFieldModelGuid" type="ser:guid" />
       <xs:element minOccurs="0" name="numberOfCardPlaysRemaining" type="xs:int" />
-      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playerGuids" nillable="true" type="q2:ArrayOfguid" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="playerGuids" nillable="true" type="q4:ArrayOfguid" />
       <xs:element minOccurs="0" name="serverGuid" type="ser:guid" />
       <xs:element minOccurs="0" name="thisTurnactionGuid" type="ser:guid" />
       <xs:element minOccurs="0" name="turnActionType" type="tns:TurnActionTypes" />
@@ -113,33 +175,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TurnActionModel" nillable="true" type="tns:TurnActionModel" />
-  <xs:simpleType name="TurnActionTypes">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="gameStarted" />
-      <xs:enumeration value="turnStarted" />
-      <xs:enumeration value="drawTwoCardsAtStartOfTurn" />
-      <xs:enumeration value="drawFiveCardsAtStartOfTurn" />
-      <xs:enumeration value="EndTurn" />
-      <xs:enumeration value="SwitchAroundPlayedProperties" />
-      <xs:enumeration value="PlayCard" />
-      <xs:enumeration value="PlayPropertyCard_New_Set" />
-      <xs:enumeration value="PlayPropertyCardFromHand" />
-      <xs:enumeration value="MovePropertyCard" />
-      <xs:enumeration value="BankMoneyCard" />
-      <xs:enumeration value="PlayActionCard" />
-      <xs:enumeration value="BankActionCard" />
-      <xs:enumeration value="PlayJustSayNo" />
-      <xs:enumeration value="AdknowlegeRecievedCurrentState" />
-      <xs:enumeration value="Discard_1_Card" />
-      <xs:enumeration value="Discard_2_Cards" />
-      <xs:enumeration value="Discard_3_Cards" />
-      <xs:enumeration value="Discard_4_Cards" />
-      <xs:enumeration value="Discard_5_Cards" />
-      <xs:enumeration value="PayDebt" />
-      <xs:enumeration value="Dont_Play_Just_Say_No" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="TurnActionTypes" nillable="true" type="tns:TurnActionTypes" />
   <xs:complexType name="ArrayOfTurnActionTypes">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TurnActionTypes" type="tns:TurnActionTypes" />
@@ -234,24 +269,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="ActionCard" nillable="true" type="tns:ActionCard" />
-  <xs:simpleType name="ActionCardAction">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="SlyDeal" />
-      <xs:enumeration value="ForcedDeal" />
-      <xs:enumeration value="DealBreaker" />
-      <xs:enumeration value="JustSayNo" />
-      <xs:enumeration value="DebtCollector" />
-      <xs:enumeration value="ItsMyBirthday" />
-      <xs:enumeration value="RentMultiColor" />
-      <xs:enumeration value="RentStandard" />
-      <xs:enumeration value="DoubleTheRent" />
-      <xs:enumeration value="House" />
-      <xs:enumeration value="Hotel" />
-      <xs:enumeration value="PassGo" />
-      <xs:enumeration value="NotAnActionCard" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="ActionCardAction" nillable="true" type="tns:ActionCardAction" />
   <xs:complexType name="PropertyCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">

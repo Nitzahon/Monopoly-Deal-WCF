@@ -92,6 +92,8 @@ namespace MDWcfServiceLibrary
         public DrawPile drawPile;
         [DataMember]
         public PlayPile playpile;
+        [DataMember]
+        public ActionCardEvent actionCardEvent;
         //Guid generator
         public static List<Guid> playFieldModelGuids = new List<Guid>();
 

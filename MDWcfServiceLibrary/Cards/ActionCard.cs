@@ -11,6 +11,8 @@ namespace MDWcfServiceLibrary
     public enum ActionCardAction
     {
         [EnumMember]
+        NotAnActionCard,
+        [EnumMember]
         SlyDeal,
         [EnumMember]
         ForcedDeal,
@@ -33,9 +35,7 @@ namespace MDWcfServiceLibrary
         [EnumMember]
         Hotel,
         [EnumMember]
-        PassGo,
-        [EnumMember]
-        NotAnActionCard
+        PassGo
     }
 
     [DataContract]

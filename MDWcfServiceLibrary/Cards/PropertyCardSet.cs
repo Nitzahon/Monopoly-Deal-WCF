@@ -142,6 +142,16 @@ namespace MDWcfServiceLibrary
 
         public bool removeProperty(PropertyCard cardToRemove)
         {
+            foreach (PropertyCard p in properties)
+            {
+                if (p.cardID.CompareTo(cardToRemove.cardID) == 0)
+                {
+                    properties.Remove(p);
+                    return true;
+                }
+            }
+            return false;
+            /*
             if (properties.Contains(cardToRemove))
             {
                 properties.Remove(cardToRemove);
@@ -149,6 +159,7 @@ namespace MDWcfServiceLibrary
                 return true;
             }
             return false;
+             * */
         }
 
         public bool addProperty(PropertyCard newCard)

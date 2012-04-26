@@ -288,7 +288,24 @@ namespace MDWcfWFClient
 
         internal bool checkHasGameStarted()
         {
-            throw new NotImplementedException();
+            getServiceReady();
+            try
+            {
+                if (monopolyDealService.getGameLobbyStatus(gameLobbyGuid.boxGuid()).CompareTo(MonopolyDealServiceReference.GameLobbyStatus.Game_In_Progress) == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+                return false;
+            }
         }
 
         internal bool passGo(int p)
@@ -440,6 +457,36 @@ namespace MDWcfWFClient
             try
             {
                 return monopolyDealService.playActionCardDebtCollectorMD(cardBeingUsedId, targetPlayerGuid.boxGuid(), thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
+
+        internal bool itsMyBirthday(int cardBeingUsedId)
+        {
+            getServiceReady();
+            try
+            {
+                return monopolyDealService.playActionCardItsMyBirthdayMD(cardBeingUsedId, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
+
+        internal bool justSayNo(int cardIDOfCardToUse)
+        {
+            getServiceReady();
+            try
+            {
+                //return monopolyDealService.playJustSayNoMD((cardBeingUsedId, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
             }
             catch (Exception ex)
             {
