@@ -34,9 +34,19 @@ namespace MDWcfServiceLibrary
 
         public Card removeCardFromBank(Card card)
         {
-            if (cardsInBank.Remove(card))
+            foreach (Card bankedCard in cardsInBank)
             {
-                return card;
+                if (bankedCard.cardID.CompareTo(card.cardID) == 0)
+                {
+                    if (cardsInBank.Remove(bankedCard))
+                    {
+                        return bankedCard;
+                    }
+                    else
+                    {
+                        throw new Exception("Card is in bank but is unable to be removed. Error");
+                    }
+                }
             }
             return null;
         }

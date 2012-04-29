@@ -486,7 +486,7 @@ namespace MDWcfWFClient
             getServiceReady();
             try
             {
-                //return monopolyDealService.playJustSayNoMD((cardBeingUsedId, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                return monopolyDealService.playJustSayNoMD(cardIDOfCardToUse, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
             }
             catch (Exception ex)
             {

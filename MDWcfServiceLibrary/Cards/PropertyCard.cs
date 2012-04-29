@@ -87,7 +87,7 @@ namespace MDWcfServiceLibrary
 
         public PropertyCard(PropertyColor colorUp, PropertyColor colorDown, String nameUp, int fullsetSizeUp, int oneCardValUp, int twoCardValUp, int threeCardValUp, int fourCardValUp, int fiveCardValUp,
             String nameDown, int fullsetSizeDown, int oneCardValDown, int twoCardValDown, int threeCardValDown, int fourCardValDown, int fiveCardValDown, int bankVal)
-            : base(nameUp, "Use either way up", bankVal, CardType.WildProperty)
+            : base(nameUp + " or " + nameDown, "Use either way up", bankVal, CardType.WildProperty)
         {
             //Two Color Wild Property Card
             isWild = true;

@@ -276,21 +276,6 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        public bool playWildRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PlayerModel playerTargeted, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool playStandardRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool playJustSayNoMD(PlayerModel player, Card playedCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool playPropertyCardMD(PlayerModel player, Card playedCard, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
             try
@@ -331,11 +316,6 @@ namespace MDWcfServiceLibrary
             {
                 throw new FaultException(ex.Message);
             }
-        }
-
-        public bool movePropertyCardMD(PlayerModel player, Card propertyCard, PropertyCardSet oldSet, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
         }
 
         public bool endTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
@@ -483,6 +463,32 @@ namespace MDWcfServiceLibrary
             {
                 return false;
             }
+        }
+
+        public BoolResponseBox movePropertyCardMD(int propertyCardToMoveID, bool isCardUp, bool moveToNewEmptySet, GuidBox oldSetGuid,
+            GuidBox setToPlayPropertyToGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().movePropertyCard(propertyCardToMoveID, isCardUp, moveToNewEmptySet, oldSetGuid.guid, setToPlayPropertyToGuid.guid,
+                    playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
+        }
+
+        public bool playWildRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PlayerModel playerTargeted, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool playStandardRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        {
+            throw new NotImplementedException();
         }
     }
 }

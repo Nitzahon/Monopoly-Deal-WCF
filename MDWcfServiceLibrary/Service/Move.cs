@@ -154,6 +154,10 @@ namespace MDWcfServiceLibrary
             {
                 return listToSet;
             }
+            else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No) == 0)
+            {
+                return listToSet;
+            }
             else if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No) == 0)
             {
                 return listToSet;
@@ -605,14 +609,15 @@ namespace MDWcfServiceLibrary
                 }
                 else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.JustSayNo) == 0)
                 {
-                    Statephase nextStatePhase = notJustSayNoAble;
+                    Statephase nextStatePhase = notJustSayNoAble;//TODO switch to justsaynoable
                     return playActionCardJustSayNo(currentState, nextState, playerPerformingAction, nextStatePhase, justSayNoAble, JustSayNoUsedByOpposition, moveInformation);
                 }
                 throw new NotImplementedException();
             }
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayJustSayNo) == 0)
             {
-                throw new NotImplementedException();
+                Statephase nextStatePhase = notJustSayNoAble;//should be just say noable
+                return playActionCardJustSayNo(currentState, nextState, playerPerformingAction, nextStatePhase, justSayNoAble, JustSayNoUsedByOpposition, moveInformation);
             }
             else
             {
@@ -624,7 +629,7 @@ namespace MDWcfServiceLibrary
         {
             #region Player not on turn canceling effect of ActionCard being played against them
 
-            if (currentState.actionCardEvent.actionJustSayNoUsedByAffectedPlayer == false)
+            if (currentState.actionCardEvent != null && currentState.actionCardEvent.actionJustSayNoUsedByAffectedPlayer == false)
             {
                 #region Just Say No used against debt incurring card
 
@@ -684,6 +689,7 @@ namespace MDWcfServiceLibrary
                             justSayNoUsedAgainstDebt.actionTypeTaken = TurnActionTypes.PlayJustSayNo;//The action type taken
                             justSayNoUsedAgainstDebt.playerAffectedByAction = playerModelForPlayerPaying.guid;//The player using a just say no to cancel the debt incurring card
                             justSayNoUsedAgainstDebt.playerWhoPerformedActionOnTurn = playerModelForPlayerToBePaid.guid;//The player who played a debt inccuring card who can play a just say not against the cancelling players just say no
+
                             nextState.actionCardEvent = justSayNoUsedAgainstDebt;
 
                             //Player has now paid debt
@@ -792,6 +798,9 @@ namespace MDWcfServiceLibrary
                     List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
                     onTurn = setAllowableActionsOnTurn(onTurn, nextState);
                     updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
+                    nextState.actionCardEvent = new ActionCardEvent();
+                    nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+                    nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.ItsMyBirthday;
                     //change the current state to the next state
                     addNextState(nextState);
                     return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a It's My Birthday");
@@ -1012,7 +1021,7 @@ namespace MDWcfServiceLibrary
         }
 
         /// <summary>
-        /// Allows a player on thier turn to Play A Debt Collector Action Card
+        /// Allows a player on their turn to Play A Debt Collector Action Card
         /// </summary>
         /// <param name="currentState"></param>
         /// <param name="nextState"></param>
@@ -1052,6 +1061,9 @@ namespace MDWcfServiceLibrary
                     onTurn = setAllowableActionsOnTurn(onTurn, nextState);
                     updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
 
+                    nextState.actionCardEvent = new ActionCardEvent();
+                    nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+                    nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.DebtCollector;
                     //change the current state to the next state
                     addNextState(nextState);
                     return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Debt Collector");
@@ -1075,13 +1087,12 @@ namespace MDWcfServiceLibrary
         {
             //Check
             //Perform action in next state
-            //Clone the current state to create next state then draws 5 cards in the next state
+            //Clone the current state to create next state
             nextState = currentState.clone(generateGuidForNextState());
             PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
             PlayerModel playerModelForPlayerToDebtCollect = getPlayerModel(debtCollectorInfo.guidOfPlayerBeingDebtCollected, nextState);
             //Get the reference to the players playerModel in the current PlayFieldModel
 
-            //Get the reference to the Card in the current PlayFieldModel
             //Do action
             playerModelForPlayerToDebtCollect.owesAnotherPlayer = true;
             playerModelForPlayerToDebtCollect.amountOwedToAnotherPlayer = ActionCard.Debt_Collector_Value;
@@ -1318,8 +1329,14 @@ namespace MDWcfServiceLibrary
                 nextState = currentState.clone(generateGuidForNextState());
                 PropertyColor oldColour = ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).getPropertyColor();
                 bool oldOrientation = ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).isCardUp;
-                ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).setPropertyColor(moveInformation.isPropertyToPlayOrientedUp);
-                if ((getPropertyCardSet(getPlayerModel(playerPerformingAction.guid, nextState).propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo)).propertySetColor.CompareTo(((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).currentPropertyColor) == 0)
+                ((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).setPropertyColor(moveInformation.isPropertyToPlayOrientedUp);
+
+                /*
+                if ((getPropertyCardSet(getPlayerModel(playerPerformingAction.guid, nextState).propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo)).propertySetColor.CompareTo(
+                    ((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).currentPropertyColor) == 0)
+                {
+                 */
+                if (getPropertyCardSet(getPlayerModel(playerPerformingAction.guid, nextState).propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo).isPropertyCompatible((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)))
                 {
                     //Get CurrentPlayFieldModelState
                     Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
@@ -1330,18 +1347,24 @@ namespace MDWcfServiceLibrary
                         PropertyCard cP = cardInHandToBePlayed as PropertyCard;
                         cP.setPropertyColor(moveInformation.isPropertyToPlayOrientedUp);
                         PropertyCardSet ps = getPropertyCardSet(player.propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo);
-                        ps.addProperty(cP);
-                        //Change state on success
-                        //has been performed, advance the phase of the game
-                        nextState.currentPhase = notJustSayNoAble;
-                        List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
-                        List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
-                        onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+                        if (ps.addProperty(cP) == false)
+                        {
+                            return new BoolResponseBox(false, "Property Card not played. Set full or card incompatible.");
+                        }
+                        else
+                        {
+                            //Change state on success
+                            //has been performed, advance the phase of the game
+                            nextState.currentPhase = notJustSayNoAble;
+                            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
 
-                        updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
-                        //change the current state to the next state
-                        addNextState(nextState);
-                        return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has played to a existing set " + card.cardName);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has played to a existing set " + card.cardName);
+                        }
                     }
                     return new BoolResponseBox(false, "Card is not in hand.");
                 }
@@ -1387,7 +1410,53 @@ namespace MDWcfServiceLibrary
         /// <returns></returns>
         private BoolResponseBox movePropertyCard(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase rearrangeProperties)
         {
-            throw new NotImplementedException();
+            //Clone the current state to create next state
+            nextState = currentState.clone(generateGuidForNextState());
+
+            PropertyColor oldColour = ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).getPropertyColor();
+            bool oldOrientation = ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).isCardUp;
+            ((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).setPropertyColor(moveInformation.isPropertyToMoveOrientedUp);
+
+            if (getPropertyCardSet(getPlayerModel(playerPerformingAction.guid, nextState).propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo).isPropertyCompatible((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)))
+            {
+                //Get CurrentPlayFieldModelState
+                PropertyCard propertyCardToMove = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed) as PropertyCard;
+                PlayerModel player = getPlayerModel(playerPerformingAction.guid, nextState);
+                //Remove Property Card from it's current set.
+                if (player.removePropertyCardFromPlayersPropertySet(propertyCardToMove, moveInformation.guidOfSetPropertyToMoveIsIn) != null)
+                {
+                    PropertyCard cP = propertyCardToMove;
+
+                    cP.setPropertyColor(moveInformation.isPropertyToPlayOrientedUp);
+                    PropertyCardSet ps = getPropertyCardSet(player.propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo);
+                    if (ps == null)
+                    {
+                        player.propertySets.addSet(new PropertyCardSet(cP));
+                    }
+                    else if (ps.addProperty(cP) == false)
+                    {
+                        return new BoolResponseBox(false, "Property Card not played. Set full or card incompatible.");
+                    }
+                    //Change state on success
+                    //has been performed, advance the phase of the game
+                    nextState.currentPhase = rearrangeProperties;
+                    List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                    List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                    onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                    updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
+                    //change the current state to the next state
+                    addNextState(nextState);
+                    return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has moved a Property to a existing set " + propertyCardToMove.cardName);
+                }
+                return new BoolResponseBox(false, "Card is not in set.");
+            }
+            else
+            {
+                nextState = null;
+                ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).setPropertyColor(oldOrientation);//change back the orientation of the property
+                return new BoolResponseBox(false, "Property Card is not the correct colour to be added to this set");
+            }
         }
 
         /// <summary>

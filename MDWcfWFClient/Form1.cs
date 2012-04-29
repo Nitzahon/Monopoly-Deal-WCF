@@ -660,6 +660,7 @@ namespace MDWcfWFClient
             }
             //Update State
             buttonPollMD_Click(null, null);
+            timerForPollingState.Start();
         }
 
         private void buttonConnectToService_Click(object sender, EventArgs e)
@@ -874,6 +875,7 @@ namespace MDWcfWFClient
             cmToPay.Refresh();
             //Update State
             buttonPollMD_Click(null, null);
+            timerForPollingState.Start();
         }
 
         private void listBoxAllPlayersPlayedCards_SelectedIndexChanged(object sender, EventArgs e)
@@ -903,6 +905,54 @@ namespace MDWcfWFClient
             {
                 buttonJustSayNo.Enabled = false;
             }
+            //Update State
+            buttonPollMD_Click(null, null);
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            MonopolyDealServiceReference.PropertyCardSet pcs = null;
+            MonopolyDealServiceReference.PropertyCard pc = null;
+            if (playerIDNum == 0)
+            {
+                pc = listBoxPlayer0Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP0.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            else if (playerIDNum == 1)
+            {
+                pc = listBoxPlayer1Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP1.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            else if (playerIDNum == 2)
+            {
+                pc = listBoxPlayer2Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP2.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            else if (playerIDNum == 3)
+            {
+                pc = listBoxPlayer3Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP3.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            else if (playerIDNum == 4)
+            {
+                pc = listBoxPlayer4Hand.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+                pcs = listBoxPSetsP4.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            }
+            if (pc != null && pcs != null)
+            {
+                pc.isCardUp = false;
+                requestHandlerMD.playPropertyToSelectedSet(pc, pcs);
+            }
+            //Update State
+            buttonPollMD_Click(null, null);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            int cardIDOfPropertyToPlay = -1;
+            cardIDOfPropertyToPlay = (int)((MonopolyDealServiceReference.Card)listBox1.SelectedValue).cardID;
+            bool isOrientedUp = false;
+            requestHandler.playPropertyToNewSet(cardIDOfPropertyToPlay, isOrientedUp);
             //Update State
             buttonPollMD_Click(null, null);
         }

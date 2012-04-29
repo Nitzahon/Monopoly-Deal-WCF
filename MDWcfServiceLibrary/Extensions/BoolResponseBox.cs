@@ -8,7 +8,7 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [DataContract]
-    internal class BoolResponseBox
+    public class BoolResponseBox
     {
         [DataMember]
         public bool success;

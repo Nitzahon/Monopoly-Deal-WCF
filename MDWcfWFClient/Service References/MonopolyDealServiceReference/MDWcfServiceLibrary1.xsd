@@ -76,6 +76,7 @@
   <xs:element name="PlayFieldModel" nillable="true" type="tns:PlayFieldModel" />
   <xs:complexType name="ActionCardEvent">
     <xs:sequence>
+      <xs:element minOccurs="0" name="actionCardEventID" type="xs:int" />
       <xs:element minOccurs="0" name="actionCardTypeUsed" type="tns:ActionCardAction" />
       <xs:element minOccurs="0" name="actionJustSayNoUsedByAffectedPlayer" type="xs:boolean" />
       <xs:element minOccurs="0" name="actionJustSayNoUsedByOnTurnPlayer" type="xs:boolean" />
@@ -247,28 +248,6 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="CardType" nillable="true" type="tns:CardType" />
-  <xs:complexType name="RentStandard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ActionCard">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
-          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
-  <xs:complexType name="ActionCard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="MonetaryValueOnly" type="xs:boolean" />
-          <xs:element minOccurs="0" name="actionType" type="tns:ActionCardAction" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="ActionCard" nillable="true" type="tns:ActionCard" />
   <xs:complexType name="PropertyCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">
@@ -338,6 +317,28 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
+  <xs:complexType name="ActionCard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Card">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MonetaryValueOnly" type="xs:boolean" />
+          <xs:element minOccurs="0" name="actionType" type="tns:ActionCardAction" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActionCard" nillable="true" type="tns:ActionCard" />
+  <xs:complexType name="RentStandard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ActionCard">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="colorDown" type="tns:PropertyColor" />
+          <xs:element minOccurs="0" name="colorUp" type="tns:PropertyColor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RentStandard" nillable="true" type="tns:RentStandard" />
   <xs:complexType name="PlayerHand">
     <xs:sequence>
       <xs:element minOccurs="0" name="cardsInHand" nillable="true" type="tns:ArrayOfCard" />
@@ -383,4 +384,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlayPile" nillable="true" type="tns:PlayPile" />
+  <xs:complexType name="BoolResponseBox">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BoolResponseBox" nillable="true" type="tns:BoolResponseBox" />
 </xs:schema>

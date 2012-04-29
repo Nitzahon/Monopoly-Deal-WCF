@@ -62,7 +62,7 @@ namespace MDWcfServiceLibrary
             guid = generateGuid();
             properties = new LinkedList<PropertyCard>();
             properties.AddFirst(propertyCard);
-            propertySetColor = propertyCard.currentPropertyColor;
+            propertySetColor = propertyCard.getPropertyColor();
         }
 
         public PropertyCardSet(PropertyCardSet pcs, PlayFieldModel state)
@@ -162,16 +162,28 @@ namespace MDWcfServiceLibrary
              * */
         }
 
+        public bool isPropertyCompatible(PropertyCard card)
+        {
+            if (card.isMultiWild)
+            {
+                return true;
+            }
+            foreach (PropertyColor pc in card.propertyColors)
+            {
+                if (pc.CompareTo(this.propertySetColor) == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool addProperty(PropertyCard newCard)
         {
             //Returns true if property card is added to set
             //Returns false if property card is not added to set
 
-            if (isFullSet())
-            {
-                //Set full
-                return false;
-            }
+            bool isThisSetFull = false;
             if (properties.Count == 0)
             {
                 //Card is first Card in set
@@ -179,13 +191,27 @@ namespace MDWcfServiceLibrary
                 propertySetColor = newCard.getPropertyColor();
                 return true;
             }
-            if (properties.Count > 0 && !isFullSet())
+            isThisSetFull = this.isFullSet();
+            if (isThisSetFull)
             {
+                //Set full
+                return false;
+            }
+            if (properties.Count > 0 && !isThisSetFull)
+            {
+                if (isPropertyCompatible(newCard))
+                {
+                    newCard.currentPropertyColor = propertySetColor;//Danger
+                    properties.AddLast(newCard);
+                    return true;
+                }
+                return false;
+                /*
                 //used to track wether property card is up or down
                 bool isUp = false;
                 foreach (PropertyColor newCardColor in newCard.propertyColors)
                 {
-                    if (newCardColor == getPropertySetColor())
+                    if (newCardColor.CompareTo(getPropertySetColor()) == 0)
                     {
                         isUp = !isUp;
                         newCard.isCardUp = isUp;
@@ -195,6 +221,7 @@ namespace MDWcfServiceLibrary
                         return true;
                     }
                 }
+                 * */
             }
             //Card is not correct colour
             return false;
@@ -205,7 +232,7 @@ namespace MDWcfServiceLibrary
             foreach (PropertyCard card in properties)
             {
                 //If neccessary to allow sets with multicolour wild cards to be set to the correct color
-                if (card.getPropertyColor() != PropertyColor.Wild_MultiColored)
+                if (card.getPropertyColor().CompareTo(PropertyColor.Wild_MultiColored) != 0)
                 {
                     return card.getPropertyColor();
                 }

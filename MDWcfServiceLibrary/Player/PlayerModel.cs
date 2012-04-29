@@ -163,5 +163,29 @@ namespace MDWcfServiceLibrary
             //Card not removed
             return null;
         }
+
+        internal PropertyCard removePropertyCardFromPlayersPropertySet(PropertyCard propertyCardToRemove, Guid propertySetToRemoveCardFromGuid)
+        {
+            foreach (PropertyCardSet ps in propertySets.playersPropertySets)
+            {
+                if (ps.guid.CompareTo(propertySetToRemoveCardFromGuid) == 0 || ps.removeProperty(propertyCardToRemove))
+                {
+                    //Card removed, remove any houses and hotels and place them in players bank
+                    Card hotel = ps.removeHotel();
+                    if (hotel != null)
+                    {
+                        bank.addCardToBank(hotel);
+                    }
+                    Card house = ps.removeHouse();
+                    if (hotel != null)
+                    {
+                        bank.addCardToBank(house);
+                    }
+                    return propertyCardToRemove;
+                }
+            }
+            //Card not removed
+            return null;
+        }
     }
 }

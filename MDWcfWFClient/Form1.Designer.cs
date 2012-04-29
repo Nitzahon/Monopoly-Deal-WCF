@@ -116,13 +116,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect1
             // 
-            this.buttonConnect1.Location = new System.Drawing.Point(337, 656);
+            this.buttonConnect1.Location = new System.Drawing.Point(134, 656);
             this.buttonConnect1.Name = "buttonConnect1";
-            this.buttonConnect1.Size = new System.Drawing.Size(100, 23);
+            this.buttonConnect1.Size = new System.Drawing.Size(78, 23);
             this.buttonConnect1.TabIndex = 0;
             this.buttonConnect1.Text = "Connect";
             this.buttonConnect1.UseVisualStyleBackColor = true;
@@ -323,9 +325,9 @@
             // buttonPoll
             // 
             this.buttonPoll.Enabled = false;
-            this.buttonPoll.Location = new System.Drawing.Point(16, 648);
+            this.buttonPoll.Location = new System.Drawing.Point(18, 620);
             this.buttonPoll.Name = "buttonPoll";
-            this.buttonPoll.Size = new System.Drawing.Size(97, 23);
+            this.buttonPoll.Size = new System.Drawing.Size(86, 23);
             this.buttonPoll.TabIndex = 51;
             this.buttonPoll.Text = "PollState";
             this.buttonPoll.UseVisualStyleBackColor = true;
@@ -386,7 +388,7 @@
             // 
             // buttonSelectOption
             // 
-            this.buttonSelectOption.Location = new System.Drawing.Point(18, 333);
+            this.buttonSelectOption.Location = new System.Drawing.Point(120, 561);
             this.buttonSelectOption.Name = "buttonSelectOption";
             this.buttonSelectOption.Size = new System.Drawing.Size(92, 23);
             this.buttonSelectOption.TabIndex = 57;
@@ -396,7 +398,7 @@
             // 
             // buttonJustSayNo
             // 
-            this.buttonJustSayNo.Location = new System.Drawing.Point(18, 303);
+            this.buttonJustSayNo.Location = new System.Drawing.Point(18, 333);
             this.buttonJustSayNo.Name = "buttonJustSayNo";
             this.buttonJustSayNo.Size = new System.Drawing.Size(91, 23);
             this.buttonJustSayNo.TabIndex = 58;
@@ -418,7 +420,7 @@
             // buttonDiscard1
             // 
             this.buttonDiscard1.Enabled = false;
-            this.buttonDiscard1.Location = new System.Drawing.Point(112, 245);
+            this.buttonDiscard1.Location = new System.Drawing.Point(12, 303);
             this.buttonDiscard1.Name = "buttonDiscard1";
             this.buttonDiscard1.Size = new System.Drawing.Size(100, 23);
             this.buttonDiscard1.TabIndex = 60;
@@ -518,7 +520,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(112, 648);
+            this.button2.Location = new System.Drawing.Point(113, 620);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 23);
             this.button2.TabIndex = 71;
@@ -671,17 +673,17 @@
             this.buttonPlayPropNewSetFromHand.Name = "buttonPlayPropNewSetFromHand";
             this.buttonPlayPropNewSetFromHand.Size = new System.Drawing.Size(94, 23);
             this.buttonPlayPropNewSetFromHand.TabIndex = 87;
-            this.buttonPlayPropNewSetFromHand.Text = "Play Property To New Set";
+            this.buttonPlayPropNewSetFromHand.Text = "Up Prop New Set";
             this.buttonPlayPropNewSetFromHand.UseVisualStyleBackColor = true;
             this.buttonPlayPropNewSetFromHand.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 274);
+            this.button5.Location = new System.Drawing.Point(7, 274);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(203, 23);
+            this.button5.Size = new System.Drawing.Size(121, 23);
             this.button5.TabIndex = 88;
-            this.button5.Text = "Play Property To Selected Set";
+            this.button5.Text = "PropertyToExisitingUp";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -699,9 +701,9 @@
             // listBoxDiscardPile
             // 
             this.listBoxDiscardPile.FormattingEnabled = true;
-            this.listBoxDiscardPile.Location = new System.Drawing.Point(730, 532);
+            this.listBoxDiscardPile.Location = new System.Drawing.Point(695, 532);
             this.listBoxDiscardPile.Name = "listBoxDiscardPile";
-            this.listBoxDiscardPile.Size = new System.Drawing.Size(175, 82);
+            this.listBoxDiscardPile.Size = new System.Drawing.Size(156, 56);
             this.listBoxDiscardPile.TabIndex = 91;
             // 
             // listBoxPlayers
@@ -820,9 +822,9 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(218, 656);
+            this.button10.Location = new System.Drawing.Point(7, 656);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(113, 23);
+            this.button10.Size = new System.Drawing.Size(121, 23);
             this.button10.TabIndex = 104;
             this.button10.Text = "Update GameLobby";
             this.button10.UseVisualStyleBackColor = true;
@@ -925,11 +927,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(727, 513);
+            this.label5.Location = new System.Drawing.Point(692, 513);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 13);
+            this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 115;
-            this.label5.Text = "Discard Pile";
+            this.label5.Text = "Play Pile";
             // 
             // label6
             // 
@@ -949,11 +951,33 @@
             this.label7.TabIndex = 117;
             this.label7.Text = "Lobbies";
             // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(134, 274);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(92, 23);
+            this.button11.TabIndex = 118;
+            this.button11.Text = "Property Down";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(116, 244);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(102, 23);
+            this.button12.TabIndex = 119;
+            this.button12.Text = "Down prop new";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 691);
+            this.ClientSize = new System.Drawing.Size(1008, 694);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.button11);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -1140,6 +1164,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
     }
 }
 

@@ -360,5 +360,34 @@ namespace MDWcfServiceLibrary
             BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playJustSayNo.moveBeingMade, playJustSayNo);
             return result.success;
         }
+
+        public BoolResponseBox movePropertyCard(int propertyCardToMoveID, bool isCardUp, bool moveToNewEmptySet,
+            Guid oldSetGuid, Guid setToPlayPropertyToGuid, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            //Gets the last,current and a reference for the next state
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            //Gets the PlayerModel of the Player making the move.
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            //The property card to move between sets
+            PropertyCard propertyCardToMove = monopolyDeal.deck.getCardByID(propertyCardToMoveID) as PropertyCard;
+            if (propertyCardToMove != null && checkIfCardInHand(propertyCardToMove, playerModelAtCurrentState) != null)
+            {
+                //Initialize MoveInfo for moving a property card between sets
+                MoveInfo movePropertyCardToNewSet = new MoveInfo();
+                movePropertyCardToNewSet.playerMakingMove = playerGuid;
+                movePropertyCardToNewSet.moveBeingMade = TurnActionTypes.MovePropertyCard;
+                movePropertyCardToNewSet.guidOfSetPropertyToMoveIsIn = oldSetGuid;
+                movePropertyCardToNewSet.guidOfPropertyToMove = propertyCardToMove.cardGuid;
+                movePropertyCardToNewSet.isPropertyToMoveOrientedUp = isCardUp;
+                movePropertyCardToNewSet.addPropertyToMoveToExistingSet = moveToNewEmptySet;
+                movePropertyCardToNewSet.guidOfExistingSetToMovePropertyTo = setToPlayPropertyToGuid;
+                movePropertyCardToNewSet.idOfCardBeingUsed = propertyCardToMoveID;
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, movePropertyCardToNewSet.moveBeingMade, movePropertyCardToNewSet);
+                return result;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players property card sets or is not a property card");
+        }
     }
 }

@@ -44,5 +44,24 @@ namespace MDWcfServiceLibrary
                 return false;
             }
         }
+
+        public Card removePropertyCardFromSet(PropertyCard cardToRemove, Guid propertyCardSetGuid)
+        {
+            foreach (PropertyCardSet pcs in playersPropertySets)
+            {
+                if (pcs.guid.CompareTo(propertyCardSetGuid) == 0)
+                {
+                    if (pcs.removeProperty(cardToRemove))
+                    {
+                        return cardToRemove;
+                    }
+                    else
+                    {
+                        return null; //Set Found card not removed
+                    }
+                }
+            }
+            return null;//Set not found
+        }
     }
 }

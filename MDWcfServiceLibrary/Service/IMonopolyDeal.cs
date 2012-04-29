@@ -61,14 +61,14 @@ namespace MDWcfServiceLibrary
         [OperationContract]//Player calls this method to play just say no card against action, returns true if card valid and action canceled
         Boolean playJustSayNoMD(int playedCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
-        [OperationContract]//Player calls this method to play property to set
+        [OperationContract]//Player calls this method to play property to existing set
         Boolean playPropertyCardMD(PlayerModel player, Card playedCard, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
 
         [OperationContract]//Player calls this method to play property to new set
         Boolean playPropertyCardNewSetMD(int playedCardID, bool isOrientedUp, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//Player calls this method to move a property between sets, return true if card is valid for set and is added to the set
-        Boolean movePropertyCardMD(PlayerModel player, Card propertyCard, PropertyCardSet oldSet, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
+        BoolResponseBox movePropertyCardMD(int propertyCardToMoveID, bool isCardUp, bool moveToNewEmptySet, GuidBox oldSetGuid, GuidBox setToPlayPropertyToGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//Player calls this method to give cards for payment, returns true if cards sufficent for payment, false if not
         Boolean payCardsMD(GuidBox playerPaying, List<int> cardsToPayWith, GuidBox gameLobbyGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
