@@ -9,3 +9,4 @@ C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFC
 C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\bin\Debug\MDWcfWFClient.exe.config
 C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.Form1.resources
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.Pay_Cards.resources
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.MovePropertyToNewSetForm.resources

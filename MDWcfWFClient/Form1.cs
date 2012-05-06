@@ -25,6 +25,14 @@ namespace MDWcfWFClient
         System.Windows.Forms.Timer timerForLobby = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerForPollingState = new System.Windows.Forms.Timer();
 
+        #region Move Property variables
+
+        internal Guid GuidOfPropertyCardsOriginalSet;
+        internal Guid GuidOfPropertyCardsNewSet;
+        internal int IDOfPropertyCardToMove;
+
+        #endregion Move Property variables
+
         public Form1()
         {
             InitializeComponent();
@@ -76,9 +84,6 @@ namespace MDWcfWFClient
             textBoxLog.Text = description + Environment.NewLine + textBoxLog.Text;
         }
 
-        //UI
-
-        //UI
         public void showMessage(string msg)
         {
             updateTextBoxLog(msg);
@@ -810,6 +815,8 @@ namespace MDWcfWFClient
 
         private void buttonRearrange_Click(object sender, EventArgs e)
         {
+            MovePropertyToNewSetForm moveProperty = new MovePropertyToNewSetForm(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid);
+            moveProperty.ShowDialog();
         }
 
         private void button10_Click(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace MDWcfServiceLibrary
         }
 
         [DataMember]
-        int actionCardEventID;
+        public int actionCardEventID;
         [DataMember]
         public int originalActionCardId;
         [DataMember]

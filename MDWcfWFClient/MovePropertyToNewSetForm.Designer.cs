@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listBoxPickProperty = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelPickOriginalSet = new System.Windows.Forms.Label();
             this.listBoxPickOriginalSetToRemoveCardFrom = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.listBoxPickProperty = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listBoxSetToMovePropertyTo = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.listBoxCardsInSelectedSet = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.listBoxCardsInSelectedSet = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.listBoxSetToMovePropertyTo = new System.Windows.Forms.ListBox();
+            this.buttonMoveNew = new System.Windows.Forms.Button();
+            this.buttonMoveSelected = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +58,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pick Property Card To Move";
             // 
+            // listBoxPickProperty
+            // 
+            this.listBoxPickProperty.FormattingEnabled = true;
+            this.listBoxPickProperty.Location = new System.Drawing.Point(221, 32);
+            this.listBoxPickProperty.Name = "listBoxPickProperty";
+            this.listBoxPickProperty.Size = new System.Drawing.Size(208, 82);
+            this.listBoxPickProperty.TabIndex = 5;
+            this.listBoxPickProperty.SelectedIndexChanged += new System.EventHandler(this.listBoxPickProperty_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(218, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(161, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Pick The Property Card to move.";
+            // 
             // labelPickOriginalSet
             // 
             this.labelPickOriginalSet.AutoSize = true;
@@ -74,23 +92,7 @@
             this.listBoxPickOriginalSetToRemoveCardFrom.Name = "listBoxPickOriginalSetToRemoveCardFrom";
             this.listBoxPickOriginalSetToRemoveCardFrom.Size = new System.Drawing.Size(206, 82);
             this.listBoxPickOriginalSetToRemoveCardFrom.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(218, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(161, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Pick The Property Card to move.";
-            // 
-            // listBoxPickProperty
-            // 
-            this.listBoxPickProperty.FormattingEnabled = true;
-            this.listBoxPickProperty.Location = new System.Drawing.Point(221, 32);
-            this.listBoxPickProperty.Name = "listBoxPickProperty";
-            this.listBoxPickProperty.Size = new System.Drawing.Size(208, 82);
-            this.listBoxPickProperty.TabIndex = 5;
+            this.listBoxPickOriginalSetToRemoveCardFrom.SelectedIndexChanged += new System.EventHandler(this.listBoxPickOriginalSetToRemoveCardFrom_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -105,13 +107,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pick the Set to move the Property Card To";
             // 
-            // listBoxSetToMovePropertyTo
+            // label3
             // 
-            this.listBoxSetToMovePropertyTo.FormattingEnabled = true;
-            this.listBoxSetToMovePropertyTo.Location = new System.Drawing.Point(9, 39);
-            this.listBoxSetToMovePropertyTo.Name = "listBoxSetToMovePropertyTo";
-            this.listBoxSetToMovePropertyTo.Size = new System.Drawing.Size(203, 82);
-            this.listBoxSetToMovePropertyTo.TabIndex = 0;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(221, 20);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(147, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Cards allready in selected set.";
+            // 
+            // listBoxCardsInSelectedSet
+            // 
+            this.listBoxCardsInSelectedSet.FormattingEnabled = true;
+            this.listBoxCardsInSelectedSet.Location = new System.Drawing.Point(221, 39);
+            this.listBoxCardsInSelectedSet.Name = "listBoxCardsInSelectedSet";
+            this.listBoxCardsInSelectedSet.Size = new System.Drawing.Size(208, 82);
+            this.listBoxCardsInSelectedSet.TabIndex = 2;
+            this.listBoxCardsInSelectedSet.SelectedIndexChanged += new System.EventHandler(this.listBoxCardsInSelectedSet_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -122,60 +134,54 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Sets";
             // 
-            // listBoxCardsInSelectedSet
+            // listBoxSetToMovePropertyTo
             // 
-            this.listBoxCardsInSelectedSet.FormattingEnabled = true;
-            this.listBoxCardsInSelectedSet.Location = new System.Drawing.Point(221, 39);
-            this.listBoxCardsInSelectedSet.Name = "listBoxCardsInSelectedSet";
-            this.listBoxCardsInSelectedSet.Size = new System.Drawing.Size(208, 82);
-            this.listBoxCardsInSelectedSet.TabIndex = 2;
+            this.listBoxSetToMovePropertyTo.FormattingEnabled = true;
+            this.listBoxSetToMovePropertyTo.Location = new System.Drawing.Point(9, 39);
+            this.listBoxSetToMovePropertyTo.Name = "listBoxSetToMovePropertyTo";
+            this.listBoxSetToMovePropertyTo.Size = new System.Drawing.Size(203, 82);
+            this.listBoxSetToMovePropertyTo.TabIndex = 0;
+            this.listBoxSetToMovePropertyTo.SelectedIndexChanged += new System.EventHandler(this.listBoxSetToMovePropertyTo_SelectedIndexChanged);
             // 
-            // label3
+            // buttonMoveNew
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(221, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Cards allready in selected set.";
+            this.buttonMoveNew.Location = new System.Drawing.Point(21, 294);
+            this.buttonMoveNew.Name = "buttonMoveNew";
+            this.buttonMoveNew.Size = new System.Drawing.Size(137, 44);
+            this.buttonMoveNew.TabIndex = 2;
+            this.buttonMoveNew.Text = "Move to new set";
+            this.buttonMoveNew.UseVisualStyleBackColor = true;
+            this.buttonMoveNew.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button1
+            // buttonMoveSelected
             // 
-            this.button1.Location = new System.Drawing.Point(21, 294);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 44);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Move to new set";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonMoveSelected.Location = new System.Drawing.Point(164, 294);
+            this.buttonMoveSelected.Name = "buttonMoveSelected";
+            this.buttonMoveSelected.Size = new System.Drawing.Size(140, 44);
+            this.buttonMoveSelected.TabIndex = 3;
+            this.buttonMoveSelected.Text = "Move to Selected Set";
+            this.buttonMoveSelected.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonCancel
             // 
-            this.button2.Location = new System.Drawing.Point(164, 294);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(140, 44);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Move to Selected Set";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(310, 294);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(144, 44);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Cancel";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(310, 294);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(144, 44);
+            this.buttonCancel.TabIndex = 4;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // MovePropertyToNewSetForm
             // 
-            this.AcceptButton = this.button2;
+            this.AcceptButton = this.buttonMoveSelected;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.button3;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(466, 346);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonMoveSelected);
+            this.Controls.Add(this.buttonMoveNew);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -203,8 +209,8 @@
         private System.Windows.Forms.ListBox listBoxCardsInSelectedSet;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBoxSetToMovePropertyTo;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonMoveNew;
+        private System.Windows.Forms.Button buttonMoveSelected;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }
