@@ -68,7 +68,7 @@ namespace MDWcfServiceLibrary
         Boolean playPropertyCardNewSetMD(int playedCardID, bool isOrientedUp, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//Player calls this method to move a property between sets, return true if card is valid for set and is added to the set
-        BoolResponseBox movePropertyCardMD(int propertyCardToMoveID, bool isCardUp, bool moveToNewEmptySet, GuidBox oldSetGuid, GuidBox setToPlayPropertyToGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+        BoolResponseBox movePropertyCardMD(int propertyCardToMoveID, bool isCardUp, bool moveToExistingSet, GuidBox oldSetGuid, GuidBox setToPlayPropertyToGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//Player calls this method to give cards for payment, returns true if cards sufficent for payment, false if not
         Boolean payCardsMD(GuidBox playerPaying, List<int> cardsToPayWith, GuidBox gameLobbyGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);

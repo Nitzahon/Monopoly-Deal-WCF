@@ -815,7 +815,7 @@ namespace MDWcfWFClient
 
         private void buttonRearrange_Click(object sender, EventArgs e)
         {
-            MovePropertyToNewSetForm moveProperty = new MovePropertyToNewSetForm(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid);
+            MovePropertyToNewSetForm moveProperty = new MovePropertyToNewSetForm(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD);
             moveProperty.ShowDialog();
         }
 

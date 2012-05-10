@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace MDWcfWFClient
 {
-    internal class RequestHanderMonopolyDeal
+    public class RequestHanderMonopolyDeal
     {
         private System.Threading.SynchronizationContext _uiSyncContext;
         private Form1 mainForm;
@@ -487,6 +487,26 @@ namespace MDWcfWFClient
             try
             {
                 return monopolyDealService.playJustSayNoMD(cardIDOfCardToUse, thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
+
+        internal bool moveProperty(int pickedPropertyToMove, Guid oldPropertySet, Guid newPropertySet, bool isCardUp, bool playToExistingSet)
+        {
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.BoolResponseBox response = monopolyDealService.movePropertyCardMD(
+                    pickedPropertyToMove, isCardUp, playToExistingSet, oldPropertySet.boxGuid(), newPropertySet.boxGuid(),
+                    thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+
+                addToLog(response.message);
+                return response.success;
             }
             catch (Exception ex)
             {

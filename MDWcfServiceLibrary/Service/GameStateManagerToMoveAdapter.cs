@@ -361,7 +361,7 @@ namespace MDWcfServiceLibrary
             return result.success;
         }
 
-        public BoolResponseBox movePropertyCard(int propertyCardToMoveID, bool isCardUp, bool moveToNewEmptySet,
+        public BoolResponseBox movePropertyCard(int propertyCardToMoveID, bool isCardUp, bool moveToExistingSet,
             Guid oldSetGuid, Guid setToPlayPropertyToGuid, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
         {
             //Gets the last,current and a reference for the next state
@@ -372,7 +372,7 @@ namespace MDWcfServiceLibrary
             PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
             //The property card to move between sets
             PropertyCard propertyCardToMove = monopolyDeal.deck.getCardByID(propertyCardToMoveID) as PropertyCard;
-            if (propertyCardToMove != null && checkIfCardInHand(propertyCardToMove, playerModelAtCurrentState) != null)
+            if (propertyCardToMove != null)
             {
                 //Initialize MoveInfo for moving a property card between sets
                 MoveInfo movePropertyCardToNewSet = new MoveInfo();
@@ -381,7 +381,7 @@ namespace MDWcfServiceLibrary
                 movePropertyCardToNewSet.guidOfSetPropertyToMoveIsIn = oldSetGuid;
                 movePropertyCardToNewSet.guidOfPropertyToMove = propertyCardToMove.cardGuid;
                 movePropertyCardToNewSet.isPropertyToMoveOrientedUp = isCardUp;
-                movePropertyCardToNewSet.addPropertyToMoveToExistingSet = moveToNewEmptySet;
+                movePropertyCardToNewSet.addPropertyToMoveToExistingSet = moveToExistingSet;
                 movePropertyCardToNewSet.guidOfExistingSetToMovePropertyTo = setToPlayPropertyToGuid;
                 movePropertyCardToNewSet.idOfCardBeingUsed = propertyCardToMoveID;
                 BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, movePropertyCardToNewSet.moveBeingMade, movePropertyCardToNewSet);

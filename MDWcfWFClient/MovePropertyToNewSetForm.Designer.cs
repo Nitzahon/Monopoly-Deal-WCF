@@ -41,6 +41,8 @@
             this.buttonMoveNew = new System.Windows.Forms.Button();
             this.buttonMoveSelected = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonMoveToSelectedSetDown = new System.Windows.Forms.Button();
+            this.buttonMoveNewSetDown = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -145,32 +147,54 @@
             // 
             // buttonMoveNew
             // 
-            this.buttonMoveNew.Location = new System.Drawing.Point(21, 294);
+            this.buttonMoveNew.Location = new System.Drawing.Point(12, 284);
             this.buttonMoveNew.Name = "buttonMoveNew";
-            this.buttonMoveNew.Size = new System.Drawing.Size(137, 44);
+            this.buttonMoveNew.Size = new System.Drawing.Size(132, 25);
             this.buttonMoveNew.TabIndex = 2;
-            this.buttonMoveNew.Text = "Move to new set";
+            this.buttonMoveNew.Text = "Move to new set Up";
             this.buttonMoveNew.UseVisualStyleBackColor = true;
             this.buttonMoveNew.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonMoveSelected
             // 
-            this.buttonMoveSelected.Location = new System.Drawing.Point(164, 294);
+            this.buttonMoveSelected.Location = new System.Drawing.Point(150, 284);
             this.buttonMoveSelected.Name = "buttonMoveSelected";
-            this.buttonMoveSelected.Size = new System.Drawing.Size(140, 44);
+            this.buttonMoveSelected.Size = new System.Drawing.Size(177, 25);
             this.buttonMoveSelected.TabIndex = 3;
-            this.buttonMoveSelected.Text = "Move to Selected Set";
+            this.buttonMoveSelected.Text = "Move to Selected Set Up";
             this.buttonMoveSelected.UseVisualStyleBackColor = true;
+            this.buttonMoveSelected.Click += new System.EventHandler(this.buttonMoveSelected_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(310, 294);
+            this.buttonCancel.Location = new System.Drawing.Point(333, 284);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(144, 44);
+            this.buttonCancel.Size = new System.Drawing.Size(121, 50);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonMoveToSelectedSetDown
+            // 
+            this.buttonMoveToSelectedSetDown.Location = new System.Drawing.Point(150, 311);
+            this.buttonMoveToSelectedSetDown.Name = "buttonMoveToSelectedSetDown";
+            this.buttonMoveToSelectedSetDown.Size = new System.Drawing.Size(177, 23);
+            this.buttonMoveToSelectedSetDown.TabIndex = 5;
+            this.buttonMoveToSelectedSetDown.Text = "Move To Selected Set Down";
+            this.buttonMoveToSelectedSetDown.UseVisualStyleBackColor = true;
+            this.buttonMoveToSelectedSetDown.Click += new System.EventHandler(this.buttonMoveToSelectedSetDown_Click);
+            // 
+            // buttonMoveNewSetDown
+            // 
+            this.buttonMoveNewSetDown.Location = new System.Drawing.Point(12, 311);
+            this.buttonMoveNewSetDown.Name = "buttonMoveNewSetDown";
+            this.buttonMoveNewSetDown.Size = new System.Drawing.Size(132, 23);
+            this.buttonMoveNewSetDown.TabIndex = 6;
+            this.buttonMoveNewSetDown.Text = "Move to new set Down";
+            this.buttonMoveNewSetDown.UseVisualStyleBackColor = true;
+            this.buttonMoveNewSetDown.Click += new System.EventHandler(this.buttonMoveNewSetDown_Click);
             // 
             // MovePropertyToNewSetForm
             // 
@@ -179,6 +203,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(466, 346);
+            this.Controls.Add(this.buttonMoveNewSetDown);
+            this.Controls.Add(this.buttonMoveToSelectedSetDown);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonMoveSelected);
             this.Controls.Add(this.buttonMoveNew);
@@ -212,5 +238,7 @@
         private System.Windows.Forms.Button buttonMoveNew;
         private System.Windows.Forms.Button buttonMoveSelected;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonMoveToSelectedSetDown;
+        private System.Windows.Forms.Button buttonMoveNewSetDown;
     }
 }

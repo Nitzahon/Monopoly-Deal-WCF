@@ -465,14 +465,14 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        public BoolResponseBox movePropertyCardMD(int propertyCardToMoveID, bool isCardUp, bool moveToNewEmptySet, GuidBox oldSetGuid,
+        public BoolResponseBox movePropertyCardMD(int propertyCardToMoveID, bool isCardUp, bool moveToExistiongSet, GuidBox oldSetGuid,
             GuidBox setToPlayPropertyToGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
             //Find MonopolyDealGame
             MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
             if (md != null)
             {
-                return md.getMonopolyDealGameStateManager().movePropertyCard(propertyCardToMoveID, isCardUp, moveToNewEmptySet, oldSetGuid.guid, setToPlayPropertyToGuid.guid,
+                return md.getMonopolyDealGameStateManager().movePropertyCard(propertyCardToMoveID, isCardUp, moveToExistiongSet, oldSetGuid.guid, setToPlayPropertyToGuid.guid,
                     playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
             }
             else

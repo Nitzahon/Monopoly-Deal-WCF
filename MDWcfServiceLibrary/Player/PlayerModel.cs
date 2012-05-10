@@ -157,6 +157,10 @@ namespace MDWcfServiceLibrary
                     {
                         bank.addCardToBank(house);
                     }
+                    if (ps.properties.Count == 0)
+                    {
+                        propertySets.removeEmptySet(ps);
+                    }
                     return propertyCardToRemove;
                 }
             }
@@ -168,7 +172,7 @@ namespace MDWcfServiceLibrary
         {
             foreach (PropertyCardSet ps in propertySets.playersPropertySets)
             {
-                if (ps.guid.CompareTo(propertySetToRemoveCardFromGuid) == 0 || ps.removeProperty(propertyCardToRemove))
+                if (ps.guid.CompareTo(propertySetToRemoveCardFromGuid) == 0 && ps.removeProperty(propertyCardToRemove))
                 {
                     //Card removed, remove any houses and hotels and place them in players bank
                     Card hotel = ps.removeHotel();
@@ -180,6 +184,10 @@ namespace MDWcfServiceLibrary
                     if (hotel != null)
                     {
                         bank.addCardToBank(house);
+                    }
+                    if (ps.properties.Count == 0)
+                    {
+                        propertySets.removeEmptySet(ps);
                     }
                     return propertyCardToRemove;
                 }

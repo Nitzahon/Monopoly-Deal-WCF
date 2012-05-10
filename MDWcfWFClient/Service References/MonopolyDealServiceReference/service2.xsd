@@ -252,7 +252,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="propertyCardToMoveID" type="xs:int" />
         <xs:element minOccurs="0" name="isCardUp" type="xs:boolean" />
-        <xs:element minOccurs="0" name="moveToNewEmptySet" type="xs:boolean" />
+        <xs:element minOccurs="0" name="moveToExistingSet" type="xs:boolean" />
         <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="oldSetGuid" nillable="true" type="q51:GuidBox" />
         <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="setToPlayPropertyToGuid" nillable="true" type="q52:GuidBox" />
         <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/MDWcfServiceLibrary" minOccurs="0" name="playerGuid" nillable="true" type="q53:GuidBox" />

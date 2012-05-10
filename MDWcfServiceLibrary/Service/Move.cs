@@ -891,7 +891,7 @@ namespace MDWcfServiceLibrary
         }
 
         /// <summary>
-        /// Allows a player to pay thier debt owing from rent, birthday or debt collector cards
+        /// Allows a player to pay their debt owing from rent, birthday or debt collector cards
         /// </summary>
         /// <param name="currentState"></param>
         /// <param name="nextState"></param>
@@ -1417,23 +1417,33 @@ namespace MDWcfServiceLibrary
             bool oldOrientation = ((PropertyCard)currentState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).isCardUp;
             ((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)).setPropertyColor(moveInformation.isPropertyToMoveOrientedUp);
 
-            if (getPropertyCardSet(getPlayerModel(playerPerformingAction.guid, nextState).propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo).isPropertyCompatible((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)))
+            if (moveInformation.addPropertyToMoveToExistingSet == false || getPropertyCardSet(getPlayerModel(playerPerformingAction.guid, nextState).propertySets, moveInformation.guidOfExistingSetToMovePropertyTo).isPropertyCompatible((PropertyCard)nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed)))
             {
                 //Get CurrentPlayFieldModelState
                 PropertyCard propertyCardToMove = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed) as PropertyCard;
                 PlayerModel player = getPlayerModel(playerPerformingAction.guid, nextState);
                 //Remove Property Card from it's current set.
-                if (player.removePropertyCardFromPlayersPropertySet(propertyCardToMove, moveInformation.guidOfSetPropertyToMoveIsIn) != null)
+                PropertyCard property = player.removePropertyCardFromPlayersPropertySet(propertyCardToMove, moveInformation.guidOfSetPropertyToMoveIsIn);
+                if (property != null)
                 {
                     PropertyCard cP = propertyCardToMove;
-
+                    bool propertyAdded = false;
                     cP.setPropertyColor(moveInformation.isPropertyToPlayOrientedUp);
-                    PropertyCardSet ps = getPropertyCardSet(player.propertySets, moveInformation.guidOfExistingSetToPlayPropertyTo);
-                    if (ps == null)
+                    PropertyCardSet ps = getPropertyCardSet(player.propertySets, moveInformation.guidOfExistingSetToMovePropertyTo);
+                    if (moveInformation.addPropertyToMoveToExistingSet == false)
                     {
                         player.propertySets.addSet(new PropertyCardSet(cP));
                     }
-                    else if (ps.addProperty(cP) == false)
+                    else if (ps == null)
+                    {
+                        //card was intended to be played to an existing set
+                        return new BoolResponseBox(false, "Property not moved. Selected set does not exist");
+                    }
+                    else if (ps != null)
+                    {
+                        propertyAdded = ps.addProperty(cP);
+                    }
+                    if (propertyAdded == false)
                     {
                         return new BoolResponseBox(false, "Property Card not played. Set full or card incompatible.");
                     }
