@@ -250,19 +250,18 @@ namespace MDWcfServiceLibrary
         }
 
         /// <summary>
-        /// Sets the actions each player can take after a debt has been played by a player
+        /// Sets the actions each player can take after a debt has been played by a player in the given state
         /// </summary>
-        /// <param name="state"></param>
-        /// <param name="allowedForPlayersWhoDontHaveToPay"></param>
-        /// <param name="allowedForPlayerOnTurn"></param>
-        /// <param name="playerOnTurnGuid"></param>
-        /// <param name="allowedForPlayersWhoDoHaveToPay"></param>
+        /// <param name="state">The state to update the allowable action for each player in.</param>
+        /// <param name="allowedForPlayersWhoDontHaveToPay">A list of Actions a player who does not have to pay a debt can take.</param>
+        /// <param name="allowedForPlayerOnTurn">A list of Actions the player whoes turn it is can take.</param>
+        /// <param name="playerOnTurnGuid">The Guid of the player whoes turn it is.</param>
+        /// <param name="allowedForPlayersWhoDoHaveToPay">The list of Actions allowed for players who are in debt.</param>
         private void updateAllowableStatesDebtPaid(PlayFieldModel state, List<TurnActionTypes> allowedForPlayersWhoDontHaveToPay, List<TurnActionTypes> allowedForPlayerOnTurn, Guid playerOnTurnGuid, List<TurnActionTypes> allowedForPlayersWhoDoHaveToPay)
         {
             foreach (PlayerModel p in state.playerModels)
             {
                 if (p.guid.CompareTo(playerOnTurnGuid) == 0)
-                //if (p.isThisPlayersTurn)
                 {
                     //its p's turn
                     p.actionsCurrentlyAllowed = allowedForPlayerOnTurn;
@@ -534,18 +533,18 @@ namespace MDWcfServiceLibrary
         /// <summary>
         /// Determines the type of action to perform and calls the correct method to perform it
         /// </summary>
-        /// <param name="lastState"></param>
-        /// <param name="currentState"></param>
-        /// <param name="nextState"></param>
-        /// <param name="playerPerformingAction"></param>
-        /// <param name="typeOfActionToPerform"></param>
-        /// <param name="justSayNoAble"></param>
-        /// <param name="notJustSayNoAble"></param>
-        /// <param name="rearrangeProperties"></param>
-        /// <param name="drawCardsAtTurnStart"></param>
-        /// <param name="JustSayNoUsedByOpposition"></param>
-        /// <param name="moveInformation"></param>
-        /// <param name="discard"></param>
+        /// <param name="lastState">The state previous to the current state.</param>
+        /// <param name="currentState">The current state.</param>
+        /// <param name="nextState">A reference for the next state</param>
+        /// <param name="playerPerformingAction">The Guid of the player who is performing the action.</param>
+        /// <param name="typeOfActionToPerform">The type of action the player is performing.</param>
+        /// <param name="justSayNoAble">The StatePhase the state should be if the action is performed and is able to be Just Say No'd</param>
+        /// <param name="notJustSayNoAble">The StatePhase the state should be if the action is performed and is not able to be Just Say No'd</param>
+        /// <param name="rearrangeProperties">The StatePhase the state should be if the action is performed is to move properties between sets</param>
+        /// <param name="drawCardsAtTurnStart">The StatePhase the state should be if the action is performed is to draw cards at the start of a turn</param>
+        /// <param name="JustSayNoUsedByOpposition">The StatePhase the state should be if the action is performed and is a player using a Just Say No card against an Action Card affecting them played by the player who is on their turn</param>
+        /// <param name="moveInformation">The MoveInfo containing the information required to perform the action.</param>
+        /// <param name="discard">The StatePhase the state should be if the action is performed is to end a turn and the player has to discard cards</param>
         /// <returns></returns>
         private BoolResponseBox doAppropriateAction(PlayFieldModel lastState, PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, TurnActionTypes typeOfActionToPerform, Statephase justSayNoAble, Statephase notJustSayNoAble, Statephase rearrangeProperties, Statephase drawCardsAtTurnStart, Statephase JustSayNoUsedByOpposition, MoveInfo moveInformation, Statephase discard)
         {
@@ -612,6 +611,16 @@ namespace MDWcfServiceLibrary
                     Statephase nextStatePhase = notJustSayNoAble;//TODO switch to justsaynoable
                     return playActionCardJustSayNo(currentState, nextState, playerPerformingAction, nextStatePhase, justSayNoAble, JustSayNoUsedByOpposition, moveInformation);
                 }
+                else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.RentMultiColor) == 0)
+                {
+                    Statephase nextStatePhase = justSayNoAble;
+                    return playActionCardRentMultiColor(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
+                else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.RentStandard) == 0)
+                {
+                    Statephase nextStatePhase = justSayNoAble;
+                    return playActionCardRentStandard(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
                 throw new NotImplementedException();
             }
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayJustSayNo) == 0)
@@ -625,6 +634,191 @@ namespace MDWcfServiceLibrary
             }
         }
 
+        private BoolResponseBox playActionCardRentStandard(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.RentStandard) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
+                if (card != null)
+                {
+                    RentStandard actionCard = card as RentStandard;
+                    PropertyCardSet ps = getPropertyCardSet(playerModelForPlayer.propertySets, moveInformation.guidOfSetToCollectRentOn);
+                    if (ps != null && actionCard != null)
+                    {
+                        //If rent card can be used on property group as the colours match
+                        if (ps.getPropertySetColor().CompareTo(actionCard.colorUp) == 0 || ps.getPropertySetColor().CompareTo(actionCard.colorDown) == 0)
+                        {
+                            PropertySetInfo psinfo = new PropertySetInfo(ps.getPropertySetColor());
+                            int rentValue = psinfo.getRentValue(ps.getPropertySetColor(), ps.properties.Count, ps.hasHouse, ps.hasHotel);
+                            //Double the rent card is being used
+                            if (moveInformation.isDoubleTheRentCardBeingUsed == true)
+                            {
+                                ActionCard cardDoubleTheRentPlayed = removeCardFromHand(nextState.deck.getCardByID(moveInformation.idOfDoubleTheRentCardBeingUsed), playerModelForPlayer) as ActionCard;
+                                if (cardDoubleTheRentPlayed != null && cardDoubleTheRentPlayed.actionType.CompareTo(ActionCardAction.DoubleTheRent) == 0)
+                                {
+                                    //Check if the player has not played more than one card on turn so far
+                                    if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played) == 0 || currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0)
+                                    {
+                                        rentValue *= 2;
+                                    }
+                                    else
+                                    {
+                                        return new BoolResponseBox(false, "Can not use double the rent card as you do not have enough card plays left in your turn");
+                                    }
+                                }
+                                else
+                                {
+                                    //Card is not in hand
+                                    return new BoolResponseBox(false, "Double the rent card selected is not in players hand");
+                                }
+                            }
+
+                            //Do action
+
+                            foreach (PlayerModel p in nextState.playerModels)
+                            {
+                                if (p.guid.CompareTo(playerPerformingAction.guid) != 0)
+                                {
+                                    p.owesAnotherPlayer = true;
+                                    p.amountOwedToAnotherPlayer = rentValue;
+                                }
+                                else
+                                {
+                                    //Player on turn does not have to pay rent
+                                }
+                            }
+
+                            //Change state on success
+                            //has been performed, advance the phase of the game
+                            nextState.currentPhase = nextStatePhase;
+                            //Put card in discard pile
+                            nextState.playpile.playCardOnPile(actionCard);
+                            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                            updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
+
+                            nextState.actionCardEvent = new ActionCardEvent();
+                            nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+                            nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.RentStandard;
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Rent Card");
+                        }
+                    }
+                }
+
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card is not in hand or is not a Debt Collector card");
+        }
+
+        /// <summary>
+        /// Plays a Wild Rent Card on a players turn.
+        /// </summary>
+        /// <param name="currentState"></param>
+        /// <param name="nextState"></param>
+        /// <param name="playerPerformingAction"></param>
+        /// <param name="nextStatePhase"></param>
+        /// <param name="moveInformation"></param>
+        /// <returns></returns>
+        private BoolResponseBox playActionCardRentMultiColor(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+            PlayerModel playerModelForPlayerToRent = getPlayerModel(moveInformation.guidOfPlayerToPayRent, nextState);
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.RentMultiColor) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    PropertyCardSet ps = getPropertyCardSet(playerModelForPlayer.propertySets, moveInformation.guidOfSetToCollectRentOnAgainstOnePlayer);
+                    if (ps != null)
+                    {
+                        //rent card is wild so is compatible
+                        PropertySetInfo psinfo = new PropertySetInfo(ps.getPropertySetColor());
+                        int rentValue = psinfo.getRentValue(ps.getPropertySetColor(), ps.properties.Count, ps.hasHouse, ps.hasHotel);
+                        //Double the rent card is being used
+                        if (moveInformation.isDoubleTheRentCardBeingUsed == true)
+                        {
+                            ActionCard cardDoubleTheRentPlayed = removeCardFromHand(nextState.deck.getCardByID(moveInformation.idOfDoubleTheRentCardBeingUsed), playerModelForPlayer) as ActionCard;
+                            if (cardDoubleTheRentPlayed != null && cardDoubleTheRentPlayed.actionType.CompareTo(ActionCardAction.DoubleTheRent) == 0)
+                            {
+                                //Check if the player has not played more than one card on turn so far
+                                if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played) == 0 || currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0)
+                                {
+                                    rentValue *= 2;
+                                }
+                                else
+                                {
+                                    return new BoolResponseBox(false, "Can not use double the rent card as you do not have enough card plays left in your turn");
+                                }
+                            }
+                            else
+                            {
+                                //Card is not in hand
+                                return new BoolResponseBox(false, "Double the rent card selected is not in players hand");
+                            }
+                        }
+
+                        //Do action
+                        playerModelForPlayerToRent.owesAnotherPlayer = true;
+                        playerModelForPlayerToRent.amountOwedToAnotherPlayer = rentValue;
+
+                        //Change state on success
+                        //has been performed, advance the phase of the game
+                        nextState.currentPhase = nextStatePhase;
+                        //Put card in discard pile
+                        nextState.playpile.playCardOnPile(actionCard);
+                        List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                        List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                        onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                        updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
+
+                        nextState.actionCardEvent = new ActionCardEvent();
+                        nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+                        nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.RentMultiColor;
+                        //change the current state to the next state
+                        addNextState(nextState);
+                        return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Wild Rent Card");
+                    }
+                }
+
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card is not in hand or is not a Wild Rent card");
+        }
+
+        /// <summary>
+        /// Allows a player to play a just say no on their turn or when an action is played against them
+        /// </summary>
+        /// <param name="currentState"></param>
+        /// <param name="nextState"></param>
+        /// <param name="playerPerformingAction"></param>
+        /// <param name="nextStatePhase"></param>
+        /// <param name="justSayNoAble"></param>
+        /// <param name="JustSayNoUsedByOpposition"></param>
+        /// <param name="moveInformation"></param>
+        /// <returns></returns>
         private BoolResponseBox playActionCardJustSayNo(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, Statephase justSayNoAble, Statephase JustSayNoUsedByOpposition, MoveInfo moveInformation)
         {
             #region Player not on turn canceling effect of ActionCard being played against them
@@ -689,7 +883,7 @@ namespace MDWcfServiceLibrary
                             justSayNoUsedAgainstDebt.actionTypeTaken = TurnActionTypes.PlayJustSayNo;//The action type taken
                             justSayNoUsedAgainstDebt.playerAffectedByAction = playerModelForPlayerPaying.guid;//The player using a just say no to cancel the debt incurring card
                             justSayNoUsedAgainstDebt.playerWhoPerformedActionOnTurn = playerModelForPlayerToBePaid.guid;//The player who played a debt inccuring card who can play a just say not against the cancelling players just say no
-
+                            //Set the action card event
                             nextState.actionCardEvent = justSayNoUsedAgainstDebt;
 
                             //Player has now paid debt
@@ -715,11 +909,24 @@ namespace MDWcfServiceLibrary
                 }
 
                 #endregion Just Say No used against debt incurring card
+
+                else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DealBreaker) == 0)
+                {
+                    throw new NotImplementedException("Canceling a deal breaker card is not implemented");
+                }
+                else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ForcedDeal) == 0)
+                {
+                    throw new NotImplementedException("Canceling a forced deal card is not implemented");
+                }
+                else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.SlyDeal) == 0)
+                {
+                    throw new NotImplementedException("Canceling a sly deal card is not implemented");
+                }
             }
 
             #endregion Player not on turn canceling effect of ActionCard being played against them
 
-            #region Player is playing a Just Say No to Cancel the Effect of another ActionCard(Excluding Just Say No) against them
+            #region Player on turn is playing a Just Say No to Cancel the Effect of another Just Say No against them
 
             else if (currentState.actionCardEvent.actionJustSayNoUsedByAffectedPlayer == true)
             {
@@ -739,10 +946,15 @@ namespace MDWcfServiceLibrary
                     }
 
                     #endregion Debt Collector Redo
+
+                    else
+                    {
+                        throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
+                    }
                 }
             }
 
-            #endregion Player is playing a Just Say No to Cancel the Effect of another ActionCard(Excluding Just Say No) against them
+            #endregion Player on turn is playing a Just Say No to Cancel the Effect of another Just Say No against them
 
             else
             {

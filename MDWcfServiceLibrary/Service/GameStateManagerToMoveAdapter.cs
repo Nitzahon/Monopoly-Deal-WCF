@@ -389,5 +389,56 @@ namespace MDWcfServiceLibrary
             }
             return new BoolResponseBox(false, "Selected Card is not in players property card sets or is not a property card");
         }
+
+        public BoolResponseBox wildRentCard(int playedCardID, Guid playerTargetedGuid, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            ActionCard playedActionCard = monopolyDeal.deck.getCardByID(playedCardID) as ActionCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo playWildRent = new MoveInfo();
+                playWildRent.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
+                playWildRent.playerMakingMove = playerGuid;
+                playWildRent.moveBeingMade = TurnActionTypes.PlayActionCard;
+                playWildRent.idOfCardBeingUsed = playedCardID;
+
+                playWildRent.actionCardActionType = ActionCardAction.RentMultiColor;
+
+                playWildRent.guidOfPlayerToPayRent = playerTargetedGuid;
+                playWildRent.guidOfSetToCollectRentOnAgainstOnePlayer = setOfPropertiesToRentOn;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playWildRent.moveBeingMade, playWildRent);
+                return result;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
+        }
+
+        public BoolResponseBox standardRentCard(int playedCard, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            ActionCard playedActionCard = monopolyDeal.deck.getCardByID(playedCard) as ActionCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo playStandardRent = new MoveInfo();
+                playStandardRent.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
+                playStandardRent.playerMakingMove = playerGuid;
+                playStandardRent.moveBeingMade = TurnActionTypes.PlayActionCard;
+                playStandardRent.idOfCardBeingUsed = playedCard;
+
+                playStandardRent.actionCardActionType = ActionCardAction.RentMultiColor;
+
+                playStandardRent.guidOfSetToCollectRentOn = setOfPropertiesToRentOn;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playStandardRent.moveBeingMade, playStandardRent);
+                return result;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
+        }
     }
 }

@@ -481,14 +481,32 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        public bool playWildRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PlayerModel playerTargeted, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        public BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, GuidBox playerTargetedGuid, GuidBox setOfPropertiesToRentOnGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
-            throw new NotImplementedException();
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().wildRentCard(playedCardID, playerTargetedGuid.guid, setOfPropertiesToRentOnGuid.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
         }
 
-        public bool playStandardRentActionCardOnTurnMD(PlayerModel player, Card playedCard, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
+        public BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, GuidBox setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
-            throw new NotImplementedException();
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().standardRentCard(playedCard, setOfPropertiesToRentOn.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
         }
     }
 }

@@ -48,5 +48,9 @@ namespace MDWcfServiceLibrary
         bool playActionCardJustSayNo(int playedCard, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
 
         BoolResponseBox movePropertyCard(int propertyCardToMoveID, bool isCardUp, bool moveToExistingSet, Guid oldSetGuid, Guid setToPlayPropertyToGuid, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        BoolResponseBox wildRentCard(int playedCardID, Guid playerTargetedGuid, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        BoolResponseBox standardRentCard(int playedCard, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
     }
 }
