@@ -431,7 +431,7 @@ namespace MDWcfServiceLibrary
                 playStandardRent.moveBeingMade = TurnActionTypes.PlayActionCard;
                 playStandardRent.idOfCardBeingUsed = playedCard;
 
-                playStandardRent.actionCardActionType = ActionCardAction.RentMultiColor;
+                playStandardRent.actionCardActionType = ActionCardAction.RentStandard;
 
                 playStandardRent.guidOfSetToCollectRentOn = setOfPropertiesToRentOn;
 

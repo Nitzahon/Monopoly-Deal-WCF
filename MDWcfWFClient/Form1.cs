@@ -25,14 +25,6 @@ namespace MDWcfWFClient
         System.Windows.Forms.Timer timerForLobby = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerForPollingState = new System.Windows.Forms.Timer();
 
-        #region Move Property variables
-
-        internal Guid GuidOfPropertyCardsOriginalSet;
-        internal Guid GuidOfPropertyCardsNewSet;
-        internal int IDOfPropertyCardToMove;
-
-        #endregion Move Property variables
-
         public Form1()
         {
             InitializeComponent();
@@ -549,6 +541,14 @@ namespace MDWcfWFClient
             listBoxAllPlayersPlayedCards.DisplayMember = "description";
             listBoxCardsToPayWith.DataSource = playersSelectedToPayWithCards;
             listBoxCardsToPayWith.DisplayMember = "description";
+            foreach (MonopolyDealServiceReference.PlayerModel p in requestHandlerMD.CurrentPlayFieldModel.playerModels)
+            {
+                if (p.guid.CompareTo(requestHandlerMD.thisClientGuid) == 0)
+                {
+                    labelAmountToPay.Text = "Total Amount of Debt: $M" + p.amountOwedToAnotherPlayer.ToString();
+                    break;
+                }
+            }
         }
 
         /// <summary>
@@ -661,6 +661,25 @@ namespace MDWcfWFClient
                     {
                         MessageBox.Show("Action not performed");
                     }
+                }
+                else if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.RentMultiColor) == 0)
+                {
+                    MessageBox.Show("Playing a wild rent card");
+                    if (playerTargeted.guid.CompareTo(requestHandlerMD.thisClientGuid) == 0)
+                    {
+                        MessageBox.Show("Can not rent yourself");
+                    }
+                    else
+                    {
+                        PickSetToRentOn rent = new PickSetToRentOn(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD, card, playerTargeted.guid);
+                        rent.ShowDialog();
+                    }
+                }
+                else if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.RentStandard) == 0)
+                {
+                    MessageBox.Show("Playing a standard rent card");
+                    PickSetToRentOn rent = new PickSetToRentOn(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD, card, new Guid());
+                    rent.ShowDialog();
                 }
             }
             //Update State
@@ -873,6 +892,7 @@ namespace MDWcfWFClient
         private void buttonPay_Click(object sender, EventArgs e)
         {
             requestHandlerMD.payDebt(playersSelectedToPayWithCards);
+
             bindPlayerPayDebt(requestHandlerMD.CurrentPlayFieldModel);
             playersPlayedCards = new List<MonopolyDealServiceReference.Card>();
             playersSelectedToPayWithCards = new List<MonopolyDealServiceReference.Card>();

@@ -214,5 +214,9 @@ namespace MDWcfWFClient
         {
             MessageBox.Show("Move property cancelled");
         }
+
+        private void MovePropertyToNewSetForm_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

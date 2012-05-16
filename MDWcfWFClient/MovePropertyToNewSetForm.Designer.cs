@@ -215,6 +215,7 @@
             this.Name = "MovePropertyToNewSetForm";
             this.Text = "MovePropertyToNewSetForm";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.MovePropertyToNewSetForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

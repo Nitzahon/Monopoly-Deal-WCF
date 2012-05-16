@@ -515,5 +515,32 @@ namespace MDWcfWFClient
             }
             return false;
         }
+
+        internal bool useRentCard(int RentCard, Guid selectedSet, bool usingDoubleTheRent, int doubleTheRentCard, bool isWildRentCard, Guid targetedPlayer)
+        {
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.BoolResponseBox response;
+                if (isWildRentCard)
+                {
+                    response = monopolyDealService.playWildRentActionCardOnTurnMD(RentCard, targetedPlayer.boxGuid(), selectedSet.boxGuid(),
+                        thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                }
+                else
+                {
+                    response = monopolyDealService.playStandardRentActionCardOnTurnMD(RentCard, selectedSet.boxGuid(),
+                        thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                }
+                addToLog(response.message);
+                return response.success;
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
     }
 }

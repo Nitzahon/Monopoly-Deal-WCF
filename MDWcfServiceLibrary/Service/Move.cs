@@ -715,12 +715,16 @@ namespace MDWcfServiceLibrary
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Rent Card");
                         }
+                        else
+                        {
+                            return new BoolResponseBox(false, "Rent card is not able to be played on selected property set as the set colour is not compatible.");
+                        }
                     }
                 }
 
                 return new BoolResponseBox(false, "Card is not in hand.");
             }
-            return new BoolResponseBox(false, "Card is not in hand or is not a Debt Collector card");
+            return new BoolResponseBox(false, "Card is not in hand or is not a Standard Rent card");
         }
 
         /// <summary>
@@ -882,7 +886,7 @@ namespace MDWcfServiceLibrary
                             justSayNoUsedAgainstDebt.debtAmount = playerModelForPlayerPaying.amountOwedToAnotherPlayer;//The amount the player would owe if a just say no is played against thier just say no
                             justSayNoUsedAgainstDebt.actionTypeTaken = TurnActionTypes.PlayJustSayNo;//The action type taken
                             justSayNoUsedAgainstDebt.playerAffectedByAction = playerModelForPlayerPaying.guid;//The player using a just say no to cancel the debt incurring card
-                            justSayNoUsedAgainstDebt.playerWhoPerformedActionOnTurn = playerModelForPlayerToBePaid.guid;//The player who played a debt inccuring card who can play a just say not against the cancelling players just say no
+                            justSayNoUsedAgainstDebt.playerWhoPerformedActionOnTurn = currentState.guidOfPlayerWhosTurnItIs;//The player on turn who played a debt inccuring card who can play a just say not against the cancelling players just say no
                             //Set the action card event
                             nextState.actionCardEvent = justSayNoUsedAgainstDebt;
 
@@ -910,6 +914,8 @@ namespace MDWcfServiceLibrary
 
                 #endregion Just Say No used against debt incurring card
 
+                #region Just Say No used against non-debt incurring card
+
                 else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DealBreaker) == 0)
                 {
                     throw new NotImplementedException("Canceling a deal breaker card is not implemented");
@@ -922,6 +928,8 @@ namespace MDWcfServiceLibrary
                 {
                     throw new NotImplementedException("Canceling a sly deal card is not implemented");
                 }
+
+                #endregion Just Say No used against non-debt incurring card
             }
 
             #endregion Player not on turn canceling effect of ActionCard being played against them
@@ -937,20 +945,44 @@ namespace MDWcfServiceLibrary
                     //Clone the current state to create next state
                     nextState = currentState.clone(generateGuidForNextState());
 
-                    #region Debt Collector Redo
+                    #region Debt Redo
 
                     if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DebtCollector) == 0)
                     {
                         //Card Played was a debt collector card
                         replayActionCardDebtCollector(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
                     }
+                    else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ItsMyBirthday) == 0)
+                    {
+                        replayActionCardItsMyBirthday(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
+                    }
+                    else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.RentStandard) == 0)
+                    {
+                        replayActionCardRentStandard(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
+                    }
+                    else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.RentMultiColor) == 0)
+                    {
+                        replayActionCardRentWild(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
+                    }
 
-                    #endregion Debt Collector Redo
+                    #endregion Debt Redo
 
                     else
                     {
                         throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
                     }
+                }
+                else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DealBreaker) == 0)
+                {
+                    throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
+                }
+                else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ForcedDeal) == 0)
+                {
+                    throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
+                }
+                else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.SlyDeal) == 0)
+                {
+                    throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
                 }
             }
 
@@ -961,6 +993,86 @@ namespace MDWcfServiceLibrary
                 //RollBack neccessary
             }
             return new BoolResponseBox(false, "Not able to use a just say no card at this time");
+        }
+
+        private BoolResponseBox replayActionCardRentStandard(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerModel, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            //Get the reference to the players playerModel in the current PlayFieldModel
+            //Do action
+
+            foreach (PlayerModel p in nextState.playerModels)
+            {
+                if (p.guid.CompareTo(currentState.actionCardEvent.playerAffectedByAction) != 0)
+                {
+                    p.owesAnotherPlayer = true;
+                    p.amountOwedToAnotherPlayer = currentState.actionCardEvent.debtAmount;
+                    break;//Only replay for the player who used a just say no against debt
+                }
+                else
+                {
+                    //Player on turn does not have to pay rent
+                }
+            }
+
+            //Change state on success
+            //has been performed, advance the phase of the game
+            nextState.currentPhase = nextStatePhase;
+            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+            updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
+
+            nextState.actionCardEvent = new ActionCardEvent();
+            nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+            nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.RentStandard;
+            //change the current state to the next state
+            addNextState(nextState);
+            return new BoolResponseBox(true, "Player:" + getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, currentState).name + " Has used a Rent Card after a Just Say No");
+        }
+
+        private BoolResponseBox replayActionCardRentWild(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerModel, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            //Get the reference to the players playerModel in the current PlayFieldModel
+            //Do action
+
+            foreach (PlayerModel p in nextState.playerModels)
+            {
+                if (p.guid.CompareTo(currentState.actionCardEvent.playerAffectedByAction) != 0)
+                {
+                    p.owesAnotherPlayer = true;
+                    p.amountOwedToAnotherPlayer = currentState.actionCardEvent.debtAmount;
+                    break;//Only replay for the player who used a just say no against debt
+                }
+                else
+                {
+                    //Player on turn does not have to pay rent
+                }
+            }
+
+            //Change state on success
+            //has been performed, advance the phase of the game
+            nextState.currentPhase = nextStatePhase;
+            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+            updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
+
+            nextState.actionCardEvent = new ActionCardEvent();
+            nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+            nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.RentMultiColor;
+            //change the current state to the next state
+            addNextState(nextState);
+            return new BoolResponseBox(true, "Player:" + getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, currentState).name + " Has used a Wild Rent Card after a Just Say No");
         }
 
         /// <summary>
@@ -1023,6 +1135,39 @@ namespace MDWcfServiceLibrary
             return new BoolResponseBox(false, "Card is not in hand or is not a It's my birthday card");
         }
 
+        private BoolResponseBox replayActionCardItsMyBirthday(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            ActionCardEvent acevent = currentState.actionCardEvent;
+
+            foreach (PlayerModel player in nextState.playerModels)
+            {
+                if (player.guid.CompareTo(acevent.playerAffectedByAction) != 0)
+                {
+                    player.owesAnotherPlayer = true;
+                    player.amountOwedToAnotherPlayer = ActionCard.Its_My_Birthday_Value;
+                    break;
+                }
+            }
+
+            //Change state on success
+            //has been performed, advance the phase of the game
+            nextState.currentPhase = nextStatePhase;
+            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+            updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
+            nextState.actionCardEvent = new ActionCardEvent();
+            nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+            nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.ItsMyBirthday;
+            //change the current state to the next state
+            addNextState(nextState);
+            return new BoolResponseBox(true, "Player:" + getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, currentState).name + " Has used a It's My Birthday after Just Say No");
+        }
+
         /// <summary>
         /// Determines if a Player has enough cards to pay Debt
         /// </summary>
@@ -1074,6 +1219,16 @@ namespace MDWcfServiceLibrary
         {
             List<Card> cardsTaken = new List<Card>();
             //Find players net worth to see if they have payed everthing they have
+            while (player.bank.cardsInBank.Count > 0)
+            {
+                Card c = player.bank.cardsInBank.Last();
+                Card card = player.bank.removeCardFromBank(c);
+                if (card != null)
+                {
+                    cardsTaken.Add(card);
+                }
+            }
+            /* Cannot remove objects from set being iterated over in foreach loop
             foreach (Card c in player.bank.cardsInBank)
             {
                 Card card = player.bank.removeCardFromBank(c);
@@ -1082,8 +1237,10 @@ namespace MDWcfServiceLibrary
                     cardsTaken.Add(card);
                 }
             }
-            foreach (PropertyCardSet ps in player.propertySets.playersPropertySets)
+             * */
+            while (player.propertySets.playersPropertySets.Count > 0)
             {
+                PropertyCardSet ps = player.propertySets.playersPropertySets.Last();
                 foreach (Card c in ps.properties)
                 {
                     cardsTaken.Add(c);
@@ -1100,6 +1257,27 @@ namespace MDWcfServiceLibrary
                 player.propertySets.removeEmptySet(ps);
             }
             return cardsTaken;
+
+            /* As the sets are being removed in foreach the code is invalid
+                foreach (PropertyCardSet ps in player.propertySets.playersPropertySets)
+                {
+                    foreach (Card c in ps.properties)
+                    {
+                        cardsTaken.Add(c);
+                    }
+                    if (ps.hasHouse)
+                    {
+                        cardsTaken.Add(ps.removeHouse());
+                        if (ps.hasHotel)
+                        {
+                            cardsTaken.Add(ps.removeHotel());
+                        }
+                    }
+                    //player property set now empty remove the set from the player
+                    player.propertySets.removeEmptySet(ps);
+                }
+                return cardsTaken;
+             * */
         }
 
         /// <summary>
@@ -1170,6 +1348,7 @@ namespace MDWcfServiceLibrary
                 {
                     return new BoolResponseBox(false, "Player has enough played cards to pay debt but has not selected enough to pay.");
                 }
+
                 else
                 {
                     //Player does not have enough to pay. Take all players played cards
@@ -1301,7 +1480,7 @@ namespace MDWcfServiceLibrary
             //Perform action in next state
             //Clone the current state to create next state
             nextState = currentState.clone(generateGuidForNextState());
-            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+            PlayerModel playerModelForPlayer = getPlayerModel(nextState.guidOfPlayerWhosTurnItIs, nextState);
             PlayerModel playerModelForPlayerToDebtCollect = getPlayerModel(debtCollectorInfo.guidOfPlayerBeingDebtCollected, nextState);
             //Get the reference to the players playerModel in the current PlayFieldModel
 
