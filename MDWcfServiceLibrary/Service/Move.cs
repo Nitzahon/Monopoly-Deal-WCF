@@ -634,6 +634,15 @@ namespace MDWcfServiceLibrary
             }
         }
 
+        /// <summary>
+        /// Plays a Standard Rent Action Card on a players turn.
+        /// </summary>
+        /// <param name="currentState"></param>
+        /// <param name="nextState"></param>
+        /// <param name="playerPerformingAction"></param>
+        /// <param name="nextStatePhase"></param>
+        /// <param name="moveInformation"></param>
+        /// <returns></returns>
         private BoolResponseBox playActionCardRentStandard(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
         {
             //Check
@@ -659,6 +668,11 @@ namespace MDWcfServiceLibrary
                         {
                             PropertySetInfo psinfo = new PropertySetInfo(ps.getPropertySetColor());
                             int rentValue = psinfo.getRentValue(ps.getPropertySetColor(), ps.properties.Count, ps.hasHouse, ps.hasHotel);
+
+                            nextState.actionCardEvent = new ActionCardEvent();
+                            nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+                            nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.RentStandard;
+                            nextState.actionCardEvent.doubleTheRentCardUsed = false;
                             //Double the rent card is being used
                             if (moveInformation.isDoubleTheRentCardBeingUsed == true)
                             {
@@ -666,9 +680,15 @@ namespace MDWcfServiceLibrary
                                 if (cardDoubleTheRentPlayed != null && cardDoubleTheRentPlayed.actionType.CompareTo(ActionCardAction.DoubleTheRent) == 0)
                                 {
                                     //Check if the player has not played more than one card on turn so far
-                                    if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played) == 0 || currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0)
+                                    if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played) == 0)
                                     {
                                         rentValue *= 2;
+                                        nextState.actionCardEvent.doubleTheRentCardUsed = true;
+                                    }
+                                    else if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0)
+                                    {
+                                        rentValue *= 2;
+                                        nextState.actionCardEvent.doubleTheRentCardUsed = true;
                                     }
                                     else
                                     {
@@ -708,9 +728,6 @@ namespace MDWcfServiceLibrary
 
                             updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
 
-                            nextState.actionCardEvent = new ActionCardEvent();
-                            nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
-                            nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.RentStandard;
                             //change the current state to the next state
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Rent Card");
@@ -760,6 +777,12 @@ namespace MDWcfServiceLibrary
                         //rent card is wild so is compatible
                         PropertySetInfo psinfo = new PropertySetInfo(ps.getPropertySetColor());
                         int rentValue = psinfo.getRentValue(ps.getPropertySetColor(), ps.properties.Count, ps.hasHouse, ps.hasHotel);
+
+                        nextState.actionCardEvent = new ActionCardEvent();
+                        nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+                        nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.RentMultiColor;
+                        nextState.actionCardEvent.doubleTheRentCardUsed = false;
+
                         //Double the rent card is being used
                         if (moveInformation.isDoubleTheRentCardBeingUsed == true)
                         {
@@ -770,6 +793,7 @@ namespace MDWcfServiceLibrary
                                 if (currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played) == 0 || currentState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0)
                                 {
                                     rentValue *= 2;
+                                    nextState.actionCardEvent.doubleTheRentCardUsed = true;
                                 }
                                 else
                                 {
@@ -798,9 +822,6 @@ namespace MDWcfServiceLibrary
 
                         updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
 
-                        nextState.actionCardEvent = new ActionCardEvent();
-                        nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
-                        nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.RentMultiColor;
                         //change the current state to the next state
                         addNextState(nextState);
                         return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Wild Rent Card");
@@ -991,6 +1012,7 @@ namespace MDWcfServiceLibrary
             else
             {
                 //RollBack neccessary
+                return new BoolResponseBox(false, "Just Say No canceled.");
             }
             return new BoolResponseBox(false, "Not able to use a just say no card at this time");
         }
@@ -1385,7 +1407,28 @@ namespace MDWcfServiceLibrary
             else
             {
                 //No other players have to pay debt
-                nextStatePhaseIfSuccessful = notJustSayNoAble;
+                if (currentState.actionCardEvent != null && currentState.actionCardEvent.doubleTheRentCardUsed)
+                {
+                    if (notJustSayNoAble.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0)
+                    {
+                        //zero cards played before turn. Advance to 2 cards played as double the rent counts as a card played
+                        nextStatePhaseIfSuccessful = Statephase.Turn_Started_Cards_Drawn_2_Cards_Played;
+                    }
+                    else if (notJustSayNoAble.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played) == 0)
+                    {
+                        //one card played before turn. Advance to 3 cards played as double the rent counts as a card played
+                        nextStatePhaseIfSuccessful = Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only;
+                    }
+                    else
+                    {
+                        //Double the rent card should not have been used
+                        throw new Exception("Invalid State");
+                    }
+                }
+                else
+                {
+                    nextStatePhaseIfSuccessful = notJustSayNoAble;
+                }
             }
             nextState.currentPhase = nextStatePhaseIfSuccessful;
             if (nextStatePhaseIfSuccessful.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0 || nextStatePhaseIfSuccessful.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played) == 0 || nextStatePhaseIfSuccessful.CompareTo(Statephase.Turn_Started_Cards_Drawn_3_Cards_Played_Swap_Properties_Or_End_Turn_Only) == 0)

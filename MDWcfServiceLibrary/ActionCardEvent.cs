@@ -42,5 +42,7 @@ namespace MDWcfServiceLibrary
         public bool actionJustSayNoUsedByOnTurnPlayer;
         [DataMember]
         public int debtAmount;
+        [DataMember]
+        public bool doubleTheRentCardUsed;
     }
 }
