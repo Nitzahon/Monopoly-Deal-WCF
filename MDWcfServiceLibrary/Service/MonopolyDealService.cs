@@ -508,5 +508,75 @@ namespace MDWcfServiceLibrary
                 return new BoolResponseBox(false, "Can not find game");
             }
         }
+
+        public BoolResponseBox playActionCardSlyDealMD(int slyDealCardID, GuidBox targetedPlayerGuid, int targetedCard, GuidBox setTargetCardIn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().slyDealCard(slyDealCardID, targetedPlayerGuid.guid, targetedCard, setTargetCardIn.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
+        }
+
+        public BoolResponseBox playActionCardForcedDealMD(int forcedDealCardID, int playersCardToSwapWith, GuidBox setPlayersCardIsIn, GuidBox targetedPlayerGuid, int targetedCard, GuidBox setTargetCardIn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().forcedDealCard(forcedDealCardID, playersCardToSwapWith, setPlayersCardIsIn.guid, targetedPlayerGuid.guid, targetedCard, setTargetCardIn.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
+        }
+
+        public BoolResponseBox playActionCardDealBreakerMD(int dealBreakerCardID, GuidBox targetedPlayerGuid, GuidBox setTargeted, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().dealBreakerCard(dealBreakerCardID, targetedPlayerGuid.guid, setTargeted.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
+        }
+
+        public BoolResponseBox playHouseMD(int playedCardID, GuidBox setOfPropertiesToAddHouseTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().houseCard(playedCardID, setOfPropertiesToAddHouseTo.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
+        }
+
+        public BoolResponseBox playHotelMD(int playedCardID, GuidBox setOfPropertiesToAddHotelTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().hotelCard(playedCardID, setOfPropertiesToAddHotelTo.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
+        }
     }
 }

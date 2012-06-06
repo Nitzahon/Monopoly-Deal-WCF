@@ -96,6 +96,44 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_hasGameStartedMD_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_hasGameStartedMD_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="HttpBinding_connectToLobby_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -932,6 +970,120 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playActionCardSlyDealMD_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playActionCardSlyDealMD_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playActionCardForcedDealMD_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playActionCardForcedDealMD_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playActionCardDealBreakerMD_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playActionCardDealBreakerMD_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="HttpBinding_draw5AtStartOfTurnMD_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -970,7 +1122,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="HttpBinding_hasGameStartedMD_Input_policy">
+  <wsp:Policy wsu:Id="HttpBinding_playHouseMD_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -989,7 +1141,45 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="HttpBinding_hasGameStartedMD_output_policy">
+  <wsp:Policy wsu:Id="HttpBinding_playHouseMD_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playHotelMD_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="HttpBinding_playHotelMD_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -1045,6 +1235,12 @@
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IMonopolyDeal_hasGameStartedMD_InputMessage">
+    <wsdl:part name="parameters" element="tns:hasGameStartedMD" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_hasGameStartedMD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:hasGameStartedMDResponse" />
+  </wsdl:message>
   <wsdl:message name="IMonopolyDeal_connectToLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:connectToLobby" />
   </wsdl:message>
@@ -1177,19 +1373,47 @@
   <wsdl:message name="IMonopolyDeal_playActionCardDebtCollectorMD_OutputMessage">
     <wsdl:part name="parameters" element="tns:playActionCardDebtCollectorMDResponse" />
   </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playActionCardSlyDealMD_InputMessage">
+    <wsdl:part name="parameters" element="tns:playActionCardSlyDealMD" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playActionCardSlyDealMD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:playActionCardSlyDealMDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playActionCardForcedDealMD_InputMessage">
+    <wsdl:part name="parameters" element="tns:playActionCardForcedDealMD" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playActionCardForcedDealMD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:playActionCardForcedDealMDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playActionCardDealBreakerMD_InputMessage">
+    <wsdl:part name="parameters" element="tns:playActionCardDealBreakerMD" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playActionCardDealBreakerMD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:playActionCardDealBreakerMDResponse" />
+  </wsdl:message>
   <wsdl:message name="IMonopolyDeal_draw5AtStartOfTurnMD_InputMessage">
     <wsdl:part name="parameters" element="tns:draw5AtStartOfTurnMD" />
   </wsdl:message>
   <wsdl:message name="IMonopolyDeal_draw5AtStartOfTurnMD_OutputMessage">
     <wsdl:part name="parameters" element="tns:draw5AtStartOfTurnMDResponse" />
   </wsdl:message>
-  <wsdl:message name="IMonopolyDeal_hasGameStartedMD_InputMessage">
-    <wsdl:part name="parameters" element="tns:hasGameStartedMD" />
+  <wsdl:message name="IMonopolyDeal_playHouseMD_InputMessage">
+    <wsdl:part name="parameters" element="tns:playHouseMD" />
   </wsdl:message>
-  <wsdl:message name="IMonopolyDeal_hasGameStartedMD_OutputMessage">
-    <wsdl:part name="parameters" element="tns:hasGameStartedMDResponse" />
+  <wsdl:message name="IMonopolyDeal_playHouseMD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:playHouseMDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playHotelMD_InputMessage">
+    <wsdl:part name="parameters" element="tns:playHotelMD" />
+  </wsdl:message>
+  <wsdl:message name="IMonopolyDeal_playHotelMD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:playHotelMDResponse" />
   </wsdl:message>
   <wsdl:portType name="IMonopolyDeal">
+    <wsdl:operation name="hasGameStartedMD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/hasGameStartedMD" message="tns:IMonopolyDeal_hasGameStartedMD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/hasGameStartedMDResponse" message="tns:IMonopolyDeal_hasGameStartedMD_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="connectToLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/connectToLobby" message="tns:IMonopolyDeal_connectToLobby_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/connectToLobbyResponse" message="tns:IMonopolyDeal_connectToLobby_OutputMessage" />
@@ -1278,18 +1502,45 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardDebtCollectorMD" message="tns:IMonopolyDeal_playActionCardDebtCollectorMD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardDebtCollectorMDResponse" message="tns:IMonopolyDeal_playActionCardDebtCollectorMD_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="playActionCardSlyDealMD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardSlyDealMD" message="tns:IMonopolyDeal_playActionCardSlyDealMD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardSlyDealMDResponse" message="tns:IMonopolyDeal_playActionCardSlyDealMD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="playActionCardForcedDealMD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardForcedDealMD" message="tns:IMonopolyDeal_playActionCardForcedDealMD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardForcedDealMDResponse" message="tns:IMonopolyDeal_playActionCardForcedDealMD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="playActionCardDealBreakerMD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardDealBreakerMD" message="tns:IMonopolyDeal_playActionCardDealBreakerMD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playActionCardDealBreakerMDResponse" message="tns:IMonopolyDeal_playActionCardDealBreakerMD_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="draw5AtStartOfTurnMD">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnMD" message="tns:IMonopolyDeal_draw5AtStartOfTurnMD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnMDResponse" message="tns:IMonopolyDeal_draw5AtStartOfTurnMD_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="hasGameStartedMD">
-      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/hasGameStartedMD" message="tns:IMonopolyDeal_hasGameStartedMD_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/hasGameStartedMDResponse" message="tns:IMonopolyDeal_hasGameStartedMD_OutputMessage" />
+    <wsdl:operation name="playHouseMD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playHouseMD" message="tns:IMonopolyDeal_playHouseMD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playHouseMDResponse" message="tns:IMonopolyDeal_playHouseMD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="playHotelMD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonopolyDeal/playHotelMD" message="tns:IMonopolyDeal_playHotelMD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonopolyDeal/playHotelMDResponse" message="tns:IMonopolyDeal_playHotelMD_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="HttpBinding" type="tns:IMonopolyDeal">
     <wsp:PolicyReference URI="#HttpBinding_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="hasGameStartedMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/hasGameStartedMD" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_hasGameStartedMD_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#HttpBinding_hasGameStartedMD_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="connectToLobby">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/connectToLobby" style="document" />
       <wsdl:input>
@@ -1532,6 +1783,39 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="playActionCardSlyDealMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playActionCardSlyDealMD" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_playActionCardSlyDealMD_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#HttpBinding_playActionCardSlyDealMD_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="playActionCardForcedDealMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playActionCardForcedDealMD" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_playActionCardForcedDealMD_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#HttpBinding_playActionCardForcedDealMD_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="playActionCardDealBreakerMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playActionCardDealBreakerMD" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_playActionCardDealBreakerMD_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#HttpBinding_playActionCardDealBreakerMD_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="draw5AtStartOfTurnMD">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnMD" style="document" />
       <wsdl:input>
@@ -1543,14 +1827,25 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="hasGameStartedMD">
-      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/hasGameStartedMD" style="document" />
+    <wsdl:operation name="playHouseMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playHouseMD" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#HttpBinding_hasGameStartedMD_Input_policy" />
+        <wsp:PolicyReference URI="#HttpBinding_playHouseMD_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#HttpBinding_hasGameStartedMD_output_policy" />
+        <wsp:PolicyReference URI="#HttpBinding_playHouseMD_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="playHotelMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playHotelMD" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#HttpBinding_playHotelMD_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#HttpBinding_playHotelMD_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -1558,6 +1853,15 @@
   <wsdl:binding name="TcpBinding" type="tns:IMonopolyDeal">
     <wsp:PolicyReference URI="#TcpBinding_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="hasGameStartedMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/hasGameStartedMD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="connectToLobby">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/connectToLobby" style="document" />
       <wsdl:input>
@@ -1756,6 +2060,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="playActionCardSlyDealMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playActionCardSlyDealMD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="playActionCardForcedDealMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playActionCardForcedDealMD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="playActionCardDealBreakerMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playActionCardDealBreakerMD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="draw5AtStartOfTurnMD">
       <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/draw5AtStartOfTurnMD" style="document" />
       <wsdl:input>
@@ -1765,8 +2096,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="hasGameStartedMD">
-      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/hasGameStartedMD" style="document" />
+    <wsdl:operation name="playHouseMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playHouseMD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="playHotelMD">
+      <soap12:operation soapAction="http://tempuri.org/IMonopolyDeal/playHotelMD" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

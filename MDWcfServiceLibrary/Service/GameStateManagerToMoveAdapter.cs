@@ -440,5 +440,143 @@ namespace MDWcfServiceLibrary
             }
             return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
         }
+
+        public BoolResponseBox slyDealCard(int slyDealCardID, Guid targetedPlayerGuid, int targetedCard, Guid setTargetCardIn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            ActionCard playedActionCard = monopolyDeal.deck.getCardByID(slyDealCardID) as ActionCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo playSlyDeal = new MoveInfo();
+                playSlyDeal.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
+                playSlyDeal.playerMakingMove = playerGuid;
+                playSlyDeal.moveBeingMade = TurnActionTypes.PlayActionCard;
+                playSlyDeal.idOfCardBeingUsed = slyDealCardID;
+
+                playSlyDeal.actionCardActionType = ActionCardAction.SlyDeal;
+
+                PropertyCard cardToSlyDeal = monopolyDeal.deck.getCardByID(targetedCard) as PropertyCard;
+                playSlyDeal.guidOfCardToBeSlyDealed = cardToSlyDeal.cardGuid;
+                playSlyDeal.idOfCardToBeSlyDealed = targetedCard;
+                playSlyDeal.guidOfPlayerWhoIsBeingSlyDealed = targetedPlayerGuid;
+                playSlyDeal.guidOfSetCardToBeSlyDealedIsIn = setTargetCardIn;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playSlyDeal.moveBeingMade, playSlyDeal);
+                return result;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
+        }
+
+        public BoolResponseBox forcedDealCard(int forcedDealCardID, int playersCardToSwapWith, Guid setPlayersCardIsIn, Guid targetedPlayerGuid, int targetedCard, Guid setTargetCardIn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            ActionCard playedActionCard = monopolyDeal.deck.getCardByID(forcedDealCardID) as ActionCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo playForcedDeal = new MoveInfo();
+                playForcedDeal.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
+                playForcedDeal.playerMakingMove = playerGuid;
+                playForcedDeal.moveBeingMade = TurnActionTypes.PlayActionCard;
+                playForcedDeal.idOfCardBeingUsed = forcedDealCardID;
+
+                playForcedDeal.actionCardActionType = ActionCardAction.ForcedDeal;
+
+                PropertyCard cardToForcedDealFor = monopolyDeal.deck.getCardByID(targetedCard) as PropertyCard;
+                PropertyCard cardToLoseInForcedDeal = monopolyDeal.deck.getCardByID(forcedDealCardID) as PropertyCard;
+
+                playForcedDeal.guidOfCardToBeForcedDealed = cardToForcedDealFor.cardGuid;
+                playForcedDeal.guidOfSetCardToBeForcedDealedIsIn = setTargetCardIn;
+                playForcedDeal.guidOfPlayerWhoIsBeingForcedDealed = targetedPlayerGuid;
+
+                playForcedDeal.guidOfCardToBeGivenUpInForcedDeal = cardToLoseInForcedDeal.cardGuid;
+                playForcedDeal.guidOfSetCardGivenUpInForcedDealIsIn = setPlayersCardIsIn;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playForcedDeal.moveBeingMade, playForcedDeal);
+                return result;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
+        }
+
+        public BoolResponseBox dealBreakerCard(int dealBreakerCardID, Guid targetedPlayerGuid, Guid setTargeted, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            ActionCard playedActionCard = monopolyDeal.deck.getCardByID(dealBreakerCardID) as ActionCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo playdealBreaker = new MoveInfo();
+                playdealBreaker.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
+                playdealBreaker.playerMakingMove = playerGuid;
+                playdealBreaker.moveBeingMade = TurnActionTypes.PlayActionCard;
+                playdealBreaker.idOfCardBeingUsed = dealBreakerCardID;
+
+                playdealBreaker.actionCardActionType = ActionCardAction.DealBreaker;
+
+                playdealBreaker.guidOfFullSetToBeDealBreakered = setTargeted;
+                playdealBreaker.guidOfPlayerWhoIsBeingDealBreakered = targetedPlayerGuid;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playdealBreaker.moveBeingMade, playdealBreaker);
+                return result;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
+        }
+
+        public BoolResponseBox houseCard(int playedCardID, Guid setOfPropertiesToAddHouseTo, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            ActionCard playedActionCard = monopolyDeal.deck.getCardByID(playedCardID) as ActionCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo playHouse = new MoveInfo();
+                playHouse.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
+                playHouse.playerMakingMove = playerGuid;
+                playHouse.moveBeingMade = TurnActionTypes.PlayActionCard;
+                playHouse.idOfCardBeingUsed = playedCardID;
+
+                playHouse.actionCardActionType = ActionCardAction.House;
+
+                playHouse.guidFullSetToAddHouseTo = setOfPropertiesToAddHouseTo;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playHouse.moveBeingMade, playHouse);
+                return result;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
+        }
+
+        public BoolResponseBox hotelCard(int playedCardID, Guid setOfPropertiesToAddHotelTo, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            ActionCard playedActionCard = monopolyDeal.deck.getCardByID(playedCardID) as ActionCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            {
+                MoveInfo playHotel = new MoveInfo();
+                playHotel.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
+                playHotel.playerMakingMove = playerGuid;
+                playHotel.moveBeingMade = TurnActionTypes.PlayActionCard;
+                playHotel.idOfCardBeingUsed = playedCardID;
+
+                playHotel.actionCardActionType = ActionCardAction.Hotel;
+
+                playHotel.guidFullSetWithHouseToAddHotelTo = setOfPropertiesToAddHotelTo;
+
+                BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playHotel.moveBeingMade, playHotel);
+                return result;
+            }
+            return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
+        }
     }
 }

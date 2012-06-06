@@ -588,6 +588,7 @@ namespace MDWcfServiceLibrary
             {
                 return payDebt(currentState, nextState, playerPerformingAction, moveInformation, justSayNoAble, notJustSayNoAble);
             }
+
             //ActionCards
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayActionCard) == 0 || typeOfActionToPerform.CompareTo(TurnActionTypes.PlayCard) == 0)
             {
@@ -621,6 +622,31 @@ namespace MDWcfServiceLibrary
                     Statephase nextStatePhase = justSayNoAble;
                     return playActionCardRentStandard(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
                 }
+                else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.SlyDeal) == 0)
+                {
+                    Statephase nextStatePhase = justSayNoAble;
+                    return playActionCardSlyDeal(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
+                else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.ForcedDeal) == 0)
+                {
+                    Statephase nextStatePhase = justSayNoAble;
+                    return playActionCardForcedDeal(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
+                else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.DealBreaker) == 0)
+                {
+                    Statephase nextStatePhase = justSayNoAble;
+                    return playActionCardDealBreaker(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
+                else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.House) == 0)
+                {
+                    Statephase nextStatePhase = notJustSayNoAble;
+                    return playActionCardHouse(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
+                else if (moveInformation.actionCardActionType.CompareTo(ActionCardAction.Hotel) == 0)
+                {
+                    Statephase nextStatePhase = notJustSayNoAble;
+                    return playActionCardHotel(currentState, nextState, playerPerformingAction, nextStatePhase, moveInformation);
+                }
                 throw new NotImplementedException();
             }
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayJustSayNo) == 0)
@@ -632,6 +658,265 @@ namespace MDWcfServiceLibrary
             {
                 return new BoolResponseBox(false, "Unsupported action:" + typeOfActionToPerform.ToString());
             }
+        }
+
+        private BoolResponseBox playActionCardHotel(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.Hotel) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    PropertyCardSet ps = getPropertyCardSet(playerModelForPlayer.propertySets, moveInformation.guidFullSetWithHouseToAddHotelTo);
+                    if (ps != null)
+                    {
+                        if (ps.addHotel(actionCard))
+                        {
+                            //Change state on success
+                            //has been performed, advance the phase of the game
+                            nextState.currentPhase = nextStatePhase;
+                            //Put card in discard pile
+                            nextState.playpile.playCardOnPile(actionCard);
+                            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has added a hotel to a set");
+                        }
+                        else
+                        {
+                            return new BoolResponseBox(false, "hotel can not be added to this set");
+                        }
+                    }
+                    return new BoolResponseBox(false, "Set does not exist");
+                }
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card is not in hand or is not a Hotel card");
+        }
+
+        private BoolResponseBox playActionCardHouse(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.House) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    PropertyCardSet ps = getPropertyCardSet(playerModelForPlayer.propertySets, moveInformation.guidFullSetToAddHouseTo);
+                    if (ps != null)
+                    {
+                        if (ps.addHouse(actionCard))
+                        {
+                            //Change state on success
+                            //has been performed, advance the phase of the game
+                            nextState.currentPhase = nextStatePhase;
+                            //Put card in discard pile
+                            nextState.playpile.playCardOnPile(actionCard);
+                            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+                            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has added a house to a set");
+                        }
+                        else
+                        {
+                            return new BoolResponseBox(false, "House can not be added to this set");
+                        }
+                    }
+                    return new BoolResponseBox(false, "Set does not exist");
+                }
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card is not in hand or is not a House card");
+        }
+
+        private BoolResponseBox playActionCardDealBreaker(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            throw new NotImplementedException();
+        }
+
+        private BoolResponseBox playActionCardForcedDeal(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+            PlayerModel playerModelForPlayerToForcedDeal = getPlayerModel(moveInformation.guidOfPlayerWhoIsBeingForcedDealed, nextState);
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.SlyDeal) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    //Do action
+                    PropertyCardSet setToForcedDealFrom = getPropertyCardSet(playerModelForPlayerToForcedDeal.propertySets, moveInformation.guidOfSetCardToBeForcedDealedIsIn);
+                    PropertyCard cardToForcedDealFor = nextState.deck.getCardByID(moveInformation.idOfCardToBeForcedDealed) as PropertyCard;
+
+                    PropertyCardSet setToGiveUpCardFrom = getPropertyCardSet(playerModelForPlayer.propertySets, moveInformation.guidOfSetCardGivenUpInForcedDealIsIn);
+                    PropertyCard cardToGiveUp = nextState.deck.getCardByID(moveInformation.idOfCardToBeGivenUpInForcedDeal) as PropertyCard;
+                    if (setToForcedDealFrom != null && cardToForcedDealFor != null && setToGiveUpCardFrom != null && cardToGiveUp != null)
+                    {
+                        if (setToForcedDealFrom.removeProperty(cardToForcedDealFor))
+                        {
+                            //Card Removed from set
+                            //Create new set with card Forced Dealed in it
+                            PropertyCardSet newSetForcedDealCard = new PropertyCardSet(cardToForcedDealFor);
+                            playerModelForPlayer.propertySets.addSet(newSetForcedDealCard);
+                            if (setToGiveUpCardFrom.removeProperty(cardToGiveUp))
+                            {
+                                //Forced dealed player recieves card given up in forced deal
+                                PropertyCardSet newSetGivenUpCard = new PropertyCardSet(cardToGiveUp);
+                                playerModelForPlayerToForcedDeal.propertySets.addSet(newSetGivenUpCard);
+
+                                //Change state on success
+                                //has been performed, advance the phase of the game
+                                nextState.currentPhase = nextStatePhase;
+                                //Put card in discard pile
+                                nextState.playpile.playCardOnPile(actionCard);
+                                List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                                List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                                onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                                throw new NotImplementedException("updating moves available for players after forced deal not implemented");
+                                //updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
+
+                                nextState.actionCardEvent = new ActionCardEvent();
+                                nextState.actionCardEvent.playerAffectedByAction = moveInformation.guidOfPlayerWhoIsBeingForcedDealed;
+                                nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                                nextState.actionCardEvent.playerOnTurnPerformingAction = false;
+                                nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+
+                                nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.ForcedDeal;
+                                List<CardIDSetGuid> listOfCardsForcedDealed = new List<CardIDSetGuid>();
+                                listOfCardsForcedDealed.Add(new CardIDSetGuid(moveInformation.idOfCardToBeForcedDealed, moveInformation.guidOfSetCardToBeForcedDealedIsIn));
+                                nextState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn = listOfCardsForcedDealed;
+                                nextState.actionCardEvent.propertyCardGivenUpInForcedDeal = new CardIDSetGuid(moveInformation.idOfCardToBeGivenUpInForcedDeal, moveInformation.guidOfSetCardGivenUpInForcedDealIsIn);
+                                //change the current state to the next state
+
+                                addNextState(nextState);
+                                return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Forced Deal Card");
+                            }
+                            else
+                            {
+                                return new BoolResponseBox(false, "Unable to remove card to be given up");
+                            }
+                        }
+                        else
+                        {
+                            return new BoolResponseBox(false, "Unable to remove card from player being forced dealed set");
+                        }
+                    }
+                    else
+                    {
+                        return new BoolResponseBox(false, "Card to Forced Deal or set the card is in does not exist");
+                    }
+                }
+
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card is not in hand or is not a Forced Deal Card");
+        }
+
+        private BoolResponseBox playActionCardSlyDeal(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+            PlayerModel playerModelForPlayerToSlyDeal = getPlayerModel(moveInformation.guidOfPlayerWhoIsBeingSlyDealed, nextState);
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.SlyDeal) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    //Do action
+                    PropertyCardSet setToSlyDealFrom = getPropertyCardSet(playerModelForPlayerToSlyDeal.propertySets, moveInformation.guidOfSetCardToBeSlyDealedIsIn);
+                    PropertyCard cardToSlyDeal = nextState.deck.getCardByID(moveInformation.idOfCardToBeSlyDealed) as PropertyCard;
+                    if (setToSlyDealFrom != null && cardToSlyDeal != null)
+                    {
+                        if (setToSlyDealFrom.removeProperty(cardToSlyDeal))
+                        {
+                            //Card Removed from set
+                            //Create new set with card Sly Dealed in it
+                            PropertyCardSet newSet = new PropertyCardSet(cardToSlyDeal);
+                            playerModelForPlayer.propertySets.addSet(newSet);
+
+                            //Change state on success
+                            //has been performed, advance the phase of the game
+                            nextState.currentPhase = nextStatePhase;
+                            //Put card in discard pile
+                            nextState.playpile.playCardOnPile(actionCard);
+                            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                            throw new NotImplementedException("updating moves available for players after sly deal not implemented");
+                            //updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
+
+                            nextState.actionCardEvent = new ActionCardEvent();
+                            nextState.actionCardEvent.playerAffectedByAction = moveInformation.guidOfPlayerWhoIsBeingSlyDealed;
+                            nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                            nextState.actionCardEvent.playerOnTurnPerformingAction = false;
+                            nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+
+                            nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.SlyDeal;
+                            List<CardIDSetGuid> listOfCardsSlyDealed = new List<CardIDSetGuid>();
+                            listOfCardsSlyDealed.Add(new CardIDSetGuid(moveInformation.idOfCardToBeSlyDealed, moveInformation.guidOfSetCardToBeSlyDealedIsIn));
+                            nextState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn = listOfCardsSlyDealed;
+                            //change the current state to the next state
+
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Sly Deal Card");
+                        }
+                        else
+                        {
+                            return new BoolResponseBox(false, "Unable to remove card from set");
+                        }
+                    }
+                    else
+                    {
+                        return new BoolResponseBox(false, "Card to Sly Deal or set the card is in does not exist");
+                    }
+                }
+
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card is not in hand or is not a Sly Deal Card");
         }
 
         /// <summary>
@@ -1009,11 +1294,6 @@ namespace MDWcfServiceLibrary
 
             #endregion Player on turn is playing a Just Say No to Cancel the Effect of another Just Say No against them
 
-            else
-            {
-                //RollBack neccessary
-                return new BoolResponseBox(false, "Just Say No canceled.");
-            }
             return new BoolResponseBox(false, "Not able to use a just say no card at this time");
         }
 
@@ -1157,6 +1437,15 @@ namespace MDWcfServiceLibrary
             return new BoolResponseBox(false, "Card is not in hand or is not a It's my birthday card");
         }
 
+        /// <summary>
+        /// Replays a its my birthday card after being just say no'd
+        /// </summary>
+        /// <param name="currentState"></param>
+        /// <param name="nextState"></param>
+        /// <param name="playerPerformingAction"></param>
+        /// <param name="nextStatePhase"></param>
+        /// <param name="moveInformation"></param>
+        /// <returns></returns>
         private BoolResponseBox replayActionCardItsMyBirthday(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
         {
             //Check

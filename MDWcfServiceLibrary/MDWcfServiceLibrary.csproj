@@ -60,6 +60,7 @@
     <Compile Include="FieldUpdateMessage.cs" />
     <Compile Include="Game State\GameModel.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Service\CardIDSetGuid.cs" />
     <Compile Include="Service\GameStateManagerToMoveAdapter.cs" />
     <Compile Include="Lobby\ILobby.cs" />
     <Compile Include="Lobby\Lobby.cs" />

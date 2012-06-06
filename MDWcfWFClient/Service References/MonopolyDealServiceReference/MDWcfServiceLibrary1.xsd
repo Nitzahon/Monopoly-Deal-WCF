@@ -83,6 +83,7 @@
       <xs:element minOccurs="0" name="actionTypeTaken" type="tns:TurnActionTypes" />
       <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="bankedCardsTakenFromPlayer" nillable="true" type="q2:ArrayOfint" />
       <xs:element minOccurs="0" name="debtAmount" type="xs:int" />
+      <xs:element minOccurs="0" name="doubleTheRentCardUsed" type="xs:boolean" />
       <xs:element minOccurs="0" name="originalActionCardId" type="xs:int" />
       <xs:element minOccurs="0" name="playerAffectedByAction" type="ser:guid" />
       <xs:element minOccurs="0" name="playerWhoPerformedActionOnTurn" type="ser:guid" />
@@ -248,6 +249,25 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="CardType" nillable="true" type="tns:CardType" />
+  <xs:complexType name="ActionCard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Card">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MonetaryValueOnly" type="xs:boolean" />
+          <xs:element minOccurs="0" name="actionType" type="tns:ActionCardAction" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActionCard" nillable="true" type="tns:ActionCard" />
+  <xs:complexType name="MoneyCard">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Card">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
   <xs:complexType name="PropertyCard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Card">
@@ -309,25 +329,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPropertyColor" nillable="true" type="tns:ArrayOfPropertyColor" />
-  <xs:complexType name="MoneyCard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="MoneyCard" nillable="true" type="tns:MoneyCard" />
-  <xs:complexType name="ActionCard">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Card">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="MonetaryValueOnly" type="xs:boolean" />
-          <xs:element minOccurs="0" name="actionType" type="tns:ActionCardAction" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="ActionCard" nillable="true" type="tns:ActionCard" />
   <xs:complexType name="RentStandard">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ActionCard">

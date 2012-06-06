@@ -45,12 +45,14 @@ namespace MDWcfServiceLibrary
         public Guid guidOfCardToBeSlyDealed;
         public Guid guidOfSetCardToBeSlyDealedIsIn;
         public Guid guidOfPlayerWhoIsBeingSlyDealed;
-
+        public int idOfCardToBeSlyDealed;
         //Forced Deal
         public Guid guidOfCardToBeForcedDealed;
         public Guid guidOfSetCardToBeForcedDealedIsIn;
         public Guid guidOfPlayerWhoIsBeingForcedDealed;
+        public int idOfCardToBeForcedDealed;
         //Forced Deal given up card
+        public int idOfCardToBeGivenUpInForcedDeal;
         public Guid guidOfCardToBeGivenUpInForcedDeal;
         public Guid guidOfSetCardGivenUpInForcedDealIsIn;
 

@@ -89,7 +89,22 @@ namespace MDWcfServiceLibrary
         Boolean playActionCardDebtCollectorMD(int debtCollectorCardID, GuidBox targetedPlayerGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]
+        BoolResponseBox playActionCardSlyDealMD(int slyDealCardID, GuidBox targetedPlayerGuid, int targetedCard, GuidBox setTargetCardIn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]
+        BoolResponseBox playActionCardForcedDealMD(int forcedDealCardID, int playersCardToSwapWith, GuidBox setPlayersCardIsIn, GuidBox targetedPlayerGuid, int targetedCard, GuidBox setTargetCardIn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]
+        BoolResponseBox playActionCardDealBreakerMD(int dealBreakerCardID, GuidBox targetedPlayerGuid, GuidBox setTargeted, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]
         Boolean draw5AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);//Done
+
+        [OperationContract]//Player calls this method to play action card on their turn
+        BoolResponseBox playHouseMD(int playedCardID, GuidBox setOfPropertiesToAddHouseTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]//Player calls this method to play action card on their turn
+        BoolResponseBox playHotelMD(int playedCardID, GuidBox setOfPropertiesToAddHotelTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]
         Boolean hasGameStartedMD(GuidBox playerGuid, GuidBox gameLobbyGuid);//Done

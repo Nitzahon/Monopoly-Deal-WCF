@@ -52,5 +52,15 @@ namespace MDWcfServiceLibrary
         BoolResponseBox wildRentCard(int playedCardID, Guid playerTargetedGuid, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
 
         BoolResponseBox standardRentCard(int playedCard, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        BoolResponseBox slyDealCard(int slyDealCardID, Guid targetedPlayerGuid, int targetedCard, Guid setTargetCardIn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        BoolResponseBox forcedDealCard(int forcedDealCardID, int playersCardToSwapWith, Guid setPlayersCardIsIn, Guid targetedPlayerGuid, int targetedCard, Guid setTargetCardIn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        BoolResponseBox dealBreakerCard(int dealBreakerCardID, Guid targetedPlayerGuid, Guid setTargeted, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        BoolResponseBox houseCard(int playedCardID, Guid setOfPropertiesToAddHouseTo, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        BoolResponseBox hotelCard(int playedCardID, Guid setOfPropertiesToAddHotelTo, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
     }
 }

@@ -29,13 +29,19 @@ namespace MDWcfServiceLibrary
         [DataMember]
         public Guid playerWhoPerformedActionOnTurn;
         [DataMember]
+        public Guid playerWhoPerformedActionOffTurn;
+        [DataMember]
+        public bool playerOnTurnPerformingAction;//False if it is not on turn player making move e.x. using just say no, paying debt, not using just say no
+        [DataMember]
         public Guid playerAffectedByAction;
         [DataMember]
         public List<int> bankedCardsTakenFromPlayer;
         [DataMember]
         public int propertySetTakenFromPlayer;
         [DataMember]
-        public int[][] propertyCardsTakenFromPlayerAndSetTheCardWasIn;// [x][y] where x is the propertyCard id and y is the propertySet id
+        public CardIDSetGuid propertyCardGivenUpInForcedDeal;
+        [DataMember]
+        public List<CardIDSetGuid> propertyCardsTakenFromPlayerAndSetTheCardWasIn;// [x][y] where x is the propertyCard id and y is the propertySet id
         [DataMember]
         public bool actionJustSayNoUsedByAffectedPlayer;
         [DataMember]
