@@ -79,6 +79,26 @@ namespace MDWcfServiceLibrary
         }
 
         /// <summary>
+        /// Returns a list of actions a player can perform when not on their turn and a sly deal, dealbreaker or forced deal as been played against the,
+        /// </summary>
+        /// <param name="listToSet"></param>
+        /// <param name="newState"></param>
+        /// <returns></returns>
+        private List<TurnActionTypes> setAllowableActionsNotOnTurnCardsTaken(List<TurnActionTypes> listToSet, PlayFieldModel newState)
+        {
+            if (newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played_Ask_Just_Say_No) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_0_Cards_Played) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_1_Cards_Played) == 0 || newState.currentPhase.CompareTo(Statephase.Turn_Started_Cards_Drawn_2_Cards_Played) == 0)
+            {
+                listToSet.Add(TurnActionTypes.PlayJustSayNo);
+                listToSet.Add(TurnActionTypes.Dont_Play_Just_Say_No);
+                return listToSet;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
         /// Returns a list of the actions a player on their turn whose actionCard has been Just Say No'd can take
         /// </summary>
         /// <param name="listToSet"></param>
@@ -273,6 +293,26 @@ namespace MDWcfServiceLibrary
                 else
                 {
                     p.actionsCurrentlyAllowed = allowedForPlayersWhoDontHaveToPay;
+                }
+            }
+        }
+
+        private void updateAllowableStatesPerPlayerCardsTaken(PlayFieldModel state, List<TurnActionTypes> allowedForPlayersWhoDontHaveCardsTaken, List<TurnActionTypes> allowedForPlayerOnTurn, Guid playerOnTurnGuid, List<TurnActionTypes> allowedForPlayersWhoDoHaveCardsTaken)
+        {
+            foreach (PlayerModel p in state.playerModels)
+            {
+                if (p.guid.CompareTo(playerOnTurnGuid) == 0)
+                {
+                    //its p's turn
+                    p.actionsCurrentlyAllowed = allowedForPlayerOnTurn;
+                }
+                else if (p.hasHadCardsTaken)
+                {
+                    p.actionsCurrentlyAllowed = allowedForPlayersWhoDoHaveCardsTaken;
+                }
+                else
+                {
+                    p.actionsCurrentlyAllowed = allowedForPlayersWhoDontHaveCardsTaken;
                 }
             }
         }
@@ -756,7 +796,86 @@ namespace MDWcfServiceLibrary
 
         private BoolResponseBox playActionCardDealBreaker(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
         {
-            throw new NotImplementedException();
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(playerPerformingAction.guid, nextState);
+            PlayerModel playerModelForPlayerToDealBreaker = getPlayerModel(moveInformation.guidOfPlayerWhoIsBeingDealBreakered, nextState);
+            Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Get the reference to the Card in the current PlayFieldModel
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.DealBreaker) == 0)
+            {
+                Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
+                if (card != null)
+                {
+                    ActionCard actionCard = card as ActionCard;
+                    //Do action
+                    PropertyCardSet setToDealBreaker = getPropertyCardSet(playerModelForPlayerToDealBreaker.propertySets, moveInformation.guidOfFullSetToBeDealBreakered);
+                    if (setToDealBreaker != null && setToDealBreaker.isFullSet() == true)
+                    {
+                        if (playerModelForPlayerToDealBreaker.propertySets.playersPropertySets.Remove(setToDealBreaker) == true)
+                        {
+                            //Set taken from player
+                            //give to player using dealbreaker card
+                            playerModelForPlayer.propertySets.addSet(setToDealBreaker);
+
+                            //Change state on success
+                            //has been performed, advance the phase of the game
+                            nextState.currentPhase = nextStatePhase;
+                            //Used to set the allowable actions for player
+                            playerModelForPlayerToDealBreaker.hasHadCardsTaken = true;
+                            //Put card in discard pile
+                            nextState.playpile.playCardOnPile(actionCard);
+                            //Create event information for rollback and display
+                            nextState.actionCardEvent = new ActionCardEvent();
+                            nextState.actionCardEvent.playerAffectedByAction = moveInformation.guidOfPlayerWhoIsBeingDealBreakered;
+                            nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                            nextState.actionCardEvent.playerOnTurnPerformingAction = true;
+                            nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+
+                            nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.DealBreaker;
+                            List<CardIDSetGuid> listOfCardDealbreakered = new List<CardIDSetGuid>();
+                            foreach (Card property in setToDealBreaker.properties)
+                            {
+                                listOfCardDealbreakered.Add(new CardIDSetGuid(property.cardID, setToDealBreaker.guid));
+                            }
+                            if (setToDealBreaker.hasHouse)
+                            {
+                                listOfCardDealbreakered.Add(new CardIDSetGuid(setToDealBreaker.house.cardID, setToDealBreaker.guid));
+                            }
+                            if (setToDealBreaker.hasHotel)
+                            {
+                                listOfCardDealbreakered.Add(new CardIDSetGuid(setToDealBreaker.hotel.cardID, setToDealBreaker.guid));
+                            }
+                            nextState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn = listOfCardDealbreakered;
+                            //change the current state to the next state
+
+                            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                            updateAllowableStatesPerPlayerCardsTaken(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnCardsTaken(new List<TurnActionTypes>(), nextState));
+
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Deal Breaker Card");
+                        }
+                        else
+                        {
+                            return new BoolResponseBox(false, "Unable to take set from player");
+                        }
+                    }
+                    else
+                    {
+                        return new BoolResponseBox(false, "Set to Deal Breaker is not a full set or does not exist");
+                    }
+                }
+
+                return new BoolResponseBox(false, "Card is not in hand.");
+            }
+            return new BoolResponseBox(false, "Card id does not exist or is not a Deal Breaker Card");
         }
 
         private BoolResponseBox playActionCardForcedDeal(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
@@ -796,7 +915,7 @@ namespace MDWcfServiceLibrary
                                 //Forced dealed player recieves card given up in forced deal
                                 PropertyCardSet newSetGivenUpCard = new PropertyCardSet(cardToGiveUp);
                                 playerModelForPlayerToForcedDeal.propertySets.addSet(newSetGivenUpCard);
-
+                                playerModelForPlayerToForcedDeal.hasHadCardsTaken = true;
                                 //Change state on success
                                 //has been performed, advance the phase of the game
                                 nextState.currentPhase = nextStatePhase;
@@ -806,13 +925,10 @@ namespace MDWcfServiceLibrary
                                 List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
                                 onTurn = setAllowableActionsOnTurn(onTurn, nextState);
 
-                                throw new NotImplementedException("updating moves available for players after forced deal not implemented");
-                                //updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
-
                                 nextState.actionCardEvent = new ActionCardEvent();
                                 nextState.actionCardEvent.playerAffectedByAction = moveInformation.guidOfPlayerWhoIsBeingForcedDealed;
                                 nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
-                                nextState.actionCardEvent.playerOnTurnPerformingAction = false;
+                                nextState.actionCardEvent.playerOnTurnPerformingAction = true;
                                 nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
 
                                 nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.ForcedDeal;
@@ -822,6 +938,7 @@ namespace MDWcfServiceLibrary
                                 nextState.actionCardEvent.propertyCardGivenUpInForcedDeal = new CardIDSetGuid(moveInformation.idOfCardToBeGivenUpInForcedDeal, moveInformation.guidOfSetCardGivenUpInForcedDealIsIn);
                                 //change the current state to the next state
 
+                                updateAllowableStatesPerPlayerCardsTaken(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnCardsTaken(new List<TurnActionTypes>(), nextState));
                                 addNextState(nextState);
                                 return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Forced Deal Card");
                             }
@@ -879,19 +996,15 @@ namespace MDWcfServiceLibrary
                             //Change state on success
                             //has been performed, advance the phase of the game
                             nextState.currentPhase = nextStatePhase;
+                            //Used to set the allowable actions for player
+                            playerModelForPlayerToSlyDeal.hasHadCardsTaken = true;
                             //Put card in discard pile
                             nextState.playpile.playCardOnPile(actionCard);
-                            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
-                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
-                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
-
-                            throw new NotImplementedException("updating moves available for players after sly deal not implemented");
-                            //updateAllowableStatesDebtPaid(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnInDebt(new List<TurnActionTypes>(), nextState));
-
+                            //Create event information for rollback and display
                             nextState.actionCardEvent = new ActionCardEvent();
                             nextState.actionCardEvent.playerAffectedByAction = moveInformation.guidOfPlayerWhoIsBeingSlyDealed;
                             nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
-                            nextState.actionCardEvent.playerOnTurnPerformingAction = false;
+                            nextState.actionCardEvent.playerOnTurnPerformingAction = true;
                             nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
 
                             nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.SlyDeal;
@@ -899,6 +1012,12 @@ namespace MDWcfServiceLibrary
                             listOfCardsSlyDealed.Add(new CardIDSetGuid(moveInformation.idOfCardToBeSlyDealed, moveInformation.guidOfSetCardToBeSlyDealedIsIn));
                             nextState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn = listOfCardsSlyDealed;
                             //change the current state to the next state
+
+                            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                            updateAllowableStatesPerPlayerCardsTaken(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnCardsTaken(new List<TurnActionTypes>(), nextState));
 
                             addNextState(nextState);
                             return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Sly Deal Card");

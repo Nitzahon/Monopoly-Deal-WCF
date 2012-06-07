@@ -52,6 +52,8 @@ namespace MDWcfServiceLibrary
         [DataMember]
         public bool owesAnotherPlayer = false;
         [DataMember]
+        public bool hasHadCardsTaken = false;
+        [DataMember]
         public int amountOwedToAnotherPlayer = 0;
 
         [DataMember]
