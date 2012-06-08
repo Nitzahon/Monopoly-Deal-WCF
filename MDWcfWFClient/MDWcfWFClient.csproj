@@ -50,6 +50,12 @@
   <ItemGroup>
     <Compile Include="ClientInfo.cs" />
     <Compile Include="ClientMessageHandler.cs" />
+    <Compile Include="UseActionCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UseActionCardForm.Designer.cs">
+      <DependentUpon>UseActionCardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ext.cs" />
     <Compile Include="IClientUI.cs" />
     <Compile Include="MovePropertyToNewSetForm.cs">
@@ -84,6 +90,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UseActionCardForm.resx">
+      <DependentUpon>UseActionCardForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

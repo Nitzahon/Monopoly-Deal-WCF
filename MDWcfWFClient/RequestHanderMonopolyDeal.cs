@@ -542,5 +542,100 @@ namespace MDWcfWFClient
             }
             return false;
         }
+
+        internal bool dealBreaker(MonopolyDealServiceReference.Card DealBreakerCard, Guid targetedPlayer, MonopolyDealServiceReference.PropertyCardSet targetedSet)
+        {
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.BoolResponseBox response;
+                response = monopolyDealService.playActionCardDealBreakerMD(DealBreakerCard.cardID, targetedPlayer.boxGuid(), targetedSet.guid.boxGuid(),
+                       thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                addToLog(response.message);
+                return response.success;
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
+
+        internal bool slyDeal(MonopolyDealServiceReference.ActionCard Card, Guid targetedPlayer, MonopolyDealServiceReference.PropertyCardSet targetedSet, MonopolyDealServiceReference.Card targetedCard)
+        {
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.BoolResponseBox response;
+                response = monopolyDealService.playActionCardSlyDealMD(Card.cardID, targetedPlayer.boxGuid(), targetedCard.cardID, targetedSet.guid.boxGuid(),
+                       thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                addToLog(response.message);
+                return response.success;
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
+
+        internal bool house(MonopolyDealServiceReference.ActionCard Card, MonopolyDealServiceReference.PropertyCardSet targetedSet)
+        {
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.BoolResponseBox response;
+                response = monopolyDealService.playHouseMD(Card.cardID, targetedSet.guid.boxGuid(),
+                       thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                addToLog(response.message);
+                return response.success;
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
+
+        internal bool hotel(MonopolyDealServiceReference.ActionCard Card, MonopolyDealServiceReference.PropertyCardSet targetedSet)
+        {
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.BoolResponseBox response;
+                response = monopolyDealService.playHotelMD(Card.cardID, targetedSet.guid.boxGuid(),
+                       thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                addToLog(response.message);
+                return response.success;
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
+
+        internal bool doNotJustSayNo()
+        {
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.BoolResponseBox response;
+                response = monopolyDealService.doNotPlayJustSayNoMD(
+                       thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                addToLog(response.message);
+                return response.success;
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
     }
 }

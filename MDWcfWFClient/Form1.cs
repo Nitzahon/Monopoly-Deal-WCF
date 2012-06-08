@@ -174,25 +174,6 @@ namespace MDWcfWFClient
             }
         }
 
-        /*
-        public MDWcfServiceLibrary.CardType cardTypeConvert(MonopolyDealServiceReference.Card card)
-        {
-            if (card.cardType.ToString() == MDWcfServiceLibrary.CardType.Action.ToString())
-            {
-                return MDWcfServiceLibrary.CardType.Action;
-            }
-            else if (card.cardType.ToString() == MDWcfServiceLibrary.CardType.Money.ToString())
-            {
-                return MDWcfServiceLibrary.CardType.Money;
-            }
-            else if (card.cardType.ToString() == MDWcfServiceLibrary.CardType.Property.ToString())
-            {
-                return MDWcfServiceLibrary.CardType.Property;
-            }
-            return MDWcfServiceLibrary.CardType.WildProperty;
-        }
-        */
-
         public void setGuid(Guid id)
         {
             requestHandler.thisClientGuid = id;
@@ -681,6 +662,36 @@ namespace MDWcfWFClient
                     PickSetToRentOn rent = new PickSetToRentOn(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD, card, new Guid());
                     rent.ShowDialog();
                 }
+                else if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.DealBreaker) == 0)
+                {
+                    MessageBox.Show("Playing a DealBreaker card");
+                    UseActionCardForm dealBreak = new UseActionCardForm(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD, (MonopolyDealServiceReference.ActionCard)card);
+                    dealBreak.ShowDialog();
+                }
+                else if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.ForcedDeal) == 0)
+                {
+                    MessageBox.Show("Playing a Forced Deal card");
+                    UseActionCardForm forcedDeal = new UseActionCardForm(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD, (MonopolyDealServiceReference.ActionCard)card);
+                    forcedDeal.ShowDialog();
+                }
+                else if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.SlyDeal) == 0)
+                {
+                    MessageBox.Show("Playing a Sly Deal card");
+                    UseActionCardForm slyDeal = new UseActionCardForm(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD, (MonopolyDealServiceReference.ActionCard)card);
+                    slyDeal.ShowDialog();
+                }
+                else if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.House) == 0)
+                {
+                    MessageBox.Show("Playing a House card");
+                    UseActionCardForm house = new UseActionCardForm(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD, (MonopolyDealServiceReference.ActionCard)card);
+                    house.ShowDialog();
+                }
+                else if (actionCard.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.Hotel) == 0)
+                {
+                    MessageBox.Show("Playing a Hotel card");
+                    UseActionCardForm hotel = new UseActionCardForm(requestHandlerMD.CurrentPlayFieldModel, requestHandlerMD.thisClientGuid, requestHandlerMD, (MonopolyDealServiceReference.ActionCard)card);
+                    hotel.ShowDialog();
+                }
             }
             //Update State
             buttonPollMD_Click(null, null);
@@ -981,6 +992,12 @@ namespace MDWcfWFClient
             bool isOrientedUp = false;
             requestHandler.playPropertyToNewSet(cardIDOfPropertyToPlay, isOrientedUp);
             //Update State
+            buttonPollMD_Click(null, null);
+        }
+
+        private void buttonDontJustSayNo_Click(object sender, EventArgs e)
+        {
+            requestHandlerMD.doNotJustSayNo();
             buttonPollMD_Click(null, null);
         }
     }

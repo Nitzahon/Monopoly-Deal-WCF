@@ -628,6 +628,10 @@ namespace MDWcfServiceLibrary
             {
                 return payDebt(currentState, nextState, playerPerformingAction, moveInformation, justSayNoAble, notJustSayNoAble);
             }
+            else if (typeOfActionToPerform.CompareTo(TurnActionTypes.Dont_Play_Just_Say_No) == 0)
+            {
+                return doNotPlayJustSayNo(currentState, nextState, playerPerformingAction, moveInformation, justSayNoAble, notJustSayNoAble);
+            }
 
             //ActionCards
             else if (typeOfActionToPerform.CompareTo(TurnActionTypes.PlayActionCard) == 0 || typeOfActionToPerform.CompareTo(TurnActionTypes.PlayCard) == 0)
@@ -698,6 +702,36 @@ namespace MDWcfServiceLibrary
             {
                 return new BoolResponseBox(false, "Unsupported action:" + typeOfActionToPerform.ToString());
             }
+        }
+
+        private BoolResponseBox doNotPlayJustSayNo(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, MoveInfo moveInformation, Statephase justSayNoAble, Statephase notJustSayNoAble)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+
+            //Player Not using Just Say No
+            PlayerModel playerModelForNotUsingJustSayNo = getPlayerModel(moveInformation.playerMakingMove, nextState);
+
+            //Player no longer can Just Say no
+            playerModelForNotUsingJustSayNo.hasHadCardsTaken = false;
+
+            //Change state on success
+            //has been performed, advance the phase of the game
+            Statephase nextStatePhaseIfSuccessful;
+            nextStatePhaseIfSuccessful = notJustSayNoAble;
+            nextState.currentPhase = nextStatePhaseIfSuccessful;
+
+            List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+            updateAllowableStates(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, nextState.guidOfPlayerWhosTurnItIs);
+
+            //change the current state to the next state
+            addNextState(nextState);
+            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has chosen to not use a Just Say No!");
         }
 
         private BoolResponseBox playActionCardHotel(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerPerformingAction, Statephase nextStatePhase, MoveInfo moveInformation)
@@ -1341,10 +1375,72 @@ namespace MDWcfServiceLibrary
 
                 #region Just Say No used against non-debt incurring card
 
+                #region DealBreaker Being Just Say No'd
+
                 else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DealBreaker) == 0)
                 {
-                    throw new NotImplementedException("Canceling a deal breaker card is not implemented");
+                    //Money events are just say noable before action is taken so rollback is unneccessary
+                    //Check
+                    //Perform action in next state
+                    //Clone the current state to create next state
+                    nextState = currentState.clone(generateGuidForNextState());
+
+                    //Player Lost Set in DealBreaker using Just Say No to get it back
+                    PlayerModel playerModelForLostSet = getPlayerModel(playerPerformingAction.guid, nextState);
+
+                    //Player Gained Set in DealBreaker
+                    PlayerModel playerModelForPlayerGainedSet = getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, nextState);
+                    //Discard Just say no card
+                    Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+                    //Get the reference to the players playerModel in the current PlayFieldModel
+
+                    //Get the reference to the Card in the current PlayFieldModel
+                    if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.JustSayNo) == 0)
+                    {
+                        Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForLostSet);
+                        if (card != null)
+                        {
+                            ActionCard actionCard = card as ActionCard;
+                            //Do action
+
+                            Statephase nextStatePhaseIfSuccessful;
+
+                            nextStatePhaseIfSuccessful = JustSayNoUsedByOpposition;
+
+                            //Generate action card event to give the chance to just say no
+                            ActionCardEvent justSayNoUsedAgainstDealBreaker = new ActionCardEvent();
+                            justSayNoUsedAgainstDealBreaker.actionCardTypeUsed = currentState.actionCardEvent.actionCardTypeUsed;//Will be a debt incurring card
+                            justSayNoUsedAgainstDealBreaker.actionJustSayNoUsedByAffectedPlayer = true;//The player affected by the DealBreaker card has used a just say no to cancel the debt incurring card
+                            justSayNoUsedAgainstDealBreaker.actionTypeTaken = TurnActionTypes.PlayJustSayNo;//The action type taken
+                            justSayNoUsedAgainstDealBreaker.playerAffectedByAction = playerModelForLostSet.guid;//The player using a just say no to cancel the DealBreaker card
+                            justSayNoUsedAgainstDealBreaker.playerWhoPerformedActionOnTurn = currentState.guidOfPlayerWhosTurnItIs;//The player on turn who played a DealBreaker card who can play a just say not against the cancelling players just say no
+                            justSayNoUsedAgainstDealBreaker.propertySetTakenFromPlayer = currentState.actionCardEvent.propertySetTakenFromPlayer;
+                            justSayNoUsedAgainstDealBreaker.originalActionCardId = currentState.actionCardEvent.originalActionCardId;//Dealbreaker card id
+                            justSayNoUsedAgainstDealBreaker.playerOnTurnPerformingAction = false;//Player using Just Say No is performing this action
+                            justSayNoUsedAgainstDealBreaker.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                            //Set the action card event
+                            nextState.actionCardEvent = justSayNoUsedAgainstDealBreaker;
+
+                            //Update the state
+
+                            //Change state on success
+                            //has been performed, advance the phase of the game
+                            nextState.currentPhase = nextStatePhaseIfSuccessful;
+                            List<TurnActionTypes> allowedForPlayerWhoDontHaveCardsTaken = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> allowedForPlayersWhoDoHaveCardsTaken = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+                            updateAllowableStatesPerPlayerCardsTaken(nextState, allowedForPlayerWhoDontHaveCardsTaken, onTurn, currentState.guidOfPlayerWhosTurnItIs, allowedForPlayersWhoDoHaveCardsTaken);
+
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Just Say No to regain Set.");
+                        }
+                    }
                 }
+
+                #endregion DealBreaker Being Just Say No'd
+
                 else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ForcedDeal) == 0)
                 {
                     throw new NotImplementedException("Canceling a forced deal card is not implemented");

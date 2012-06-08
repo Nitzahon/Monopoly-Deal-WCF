@@ -62,5 +62,7 @@ namespace MDWcfServiceLibrary
         BoolResponseBox houseCard(int playedCardID, Guid setOfPropertiesToAddHouseTo, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
 
         BoolResponseBox hotelCard(int playedCardID, Guid setOfPropertiesToAddHotelTo, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+
+        BoolResponseBox doNotJustSayNo(Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
     }
 }

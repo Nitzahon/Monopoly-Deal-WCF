@@ -578,5 +578,18 @@ namespace MDWcfServiceLibrary
             }
             return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
         }
+
+        public BoolResponseBox doNotJustSayNo(Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        {
+            PlayFieldModel lastState = getPreviousState();
+            PlayFieldModel currentState = getCurrentState();
+            PlayFieldModel nextState = null;
+            PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
+            MoveInfo doNotPlayJustSayNo = new MoveInfo();
+            doNotPlayJustSayNo.playerMakingMove = playerGuid;
+            doNotPlayJustSayNo.moveBeingMade = TurnActionTypes.Dont_Play_Just_Say_No;
+            BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, doNotPlayJustSayNo.moveBeingMade, doNotPlayJustSayNo);
+            return result;
+        }
     }
 }

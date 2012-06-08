@@ -58,8 +58,11 @@ namespace MDWcfServiceLibrary
         [OperationContract]//Player calls this method to play action card on their turn
         BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, GuidBox setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
-        [OperationContract]//Player calls this method to play just say no card against action, returns true if card valid and action canceled
+        [OperationContract]//Player calls this method to play just say no card against action, returns true if card valid and false if action canceled
         Boolean playJustSayNoMD(int playedCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+
+        [OperationContract]//Player calls this method to not play just say no card against action, returns true if  valid and false if action canceled
+        BoolResponseBox doNotPlayJustSayNoMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//Player calls this method to play property to existing set
         Boolean playPropertyCardMD(PlayerModel player, Card playedCard, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);
@@ -89,6 +92,12 @@ namespace MDWcfServiceLibrary
         Boolean playActionCardDebtCollectorMD(int debtCollectorCardID, GuidBox targetedPlayerGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]
+        Boolean draw5AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);//Done
+
+        [OperationContract]
+        Boolean hasGameStartedMD(GuidBox playerGuid, GuidBox gameLobbyGuid);//Done
+
+        [OperationContract]
         BoolResponseBox playActionCardSlyDealMD(int slyDealCardID, GuidBox targetedPlayerGuid, int targetedCard, GuidBox setTargetCardIn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]
@@ -97,16 +106,10 @@ namespace MDWcfServiceLibrary
         [OperationContract]
         BoolResponseBox playActionCardDealBreakerMD(int dealBreakerCardID, GuidBox targetedPlayerGuid, GuidBox setTargeted, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
-        [OperationContract]
-        Boolean draw5AtStartOfTurnMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);//Done
-
         [OperationContract]//Player calls this method to play action card on their turn
         BoolResponseBox playHouseMD(int playedCardID, GuidBox setOfPropertiesToAddHouseTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//Player calls this method to play action card on their turn
         BoolResponseBox playHotelMD(int playedCardID, GuidBox setOfPropertiesToAddHotelTo, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
-
-        [OperationContract]
-        Boolean hasGameStartedMD(GuidBox playerGuid, GuidBox gameLobbyGuid);//Done
     }
 }

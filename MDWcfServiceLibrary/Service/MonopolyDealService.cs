@@ -578,5 +578,19 @@ namespace MDWcfServiceLibrary
                 return new BoolResponseBox(false, "Can not find game");
             }
         }
+
+        public BoolResponseBox doNotPlayJustSayNoMD(GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        {
+            //Find MonopolyDealGame
+            MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
+            if (md != null)
+            {
+                return md.getMonopolyDealGameStateManager().doNotJustSayNo(playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Can not find game");
+            }
+        }
     }
 }

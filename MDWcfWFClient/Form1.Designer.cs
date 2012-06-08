@@ -118,6 +118,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
+            this.buttonDontJustSayNo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect1
@@ -346,9 +347,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(118, 303);
+            this.button3.Location = new System.Drawing.Point(121, 303);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(97, 23);
+            this.button3.Size = new System.Drawing.Size(105, 23);
             this.button3.TabIndex = 53;
             this.button3.Text = "Play Action Card";
             this.button3.UseVisualStyleBackColor = true;
@@ -367,7 +368,7 @@
             // 
             // buttonRearrange
             // 
-            this.buttonRearrange.Location = new System.Drawing.Point(116, 333);
+            this.buttonRearrange.Location = new System.Drawing.Point(120, 356);
             this.buttonRearrange.Name = "buttonRearrange";
             this.buttonRearrange.Size = new System.Drawing.Size(97, 23);
             this.buttonRearrange.TabIndex = 55;
@@ -398,9 +399,9 @@
             // 
             // buttonJustSayNo
             // 
-            this.buttonJustSayNo.Location = new System.Drawing.Point(18, 333);
+            this.buttonJustSayNo.Location = new System.Drawing.Point(7, 333);
             this.buttonJustSayNo.Name = "buttonJustSayNo";
-            this.buttonJustSayNo.Size = new System.Drawing.Size(91, 23);
+            this.buttonJustSayNo.Size = new System.Drawing.Size(109, 23);
             this.buttonJustSayNo.TabIndex = 58;
             this.buttonJustSayNo.Text = "Use Just Say No!";
             this.buttonJustSayNo.UseVisualStyleBackColor = true;
@@ -420,9 +421,9 @@
             // buttonDiscard1
             // 
             this.buttonDiscard1.Enabled = false;
-            this.buttonDiscard1.Location = new System.Drawing.Point(12, 303);
+            this.buttonDiscard1.Location = new System.Drawing.Point(7, 303);
             this.buttonDiscard1.Name = "buttonDiscard1";
-            this.buttonDiscard1.Size = new System.Drawing.Size(100, 23);
+            this.buttonDiscard1.Size = new System.Drawing.Size(109, 23);
             this.buttonDiscard1.TabIndex = 60;
             this.buttonDiscard1.Text = "Discard Card From Hand";
             this.buttonDiscard1.UseVisualStyleBackColor = true;
@@ -669,9 +670,9 @@
             // buttonPlayPropNewSetFromHand
             // 
             this.buttonPlayPropNewSetFromHand.Enabled = false;
-            this.buttonPlayPropNewSetFromHand.Location = new System.Drawing.Point(15, 245);
+            this.buttonPlayPropNewSetFromHand.Location = new System.Drawing.Point(7, 245);
             this.buttonPlayPropNewSetFromHand.Name = "buttonPlayPropNewSetFromHand";
-            this.buttonPlayPropNewSetFromHand.Size = new System.Drawing.Size(94, 23);
+            this.buttonPlayPropNewSetFromHand.Size = new System.Drawing.Size(102, 23);
             this.buttonPlayPropNewSetFromHand.TabIndex = 87;
             this.buttonPlayPropNewSetFromHand.Text = "Up Prop New Set";
             this.buttonPlayPropNewSetFromHand.UseVisualStyleBackColor = true;
@@ -971,11 +972,22 @@
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
+            // buttonDontJustSayNo
+            // 
+            this.buttonDontJustSayNo.Location = new System.Drawing.Point(118, 333);
+            this.buttonDontJustSayNo.Name = "buttonDontJustSayNo";
+            this.buttonDontJustSayNo.Size = new System.Drawing.Size(105, 23);
+            this.buttonDontJustSayNo.TabIndex = 120;
+            this.buttonDontJustSayNo.Text = "Dont Just Say No";
+            this.buttonDontJustSayNo.UseVisualStyleBackColor = true;
+            this.buttonDontJustSayNo.Click += new System.EventHandler(this.buttonDontJustSayNo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 694);
+            this.Controls.Add(this.buttonDontJustSayNo);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.label7);
@@ -1166,6 +1178,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button buttonDontJustSayNo;
     }
 }
 
