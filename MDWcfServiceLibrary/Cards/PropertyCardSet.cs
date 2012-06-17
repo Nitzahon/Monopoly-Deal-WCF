@@ -65,7 +65,7 @@ namespace MDWcfServiceLibrary
             propertySetColor = propertyCard.getPropertyColor();
         }
 
-        public PropertyCardSet(PropertyCardSet pcs, PlayFieldModel state)
+        public PropertyCardSet(PropertyCardSet pcs, PlayFieldModel state)//Clone Constructor
         {
             id = pcs.id;
             guid = pcs.guid;
@@ -73,11 +73,11 @@ namespace MDWcfServiceLibrary
             hasHotel = pcs.hasHotel;
             if (pcs.hotel != null)
             {
-                pcs.hotel = state.deck.getCardByID(pcs.hotel.cardID);
+                this.hotel = state.deck.getCardByID(pcs.hotel.cardID);
             }
             if (pcs.house != null)
             {
-                pcs.house = state.deck.getCardByID(pcs.house.cardID);
+                this.house = state.deck.getCardByID(pcs.house.cardID);
             }
             properties = pcs.properties.cloneLinkedListPropertyCard(state.deck);
             propertySetColor = pcs.propertySetColor;

@@ -65,6 +65,9 @@ namespace MDWcfServiceLibrary
                 case PropertyColor.Red:
                     setPropertyInfo(PropertyColor.Red, 3, 2, 3, 6, 6);
                     break;
+                case PropertyColor.Yellow:
+                    setPropertyInfo(PropertyColor.Yellow, 3, 2, 4, 6, 6);
+                    break;
                 case PropertyColor.Station:
                     setPropertyInfo(PropertyColor.Station, 4, 1, 2, 3, 4);
                     break;

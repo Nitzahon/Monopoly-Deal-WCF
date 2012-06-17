@@ -558,11 +558,11 @@ namespace MDWcfWFClient
                             playersPlayedCards.Add(property);
                             totalValue += property.cardValue;
                         }
-                        if (ps.hasHouse)
+                        if (ps.hasHouse && ps.house != null)
                         {
                             playersPlayedCards.Add(ps.house);
                             totalValue += ps.house.cardValue;
-                            if (ps.hasHotel)
+                            if (ps.hasHotel && ps.hotel != null)
                             {
                                 playersPlayedCards.Add(ps.hotel);
                                 totalValue += ps.hotel.cardValue;

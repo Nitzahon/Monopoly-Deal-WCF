@@ -98,7 +98,7 @@
       <xs:element minOccurs="0" name="playerWhoPerformedActionOnTurn" type="ser:guid" />
       <xs:element minOccurs="0" name="propertyCardGivenUpInForcedDeal" nillable="true" type="tns:CardIDSetGuid" />
       <xs:element minOccurs="0" name="propertyCardsTakenFromPlayerAndSetTheCardWasIn" nillable="true" type="tns:ArrayOfCardIDSetGuid" />
-      <xs:element minOccurs="0" name="propertySetTakenFromPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="propertySetTakenFromPlayer" type="ser:guid" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ActionCardEvent" nillable="true" type="tns:ActionCardEvent" />

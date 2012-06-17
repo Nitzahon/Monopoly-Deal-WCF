@@ -37,7 +37,7 @@ namespace MDWcfServiceLibrary
         [DataMember]
         public List<int> bankedCardsTakenFromPlayer;
         [DataMember]
-        public int propertySetTakenFromPlayer;
+        public Guid propertySetTakenFromPlayer;
         [DataMember]
         public CardIDSetGuid propertyCardGivenUpInForcedDeal;
         [DataMember]

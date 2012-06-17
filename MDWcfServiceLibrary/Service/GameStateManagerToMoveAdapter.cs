@@ -488,7 +488,7 @@ namespace MDWcfServiceLibrary
                 playForcedDeal.actionCardActionType = ActionCardAction.ForcedDeal;
 
                 PropertyCard cardToForcedDealFor = monopolyDeal.deck.getCardByID(targetedCard) as PropertyCard;
-                PropertyCard cardToLoseInForcedDeal = monopolyDeal.deck.getCardByID(forcedDealCardID) as PropertyCard;
+                PropertyCard cardToLoseInForcedDeal = monopolyDeal.deck.getCardByID(playersCardToSwapWith) as PropertyCard;
 
                 playForcedDeal.guidOfCardToBeForcedDealed = cardToForcedDealFor.cardGuid;
                 playForcedDeal.guidOfSetCardToBeForcedDealedIsIn = setTargetCardIn;

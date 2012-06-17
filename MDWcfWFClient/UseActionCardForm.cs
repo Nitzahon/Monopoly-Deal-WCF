@@ -18,6 +18,7 @@ namespace MDWcfWFClient
 
         RequestHanderMonopolyDeal request;
         MonopolyDealServiceReference.ActionCard Card;
+        MonopolyDealServiceReference.PlayerModel thisClientPlayer;
 
         public UseActionCardForm(MonopolyDealServiceReference.PlayFieldModel pfm, Guid thisClientGuid, RequestHanderMonopolyDeal rqmd, MonopolyDealServiceReference.ActionCard card)
         {
@@ -72,6 +73,26 @@ namespace MDWcfWFClient
                         listBoxCardsInSet.DisplayMember = "description";
                         listBoxCardsInSet.ValueMember = "cardID";
                     }
+                }
+            }
+            foreach (MonopolyDealServiceReference.PlayerModel player in this.request.CurrentPlayFieldModel.playerModels)
+            {
+                if (player.guid.CompareTo(request.thisClientGuid) == 0)
+                {
+                    thisClientPlayer = player;
+                    break;
+                }
+            }
+
+            if (thisClientPlayer != null)
+            {
+                listBoxSetCardToGiveUpIsIn.DataSource = thisClientPlayer.propertySets.playersPropertySets;
+                listBoxSetCardToGiveUpIsIn.DisplayMember = "propertySetColor";
+                if (listBoxSetCardToGiveUpIsIn.SelectedValue != null)
+                {
+                    listBoxCardToGiveUp.DataSource = ((MonopolyDealServiceReference.PropertyCardSet)listBoxSetCardToGiveUpIsIn.SelectedValue).properties.ToArray<MonopolyDealServiceReference.Card>();
+                    listBoxCardToGiveUp.DisplayMember = "description";
+                    listBoxCardToGiveUp.ValueMember = "cardID";
                 }
             }
         }
@@ -256,8 +277,52 @@ namespace MDWcfWFClient
                 }
                 else if (Card.actionType.CompareTo(MonopolyDealServiceReference.ActionCardAction.ForcedDeal) == 0)
                 {
-                    this.Text = "Use Forced Deal Card";
-                    buttonUseDealBreaker.Text = "Use Forced Deal";
+                    if (listBoxPlayers.SelectedItem != null)
+                    {
+                        MonopolyDealServiceReference.PlayerModel playerTargeted = (MonopolyDealServiceReference.PlayerModel)listBoxPlayers.SelectedItem;
+                        if (playerTargeted.guid.CompareTo(request.thisClientGuid) == 0)
+                        {
+                            MessageBox.Show("Can not Forced Deal yourself");
+                            return;
+                        }
+                        else
+                        {
+                            MonopolyDealServiceReference.PropertyCardSet targetedSet = listBoxSets.SelectedItem as MonopolyDealServiceReference.PropertyCardSet;
+                            if (targetedSet != null)
+                            {
+                                MonopolyDealServiceReference.Card targetedCard = listBoxCardsInSet.SelectedItem as MonopolyDealServiceReference.Card;
+                                if (targetedCard != null)
+                                {
+                                    if (listBoxSetCardToGiveUpIsIn.SelectedItem != null)
+                                    {
+                                        MonopolyDealServiceReference.PropertyCardSet givenUpCardSet = (MonopolyDealServiceReference.PropertyCardSet)listBoxSetCardToGiveUpIsIn.SelectedItem;
+                                        if (listBoxCardToGiveUp.SelectedItem != null)
+                                        {
+                                            MonopolyDealServiceReference.Card givenUpCard = (MonopolyDealServiceReference.Card)listBoxCardToGiveUp.SelectedItem;
+                                            request.forcedDeal(Card, playerTargeted.guid, targetedSet, targetedCard, givenUpCardSet, givenUpCard);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("No Card selected to be given up in Forced Deal");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("No set to give up Card from in Forced Deal selected");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No Card to take in Forced Deal selected");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("No set to take Card from in Forced Deal selected");
+                                return;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -267,6 +332,59 @@ namespace MDWcfWFClient
         }
 
         private void listBoxSetCardToGiveUpIsIn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (MonopolyDealServiceReference.PlayerModel player in this.request.CurrentPlayFieldModel.playerModels)
+            {
+                if (player.guid.CompareTo(request.thisClientGuid) == 0)
+                {
+                    thisClientPlayer = player;
+                    break;
+                }
+            }
+
+            if (thisClientPlayer != null)
+            {
+                listBoxSetCardToGiveUpIsIn.DataSource = thisClientPlayer.propertySets.playersPropertySets;
+                listBoxSetCardToGiveUpIsIn.DisplayMember = "propertySetColor";
+                if (listBoxSetCardToGiveUpIsIn.SelectedValue != null)
+                {
+                    listBoxCardToGiveUp.DataSource = ((MonopolyDealServiceReference.PropertyCardSet)listBoxSetCardToGiveUpIsIn.SelectedValue).properties.ToArray<MonopolyDealServiceReference.Card>();
+                    listBoxCardToGiveUp.DisplayMember = "description";
+                    listBoxCardToGiveUp.ValueMember = "cardID";
+                }
+            }
+        }
+
+        private void listBoxCardToGiveUp_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (MonopolyDealServiceReference.PlayerModel player in this.request.CurrentPlayFieldModel.playerModels)
+            {
+                if (player.guid.CompareTo(request.thisClientGuid) == 0)
+                {
+                    thisClientPlayer = player;
+                    break;
+                }
+            }
+
+            if (thisClientPlayer != null)
+            {
+                listBoxSetCardToGiveUpIsIn.DataSource = thisClientPlayer.propertySets.playersPropertySets;
+                listBoxSetCardToGiveUpIsIn.DisplayMember = "propertySetColor";
+                if (listBoxSetCardToGiveUpIsIn.SelectedValue != null)
+                {
+                    listBoxCardToGiveUp.DataSource = ((MonopolyDealServiceReference.PropertyCardSet)listBoxSetCardToGiveUpIsIn.SelectedValue).properties.ToArray<MonopolyDealServiceReference.Card>();
+                    listBoxCardToGiveUp.DisplayMember = "description";
+                    listBoxCardToGiveUp.ValueMember = "cardID";
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }

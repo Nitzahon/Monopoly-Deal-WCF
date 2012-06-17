@@ -45,9 +45,9 @@ namespace MDWcfWFClient
         private void button1_Click(object sender, EventArgs e)
         {
             //new up
-            MonopolyDealServiceReference.PropertyCard pickedPropertyToMove = listBoxPickProperty.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+            MonopolyDealServiceReference.PropertyCard pickedPropertyToMove = listBoxPickProperty.SelectedItem as MonopolyDealServiceReference.PropertyCard;
             MonopolyDealServiceReference.PropertyCardSet newPropertySet = null;
-            MonopolyDealServiceReference.PropertyCardSet oldPropertySet = listBoxPickOriginalSetToRemoveCardFrom.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            MonopolyDealServiceReference.PropertyCardSet oldPropertySet = listBoxPickOriginalSetToRemoveCardFrom.SelectedItem as MonopolyDealServiceReference.PropertyCardSet;
             bool isCardUp = true;
             bool playToExistingSet = false;
             if (pickedPropertyToMove != null)
@@ -178,9 +178,9 @@ namespace MDWcfWFClient
         private void buttonMoveNewSetDown_Click(object sender, EventArgs e)
         {
             //new down
-            MonopolyDealServiceReference.PropertyCard pickedPropertyToMove = listBoxPickProperty.SelectedValue as MonopolyDealServiceReference.PropertyCard;
+            MonopolyDealServiceReference.PropertyCard pickedPropertyToMove = listBoxPickProperty.SelectedItem as MonopolyDealServiceReference.PropertyCard;
             MonopolyDealServiceReference.PropertyCardSet newPropertySet = null;
-            MonopolyDealServiceReference.PropertyCardSet oldPropertySet = listBoxPickOriginalSetToRemoveCardFrom.SelectedValue as MonopolyDealServiceReference.PropertyCardSet;
+            MonopolyDealServiceReference.PropertyCardSet oldPropertySet = listBoxPickOriginalSetToRemoveCardFrom.SelectedItem as MonopolyDealServiceReference.PropertyCardSet;
             bool isCardUp = false;
             bool playToExistingSet = false;
             if (pickedPropertyToMove != null)
@@ -217,6 +217,11 @@ namespace MDWcfWFClient
 
         private void MovePropertyToNewSetForm_Load(object sender, EventArgs e)
         {
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

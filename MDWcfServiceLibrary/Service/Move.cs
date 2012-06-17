@@ -869,7 +869,7 @@ namespace MDWcfServiceLibrary
                             nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
                             nextState.actionCardEvent.playerOnTurnPerformingAction = true;
                             nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
-
+                            nextState.actionCardEvent.propertySetTakenFromPlayer = setToDealBreaker.guid;
                             nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.DealBreaker;
                             List<CardIDSetGuid> listOfCardDealbreakered = new List<CardIDSetGuid>();
                             foreach (Card property in setToDealBreaker.properties)
@@ -1026,7 +1026,6 @@ namespace MDWcfServiceLibrary
                             //Create new set with card Sly Dealed in it
                             PropertyCardSet newSet = new PropertyCardSet(cardToSlyDeal);
                             playerModelForPlayer.propertySets.addSet(newSet);
-
                             //Change state on success
                             //has been performed, advance the phase of the game
                             nextState.currentPhase = nextStatePhase;
@@ -1402,26 +1401,101 @@ namespace MDWcfServiceLibrary
                         {
                             ActionCard actionCard = card as ActionCard;
                             //Do action
+                            if (undoDealBreaker(currentState, nextState) == false)
+                            {
+                                return new BoolResponseBox(false, "Failed to undo dealbreaker");
+                            }
+                            else
+                            {
+                                Statephase nextStatePhaseIfSuccessful;
+
+                                nextStatePhaseIfSuccessful = JustSayNoUsedByOpposition;
+
+                                //Generate action card event to give the chance to just say no
+                                ActionCardEvent justSayNoUsedAgainstDealBreaker = new ActionCardEvent();
+                                justSayNoUsedAgainstDealBreaker.actionCardTypeUsed = currentState.actionCardEvent.actionCardTypeUsed;//Will be a debt incurring card
+                                justSayNoUsedAgainstDealBreaker.actionJustSayNoUsedByAffectedPlayer = true;//The player affected by the DealBreaker card has used a just say no to cancel the debt incurring card
+                                justSayNoUsedAgainstDealBreaker.actionTypeTaken = TurnActionTypes.PlayJustSayNo;//The action type taken
+                                justSayNoUsedAgainstDealBreaker.playerAffectedByAction = playerModelForLostSet.guid;//The player using a just say no to cancel the DealBreaker card
+                                justSayNoUsedAgainstDealBreaker.playerWhoPerformedActionOnTurn = currentState.guidOfPlayerWhosTurnItIs;//The player on turn who played a DealBreaker card who can play a just say not against the cancelling players just say no
+                                justSayNoUsedAgainstDealBreaker.propertySetTakenFromPlayer = currentState.actionCardEvent.propertySetTakenFromPlayer;
+                                justSayNoUsedAgainstDealBreaker.originalActionCardId = currentState.actionCardEvent.originalActionCardId;//Dealbreaker card id
+                                justSayNoUsedAgainstDealBreaker.playerOnTurnPerformingAction = false;//Player using Just Say No is performing this action
+                                justSayNoUsedAgainstDealBreaker.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                                //Set the action card event
+                                nextState.actionCardEvent = justSayNoUsedAgainstDealBreaker;
+
+                                //Update the state
+
+                                //Change state on success
+                                //has been performed, advance the phase of the game
+                                nextState.currentPhase = nextStatePhaseIfSuccessful;
+                                List<TurnActionTypes> allowedForPlayerWhoDontHaveCardsTaken = new List<TurnActionTypes>();
+                                List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                                List<TurnActionTypes> allowedForPlayersWhoDoHaveCardsTaken = new List<TurnActionTypes>();
+                                onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+                                updateAllowableStatesPerPlayerCardsTaken(nextState, allowedForPlayerWhoDontHaveCardsTaken, onTurn, currentState.guidOfPlayerWhosTurnItIs, allowedForPlayersWhoDoHaveCardsTaken);
+
+                                //change the current state to the next state
+                                addNextState(nextState);
+                                return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Just Say No to regain Set.");
+                            }
+                        }
+                    }
+                }
+
+                #endregion DealBreaker Being Just Say No'd
+
+                #region Forced Deal Being Just Say No'd
+
+                else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ForcedDeal) == 0)
+                {
+                    //Money events are just say noable before action is taken so rollback is unneccessary
+                    //Check
+                    //Perform action in next state
+                    //Clone the current state to create next state
+                    nextState = currentState.clone(generateGuidForNextState());
+
+                    //Player Lost Set in DealBreaker using Just Say No to get it back
+                    PlayerModel playerModelForLostSet = getPlayerModel(playerPerformingAction.guid, nextState);
+
+                    //Player Gained Set in DealBreaker
+                    PlayerModel playerModelForPlayerGainedSet = getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, nextState);
+                    //Discard Just say no card
+                    Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+                    //Get the reference to the players playerModel in the current PlayFieldModel
+
+                    //Get the reference to the Card in the current PlayFieldModel
+                    if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.JustSayNo) == 0)
+                    {
+                        Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForLostSet);
+                        if (card != null)
+                        {
+                            ActionCard actionCard = card as ActionCard;
+                            //Do action
 
                             Statephase nextStatePhaseIfSuccessful;
 
                             nextStatePhaseIfSuccessful = JustSayNoUsedByOpposition;
 
                             //Generate action card event to give the chance to just say no
-                            ActionCardEvent justSayNoUsedAgainstDealBreaker = new ActionCardEvent();
-                            justSayNoUsedAgainstDealBreaker.actionCardTypeUsed = currentState.actionCardEvent.actionCardTypeUsed;//Will be a debt incurring card
-                            justSayNoUsedAgainstDealBreaker.actionJustSayNoUsedByAffectedPlayer = true;//The player affected by the DealBreaker card has used a just say no to cancel the debt incurring card
-                            justSayNoUsedAgainstDealBreaker.actionTypeTaken = TurnActionTypes.PlayJustSayNo;//The action type taken
-                            justSayNoUsedAgainstDealBreaker.playerAffectedByAction = playerModelForLostSet.guid;//The player using a just say no to cancel the DealBreaker card
-                            justSayNoUsedAgainstDealBreaker.playerWhoPerformedActionOnTurn = currentState.guidOfPlayerWhosTurnItIs;//The player on turn who played a DealBreaker card who can play a just say not against the cancelling players just say no
-                            justSayNoUsedAgainstDealBreaker.propertySetTakenFromPlayer = currentState.actionCardEvent.propertySetTakenFromPlayer;
-                            justSayNoUsedAgainstDealBreaker.originalActionCardId = currentState.actionCardEvent.originalActionCardId;//Dealbreaker card id
-                            justSayNoUsedAgainstDealBreaker.playerOnTurnPerformingAction = false;//Player using Just Say No is performing this action
-                            justSayNoUsedAgainstDealBreaker.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                            ActionCardEvent justSayNoUsedAgainstForcedDeal = new ActionCardEvent();
+                            justSayNoUsedAgainstForcedDeal.actionCardTypeUsed = currentState.actionCardEvent.actionCardTypeUsed;//
+                            justSayNoUsedAgainstForcedDeal.actionJustSayNoUsedByAffectedPlayer = true;//The player affected by the Forced Deal card has used a just say no to cancel the debt incurring card
+                            justSayNoUsedAgainstForcedDeal.actionTypeTaken = TurnActionTypes.PlayJustSayNo;//The action type taken
+                            justSayNoUsedAgainstForcedDeal.playerAffectedByAction = playerModelForLostSet.guid;//The player using a just say no to cancel the Forced Deal card
+                            justSayNoUsedAgainstForcedDeal.playerWhoPerformedActionOnTurn = currentState.guidOfPlayerWhosTurnItIs;//The player on turn who played a Forced Deal card who can play a just say not against the cancelling players just say no
+                            justSayNoUsedAgainstForcedDeal.originalActionCardId = currentState.actionCardEvent.originalActionCardId;//Forced Deal card id
+                            justSayNoUsedAgainstForcedDeal.playerOnTurnPerformingAction = false;//Player using Just Say No is performing this action
+                            justSayNoUsedAgainstForcedDeal.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                            justSayNoUsedAgainstForcedDeal.propertyCardGivenUpInForcedDeal = currentState.actionCardEvent.propertyCardGivenUpInForcedDeal;
+                            justSayNoUsedAgainstForcedDeal.propertyCardsTakenFromPlayerAndSetTheCardWasIn = currentState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn;
+
                             //Set the action card event
-                            nextState.actionCardEvent = justSayNoUsedAgainstDealBreaker;
+                            nextState.actionCardEvent = justSayNoUsedAgainstForcedDeal;
 
                             //Update the state
+                            undoForcedDeal(currentState, nextState);
 
                             //Change state on success
                             //has been performed, advance the phase of the game
@@ -1434,21 +1508,79 @@ namespace MDWcfServiceLibrary
 
                             //change the current state to the next state
                             addNextState(nextState);
-                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Just Say No to regain Set.");
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Just Say No to undo Forced Deal.");
                         }
                     }
                 }
 
-                #endregion DealBreaker Being Just Say No'd
+                #endregion Forced Deal Being Just Say No'd
 
-                else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ForcedDeal) == 0)
-                {
-                    throw new NotImplementedException("Canceling a forced deal card is not implemented");
-                }
+                #region Sly Deal Being Just Say No'd
+
                 else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.SlyDeal) == 0)
                 {
-                    throw new NotImplementedException("Canceling a sly deal card is not implemented");
+                    //Money events are just say noable before action is taken so rollback is unneccessary
+                    //Check
+                    //Perform action in next state
+                    //Clone the current state to create next state
+                    nextState = currentState.clone(generateGuidForNextState());
+
+                    //Player Lost Set in DealBreaker using Just Say No to get it back
+                    PlayerModel playerModelForLostCard = getPlayerModel(playerPerformingAction.guid, nextState);
+
+                    //Player Gained Set in DealBreaker
+                    PlayerModel playerModelForPlayerGainedCard = getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, nextState);
+                    //Discard Just say no card
+                    Card cardInHandToBePlayed = nextState.deck.getCardByID(moveInformation.idOfCardBeingUsed);
+                    //Get the reference to the players playerModel in the current PlayFieldModel
+
+                    //Get the reference to the Card in the current PlayFieldModel
+                    if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.JustSayNo) == 0)
+                    {
+                        Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForLostCard);
+                        if (card != null)
+                        {
+                            ActionCard actionCard = card as ActionCard;
+                            //Do action
+
+                            Statephase nextStatePhaseIfSuccessful;
+
+                            nextStatePhaseIfSuccessful = JustSayNoUsedByOpposition;
+
+                            //Generate action card event to give the chance to just say no
+                            ActionCardEvent justSayNoUsedAgainstSlyDeal = new ActionCardEvent();
+                            justSayNoUsedAgainstSlyDeal.actionCardTypeUsed = currentState.actionCardEvent.actionCardTypeUsed;//
+                            justSayNoUsedAgainstSlyDeal.actionJustSayNoUsedByAffectedPlayer = true;//The player affected by the Forced Deal card has used a just say no to cancel the debt incurring card
+                            justSayNoUsedAgainstSlyDeal.actionTypeTaken = TurnActionTypes.PlayJustSayNo;//The action type taken
+                            justSayNoUsedAgainstSlyDeal.playerAffectedByAction = playerModelForLostCard.guid;//The player using a just say no to cancel the Forced Deal card
+                            justSayNoUsedAgainstSlyDeal.playerWhoPerformedActionOnTurn = currentState.guidOfPlayerWhosTurnItIs;//The player on turn who played a Forced Deal card who can play a just say not against the cancelling players just say no
+                            justSayNoUsedAgainstSlyDeal.originalActionCardId = currentState.actionCardEvent.originalActionCardId;//Forced Deal card id
+                            justSayNoUsedAgainstSlyDeal.playerOnTurnPerformingAction = false;//Player using Just Say No is performing this action
+                            justSayNoUsedAgainstSlyDeal.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                            justSayNoUsedAgainstSlyDeal.propertyCardsTakenFromPlayerAndSetTheCardWasIn = currentState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn;//card that was sly dealed
+                            //Set the action card event
+                            nextState.actionCardEvent = justSayNoUsedAgainstSlyDeal;
+
+                            //Update the state
+                            undoSlyDeal(currentState, nextState);
+
+                            //Change state on success
+                            //has been performed, advance the phase of the game
+                            nextState.currentPhase = nextStatePhaseIfSuccessful;
+                            List<TurnActionTypes> allowedForPlayerWhoDontHaveCardsTaken = new List<TurnActionTypes>();
+                            List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                            List<TurnActionTypes> allowedForPlayersWhoDoHaveCardsTaken = new List<TurnActionTypes>();
+                            onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+                            updateAllowableStatesPerPlayerCardsTaken(nextState, allowedForPlayerWhoDontHaveCardsTaken, onTurn, currentState.guidOfPlayerWhosTurnItIs, allowedForPlayersWhoDoHaveCardsTaken);
+
+                            //change the current state to the next state
+                            addNextState(nextState);
+                            return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Has used a Just Say No to undo Sly Deal.");
+                        }
+                    }
                 }
+
+                #endregion Sly Deal Being Just Say No'd
 
                 #endregion Just Say No used against non-debt incurring card
             }
@@ -1460,6 +1592,9 @@ namespace MDWcfServiceLibrary
             else if (currentState.actionCardEvent.actionJustSayNoUsedByAffectedPlayer == true)
             {
                 //The on turn player has played a just say no to cancel a just say no
+
+                #region Use Just Say No to Cancel Another Just Say No For Debt Collector, It's My Birthday, Standard and MultiColor Rent Cards
+
                 if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DebtCollector) == 0 || currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DoubleTheRent) == 0 || currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ItsMyBirthday) == 0 || currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.RentMultiColor) == 0 || currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.RentStandard) == 0)
                 {
                     //Perform action again
@@ -1471,45 +1606,367 @@ namespace MDWcfServiceLibrary
                     if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DebtCollector) == 0)
                     {
                         //Card Played was a debt collector card
-                        replayActionCardDebtCollector(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
+                        return replayActionCardDebtCollector(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
                     }
                     else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ItsMyBirthday) == 0)
                     {
-                        replayActionCardItsMyBirthday(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
+                        return replayActionCardItsMyBirthday(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
                     }
                     else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.RentStandard) == 0)
                     {
-                        replayActionCardRentStandard(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
+                        return replayActionCardRentStandard(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
                     }
                     else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.RentMultiColor) == 0)
                     {
-                        replayActionCardRentWild(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
+                        return replayActionCardRentWild(currentState, nextState, getPlayerModel(moveInformation.guidOfPlayerToPayDebtTo, currentState), nextStatePhase, moveInformation);
                     }
 
                     #endregion Debt Redo
 
-                    else
-                    {
-                        throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
-                    }
+                #endregion Use Just Say No to Cancel Another Just Say No For Debt Collector, It's My Birthday, Standard and MultiColor Rent Cards
                 }
                 else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.DealBreaker) == 0)
                 {
-                    throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
+                    return replayActionCardDealBreaker(currentState, nextState, nextStatePhase, moveInformation);
                 }
                 else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.ForcedDeal) == 0)
                 {
-                    throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
+                    return replayActionCardForcedDeal(currentState, nextState, nextStatePhase, moveInformation);
                 }
                 else if (currentState.actionCardEvent.actionCardTypeUsed.CompareTo(ActionCardAction.SlyDeal) == 0)
                 {
-                    throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
+                    return replayActionCardSlyDeal(currentState, nextState, nextStatePhase, moveInformation);
                 }
             }
 
             #endregion Player on turn is playing a Just Say No to Cancel the Effect of another Just Say No against them
 
-            return new BoolResponseBox(false, "Not able to use a just say no card at this time");
+            throw new NotImplementedException("Replaying action card type " + moveInformation.actionCardActionType.ToString() + " is not implemented");
+        }
+
+        private BoolResponseBox replayActionCardSlyDeal(PlayFieldModel currentState, PlayFieldModel nextState, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, nextState);
+            PlayerModel playerModelForPlayerToSlyDeal = getPlayerModel(currentState.actionCardEvent.playerAffectedByAction, nextState);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Do action
+            PropertyCardSet setToSlyDealFrom = getPropertyCardSet(playerModelForPlayerToSlyDeal.propertySets, currentState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].setGuid);
+            PropertyCard cardToSlyDeal = nextState.deck.getCardByID(currentState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].cardID) as PropertyCard;
+            if (setToSlyDealFrom != null && cardToSlyDeal != null)
+            {
+                if (setToSlyDealFrom.removeProperty(cardToSlyDeal))
+                {
+                    //Card Removed from set
+                    //Create new set with card Sly Dealed in it
+                    PropertyCardSet newSet = new PropertyCardSet(cardToSlyDeal);
+                    playerModelForPlayer.propertySets.addSet(newSet);
+                    //Change state on success
+                    //has been performed, advance the phase of the game
+                    nextState.currentPhase = nextStatePhase;
+                    //Used to set the allowable actions for player
+                    playerModelForPlayerToSlyDeal.hasHadCardsTaken = true;
+                    //Create event information for rollback and display
+                    nextState.actionCardEvent = new ActionCardEvent();
+                    nextState.actionCardEvent.playerAffectedByAction = currentState.actionCardEvent.playerAffectedByAction;
+                    nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                    nextState.actionCardEvent.playerOnTurnPerformingAction = true;
+                    nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+
+                    nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.SlyDeal;
+                    List<CardIDSetGuid> listOfCardsSlyDealed = new List<CardIDSetGuid>();
+                    listOfCardsSlyDealed.Add(new CardIDSetGuid(cardToSlyDeal.cardID, setToSlyDealFrom.guid));
+                    nextState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn = listOfCardsSlyDealed;
+                    //change the current state to the next state
+
+                    List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                    List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                    onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                    updateAllowableStatesPerPlayerCardsTaken(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnCardsTaken(new List<TurnActionTypes>(), nextState));
+
+                    addNextState(nextState);
+                    return new BoolResponseBox(true, "Player:" + playerModelForPlayer.name + " Has used a Sly Deal Card");
+                }
+                else
+                {
+                    return new BoolResponseBox(false, "Unable to remove card from set");
+                }
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Card to Sly Deal or set the card is in does not exist");
+            }
+        }
+
+        private BoolResponseBox replayActionCardForcedDeal(PlayFieldModel currentState, PlayFieldModel nextState, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, nextState);
+            PlayerModel playerModelForPlayerToForcedDeal = getPlayerModel(currentState.actionCardEvent.playerAffectedByAction, nextState);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            //Do action
+            PropertyCardSet setToForcedDealFrom = getPropertyCardSet(playerModelForPlayerToForcedDeal.propertySets, currentState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].setGuid);
+            PropertyCard cardToForcedDealFor = nextState.deck.getCardByID(currentState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].cardID) as PropertyCard;
+
+            PropertyCardSet setToGiveUpCardFrom = getPropertyCardSet(playerModelForPlayer.propertySets, currentState.actionCardEvent.propertyCardGivenUpInForcedDeal.setGuid);
+            PropertyCard cardToGiveUp = nextState.deck.getCardByID(currentState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].cardID) as PropertyCard;
+            if (setToForcedDealFrom != null && cardToForcedDealFor != null && setToGiveUpCardFrom != null && cardToGiveUp != null)
+            {
+                if (setToForcedDealFrom.removeProperty(cardToForcedDealFor))
+                {
+                    //Card Removed from set
+                    //Create new set with card Forced Dealed in it
+                    PropertyCardSet newSetForcedDealCard = new PropertyCardSet(cardToForcedDealFor);
+                    playerModelForPlayer.propertySets.addSet(newSetForcedDealCard);
+                    if (setToGiveUpCardFrom.removeProperty(cardToGiveUp))
+                    {
+                        //Forced dealed player recieves card given up in forced deal
+                        PropertyCardSet newSetGivenUpCard = new PropertyCardSet(cardToGiveUp);
+                        playerModelForPlayerToForcedDeal.propertySets.addSet(newSetGivenUpCard);
+                        playerModelForPlayerToForcedDeal.hasHadCardsTaken = true;
+                        //Change state on success
+                        //has been performed, advance the phase of the game
+                        nextState.currentPhase = nextStatePhase;
+
+                        List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                        List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                        onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                        nextState.actionCardEvent = new ActionCardEvent();
+                        nextState.actionCardEvent.playerAffectedByAction = currentState.actionCardEvent.playerAffectedByAction;
+                        nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                        nextState.actionCardEvent.playerOnTurnPerformingAction = true;
+                        nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+
+                        nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.ForcedDeal;
+                        List<CardIDSetGuid> listOfCardsForcedDealed = new List<CardIDSetGuid>();
+                        listOfCardsForcedDealed.Add(new CardIDSetGuid(cardToForcedDealFor.cardID, setToForcedDealFrom.guid));
+                        nextState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn = listOfCardsForcedDealed;
+                        nextState.actionCardEvent.propertyCardGivenUpInForcedDeal = new CardIDSetGuid(cardToGiveUp.cardID, setToGiveUpCardFrom.guid);
+                        //change the current state to the next state
+
+                        updateAllowableStatesPerPlayerCardsTaken(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnCardsTaken(new List<TurnActionTypes>(), nextState));
+                        addNextState(nextState);
+                        return new BoolResponseBox(true, "Player:" + playerModelForPlayer.name + " Has used a Forced Deal Card");
+                    }
+                    else
+                    {
+                        return new BoolResponseBox(false, "Unable to remove card to be given up");
+                    }
+                }
+                else
+                {
+                    return new BoolResponseBox(false, "Unable to remove card from player being forced dealed set");
+                }
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Card to Forced Deal or set the card is in does not exist");
+            }
+        }
+
+        private BoolResponseBox replayActionCardDealBreaker(PlayFieldModel currentState, PlayFieldModel nextState, Statephase nextStatePhase, MoveInfo moveInformation)
+        {
+            //Check
+            //Perform action in next state
+            //Clone the current state to create next state then draws 5 cards in the next state
+            nextState = currentState.clone(generateGuidForNextState());
+            PlayerModel playerModelForPlayer = getPlayerModel(moveInformation.playerMakingMove, nextState);
+            PlayerModel playerModelForPlayerToDealBreaker = getPlayerModel(currentState.actionCardEvent.playerAffectedByAction, nextState);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+            //Do action
+            PropertyCardSet setToDealBreaker = getPropertyCardSet(playerModelForPlayerToDealBreaker.propertySets, currentState.actionCardEvent.propertySetTakenFromPlayer);
+            if (setToDealBreaker != null && setToDealBreaker.isFullSet() == true)
+            {
+                if (playerModelForPlayerToDealBreaker.propertySets.playersPropertySets.Remove(setToDealBreaker) == true)
+                {
+                    //Set taken from player
+                    //give to player using dealbreaker card
+                    playerModelForPlayer.propertySets.addSet(setToDealBreaker);
+
+                    //Change state on success
+                    //has been performed, advance the phase of the game
+                    nextState.currentPhase = nextStatePhase;
+                    //Used to set the allowable actions for player
+                    playerModelForPlayerToDealBreaker.hasHadCardsTaken = true;
+
+                    //Create event information for rollback and display
+                    nextState.actionCardEvent = new ActionCardEvent();
+                    nextState.actionCardEvent.playerAffectedByAction = currentState.actionCardEvent.playerAffectedByAction;
+                    nextState.actionCardEvent.playerWhoPerformedActionOffTurn = moveInformation.playerMakingMove;
+                    nextState.actionCardEvent.playerOnTurnPerformingAction = true;
+                    nextState.actionCardEvent.actionTypeTaken = TurnActionTypes.PlayActionCard;
+                    nextState.actionCardEvent.propertySetTakenFromPlayer = setToDealBreaker.guid;
+                    nextState.actionCardEvent.actionCardTypeUsed = ActionCardAction.DealBreaker;
+                    List<CardIDSetGuid> listOfCardDealbreakered = new List<CardIDSetGuid>();
+                    foreach (Card property in setToDealBreaker.properties)
+                    {
+                        listOfCardDealbreakered.Add(new CardIDSetGuid(property.cardID, setToDealBreaker.guid));
+                    }
+                    if (setToDealBreaker.hasHouse)
+                    {
+                        listOfCardDealbreakered.Add(new CardIDSetGuid(setToDealBreaker.house.cardID, setToDealBreaker.guid));
+                    }
+                    if (setToDealBreaker.hasHotel)
+                    {
+                        listOfCardDealbreakered.Add(new CardIDSetGuid(setToDealBreaker.hotel.cardID, setToDealBreaker.guid));
+                    }
+                    nextState.actionCardEvent.propertyCardsTakenFromPlayerAndSetTheCardWasIn = listOfCardDealbreakered;
+                    //change the current state to the next state
+
+                    List<TurnActionTypes> notOnTurn = new List<TurnActionTypes>();
+                    List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
+                    onTurn = setAllowableActionsOnTurn(onTurn, nextState);
+
+                    updateAllowableStatesPerPlayerCardsTaken(nextState, notOnTurn, onTurn, nextState.guidOfPlayerWhosTurnItIs, setAllowableActionsNotOnTurnCardsTaken(new List<TurnActionTypes>(), nextState));
+
+                    addNextState(nextState);
+                    return new BoolResponseBox(true, "Player:" + playerModelForPlayer.name + " Has used a Deal Breaker Card");
+                }
+                else
+                {
+                    return new BoolResponseBox(false, "Unable to take set from player");
+                }
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Set to Deal Breaker is not a full set or does not exist");
+            }
+        }
+
+        /// <summary>
+        /// Gives a player playing a just say no against a player who last used a dealbreaker card back the set taken
+        /// </summary>
+        /// <param name="currentState"></param>
+        /// <param name="nextState"></param>
+        /// <returns></returns>
+        private bool undoDealBreaker(PlayFieldModel currentState, PlayFieldModel nextState)
+        {
+            ActionCardEvent undoDealBreakerInfo = currentState.actionCardEvent;
+
+            PlayerModel playerModelForPlayerRegainingSet = getPlayerModel(undoDealBreakerInfo.playerAffectedByAction, nextState);
+            PlayerModel playerModelForPlayerLoosingSet = getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, nextState);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+            PropertyCardSet setToDealBreaker = getPropertyCardSet(playerModelForPlayerLoosingSet.propertySets, undoDealBreakerInfo.propertySetTakenFromPlayer);
+            if (setToDealBreaker != null && setToDealBreaker.isFullSet() == true)
+            {
+                if (playerModelForPlayerLoosingSet.propertySets.playersPropertySets.Remove(setToDealBreaker) == true)
+                {
+                    //Set taken from player
+                    //give to player using dealbreaker card
+                    playerModelForPlayerRegainingSet.propertySets.addSet(setToDealBreaker);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool undoSlyDeal(PlayFieldModel currentState, PlayFieldModel nextState)
+        {
+            ActionCardEvent undoSlyDeal = currentState.actionCardEvent;
+            PlayerModel playerModelForPlayerRegainingCard = getPlayerModel(undoSlyDeal.playerAffectedByAction, nextState);
+            PlayerModel playerModelForPlayerLoosingCard = getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, nextState);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            PropertyCard cardtaken = nextState.deck.getCardByID(undoSlyDeal.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].cardID) as PropertyCard;
+            Guid guidOfSetCardWasIn = undoSlyDeal.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].setGuid;
+            PropertyCardSet setCardWasIn = getPropertyCardSet(playerModelForPlayerRegainingCard.propertySets, guidOfSetCardWasIn);
+            if (cardtaken != null)
+            {
+                PropertyCard card = playerModelForPlayerLoosingCard.removePropertyCardFromPlayersPropertySets(cardtaken);
+                if (card != null)
+                {
+                    if (setCardWasIn == null)
+                    {
+                        setCardWasIn = new PropertyCardSet(card);
+                        playerModelForPlayerRegainingCard.propertySets.addSet(setCardWasIn);
+                    }
+                    else
+                    {
+                        if (setCardWasIn.addProperty(card))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool undoForcedDeal(PlayFieldModel currentState, PlayFieldModel nextState)
+        {
+            ActionCardEvent undoForcedDeal = currentState.actionCardEvent;
+            PlayerModel playerModelForPlayerRegainingCard = getPlayerModel(undoForcedDeal.playerAffectedByAction, nextState);
+            PlayerModel playerModelForPlayerLoosingCard = getPlayerModel(currentState.guidOfPlayerWhosTurnItIs, nextState);
+            //Get the reference to the players playerModel in the current PlayFieldModel
+
+            PropertyCard cardtaken = nextState.deck.getCardByID(undoForcedDeal.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].cardID) as PropertyCard;
+            Guid guidOfSetCardWasIn = undoForcedDeal.propertyCardsTakenFromPlayerAndSetTheCardWasIn[0].setGuid;
+            PropertyCardSet setCardWasIn = getPropertyCardSet(playerModelForPlayerRegainingCard.propertySets, guidOfSetCardWasIn);
+            if (cardtaken != null)
+            {
+                PropertyCard card = playerModelForPlayerLoosingCard.removePropertyCardFromPlayersPropertySets(cardtaken);
+                if (card != null)
+                {
+                    if (setCardWasIn == null)
+                    {
+                        setCardWasIn = new PropertyCardSet(card);
+                        playerModelForPlayerRegainingCard.propertySets.addSet(setCardWasIn);
+                    }
+                    else
+                    {
+                        if (setCardWasIn.addProperty(card))
+                        {
+                            //Card Given To Player Using Forced Deal Card given back to player it was taken from
+                            PropertyCard cardGiven = nextState.deck.getCardByID(undoForcedDeal.propertyCardGivenUpInForcedDeal.cardID) as PropertyCard;
+                            Guid guidOfSetCardGivenWasIn = undoForcedDeal.propertyCardGivenUpInForcedDeal.setGuid;
+                            PropertyCardSet setCardGivenWasIn = getPropertyCardSet(playerModelForPlayerLoosingCard.propertySets, guidOfSetCardWasIn);
+                            if (cardtaken != null)
+                            {
+                                PropertyCard cardGivenUp = playerModelForPlayerRegainingCard.removePropertyCardFromPlayersPropertySets(cardtaken);
+                                if (cardGiven != null)
+                                {
+                                    if (setCardGivenWasIn == null)
+                                    {
+                                        setCardGivenWasIn = new PropertyCardSet(card);
+                                        playerModelForPlayerLoosingCard.propertySets.addSet(setCardWasIn);
+                                    }
+                                    else
+                                    {
+                                        if (setCardGivenWasIn.addProperty(card))
+                                        {
+                                            //Player who used Forced Deal Card given back Card they gave up in Forced Deal
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         private BoolResponseBox replayActionCardRentStandard(PlayFieldModel currentState, PlayFieldModel nextState, PlayerModel playerModel, Statephase nextStatePhase, MoveInfo moveInformation)

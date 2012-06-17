@@ -637,5 +637,24 @@ namespace MDWcfWFClient
             }
             return false;
         }
+
+        internal bool forcedDeal(MonopolyDealServiceReference.ActionCard Card, Guid targetedPlayerGuid, MonopolyDealServiceReference.PropertyCardSet targetedSet, MonopolyDealServiceReference.Card targetedCard, MonopolyDealServiceReference.PropertyCardSet givenUpCardSet, MonopolyDealServiceReference.Card givenUpCard)
+        {
+            getServiceReady();
+            try
+            {
+                MonopolyDealServiceReference.BoolResponseBox response;
+                response = monopolyDealService.playActionCardForcedDealMD(Card.cardID, givenUpCard.cardID, givenUpCardSet.guid.boxGuid(), targetedPlayerGuid.boxGuid(), targetedCard.cardID, targetedSet.guid.boxGuid(),
+                       thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
+                addToLog(response.message);
+                return response.success;
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.ToString());
+                monopolyDealService.Close();
+            }
+            return false;
+        }
     }
 }

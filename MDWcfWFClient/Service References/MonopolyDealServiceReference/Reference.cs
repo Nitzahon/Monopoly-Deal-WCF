@@ -719,7 +719,7 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         private MDWcfWFClient.MonopolyDealServiceReference.CardIDSetGuid[] propertyCardsTakenFromPlayerAndSetTheCardWasInField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int propertySetTakenFromPlayerField;
+        private System.Guid propertySetTakenFromPlayerField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -927,7 +927,7 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int propertySetTakenFromPlayer {
+        public System.Guid propertySetTakenFromPlayer {
             get {
                 return this.propertySetTakenFromPlayerField;
             }

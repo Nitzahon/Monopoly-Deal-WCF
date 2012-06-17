@@ -38,10 +38,7 @@
             this.listBoxPlayers = new System.Windows.Forms.ListBox();
             this.listBoxSets = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.listBoxCardToGiveUp = new System.Windows.Forms.ListBox();
             this.listBoxSetCardToGiveUpIsIn = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
@@ -141,27 +138,15 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.listBoxCardToGiveUp);
             this.groupBox2.Controls.Add(this.listBoxSetCardToGiveUpIsIn);
             this.groupBox2.Location = new System.Drawing.Point(12, 300);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(472, 222);
+            this.groupBox2.Size = new System.Drawing.Size(472, 146);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pick card to give up in Forced Deal";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(240, 21);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(109, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Cards in Selected Set";
             // 
             // label5
             // 
@@ -172,25 +157,6 @@
             this.label5.TabIndex = 5;
             this.label5.Text = "Pick Set";
             // 
-            // button1
-            // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(227, 168);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(211, 43);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(10, 166);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(211, 46);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Forced Deal Cards";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // listBoxCardToGiveUp
             // 
             this.listBoxCardToGiveUp.FormattingEnabled = true;
@@ -198,6 +164,7 @@
             this.listBoxCardToGiveUp.Name = "listBoxCardToGiveUp";
             this.listBoxCardToGiveUp.Size = new System.Drawing.Size(215, 95);
             this.listBoxCardToGiveUp.TabIndex = 2;
+            this.listBoxCardToGiveUp.SelectedIndexChanged += new System.EventHandler(this.listBoxCardToGiveUp_SelectedIndexChanged);
             // 
             // listBoxSetCardToGiveUpIsIn
             // 
@@ -213,7 +180,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(491, 297);
+            this.ClientSize = new System.Drawing.Size(491, 449);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "UseActionCardForm";
@@ -239,10 +206,7 @@
         private System.Windows.Forms.ListBox listBoxSets;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListBox listBoxCardToGiveUp;
         private System.Windows.Forms.ListBox listBoxSetCardToGiveUpIsIn;
     }
