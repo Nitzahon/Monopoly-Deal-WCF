@@ -9,11 +9,11 @@ namespace MDWcfServiceLibrary
 {
     internal class MoveInfo
     {
-        public Guid GuidOfGameOnService;
+        //public Guid GuidOfGameOnService;
 
-        public Guid GuidOfLobbyOnService;
+        //public Guid GuidOfLobbyOnService;
 
-        public Guid GuidOfStateRespondingTo; //The current state
+        //public Guid GuidOfStateRespondingTo; //The current state
 
         public Guid playerWhoseTurnItIs;
 
@@ -76,7 +76,7 @@ namespace MDWcfServiceLibrary
 
         //Double The Rent
         public bool isDoubleTheRentCardBeingUsed;
-        public Guid guidOfDoubleTheRentCardBeingUsed;
+        //public Guid guidOfDoubleTheRentCardBeingUsed;
         public int idOfDoubleTheRentCardBeingUsed;
 
         //House
@@ -93,7 +93,7 @@ namespace MDWcfServiceLibrary
         public Guid guidOfExistingSetToMovePropertyTo;
 
         //Play property from hand to a set
-        public Guid guidOfPropertyToPlay;
+        //public Guid guidOfPropertyToPlay;
         public bool isPropertyToPlayOrientedUp;
         public bool addPropertyToPlayToExistingSet;
         public Guid guidOfExistingSetToPlayPropertyTo;

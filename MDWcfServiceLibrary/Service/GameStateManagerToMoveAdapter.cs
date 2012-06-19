@@ -483,7 +483,9 @@ namespace MDWcfServiceLibrary
             PlayFieldModel nextState = null;
             PlayerModel playerModelAtCurrentState = move.getPlayerModel(playerGuid, currentState);
             ActionCard playedActionCard = monopolyDeal.deck.getCardByID(forcedDealCardID) as ActionCard;
-            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null)
+            PropertyCard cardToForcedDealFor = monopolyDeal.deck.getCardByID(targetedCard) as PropertyCard;
+            PropertyCard cardToLoseInForcedDeal = monopolyDeal.deck.getCardByID(playersCardToSwapWith) as PropertyCard;
+            if (playedActionCard != null && checkIfCardInHand(playedActionCard, playerModelAtCurrentState) != null && cardToForcedDealFor != null && cardToLoseInForcedDeal != null)
             {
                 MoveInfo playForcedDeal = new MoveInfo();
                 playForcedDeal.playerWhoseTurnItIs = currentState.guidOfPlayerWhosTurnItIs;
@@ -493,13 +495,12 @@ namespace MDWcfServiceLibrary
 
                 playForcedDeal.actionCardActionType = ActionCardAction.ForcedDeal;
 
-                PropertyCard cardToForcedDealFor = monopolyDeal.deck.getCardByID(targetedCard) as PropertyCard;
-                PropertyCard cardToLoseInForcedDeal = monopolyDeal.deck.getCardByID(playersCardToSwapWith) as PropertyCard;
-
                 playForcedDeal.guidOfCardToBeForcedDealed = cardToForcedDealFor.cardGuid;
                 playForcedDeal.guidOfSetCardToBeForcedDealedIsIn = setTargetCardIn;
                 playForcedDeal.guidOfPlayerWhoIsBeingForcedDealed = targetedPlayerGuid;
 
+                playForcedDeal.idOfCardToBeForcedDealed = cardToForcedDealFor.cardID;
+                playForcedDeal.idOfCardToBeGivenUpInForcedDeal = cardToLoseInForcedDeal.cardID;
                 playForcedDeal.guidOfCardToBeGivenUpInForcedDeal = cardToLoseInForcedDeal.cardGuid;
                 playForcedDeal.guidOfSetCardGivenUpInForcedDealIsIn = setPlayersCardIsIn;
 

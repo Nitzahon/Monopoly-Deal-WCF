@@ -28,7 +28,7 @@ namespace MDWcfServiceLibrary
         //int remainingCardPlays;
         //A Player may have an action played against them:
         //rent, forced deal, sly deal, dealbreaker, just say no, it's my birthday, debt collector
-        bool actionAgainst;
+        //bool actionAgainst;
         private static int ID = 0;
 
         //A player has actions it can take
@@ -71,7 +71,7 @@ namespace MDWcfServiceLibrary
             bankPile = new List<Card>();
             isPlayersTurn = false;
             //remainingCardPlays = 0;
-            actionAgainst = false;
+            //actionAgainst = false;
         }
 
         public List<Card> getCardsInHand()

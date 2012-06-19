@@ -41,7 +41,7 @@ namespace MDWcfServiceLibrary
         public GameLobbyStatus status;
         [DataMember]
         public String description;
-        private MonopolyDeal monopolyDealGame;
+        //private MonopolyDeal monopolyDealGame;
 
         #region static
 

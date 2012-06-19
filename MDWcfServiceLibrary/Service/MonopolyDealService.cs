@@ -69,9 +69,9 @@ namespace MDWcfServiceLibrary
             {
                 return lobby.joinExistingGameLobby(gameLobbyGuidP.guid, clientGuidP.guid);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -240,9 +240,9 @@ namespace MDWcfServiceLibrary
                 }
                 else return new BoolResponseBox(false, "Unable to find game with specified Guid").success;
             }
-            catch (System.ServiceModel.CommunicationException ex)
+            catch (Exception)
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -270,9 +270,9 @@ namespace MDWcfServiceLibrary
                     return false;
                 }
             }
-            catch (System.ServiceModel.CommunicationException ex)
+            catch (Exception)
             {
-                throw ex;
+                return false;
             }
         }
 
