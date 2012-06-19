@@ -12,7 +12,7 @@ namespace MDWcfServiceLibrary
         int houseValue = 3;
         int hotelValue = 4;
         Card[] deck;
-        int nextCardID = 0;
+        //int nextCardID = 0;
         int numberOfDecks;
 
         public Deck(int numberOfDecks)

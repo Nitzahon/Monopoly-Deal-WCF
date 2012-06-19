@@ -12,12 +12,12 @@ namespace MDWcfServiceLibrary
     {
         [DataMember]
         PlayFieldModel fieldModel;
-        [DataMember]
-        Guid fieldModelGuid;
+        //[DataMember]
+        //Guid fieldModelGuid;
         [DataMember]
         Guid referenceThisGuidToRespond;
-        [DataMember]
-        TurnActionModel actionsToTake;
+        //[DataMember]
+        //TurnActionModel actionsToTake;
 
         public TakeActionOnTurnMessage(Guid playerGuid, Guid guidOfMessageThisMessageIsRespondingTo, Guid guidOfThisMessage, Guid serverGuid, PlayFieldModel playFieldModelP, Guid playFieldModelGuidP, TurnActionModel turnActionModel)
             : base(guidOfThisMessage, guidOfMessageThisMessageIsRespondingTo, MessageType.actionTaken, null, false, playerGuid, serverGuid, null)

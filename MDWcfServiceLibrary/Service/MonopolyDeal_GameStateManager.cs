@@ -26,7 +26,7 @@ namespace MDWcfServiceLibrary
         #region From GameStateManager
 
         PlayFieldModel currentPlayFieldModel;
-        PlayFieldModel nextPlayFieldModel; //Careful of justSayNo chains
+        //PlayFieldModel nextPlayFieldModel; //Careful of justSayNo chains
         List<Acknowledgement> acknowledgementsRecieved = new List<Acknowledgement>();
 
         public PlayFieldModel getPlayFieldModelByGuid(Guid playFieldModelGuid)

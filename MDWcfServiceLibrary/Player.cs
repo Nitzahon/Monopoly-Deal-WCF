@@ -25,7 +25,7 @@ namespace MDWcfServiceLibrary
         //A Player may be on their turn
         bool isPlayersTurn;
         //A Player may play up to three cards on their turn
-        int remainingCardPlays;
+        //int remainingCardPlays;
         //A Player may have an action played against them:
         //rent, forced deal, sly deal, dealbreaker, just say no, it's my birthday, debt collector
         bool actionAgainst;
@@ -70,7 +70,7 @@ namespace MDWcfServiceLibrary
             propertySetCollection = new List<PropertyCardSet>();
             bankPile = new List<Card>();
             isPlayersTurn = false;
-            remainingCardPlays = 0;
+            //remainingCardPlays = 0;
             actionAgainst = false;
         }
 

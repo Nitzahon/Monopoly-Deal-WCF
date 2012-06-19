@@ -16,6 +16,7 @@ namespace MDWcfServiceLibrary
         public static readonly int MIN_PLAYERS = 2;
         public static readonly int NUMBER_OF_DECKS = 1;
         public static readonly int NEW_TURN_NUMBER_OF_CARDS_PLAYABLE = 3;
+        public static readonly int NUMBER_OF_FULL_SETS_REQUIRED_TO_WIN = 3;
         public IMonopolyDeal_GameStateManager gameStateManager;
         public MessageManager messageManager;
         internal List<PlayerModel> players;

@@ -56,6 +56,8 @@ namespace MDWcfServiceLibrary
         Turn_Ended_12_Cards_In_Hand_Discard_5_Cards,
 
         [EnumMember]
+        Game_Over,
+        [EnumMember]
         Invalid_Action_For_Turn
     }
 
@@ -96,6 +98,8 @@ namespace MDWcfServiceLibrary
         public ActionCardEvent actionCardEvent;
         //Guid generator
         public static List<Guid> playFieldModelGuids = new List<Guid>();
+        [DataMember]
+        public Guid playerWhoWon;
 
         /// <summary>
         /// Returns a copy of an instance of PlayFieldModel

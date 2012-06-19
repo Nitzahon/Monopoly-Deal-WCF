@@ -33,7 +33,7 @@ namespace MDWcfServiceLibrary
                 GuidBox success = lobby.connectToLobby(name).boxGuid();
                 return success;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new GuidBox();
             }
@@ -45,7 +45,7 @@ namespace MDWcfServiceLibrary
             {
                 return lobby.getGameLobbyStatus(gameLobbyGuidP.guid);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return GameLobbyStatus.Full;
             }
@@ -481,13 +481,13 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        public BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, GuidBox playerTargetedGuid, GuidBox setOfPropertiesToRentOnGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        public BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, GuidBox playerTargetedGuid, GuidBox setOfPropertiesToRentOnGuid, bool usingDoubleTheRent, int doubleTheRentCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
             //Find MonopolyDealGame
             MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
             if (md != null)
             {
-                return md.getMonopolyDealGameStateManager().wildRentCard(playedCardID, playerTargetedGuid.guid, setOfPropertiesToRentOnGuid.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+                return md.getMonopolyDealGameStateManager().wildRentCard(playedCardID, playerTargetedGuid.guid, setOfPropertiesToRentOnGuid.guid, usingDoubleTheRent, doubleTheRentCard, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
             }
             else
             {
@@ -495,13 +495,13 @@ namespace MDWcfServiceLibrary
             }
         }
 
-        public BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, GuidBox setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
+        public BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, GuidBox setOfPropertiesToRentOn, bool usingDoubleTheRent, int doubleTheRentCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid)
         {
             //Find MonopolyDealGame
             MonopolyDeal md = getMonopolyDeal(gameLobbyGuid.guid);
             if (md != null)
             {
-                return md.getMonopolyDealGameStateManager().standardRentCard(playedCard, setOfPropertiesToRentOn.guid, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
+                return md.getMonopolyDealGameStateManager().standardRentCard(playedCard, setOfPropertiesToRentOn.guid, usingDoubleTheRent, doubleTheRentCard, playerGuid.guid, gameLobbyGuid.guid, playfieldModelInstanceGuid.guid);
             }
             else
             {

@@ -260,10 +260,17 @@ namespace MDWcfServiceLibrary
                 GameLobby gl = getGameLobby(lc.getGuidOfGameLobbyAssignedTo());
                 return gl.removeClientFromGame(lc);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
+        }
+
+        public bool setGameLobbyStatus(Guid gamelobbyGuidP, GameLobbyStatus status)
+        {
+            GameLobby gl = getGameLobby(gamelobbyGuidP);
+            gl.setStatus(status);
+            return true;
         }
     }
 }

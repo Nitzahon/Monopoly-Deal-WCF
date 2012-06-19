@@ -22,5 +22,7 @@ namespace MDWcfServiceLibrary
         bool setLobbyClientReady(Guid gameLobbyGuidP, Guid clientGuidP, bool readyP);
 
         bool checkIfGameStarted(Guid gameLobbyGuidP);
+
+        bool setGameLobbyStatus(Guid gamelobbyGuidP, GameLobbyStatus status);
     }
 }

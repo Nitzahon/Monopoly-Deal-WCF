@@ -13,9 +13,9 @@ namespace MDWcfServiceLibrary
         //  Queue<Message> messagesDequeued = new Queue<Message>();
         //Queue<Message> sentMessages = new Queue<Message>();
         Queue<Message> recievedMessages = new Queue<Message>();
-        Message currentMessage = null;
+        //Message currentMessage = null;
 
-        Message currentFieldStateMessage;
+        //Message currentFieldStateMessage;
         //Each time a new message created by the service is sent the game should not make
         //changes to the current field state until all clients have adknowledged they recieved the current state and the
         //client whose turn it is has responded with a TurnActionModel

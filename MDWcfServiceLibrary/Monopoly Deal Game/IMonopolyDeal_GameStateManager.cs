@@ -49,9 +49,9 @@ namespace MDWcfServiceLibrary
 
         BoolResponseBox movePropertyCard(int propertyCardToMoveID, bool isCardUp, bool moveToExistingSet, Guid oldSetGuid, Guid setToPlayPropertyToGuid, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
 
-        BoolResponseBox wildRentCard(int playedCardID, Guid playerTargetedGuid, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+        BoolResponseBox wildRentCard(int playedCardID, Guid playerTargetedGuid, Guid setOfPropertiesToRentOn, bool usingDoubleTheRent, int doubleTheRentCard, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
 
-        BoolResponseBox standardRentCard(int playedCard, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
+        BoolResponseBox standardRentCard(int playedCard, Guid setOfPropertiesToRentOn, bool usingDoubleTheRent, int doubleTheRentCard, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
 
         BoolResponseBox slyDealCard(int slyDealCardID, Guid targetedPlayerGuid, int targetedCard, Guid setTargetCardIn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid);
 

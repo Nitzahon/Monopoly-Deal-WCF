@@ -40,6 +40,44 @@ namespace MDWcfServiceLibrary
         }
 
         /// <summary>
+        /// Checks if Game is over
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="playerToCheck"></param>
+        /// <returns></returns>
+        private BoolResponseBox checkIfGameEnded(PlayFieldModel state, Guid playerToCheck)
+        {
+            //Check for each possible set colour if a player has a full set, if at least NUMBER_OF_FULL_SETS_REQUIRED_TO_WIN different coloured sets are full a player has won and the game is over
+
+            HashSet<PropertyColor> uniquelyColouredFullSets = new HashSet<PropertyColor>();
+            PlayerModel player = getPlayerModel(playerToCheck, state);
+            foreach (PropertyCardSet propertySet in player.propertySets.playersPropertySets)
+            {
+                if (propertySet.isFullSet())
+                {
+                    uniquelyColouredFullSets.Add(propertySet.getPropertySetColor());
+                }
+            }
+            if (uniquelyColouredFullSets.Count >= MonopolyDeal.NUMBER_OF_FULL_SETS_REQUIRED_TO_WIN)
+            {
+                return new BoolResponseBox(true, "The player to check has enough uniquely coloured full sets to win");
+            }
+            else
+            {
+                return new BoolResponseBox(false, "The player to check does not have enough uniquely coloured full sets to win");
+            }
+        }
+
+        private BoolResponseBox setGameOver(PlayFieldModel state, Guid guidOfWinner)
+        {
+            PlayFieldModel newState = state.clone(generateGuidForNextState());
+            newState.currentPhase = Statephase.Game_Over;
+            newState.playerWhoWon = guidOfWinner;
+            addNextState(newState);
+            return new BoolResponseBox(true, "Game over");
+        }
+
+        /// <summary>
         /// Returns a list of the actions a player not on their turn can take when they are affected by an ActionCard
         /// </summary>
         /// <param name="listToSet"></param>

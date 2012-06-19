@@ -390,7 +390,7 @@ namespace MDWcfServiceLibrary
             return new BoolResponseBox(false, "Selected Card is not in players property card sets or is not a property card");
         }
 
-        public BoolResponseBox wildRentCard(int playedCardID, Guid playerTargetedGuid, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        public BoolResponseBox wildRentCard(int playedCardID, Guid playerTargetedGuid, Guid setOfPropertiesToRentOn, bool usingDoubleTheRent, int doubleTheRentCard, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
         {
             PlayFieldModel lastState = getPreviousState();
             PlayFieldModel currentState = getCurrentState();
@@ -410,13 +410,16 @@ namespace MDWcfServiceLibrary
                 playWildRent.guidOfPlayerToPayRent = playerTargetedGuid;
                 playWildRent.guidOfSetToCollectRentOnAgainstOnePlayer = setOfPropertiesToRentOn;
 
+                playWildRent.idOfDoubleTheRentCardBeingUsed = doubleTheRentCard;
+                playWildRent.isDoubleTheRentCardBeingUsed = usingDoubleTheRent;
+
                 BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playWildRent.moveBeingMade, playWildRent);
                 return result;
             }
             return new BoolResponseBox(false, "Selected Card is not in players hand or is not a Action card");
         }
 
-        public BoolResponseBox standardRentCard(int playedCard, Guid setOfPropertiesToRentOn, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
+        public BoolResponseBox standardRentCard(int playedCard, Guid setOfPropertiesToRentOn, bool usingDoubleTheRent, int doubleTheRentCard, Guid playerGuid, Guid gameLobbyGuid, Guid playfieldModelInstanceGuid)
         {
             PlayFieldModel lastState = getPreviousState();
             PlayFieldModel currentState = getCurrentState();
@@ -434,6 +437,9 @@ namespace MDWcfServiceLibrary
                 playStandardRent.actionCardActionType = ActionCardAction.RentStandard;
 
                 playStandardRent.guidOfSetToCollectRentOn = setOfPropertiesToRentOn;
+
+                playStandardRent.idOfDoubleTheRentCardBeingUsed = doubleTheRentCard;
+                playStandardRent.isDoubleTheRentCardBeingUsed = usingDoubleTheRent;
 
                 BoolResponseBox result = move.evaluateMove(lastState, currentState, nextState, playerModelAtCurrentState, playStandardRent.moveBeingMade, playStandardRent);
                 return result;

@@ -53,10 +53,10 @@ namespace MDWcfServiceLibrary
         Boolean playCardFromHandToBankMD(int playedCardID, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid);//Done
 
         [OperationContract]//Player calls this method to play action card on their turn
-        BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, GuidBox playerTargetedGuid, GuidBox setOfPropertiesToRentOnGuid, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+        BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, GuidBox playerTargetedGuid, GuidBox setOfPropertiesToRentOnGuid, bool usingDoubleTheRent, int doubleTheRentCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//Player calls this method to play action card on their turn
-        BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, GuidBox setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
+        BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, GuidBox setOfPropertiesToRentOn, bool usingDoubleTheRent, int doubleTheRentCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);
 
         [OperationContract]//Player calls this method to play just say no card against action, returns true if card valid and false if action canceled
         Boolean playJustSayNoMD(int playedCard, GuidBox playerGuid, GuidBox gameLobbyGuid, GuidBox playfieldModelInstanceGuid);

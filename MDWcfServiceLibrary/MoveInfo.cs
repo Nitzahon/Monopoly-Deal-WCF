@@ -19,13 +19,13 @@ namespace MDWcfServiceLibrary
 
         public Guid playerMakingMove;
 
-        public List<PlayerModel> playersAffectedByMove;
+        //public List<PlayerModel> playersAffectedByMove;
 
         public TurnActionTypes moveBeingMade;
 
         public ActionCardAction actionCardActionType;
 
-        public Guid guidOfCardBeingUsed;
+        //public Guid guidOfCardBeingUsed;
 
         public int idOfCardBeingUsed;
 
@@ -37,7 +37,7 @@ namespace MDWcfServiceLibrary
 
         //Ending turn and discarding cards
 
-        public List<Guid> listOfGuidOfCardsPlayerIsDiscardingAtTheEndOfTheirTurn;
+        //public List<Guid> listOfGuidOfCardsPlayerIsDiscardingAtTheEndOfTheirTurn;
 
         //Adknowledgements do not need extra information
 
@@ -64,7 +64,7 @@ namespace MDWcfServiceLibrary
         public Guid guidOfPlayerBeingDebtCollected;
         public Guid guidOfPlayerToPayDebtTo;
         //It's My Birthday
-        public List<Guid> guidsOfPlayersWhoHaveToPayForBirthday;
+        //public List<Guid> guidsOfPlayersWhoHaveToPayForBirthday;
 
         //MultiColoured Rent
         public Guid guidOfSetToCollectRentOnAgainstOnePlayer;
@@ -72,7 +72,7 @@ namespace MDWcfServiceLibrary
 
         //Standard2Colour Rent
         public Guid guidOfSetToCollectRentOn;
-        public List<Guid> guidsOfPlayersWhoHaveToPayRent;
+        //public List<Guid> guidsOfPlayersWhoHaveToPayRent;
 
         //Double The Rent
         public bool isDoubleTheRentCardBeingUsed;
