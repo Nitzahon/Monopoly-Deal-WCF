@@ -65,6 +65,15 @@ namespace MDWcfServiceLibrary
             propertySetColor = propertyCard.getPropertyColor();
         }
 
+        public PropertyCardSet(PropertyCard propertyCard, Guid guid)
+        {
+            id = generateID();
+            this.guid = guid;
+            properties = new LinkedList<PropertyCard>();
+            properties.AddFirst(propertyCard);
+            propertySetColor = propertyCard.getPropertyColor();
+        }
+
         public PropertyCardSet(PropertyCardSet pcs, PlayFieldModel state)//Clone Constructor
         {
             id = pcs.id;

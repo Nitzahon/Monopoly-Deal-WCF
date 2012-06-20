@@ -996,13 +996,13 @@ namespace MDWcfServiceLibrary
                     PropertyCard cardToGiveUp = nextState.deck.getCardByID(moveInformation.idOfCardToBeGivenUpInForcedDeal) as PropertyCard;
                     if (setToForcedDealFrom != null && cardToForcedDealFor != null && setToGiveUpCardFrom != null && cardToGiveUp != null)
                     {
-                        if (setToForcedDealFrom.removeProperty(cardToForcedDealFor))
+                        if (playerModelForPlayerToForcedDeal.removePropertyCardFromPlayersPropertySet(cardToForcedDealFor, moveInformation.guidOfSetCardToBeForcedDealedIsIn) != null)
                         {
                             //Card Removed from set
                             //Create new set with card Forced Dealed in it
                             PropertyCardSet newSetForcedDealCard = new PropertyCardSet(cardToForcedDealFor);
                             playerModelForPlayer.propertySets.addSet(newSetForcedDealCard);
-                            if (setToGiveUpCardFrom.removeProperty(cardToGiveUp))
+                            if (playerModelForPlayer.removePropertyCardFromPlayersPropertySet(cardToGiveUp, moveInformation.guidOfSetCardGivenUpInForcedDealIsIn) != null)
                             {
                                 //Forced dealed player recieves card given up in forced deal
                                 PropertyCardSet newSetGivenUpCard = new PropertyCardSet(cardToGiveUp);
@@ -1981,7 +1981,7 @@ namespace MDWcfServiceLibrary
                 {
                     if (setCardWasIn == null)
                     {
-                        setCardWasIn = new PropertyCardSet(card);
+                        setCardWasIn = new PropertyCardSet(card, guidOfSetCardWasIn);
                         playerModelForPlayerRegainingCard.propertySets.addSet(setCardWasIn);
                     }
                     else
@@ -1991,20 +1991,20 @@ namespace MDWcfServiceLibrary
                             //Card Given To Player Using Forced Deal Card given back to player it was taken from
                             PropertyCard cardGiven = nextState.deck.getCardByID(undoForcedDeal.propertyCardGivenUpInForcedDeal.cardID) as PropertyCard;
                             Guid guidOfSetCardGivenWasIn = undoForcedDeal.propertyCardGivenUpInForcedDeal.setGuid;
-                            PropertyCardSet setCardGivenWasIn = getPropertyCardSet(playerModelForPlayerLoosingCard.propertySets, guidOfSetCardWasIn);
-                            if (cardtaken != null)
+                            PropertyCardSet setCardGivenWasIn = getPropertyCardSet(playerModelForPlayerLoosingCard.propertySets, guidOfSetCardGivenWasIn);
+                            if (cardGiven != null)
                             {
-                                PropertyCard cardGivenUp = playerModelForPlayerRegainingCard.removePropertyCardFromPlayersPropertySets(cardtaken);
+                                PropertyCard cardGivenUp = playerModelForPlayerRegainingCard.removePropertyCardFromPlayersPropertySets(cardGiven);
                                 if (cardGiven != null)
                                 {
                                     if (setCardGivenWasIn == null)
                                     {
-                                        setCardGivenWasIn = new PropertyCardSet(card);
+                                        setCardGivenWasIn = new PropertyCardSet(cardGiven, guidOfSetCardGivenWasIn);
                                         playerModelForPlayerLoosingCard.propertySets.addSet(setCardWasIn);
                                     }
                                     else
                                     {
-                                        if (setCardGivenWasIn.addProperty(card))
+                                        if (setCardGivenWasIn.addProperty(cardGiven))
                                         {
                                             //Player who used Forced Deal Card given back Card they gave up in Forced Deal
                                             return true;
@@ -2023,7 +2023,7 @@ namespace MDWcfServiceLibrary
                         }
                     }
                 }
-            }
+            }//Card not taken
             return false;
         }
 
