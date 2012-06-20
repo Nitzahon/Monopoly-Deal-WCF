@@ -458,6 +458,9 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         private MDWcfWFClient.MonopolyDealServiceReference.PlayerModel[] playerModelsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid playerWhoWonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid[] playersAffectedByActionCardGuidsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -572,6 +575,19 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
                 if ((object.ReferenceEquals(this.playerModelsField, value) != true)) {
                     this.playerModelsField = value;
                     this.RaisePropertyChanged("playerModels");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid playerWhoWon {
+            get {
+                return this.playerWhoWonField;
+            }
+            set {
+                if ((this.playerWhoWonField.Equals(value) != true)) {
+                    this.playerWhoWonField = value;
+                    this.RaisePropertyChanged("playerWhoWon");
                 }
             }
         }
@@ -1233,7 +1249,10 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         Turn_Ended_12_Cards_In_Hand_Discard_5_Cards = 19,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Invalid_Action_For_Turn = 20,
+        Game_Over = 20,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Invalid_Action_For_Turn = 21,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2719,10 +2738,10 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
         bool playCardFromHandToBankMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox turnActionGuid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playWildRentActionCardOnTurnMDResponse")]
-        MDWcfWFClient.MonopolyDealServiceReference.BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerTargetedGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox setOfPropertiesToRentOnGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        MDWcfWFClient.MonopolyDealServiceReference.BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerTargetedGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox setOfPropertiesToRentOnGuid, bool usingDoubleTheRent, int doubleTheRentCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurnMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playStandardRentActionCardOnTurnMDResponse")]
-        MDWcfWFClient.MonopolyDealServiceReference.BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
+        MDWcfWFClient.MonopolyDealServiceReference.BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox setOfPropertiesToRentOn, bool usingDoubleTheRent, int doubleTheRentCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMonopolyDeal/playJustSayNoMD", ReplyAction="http://tempuri.org/IMonopolyDeal/playJustSayNoMDResponse")]
         bool playJustSayNoMD(int playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid);
@@ -2848,12 +2867,12 @@ namespace MDWcfWFClient.MonopolyDealServiceReference {
             return base.Channel.playCardFromHandToBankMD(playedCardID, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid, turnActionGuid);
         }
         
-        public MDWcfWFClient.MonopolyDealServiceReference.BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerTargetedGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox setOfPropertiesToRentOnGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.playWildRentActionCardOnTurnMD(playedCardID, playerTargetedGuid, setOfPropertiesToRentOnGuid, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
+        public MDWcfWFClient.MonopolyDealServiceReference.BoolResponseBox playWildRentActionCardOnTurnMD(int playedCardID, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerTargetedGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox setOfPropertiesToRentOnGuid, bool usingDoubleTheRent, int doubleTheRentCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.playWildRentActionCardOnTurnMD(playedCardID, playerTargetedGuid, setOfPropertiesToRentOnGuid, usingDoubleTheRent, doubleTheRentCard, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
         }
         
-        public MDWcfWFClient.MonopolyDealServiceReference.BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox setOfPropertiesToRentOn, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
-            return base.Channel.playStandardRentActionCardOnTurnMD(playedCard, setOfPropertiesToRentOn, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
+        public MDWcfWFClient.MonopolyDealServiceReference.BoolResponseBox playStandardRentActionCardOnTurnMD(int playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox setOfPropertiesToRentOn, bool usingDoubleTheRent, int doubleTheRentCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {
+            return base.Channel.playStandardRentActionCardOnTurnMD(playedCard, setOfPropertiesToRentOn, usingDoubleTheRent, doubleTheRentCard, playerGuid, gameLobbyGuid, playfieldModelInstanceGuid);
         }
         
         public bool playJustSayNoMD(int playedCard, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playerGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox gameLobbyGuid, MDWcfWFClient.MonopolyDealServiceReference.GuidBox playfieldModelInstanceGuid) {

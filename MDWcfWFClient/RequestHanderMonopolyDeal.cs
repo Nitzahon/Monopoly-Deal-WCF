@@ -524,12 +524,12 @@ namespace MDWcfWFClient
                 MonopolyDealServiceReference.BoolResponseBox response;
                 if (isWildRentCard)
                 {
-                    response = monopolyDealService.playWildRentActionCardOnTurnMD(RentCard, targetedPlayer.boxGuid(), selectedSet.boxGuid(),
+                    response = monopolyDealService.playWildRentActionCardOnTurnMD(RentCard, targetedPlayer.boxGuid(), selectedSet.boxGuid(), usingDoubleTheRent, doubleTheRentCard,
                         thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
                 }
                 else
                 {
-                    response = monopolyDealService.playStandardRentActionCardOnTurnMD(RentCard, selectedSet.boxGuid(),
+                    response = monopolyDealService.playStandardRentActionCardOnTurnMD(RentCard, selectedSet.boxGuid(), usingDoubleTheRent, doubleTheRentCard,
                         thisClientGuid.boxGuid(), gameOnServiceGuid.boxGuid(), CurrentPlayFieldModel.thisPlayFieldModelInstanceGuid.boxGuid());
                 }
                 addToLog(response.message);

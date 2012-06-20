@@ -28,7 +28,7 @@ namespace MDWcfServiceLibrary
         internal PlayPile initialPlayPile;
 
         internal int FIRST_PLAYER = 0;
-        bool gameOver = false;
+        internal bool gameOver = false;
         //Move To playfieldmodel State
         int currentPlayerTurn;
 
@@ -122,10 +122,11 @@ namespace MDWcfServiceLibrary
 
         #region From Service
 
+        /*
         public bool draw2AtStartOfTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
         {
             throw new NotSupportedException();
-            /*
+
             if (useMoveManager)
             {
                 gameStateManager.drawTwoCardsAtTurnStart(getPlayerModel(playerGuid.guid),playfieldModelInstanceGuid.guid);
@@ -135,7 +136,6 @@ namespace MDWcfServiceLibrary
             {
                 return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
             }
-             * */
         }
 
         public PlayFieldModel pollState(GuidBox playerGuid, GuidBox gameGuid)
@@ -251,6 +251,7 @@ namespace MDWcfServiceLibrary
             throw new NotSupportedException();
             //return gameStateManager.doAction(serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawFiveCardsAtStartOfTurn);
         }
+        */
 
         #endregion From Service
 

@@ -7,7 +7,7 @@ namespace MDWcfServiceLibrary
 {
     internal class Move
     {
-        private MonopolyDeal monopolyDeal;
+        MonopolyDeal monopolyDeal;
         private int playerTurnCounter = 0;
 
         public Move(MonopolyDeal monopolyDeal)
@@ -45,7 +45,7 @@ namespace MDWcfServiceLibrary
         /// <param name="state"></param>
         /// <param name="playerToCheck"></param>
         /// <returns></returns>
-        private BoolResponseBox checkIfGameEnded(PlayFieldModel state, Guid playerToCheck)
+        private BoolResponseBox checkIfPlayerHasEnoughFullUniquelyColoredSetsToWin(PlayFieldModel state, Guid playerToCheck)
         {
             //Check for each possible set colour if a player has a full set, if at least NUMBER_OF_FULL_SETS_REQUIRED_TO_WIN different coloured sets are full a player has won and the game is over
 
@@ -68,12 +68,25 @@ namespace MDWcfServiceLibrary
             }
         }
 
+        private BoolResponseBox checkAndSetIfGameIsOver(PlayFieldModel state, Guid playerToCheck)
+        {
+            if (checkIfPlayerHasEnoughFullUniquelyColoredSetsToWin(state, playerToCheck).success)
+            {
+                return setGameOver(state, playerToCheck);
+            }
+            else
+            {
+                return new BoolResponseBox(false, "Player checked has not won");
+            }
+        }
+
         private BoolResponseBox setGameOver(PlayFieldModel state, Guid guidOfWinner)
         {
             PlayFieldModel newState = state.clone(generateGuidForNextState());
             newState.currentPhase = Statephase.Game_Over;
             newState.playerWhoWon = guidOfWinner;
             addNextState(newState);
+            monopolyDeal.gameOver = true;
             return new BoolResponseBox(true, "Game over");
         }
 
@@ -525,6 +538,13 @@ namespace MDWcfServiceLibrary
             List<TurnActionTypes> onTurn = new List<TurnActionTypes>();
             //Could perform the action here instead, for now just change the phase of the state
             //Not an action so cant be just say no'd
+
+            //Check if Game is over
+            if (checkAndSetIfGameIsOver(nextState, playerPerformingAction.guid).success)
+            {
+                //Game is now over as player has enough unique full sets
+                return new BoolResponseBox(true, "Player:" + playerPerformingAction.name + " Ended their turn and won the game!");
+            }
             //Change phase
             switch (playerModelForPlayer.hand.cardsInHand.Count)
             {
@@ -962,7 +982,7 @@ namespace MDWcfServiceLibrary
             //Get the reference to the players playerModel in the current PlayFieldModel
 
             //Get the reference to the Card in the current PlayFieldModel
-            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.SlyDeal) == 0)
+            if (cardInHandToBePlayed != null && cardInHandToBePlayed is ActionCard && ((ActionCard)cardInHandToBePlayed).actionType.CompareTo(ActionCardAction.ForcedDeal) == 0)
             {
                 Card card = removeCardFromHand(cardInHandToBePlayed, playerModelForPlayer);
                 if (card != null)
@@ -2913,6 +2933,10 @@ namespace MDWcfServiceLibrary
         {
             TurnActionTypes tAT = turnActionToDo;
             PlayerModel playerAttemptingAction = player;
+            if (monopolyDeal.gameOver)
+            {
+                return new BoolResponseBox(false, "Can not perform action as game is over");
+            }
             if (playerAttemptingAction != null)
             {
                 foreach (TurnActionTypes t in playerAttemptingAction.actionsCurrentlyAllowed)
