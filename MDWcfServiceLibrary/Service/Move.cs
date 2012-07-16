@@ -87,6 +87,7 @@ namespace MDWcfServiceLibrary
             newState.playerWhoWon = guidOfWinner;
             addNextState(newState);
             monopolyDeal.gameOver = true;
+            monopolyDeal.lobby.setGameLobbyStatus(this.monopolyDeal.MONOPOLY_DEAL_GAME_GUID, GameLobbyStatus.Game_Ended);
             return new BoolResponseBox(true, "Game over");
         }
 

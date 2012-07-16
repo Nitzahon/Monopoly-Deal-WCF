@@ -119,11 +119,13 @@
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.buttonDontJustSayNo = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxServiceIP = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonConnect1
             // 
-            this.buttonConnect1.Location = new System.Drawing.Point(134, 656);
+            this.buttonConnect1.Location = new System.Drawing.Point(381, 659);
             this.buttonConnect1.Name = "buttonConnect1";
             this.buttonConnect1.Size = new System.Drawing.Size(78, 23);
             this.buttonConnect1.TabIndex = 0;
@@ -823,7 +825,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(7, 656);
+            this.button10.Location = new System.Drawing.Point(254, 659);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(121, 23);
             this.button10.TabIndex = 104;
@@ -982,11 +984,30 @@
             this.buttonDontJustSayNo.UseVisualStyleBackColor = true;
             this.buttonDontJustSayNo.Click += new System.EventHandler(this.buttonDontJustSayNo_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 659);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 13);
+            this.label8.TabIndex = 121;
+            this.label8.Text = "Service IP";
+            // 
+            // textBoxServiceIP
+            // 
+            this.textBoxServiceIP.Location = new System.Drawing.Point(77, 656);
+            this.textBoxServiceIP.Name = "textBoxServiceIP";
+            this.textBoxServiceIP.Size = new System.Drawing.Size(136, 20);
+            this.textBoxServiceIP.TabIndex = 122;
+            this.textBoxServiceIP.Text = "localhost:9080";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 694);
+            this.Controls.Add(this.textBoxServiceIP);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.buttonDontJustSayNo);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
@@ -1179,6 +1200,8 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button buttonDontJustSayNo;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxServiceIP;
     }
 }
 

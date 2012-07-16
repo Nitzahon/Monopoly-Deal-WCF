@@ -700,7 +700,8 @@ namespace MDWcfWFClient
 
         private void buttonConnectToService_Click(object sender, EventArgs e)
         {
-            requestHandlerMD.connectToLobby(this.textBoxPlayerName.Text);
+            //requestHandlerMD.connectToLobby(this.textBoxPlayerName.Text);//Default IP
+            requestHandlerMD.connectToLobby(this.textBoxPlayerName.Text, this.textBoxServiceIP.Text);//dynamic ip
             //Update Lobbies state
             button9_Click(null, null);
             timerForLobby.Tick += new EventHandler(button2_Click_1);

@@ -159,7 +159,7 @@ namespace MDWcfServiceLibrary
                     p.isReadyToStartGame = true;
                     players.Add(p);
                 }
-                MonopolyDeal game = new MonopolyDeal(players, guidForGame);
+                MonopolyDeal game = new MonopolyDeal(players, guidForGame, lobby);
                 monopolyDealGamesOnService.Add(game);
                 return true;
             }

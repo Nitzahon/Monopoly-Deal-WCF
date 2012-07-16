@@ -16,7 +16,7 @@ namespace MDWcfServiceLibrary
             games = monopolyDealGames;
         }
 
-        public bool createGame(List<LobbyClient> clients, Guid guidForGame)
+        public bool createGame(List<LobbyClient> clients, Guid guidForGame, ILobby lobby)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace MDWcfServiceLibrary
                     p.isReadyToStartGame = true;
                     playersMD.Add(p);
                 }
-                MonopolyDeal game = new MonopolyDeal(playersMD, guidForGame);
+                MonopolyDeal game = new MonopolyDeal(playersMD, guidForGame, lobby);
                 games.Add(game);
                 return true;
             }

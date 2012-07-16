@@ -35,6 +35,7 @@ namespace MDWcfServiceLibrary
         public Deck deck;
         public Guid gameModelGuid;
         public bool useMoveManager = true;
+        internal ILobby lobby;
 
         #region Constructor
 
@@ -42,8 +43,9 @@ namespace MDWcfServiceLibrary
         /// Creates a new MonopolyDeal Game
         /// </summary>
         /// <param name="playersP">List of PlayerModels</param>
-        public MonopolyDeal(List<PlayerModel> playersP, Guid thisGameGuidP)
+        public MonopolyDeal(List<PlayerModel> playersP, Guid thisGameGuidP, ILobby lobby)
         {
+            this.lobby = lobby;
             //Assign Guid to this game of Monopoly Deal
             MONOPOLY_DEAL_GAME_GUID = thisGameGuidP;
             gameModelGuid = thisGameGuidP;

@@ -28,6 +28,24 @@ namespace MDWcfWFClient
 
         #region Service Calls
 
+        internal void connectToLobby(string name, string ipAndPort)
+        {
+            monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient("HttpBinding", new EndpointAddress("http://" + ipAndPort + "/MonopolyDeal/"));
+            try
+            {
+                getServiceReady();
+
+                thisClientGuid = monopolyDealService.connectToLobby(name).guid;
+                mainForm.buttonConnect1.Enabled = false;
+                mainForm.buttonStartGame.Enabled = true;
+                addToLog("connected .guid" + thisClientGuid);
+            }
+            catch (Exception ex)
+            {
+                addToLog(ex.Message);
+            }
+        }
+
         internal void connectToLobby(string name)
         {
             monopolyDealService = new MonopolyDealServiceReference.MonopolyDealClient("HttpBinding");

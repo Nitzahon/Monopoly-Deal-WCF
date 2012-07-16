@@ -136,7 +136,7 @@ namespace MDWcfServiceLibrary
             GameLobby gl = getGameLobby(gameLobbyGuidP);
             if (gl != null)
             {
-                if (gameGenerator.createGame(gl.getListOfClients(), gameLobbyGuidP))
+                if (gameGenerator.createGame(gl.getListOfClients(), gameLobbyGuidP, this))
                 {
                     gl.setStatus(GameLobbyStatus.Game_In_Progress);
                     return true;
