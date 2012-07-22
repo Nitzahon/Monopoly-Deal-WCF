@@ -9,7 +9,7 @@ namespace MDWcfServiceLibrary
 {
     [ServiceContract/*(
     SessionMode = SessionMode.Required)*/] //Duplex mode specifing callback Contract
-    interface IMonopolyDeal
+    public interface IMonopolyDeal
     {
         /// <summary>
         /// Lobby service methods

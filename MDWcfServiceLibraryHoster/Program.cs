@@ -12,13 +12,18 @@ namespace MDWcfServiceLibraryHoster
     {
         private static void Main(string[] args)
         {
-            Uri baseAddress = new Uri("http://localhost:8080/hello");
-
-            using (ServiceHost host = new ServiceHost(typeof(MDWcfServiceLibrary.MonopolyDealService)))
+            Console.WriteLine("MDWCF Service Host");
+            Uri baseAddress = new Uri("http://localhost:9079/MonopolyDeal/");
+            Uri wsHttpAddress = new Uri("http://localhost:9080/MonopolyDeal/");
+            Uri[] baseAddresses = new Uri[1];
+            baseAddresses[0] = baseAddress;
+            //ServiceHost shost = new ServiceHost(new MDWcfServiceLibrary.MonopolyDealService(), baseAddresses);
+            using (ServiceHost host = new ServiceHost(typeof(MDWcfServiceLibrary.MonopolyDealService), baseAddresses))
             {
+                host.AddServiceEndpoint(typeof(MDWcfServiceLibrary.IMonopolyDeal), new WSHttpBinding(), wsHttpAddress);
                 host.Open();
 
-                Console.WriteLine("The service is ready at {0}", baseAddress);
+                Console.WriteLine("The service is ready at {0}", wsHttpAddress);
                 Console.WriteLine("Press <Enter> to stop the service.");
                 Console.ReadLine();
 

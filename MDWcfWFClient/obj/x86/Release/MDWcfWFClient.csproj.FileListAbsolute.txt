@@ -8,3 +8,7 @@ C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFC
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Release\GenerateResource.write.1.tlog
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Release\MDWcfWFClient.exe
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Release\MDWcfWFClient.pdb
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Release\MDWcfWFClient.UseActionCardForm.resources
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Release\MDWcfWFClient.MovePropertyToNewSetForm.resources
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Release\MDWcfWFClient.Pay_Cards.resources
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfWFClient\obj\x86\Release\MDWcfWFClient.PickSetToRentOn.resources

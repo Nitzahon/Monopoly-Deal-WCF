@@ -37,11 +37,8 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="MDWcfServiceLibrary">
+    <Reference Include="MDWcfServiceLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\MDWcfServiceLibrary\bin\Debug\MDWcfServiceLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="MonopolyDealLibWCF">
-      <HintPath>..\MonopolyDealLibWCF\bin\Debug\MonopolyDealLibWCF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

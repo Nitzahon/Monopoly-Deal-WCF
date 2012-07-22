@@ -5,3 +5,5 @@ C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfSer
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Release\ResolveAssemblyReference.cache
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Release\MDWcfServiceLibraryHoster.exe
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Release\MDWcfServiceLibraryHoster.pdb
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Release\nunit.framework.dll
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Release\nunit.framework.xml
