@@ -852,6 +852,7 @@ namespace MDWcfWFClient
 
         private void button10_Click(object sender, EventArgs e)
         {
+            requestHandlerMD.updateLobbies();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)

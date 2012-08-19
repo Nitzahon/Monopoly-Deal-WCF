@@ -3586,6 +3586,10 @@ namespace MDWcfServiceLibrary
 
             #endregion Too many cards in hand at end of turn states
 
+            else if (currentState.currentPhase.CompareTo(Statephase.Game_Over) == 0)
+            {
+                return new BoolResponseBox(false, "Game is over, move not possible");
+            }
             else
             {
                 return new BoolResponseBox(false, "Game is in an invalid state");
