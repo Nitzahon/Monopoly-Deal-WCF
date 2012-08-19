@@ -167,7 +167,7 @@ namespace MDWcfServiceLibrary
         public bool addClientToGame(LobbyClient client)
         {
             if ((status.CompareTo(GameLobbyStatus.Full) == 0) ||
-                (status.CompareTo(GameLobbyStatus.Game_In_Progress) == 0))
+                (status.CompareTo(GameLobbyStatus.Game_In_Progress) == 0) || (status.CompareTo(GameLobbyStatus.Game_Ended) == 0))
             {
                 //Can't add client to this game
                 return false;

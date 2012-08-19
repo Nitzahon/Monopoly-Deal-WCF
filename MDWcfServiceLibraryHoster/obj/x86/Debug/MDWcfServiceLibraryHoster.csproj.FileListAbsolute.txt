@@ -7,3 +7,12 @@ C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfSer
 C:\Users\Chad\documents\visual studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.pdb
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\nunit.framework.dll
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\MDWcfServiceLibrary\MDWcfServiceLibraryHoster\bin\Debug\nunit.framework.xml
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibraryHoster.exe
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibraryHoster.pdb
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibrary.dll
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\nunit.framework.dll
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibrary.pdb
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\nunit.framework.xml
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.exe
+C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.pdb

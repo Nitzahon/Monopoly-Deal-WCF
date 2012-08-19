@@ -21,8 +21,8 @@ namespace MDWcfServiceLibraryHoster
             using (ServiceHost host = new ServiceHost(typeof(MDWcfServiceLibrary.MonopolyDealService), baseAddresses))
             {
                 host.AddServiceEndpoint(typeof(MDWcfServiceLibrary.IMonopolyDeal), new WSHttpBinding(), wsHttpAddress);
-                host.Open();
 
+                    host.Open();
                 Console.WriteLine("The service is ready at {0}", wsHttpAddress);
                 Console.WriteLine("Press <Enter> to stop the service.");
                 Console.ReadLine();
