@@ -8,7 +8,7 @@ using System.Text;
 namespace MDWcfServiceLibrary
 {
     [ServiceContract/*(
-    SessionMode = SessionMode.Required)*/] //Duplex mode specifing callback Contract
+    SessionMode = SessionMode.Required)*/] //Duplex mode specifying callback Contract
     public interface IMonopolyDeal
     {
         /// <summary>
@@ -37,13 +37,22 @@ namespace MDWcfServiceLibrary
         bool setLobbyClientReady(GuidBox gameLobbyGuidP, GuidBox clientGuidP, bool readyP);
 
         /// <summary>
-        /// Gets Current State of a Monopoly Deal game.
+        /// Gets Current State of a Monopoly Deal game and replaces the cards in the playfield model with HiddenCard for all other players.
         /// </summary>
         /// <param name="playerGuid">Guid of player requesting state.</param>
         /// <param name="gameGuid">Guid of game to get current state of.</param>
         /// <returns>Returns the current PlayFieldModel </returns>
         [OperationContract]
         PlayFieldModel pollStateMonopolyDeal(GuidBox playerGuid, GuidBox gameGuid);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerGuid"></param>
+        /// <param name="gameGuid"></param>
+        /// <returns></returns>
+        [OperationContract]
+        PlayFieldModel pollStateMonopolyDealPerPlayer(GuidBox playerGuid, GuidBox gameGuid);
 
         //Make a move
         [OperationContract]//Returns false if move is not valid for player at current time

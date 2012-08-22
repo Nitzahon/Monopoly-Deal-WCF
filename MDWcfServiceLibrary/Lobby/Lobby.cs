@@ -272,5 +272,16 @@ namespace MDWcfServiceLibrary
             gl.setStatus(status);
             return true;
         }
+        /// <summary>
+        /// Removes GameLobby from the list of lobbies
+        /// </summary>
+        /// <param name="gamelobby"></param>
+        /// <param name="reason"></param>
+        /// <returns></returns>
+        public bool removeGameLobby(Guid gamelobby, String reason)
+        {
+            bool result = gameLobbys.Remove(getGameLobby(gamelobby));
+            return result;
+        }
     }
 }

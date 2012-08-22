@@ -141,6 +141,14 @@ namespace MDWcfServiceLibrary
 
         private void numberOfClientsInGameLobbyChanged()
         {
+            if(status.CompareTo(GameLobbyStatus.Game_Ended)==0) {
+                if (clientsConnectedToGame.Count <= 0)
+                {
+                    //no players left
+                    //Game should be cleaned up.
+                    
+                }
+            }
             if (clientsConnectedToGame.Count > MonopolyDeal.getMaxPlayers())
             {
                 setStatus(GameLobbyStatus.overFull);

@@ -37,5 +37,20 @@ namespace MDWcfServiceLibrary
                 return false;
             }
         }
+        public BoolResponseBox cleanUpGame(Guid guidForGame, ILobby lobby)
+        {
+            MonopolyDeal GameToCleanUp = null;
+            foreach (MonopolyDeal md in games)
+            {
+                if (md.MONOPOLY_DEAL_GAME_GUID.CompareTo(guidForGame) == 0)
+                {
+                    GameToCleanUp = md;
+                    break;
+                }
+            }
+            GameToCleanUp.Dispose();
+
+            return new BoolResponseBox(false, "Game not cleaned up");
+        }
     }
 }

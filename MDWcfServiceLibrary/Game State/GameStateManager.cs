@@ -26,8 +26,14 @@ namespace MDWcfServiceLibrary
 
         public PlayFieldModel getPlayFieldModelByGuid(Guid playFieldModelGuid)
         {
-            return currentPlayFieldModel;
-            throw new NotImplementedException();
+            foreach (PlayFieldModel pfm in gameModel.gameStates)
+            {
+                if (pfm.thisPlayFieldModelInstanceGuid.CompareTo(playFieldModelGuid) == 0)
+                {
+                    return pfm;
+                }
+            }
+            return null;// no playfield found with specified guid
         }
 
         public PlayFieldModel getCurrentPlayFieldModel()
@@ -41,6 +47,7 @@ namespace MDWcfServiceLibrary
             updateState(TurnActionTypes.EndTurn, getCurrentPlayFieldModel(), player.guid);
         }
 
+        /*
         public bool doAction(Guid gameGuid, Guid playerGuid, Guid gameStateActionShouldBeAppliedOnGuid, TurnActionTypes actionType)
         {
             ///Returns false if action not carried out
@@ -68,8 +75,9 @@ namespace MDWcfServiceLibrary
                 //turn action is for this playfieldmodel
             }
             return true;
-            throw new NotImplementedException();
+
         }
+         * */
 
         public bool playPropertyCardToNewSet(Guid gameGuid, Guid playerGuid, Guid gameStateActionShouldBeAppliedOnGuid, TurnActionTypes actionType, int propertyCardID)
         {
@@ -99,12 +107,12 @@ namespace MDWcfServiceLibrary
             }
             return false;
         }
-
+        /*
         public bool checkIfMoveLegal(Guid guidOfPlayerMakingMove, TurnActionTypes typeOfActionAttempted)
         {
             throw new NotImplementedException();
         }
-
+        */
         public void drawTwoCardsAtTurnStart(PlayerModel player)
         {
             //draws two cards to players hand Unsafe
@@ -290,7 +298,7 @@ namespace MDWcfServiceLibrary
                 {
                     if (p.isThisPlayersTurn)
                     {
-                        throw new Exception("player allready on turn");
+                        throw new Exception("player already on turn");
                     }
                     p.isThisPlayersTurn = true;
                 }
@@ -1059,6 +1067,14 @@ namespace MDWcfServiceLibrary
             #endregion Turn_Ended_8_Cards_In_Hand_Discard_1_Card
         }
 
+        /// <summary>
+        /// Discards one specified card at the end of the players turn
+        /// </summary>
+        /// <param name="cardsToDiscardID"></param>
+        /// <param name="playerGuid"></param>
+        /// <param name="serverGuid"></param>
+        /// <param name="playfieldModelInstanceGuid"></param>
+        /// <returns></returns>
         internal bool discard(int cardsToDiscardID, Guid playerGuid, Guid serverGuid, Guid playfieldModelInstanceGuid)
         {
             Card cardInHandToBeDiscarded = gameModel.deck.getCardByID(cardsToDiscardID);
@@ -1081,6 +1097,16 @@ namespace MDWcfServiceLibrary
             }
         }
 
+
+        /// <summary>
+        /// Plays a Pass Go Action Card on a players turn
+        /// </summary>
+        /// <param name="passGoCardID"></param>
+        /// <param name="serverGuid"></param>
+        /// <param name="playerGuid"></param>
+        /// <param name="playfieldModelInstanceGuid"></param>
+        /// <param name="turnActionTypes"></param>
+        /// <returns></returns>
         internal bool playActionCardPassGo(int passGoCardID, Guid serverGuid, Guid playerGuid, Guid playfieldModelInstanceGuid, TurnActionTypes turnActionTypes)
         {
             Card cardInHandToBePlayed = gameModel.deck.getCardByID(passGoCardID);

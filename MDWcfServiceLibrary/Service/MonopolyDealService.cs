@@ -201,6 +201,37 @@ namespace MDWcfServiceLibrary
         }
 
         /// <summary>
+        /// Gets the current state of a Monopoly Deal Game on service hiding cards of other players
+        /// </summary>
+        /// <param name="playerGuid">Guid of player</param>
+        /// <param name="gameGuid">Guid of MonopolyDeal game instance</param>
+        /// <returns>PlayFieldModel of current state</returns>
+        public PlayFieldModel pollStateMonopolyDealPerPlayer(GuidBox playerGuid, GuidBox gameGuid)
+        {
+            try
+            {
+                //Find MonopolyDealGame
+                MonopolyDeal md = getMonopolyDeal(gameGuid.guid);
+                if (md != null)
+                {
+                    //Ask GameStateManager for currentState
+                    PlayFieldModel currentState = md.getMonopolyDealGameStateManager().getCurrentState();
+                    //TODO:Current state should be filtered here so players cant see other players hands
+                    //TODO:Could send Acknowledgement at this point but currently will have client send Acknowledgement
+                    return currentState;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (System.ServiceModel.CommunicationException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Gets an instance of MonopolyDeal from the list of MonopolyDeal games on service
         /// </summary>
         /// <param name="guid"></param>

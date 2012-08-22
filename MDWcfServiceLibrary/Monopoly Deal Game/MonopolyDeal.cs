@@ -8,7 +8,7 @@ namespace MDWcfServiceLibrary
     /// <summary>
     /// Represents a Game of MonopolyDeal
     /// </summary>
-    internal class MonopolyDeal
+    internal class MonopolyDeal:IDisposable
     {
         public readonly Guid MONOPOLY_DEAL_GAME_GUID;
 
@@ -122,141 +122,6 @@ namespace MDWcfServiceLibrary
             return MONOPOLY_DEAL_GAME_GUID;
         }
 
-        #region From Service
-
-        /*
-        public bool draw2AtStartOfTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotSupportedException();
-
-            if (useMoveManager)
-            {
-                gameStateManager.drawTwoCardsAtTurnStart(getPlayerModel(playerGuid.guid),playfieldModelInstanceGuid.guid);
-                return true;
-            }
-            else
-            {
-                return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawTwoCardsAtStartOfTurn);
-            }
-        }
-
-        public PlayFieldModel pollState(GuidBox playerGuid, GuidBox gameGuid)
-        {
-            PlayFieldModel pfm = messageManager.respondToPoll();
-            return pfm;
-        }
-
-        public bool playCardFromHandToBank(int playedCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            Guid pg = playerGuid.guid;
-            Card card = this.deck.getCardByID(playedCardID);
-            bool result = bankCardValidityCheck(card, pg);
-            if (result)
-            {
-                gameStateManager.bankCard(playedCardID, playerGuid.guid, serverGuid.guid, playfieldModelInstanceGuid.guid);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool bankCardValidityCheck(Card card, Guid playerGuid)
-        {
-            //check if player has card in hand
-            PlayerModel pm = getPlayerModel(playerGuid);
-            foreach (Card c in pm.hand.cardsInHand)
-            {
-                if (c.cardID == card.cardID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public bool playActionCardOnTurn(PlayerModel player, Card playedCard, PlayerModel playerTargeted, List<Card> cardsTargeted, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool playWildRentActionCardOnTurn(PlayerModel player, Card playedCard, PlayerModel playerTargeted, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool playStandardRentActionCardOnTurn(PlayerModel player, Card playedCard, PropertyCardSet setOfPropertiesToRentOn, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool playJustSayNo(PlayerModel player, Card playedCard, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool playPropertyCard(PlayerModel player, Card playedCard, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool movePropertyCard(PlayerModel player, Card propertyCard, PropertyCardSet oldSet, PropertyCardSet setToPlayPropertyTo, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool payCards(PlayerModel playerPaying, PlayerModel playerRecieving, List<Card> cards, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid, GuidBox turnActionGuid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool hasGameStarted(GuidBox playerGuid, GuidBox serverGuid)
-        {
-            // bool allReady = true;
-            foreach (PlayerModel p in players)
-            {
-                if (!p.isReadyToStartGame)
-                {
-                    return false;
-                    ///allReady = false;//
-                }
-            }
-            if (players.Count <= 1)//minplayers
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool playPropertyCardNewSet(int playedCardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
-        {
-            throw new Exception("Not Implemented");
-            //Play property card to new set only
-            //return gameStateManager.playPropertyCardToNewSet(serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.PlayPropertyCard_New_Set, playedCardID);
-        }
-
-        public bool endTurn(GuidBox playerGuid, GuidBox gameGuid, GuidBox playfieldModelInstanceGuid)
-        {
-            throw new NotSupportedException();
-            //return gameStateManager.doAction(gameGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.EndTurn);
-        }
-
-        public bool discard(int cardsToDiscardID, GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
-        {
-            throw new NotSupportedException();
-            //return gameStateManager.discard(cardsToDiscardID, playerGuid.guid, serverGuid.guid, playfieldModelInstanceGuid.guid);
-        }
-
-        public bool draw5AtStartOfTurn(GuidBox playerGuid, GuidBox serverGuid, GuidBox playfieldModelInstanceGuid)
-        {
-            throw new NotSupportedException();
-            //return gameStateManager.doAction(serverGuid.guid, playerGuid.guid, playfieldModelInstanceGuid.guid, TurnActionTypes.drawFiveCardsAtStartOfTurn);
-        }
-        */
-
-        #endregion From Service
-
         #region From GameModel
 
         private PlayFieldModel createInitialState(List<PlayerModel> players)
@@ -347,5 +212,10 @@ namespace MDWcfServiceLibrary
         }
 
         #endregion From GameModel
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
