@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDWcfWFClient", "MDWcfWFCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDWcfServiceLibraryHoster", "MDWcfServiceLibraryHoster\MDWcfServiceLibraryHoster.csproj", "{3BAAC3E4-B4F2-42AB-A258-8AE2C1B60517}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDWcfWpfClient", "MDWcfWpfClient\MDWcfWpfClient.csproj", "{2F1400CA-D456-4588-A036-1990A14BB608}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,16 @@ Global
 		{3BAAC3E4-B4F2-42AB-A258-8AE2C1B60517}.Release|Mixed Platforms.Build.0 = Release|x86
 		{3BAAC3E4-B4F2-42AB-A258-8AE2C1B60517}.Release|x86.ActiveCfg = Release|x86
 		{3BAAC3E4-B4F2-42AB-A258-8AE2C1B60517}.Release|x86.Build.0 = Release|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Debug|x86.ActiveCfg = Debug|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Debug|x86.Build.0 = Debug|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Release|Any CPU.ActiveCfg = Release|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Release|Mixed Platforms.Build.0 = Release|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Release|x86.ActiveCfg = Release|x86
+		{2F1400CA-D456-4588-A036-1990A14BB608}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
