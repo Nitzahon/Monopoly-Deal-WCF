@@ -16,3 +16,11 @@ C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServi
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.exe
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibraryHoster.exe
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibraryHoster.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\nunit.framework.dll
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\MDWcfServiceLibrary.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\bin\Debug\nunit.framework.xml
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.csprojResolveAssemblyReference.cache
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.exe
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibraryHoster\obj\x86\Debug\MDWcfServiceLibraryHoster.pdb

@@ -27,3 +27,16 @@ C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServi
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\InProcessTempFiles\_MDWcfServiceLibrary.g.cs
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\MDWcfServiceLibrary.dll
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\MDWcfServiceLibrary.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\bin\Debug\MDWcfServiceLibrary.dll.config
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\bin\Debug\MDWcfServiceLibrary.dll
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\bin\Debug\MDWcfServiceLibrary.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\bin\Debug\nunit.framework.dll
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\bin\Debug\nunit.framework.xml
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\Activity1.g.xaml
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\_MDWcfServiceLibrary.g.cs
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\Activity1.g.cs
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\MDWcfServiceLibrary.csproj.XamlGeneratedCodeFileListAbsolute.txt
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\MDWcfServiceLibrary.csproj.XamlGeneratedXamlFileListAbsolute.txt
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\MDWcfServiceLibrary.dll
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\MDWcfServiceLibrary.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfServiceLibrary\obj\Debug\MDWcfServiceLibrary.csprojResolveAssemblyReference.cache

@@ -26,3 +26,16 @@ C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfWFCli
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.Properties.Resources.resources
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\Chad\Documents\Visual Studio 2010\Projects\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\bin\Debug\MDWcfWFClient.exe.config
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.exe
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\bin\Debug\MDWcfWFClient.exe
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\bin\Debug\MDWcfWFClient.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.csprojResolveAssemblyReference.cache
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.UseActionCardForm.resources
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.Form1.resources
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.MovePropertyToNewSetForm.resources
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.Pay_Cards.resources
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.PickSetToRentOn.resources
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.Properties.Resources.resources
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWFClient\obj\x86\Debug\MDWcfWFClient.csproj.GenerateResource.Cache

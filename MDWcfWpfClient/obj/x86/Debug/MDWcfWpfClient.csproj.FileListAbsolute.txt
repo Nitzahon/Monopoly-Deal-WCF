@@ -1,0 +1,12 @@
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\bin\Debug\MDWcfWpfClient.exe
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\bin\Debug\MDWcfWpfClient.pdb
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MDWcfWpfClient.csprojResolveAssemblyReference.cache
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MainWindow.baml
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MainWindow.g.cs
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\App.g.cs
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MDWcfWpfClient_MarkupCompile.cache
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MDWcfWpfClient.g.resources
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MDWcfWpfClient.Properties.Resources.resources
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MDWcfWpfClient.csproj.GenerateResource.Cache
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MDWcfWpfClient.exe
+C:\Users\user\Downloads\School Work\CSharp\Monopoly-Deal-WCF\MDWcfWpfClient\obj\x86\Debug\MDWcfWpfClient.pdb
